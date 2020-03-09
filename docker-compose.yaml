@@ -1,0 +1,95 @@
+version: '3'
+services:
+    fauxton:
+      image: 3apaxicom/fauxton
+      ports:
+        - 6945:8000
+      depends_on:
+        - couchdb
+      command:
+        - sh
+        - "-c"
+        - "fauxton -c http://couchdb:5984"
+    couchdb:
+      image: couchdb
+      container_name: couchdb
+      env_file: .env
+      ports:
+        - '5984:5984'
+        # - '4369:4369'
+        # - '9100:9100'
+      volumes:
+        - db_data:/opt/couchdb/data
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=public"
+        - "traefik.http.routers.fastnote-backend.rule=Host(`fn-back.danielbkr.net`)"
+        - "traefik.http.routers.fastnote-backend.entrypoints=https"
+        - "traefik.http.routers.fastnote-backend.tls.certresolver=myhttpchallenge"
+    fastnote_web:
+      container_name: fastnote
+      build:
+        context: .
+        dockerfile: Dockerfile.prod
+      ports:
+        - '9645:80'
+      networks:
+        - public
+      env_file: .env
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=public"
+        - "traefik.http.routers.fastnote.rule=Host(`fastnote.danielbkr.net`)"
+        - "traefik.http.routers.fastnote.entrypoints=https,http"
+        - "traefik.http.routers.fastnote.tls.certresolver=myhttpchallenge"
+        - "traefik.http.routers.fastnote.middlewares=danielauth@file,redirecthttps@file"
+    # db:
+    #   image: postgres
+    #   container_name: parsedb
+    #   restart: unless-stopped
+    #   ports:
+    #     - 5432:5432
+    #   environment:
+    #     POSTGRES_PASSWORD: password
+    #     POSTGRES_USER: appuser
+    #     POSTGRES_DB: dev
+
+    # parse:
+    #     image: parseplatform/parse-server
+    #     ports:
+    #         - 1337:1337
+    #     restart: unless-stopped
+    #     # volumes:
+    #     #   - /mnt/user/appdata/parse-server/cloud-code:/parse-server/cloud
+    #     #   - /mnt/user/appdata/parse-server/config:/parse-server/config
+    #     links:
+    #         - db
+    #     environment:
+    #         - PARSE_SERVER_APPLICATION_ID=yourappid
+    #         - PARSE_SERVER_MASTER_KEY=yourmasterkey
+    #         - PARSE_SERVER_DATABASE_URI=postgres://appuser:password@parsedb:5432/dev
+    #         - PARSE_SERVER_START_LIVE_QUERY_SERVER=0
+    #         - PARSE_SERVER_LIVE_QUERY={"classNames":["people","monitor"]}
+    #         - VERBOSE='1'
+
+    # dashboard:
+    #     image: parseplatform/parse-dashboard
+    #     ports:
+    #         - 4040:4040
+    #     restart: unless-stopped
+    #     environment:
+    #         - PARSE_DASHBOARD_SERVER_URL=http://localhost:1337/parse
+    #         - PARSE_DASHBOARD_APP_ID=yourappid
+    #         - PARSE_DASHBOARD_MASTER_KEY=yourmasterkey
+    #         - PARSE_DASHBOARD_APP_NAME=MyApp
+    #         - PARSE_DASHBOARD_ALLOW_INSECURE_HTTP=1
+    #         - PARSE_DASHBOARD_USER_ID=user
+    #         - PARSE_DASHBOARD_USER_PASSWORD=pass
+volumes:
+  couchdb_data:
+    driver: local
+  db_data:
+    driver: local
+networks:
+  public:
+    external: true

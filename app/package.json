@@ -1,0 +1,21 @@
+{
+  "name": "fastnote",
+  "productName": "FastNote",
+  "version": "1.0.0",
+  "description": "Note taking application with cross-device synchronisation and offline support in mind.",
+  "main": "./main.prod.js",
+  "author": {
+    "name": "Electron React Boilerplate Maintainers",
+    "email": "electronreactboilerplate@gmail.com",
+    "url": "https://github.com/electron-react-boilerplate"
+  },
+  "scripts": {
+    "electron-rebuild": "node -r ../internals/scripts/BabelRegister.js ../internals/scripts/ElectronRebuild.js",
+    "postinstall": "yarn electron-rebuild"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "pouchdb": "^7.2.1",
+    "redux-pouchdb": "^1.0.0-rc.3"
+  }
+}
