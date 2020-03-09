@@ -13,7 +13,7 @@ jobs:
     - name: Setting up Node
       uses: actions/setup-node@v1
       with:
-        node-version: '13.x'
+        node-version: '10.15.1'
     - name: Preparing release
       run: |
         git config --local user.email "action@github.com"
