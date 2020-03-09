@@ -13,7 +13,7 @@ jobs:
     - name: Setting up Node
       uses: actions/setup-node@v1
       with:
-        node-version: '12.x'
+        node-version: '13.x'
     - name: Preparing release
       run: |
         git config --local user.email "action@github.com"
@@ -23,7 +23,23 @@ jobs:
         echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
       env:
         CI: true
-    - name: Creating artifacts
+    - name: Building Applciation
+      run: |
+        yarn build
+
+      env:
+        CI: true
+    - name: Build/release Electron app
+      uses: samuelmeuli/action-electron-builder@v1
+      with:
+        # GitHub token, automatically provided to the action
+        # (No need to define this secret in the repo settings)
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+        # If the commit is tagged with a version (e.g. "v1.0.0"),
+        # release the app after building
+        release: ${{ startsWith(github.ref, 'refs/tags/v') }}
+    - name: Creating Electron Distribution
       run: |
         yarn package-win
 
