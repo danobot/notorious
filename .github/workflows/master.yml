@@ -24,7 +24,7 @@ jobs:
         echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
       env:
         CI: true
-    - name: Building Applciation
+    - name: Building Application
       run: |
         yarn build
 
@@ -40,12 +40,11 @@ jobs:
         # If the commit is tagged with a version (e.g. "v1.0.0"),
         # release the app after building
         release: ${{ startsWith(github.ref, 'refs/tags/v') }}
-    - name: Creating Electron Distribution
-      run: |
-        yarn package-win
-
-      env:
-        CI: true
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: dist
+        path: dist
     # - name: Push to master
     #   uses: ad-m/github-push-action@v0.5.0
     #   with:
