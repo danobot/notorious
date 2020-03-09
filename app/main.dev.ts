@@ -55,7 +55,8 @@ const createWindow = async () => {
   ) {
     await installExtensions();
   }
-
+  // Put the next line within the window creation function
+  new AppUpdater();
   // var db = new PouchDB('http://admin:admin123@localhost:5984/person');
 
   // var ddoc = {

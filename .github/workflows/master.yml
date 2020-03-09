@@ -6,8 +6,11 @@ on:
       - master
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
+    strategy:
+      matrix:
+        os: [macos-10.14, windows-2019, ubuntu-18.04]
     steps:
     - uses: actions/checkout@v1
     - name: Setting up Node
@@ -43,7 +46,7 @@ jobs:
     - name: Archive production artifacts
       uses: actions/upload-artifact@v1
       with:
-        name: dist
+        name: Linux
         path: release
     # - name: Push to master
     #   uses: ad-m/github-push-action@v0.5.0
@@ -54,13 +57,13 @@ jobs:
     #   with:
     #     github_token: ${{ secrets.GITHUB_TOKEN }}
     #     branch: develop
-    # - name: Create Github Release
-    #   id: create_release
-    #   uses: actions/create-release@v1
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-    #   with:
-    #     tag_name: v${{ env.PACKAGE_VERSION }}
-    #     release_name: ${{ env.PACKAGE_VERSION }}
-    #     draft: false
-    #     prerelease: false
+    - name: Create Github Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      with:
+        tag_name: v${{ env.PACKAGE_VERSION }}
+        release_name: ${{ env.PACKAGE_VERSION }}
+        draft: true
+        prerelease: false
