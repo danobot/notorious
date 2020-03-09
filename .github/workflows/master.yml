@@ -19,7 +19,7 @@ jobs:
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         # npm install
-        yarn add standard-version replace-in-file
+        yarn add -g standard-version replace-in-file
         yarn release
         echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
       env:
@@ -44,7 +44,7 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: dist
-        path: dist
+        path: release
     # - name: Push to master
     #   uses: ad-m/github-push-action@v0.5.0
     #   with:
