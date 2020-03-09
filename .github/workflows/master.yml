@@ -18,6 +18,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
+        npm install
         yarn
         yarn release
         echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
