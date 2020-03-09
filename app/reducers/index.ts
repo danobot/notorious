@@ -3,7 +3,7 @@ import { connectRouter } from 'connected-react-router';
 import { History } from 'history';
 import counter from '../containers/CounterPage/reducers';
 import mainMenuReducer from '../containers/MainMenu/reducers';
-import homePageReducer from '../containers/Homepage/reducers';
+import homePageReducer from '../containers/HomePage/reducers';
 import contentAreaReducer from '../containers/ContentAreaCont/reducers';
 import notesReducer from './notes';
 import notebooksReducer from './notebooks';
