@@ -1,7 +1,7 @@
 {
   "name": "fastnote",
   "productName": "FastNote",
-  "version": "1.0.0",
+  "version": "1.0.1-alpha.0",
   "description": "Note taking application with cross-device synchronisation and offline support in mind.",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
@@ -294,8 +294,10 @@
     "react-treebeard": "^3.2.4",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
+    "replace-in-file": "^5.0.2",
     "serve-static": "^1.14.1",
     "source-map-support": "^0.5.16",
+    "standard-version": "^7.1.0",
     "styled-components": "^5.0.1"
   },
   "devEngines": {
@@ -318,5 +320,4 @@
       "tag": true
     }
   }
-
 }
