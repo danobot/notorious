@@ -5,8 +5,7 @@ on:
     branches:
       - master
 jobs:
-  docker:
-    build:
+  release_management:
     runs-on: ubuntu-latest
 
     steps:
@@ -25,15 +24,16 @@ jobs:
         echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
       env:
         CI: true
-    # - name: Push to master
-    #   uses: ad-m/github-push-action@v0.5.0
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    - name: Push to master
+      uses: ad-m/github-push-action@v0.5.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
     # - name: Merge back to develop
     #   uses: ad-m/github-push-action@v0.5.0
     #   with:
     #     github_token: ${{ secrets.GITHUB_TOKEN }}
     #     branch: develop
+
   build:
     runs-on: ${{ matrix.os }}
 
@@ -75,3 +75,20 @@ jobs:
         release_name: ${{ env.PACKAGE_VERSION }}
         draft: true
         prerelease: false
+  docker_build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setting up Node
+      uses: actions/setup-node@v1
+      with:
+        node-version: '10.15.1'
+    - uses: mr-smithers-excellent/docker-build-push@v2
+      with:
+        image: danobot/notorious
+        tag: ${{ env.PACKAGE_VERSION }}
+        registry: registry-url.io
+        dockerfile: Dockerfile.prod
+        username: ${{ secrets.DOCKER_USERNAME }}
+        password: ${{ secrets.DOCKER_PASSWORD }}
