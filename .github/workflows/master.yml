@@ -18,18 +18,18 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        npm install
-        yarn
+        # npm install
+        yarn add standard-version replace-in-file
         yarn release
         echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
       env:
         CI: true
-    - name: Building Application
-      run: |
-        yarn build
+    # - name: Building Application
+    #   run: |
+    #     yarn build
 
-      env:
-        CI: true
+    #   env:
+    #     CI: true
     - name: Build/release Electron app
       uses: samuelmeuli/action-electron-builder@v1
       with:
