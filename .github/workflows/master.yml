@@ -35,6 +35,7 @@ jobs:
     #     branch: develop
 
   build:
+    if: success()
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -49,6 +50,9 @@ jobs:
 
       env:
         CI: true
+    - name: Get Release Version
+      run: |
+        echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
     - name: Build/release Electron app
       uses: samuelmeuli/action-electron-builder@v1
       with:
@@ -76,6 +80,7 @@ jobs:
         draft: true
         prerelease: false
   docker_build:
+    if: success()
     runs-on: ubuntu-latest
 
     steps:
