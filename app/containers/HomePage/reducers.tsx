@@ -8,7 +8,7 @@ import {
 } from './actions';
 
 const initialState = {
-  sizeMain: 90,
+  sizeMain: 80,
   sizeMiddle: 80,
   sizeSidebar: 20
 }

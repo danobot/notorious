@@ -1,9 +1,13 @@
 {
   "colors": {
     "background": {
-      "light":"#f5f5f4",
+      "lift":"#f5f5f4",
+      "light":"#E0E0E0",
       "dark": "#171a21",
       "selected": "#4f8eff"
+    },
+    "menu": {
+      "selected": "#383e50"
     },
     "text": {
       "dark": "#171a21",

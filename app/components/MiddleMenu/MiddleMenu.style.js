@@ -1,15 +1,13 @@
 import styled from 'styled-components';
 
 export const MiddleMenuStyle = styled.div`
-  background-color: orange !important;
-  // background-color: ${props => props.theme.colors.background.light};
+  background-color: ${props => props.theme.colors.background.light};
   color: ${props => props.theme.colors.background.dark};
   height: 100%;
 `
 export const MiddleMenuStyleOld = styled.div`
   margin-left: 200px;
   width: 300px;
-  background-color: orange !important;
   // background-color: ${props => props.theme.colors.background.light};
   color: ${props => props.theme.colors.background.dark};
   position: fixed;
@@ -18,10 +16,10 @@ export const MiddleMenuStyleOld = styled.div`
   top: 0;
 `
 export const NoteList = styled.div`
-color: green'
+// color: ${props => props.theme.colors.text.dark};
 `
 export const TopBar = styled.div`
-color: green;
+// color: ${props => props.theme.colors.text.dark};
 `
 export const MiddleLayout = styled.div`
 

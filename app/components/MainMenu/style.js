@@ -34,6 +34,10 @@ export const MainMenuStyleOld = styled.div`
 
 `
 export const MenuItem = styled.div`
-  height: 25px'
-cursor: hand;
+  // height: 25px;
+  padding: 10px 10px 10px 10px;
+  // padding: 5px 10px 5px 10px;
+`
+export const MenuItemSelected = styled(MenuItem)`
+  background-color: ${props => props.theme.colors.menu.selected}
 `

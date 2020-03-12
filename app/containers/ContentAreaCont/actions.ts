@@ -1,17 +1,17 @@
 import { GetState, Dispatch } from '../../reducers/types';
 import '../../reducers/noteActions';
+import { setConfig } from '../../reducers/configActions';
 
 export const SELECT_NOTE = 'SELECT_NOTE';
 
 
-export function selectNoteAction(nb: String) {
+export function selectNoteAction(note: String) {
   return (dispatch: Dispatch, getState: GetState) => {
-    const { counter } = getState();
-
+    dispatch(setConfig("selectedNote", note._id))
     dispatch(
       {
         type: SELECT_NOTE,
-        id: nb._id
+        id: note._id
       }
     );
   };

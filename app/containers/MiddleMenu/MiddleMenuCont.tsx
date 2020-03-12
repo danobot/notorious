@@ -3,6 +3,8 @@ import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import MiddleMenu from '../../components/MiddleMenu/MiddleMenu';
 import * as actions from '../ContentAreaCont/actions';
+import * as noteActions from '../../reducers/noteActions';
+
 
 // import { MiddleMenuStateType } from '../../reducers/types';
 
@@ -21,12 +23,12 @@ class MiddleMenuCont extends React.PureComponent {
 function mapStateToProps(state) {
   return {
     selection: state.mainMenu.nbSelection,
-    visibleNotes: state.notes
+    visibleNotes: state.notes.filter(i => (state.mainMenu.nbSelection && i.notebookId === state.mainMenu.nbSelection))
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
-  return bindActionCreators(actions, dispatch)
+  return bindActionCreators(Object.assign(actions, noteActions), dispatch)
 }
 
 

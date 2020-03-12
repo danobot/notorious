@@ -20,7 +20,9 @@ class MainMenuCont extends PureComponent {
 
 function mapStateToProps(state: MainMenuStateType) {
   return {
-    notebooks: state.notebooks
+    notebooks: state.notebooks,
+    selectedNotebook: state.mainMenu.nbSelection,
+
   };
 }
 

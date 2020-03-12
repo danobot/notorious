@@ -18,9 +18,10 @@ var PouchDB = require('pouchdb');
 
 export default class AppUpdater {
   constructor() {
-    log.transports.file.level = 'info';
+    log.transports.file.level = 'debug';
     autoUpdater.logger = log;
-    autoUpdater.checkForUpdatesAndNotify();
+    console.log(autoUpdater)
+    // autoUpdater.checkForUpdatesAndNotify();
   }
 }
 

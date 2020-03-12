@@ -13,6 +13,12 @@ export const MainMenuStyle = styled.div`
 
 
 `
+export const NoteHeader = styled.div`
+  margin: 10px 10px 10px 10px;
+`
+export const NoteTitle = styled.h1`
+
+`
 
 export const MainMenuStyleOld = styled.div`
   margin: 0;

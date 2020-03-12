@@ -1,6 +1,6 @@
 import { GetState, Dispatch } from '../../reducers/types';
 
-// export const SELECT_NOTE = 'SELECT_NOTE';
+// export const CREATE_NOTE = 'CREATE_NOTE';
 
 
 // export function selectNote(nb: String) {
@@ -9,8 +9,7 @@ import { GetState, Dispatch } from '../../reducers/types';
 
 //     dispatch(
 //       {
-//         type: SELECT_NOTE,
-//         id: nb._id
+//         type: CREATE_NOTE
 //       }
 //     );
 //   };

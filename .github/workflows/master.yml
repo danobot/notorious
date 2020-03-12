@@ -1,99 +1,281 @@
-name: Release Application
+name: Build
 
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+# RATIONALE BEHIND THIS HUGE WORKFLOW
+#
+# GitHub Actions runs everything in a sandboxed VM, and we need to build
+# each asset on its "home" operating system, both because macOS code
+# signing, e.g., doesn't work on other platforms. Additionally, this way
+# we don't need WINE and, if necessary at some point, can build any
+# native dependencies.
+#
+# This workflow tries to use as few hacks and monkey patches as possible
+# to perform the same workflow as the ./scripts/make.sh-file. Therefore
+# we ONLY build the corresponding release on the build-VMs, and then
+# upload the resulting artifact to the Workflow.
+#
+# After all artifacts from the three VMs have been successfully uploaded
+# to the workflow run, we then download all of them on a fourth VM, where
+# we generate the checksums, verify the integrity and finally create a
+# new release draft where we upload everything in one step.
+#
+# Benefits: Native environments without the need to upload useless
+# stuff to foreign places (data scarcity, DRY).
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# Only when we push to master, as this indicates a build
 on:
   push:
     branches:
       - master
+
+# We need two jobs: First a build-job, running on a matrix
+# to build all necessary releases, which also uploads all
+# resulting assets to the workflow. And then, we download
+# them onto a separate VM running the release-job to verify
+# the checksums and create a draft release.
 jobs:
-  release_management:
-    runs-on: ubuntu-latest
-
-    steps:
-    - uses: actions/checkout@v1
-    - name: Setting up Node
-      uses: actions/setup-node@v1
-      with:
-        node-version: '10.15.1'
-    - name: Preparing release
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        # npm install
-        yarn add standard-version replace-in-file
-        yarn release
-        echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
-      env:
-        CI: true
-    - name: Push to master
-      uses: ad-m/github-push-action@v0.5.0
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-    # - name: Merge back to develop
-    #   uses: ad-m/github-push-action@v0.5.0
-    #   with:
-    #     github_token: ${{ secrets.GITHUB_TOKEN }}
-    #     branch: develop
-
   build:
-    if: success()
-    runs-on: ${{ matrix.os }}
-
+    # The build job needs to be built on Win, Linux, and macOS
+    # Win32 --> build NSIS
+    # macOS --> build DMG
+    # Linux --> build DEB, RPM, and AppImage
     strategy:
       matrix:
-        os: [macos-10.14, windows-2019, ubuntu-18.04]
+        os: [ubuntu-latest, macos-latest, windows-latest]
+
+    # Define the operating system
+    runs-on: ${{ matrix.os }}
+
     steps:
-    - uses: actions/checkout@v1
-    - name: Setting up Node
-      uses: actions/setup-node@v1
-      with:
-        node-version: '10.15.1'
+      # Clone the repository
+      - uses: actions/checkout@v2
+      # Setup node
+      - name: Setup NodeJS 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.15.0'
 
-      env:
-        CI: true
-    - name: Get Release Version
-      run: |
-        echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
-    - name: Build/release Electron app
-      uses: samuelmeuli/action-electron-builder@v1
-      with:
-        # GitHub token, automatically provided to the action
-        # (No need to define this secret in the repo settings)
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+      # On Windows server, we have to create the handlebars-directory
+      # manually, because the node-process always crashes when it
+      # attempts literally the same thing.
+      - name: Manually create the handlebars-directory (Windows only)
+        if: matrix.os == 'windows-latest'
+        run: New-Item -Path "./source/common/assets" -Name "handlebars" -ItemType "directory" # Hello, PowerShell ._.
 
-        # If the commit is tagged with a version (e.g. "v1.0.0"),
-        # release the app after building
-        release: ${{ startsWith(github.ref, 'refs/tags/v') }}
-    - name: Archive production artifacts
-      uses: actions/upload-artifact@v1
-      with:
-        name: Linux
-        path: release
+      # Perform all necessary pre-build steps (LESS, handlebars, and so forth)
+      - name: Set up build environment and compile the assets
+        run: |
+          npm install
+          yarn
+      # Save the current package.json's version value
+      # as the output from this step so that we can
+      # reference it later on.
+      - name: Emit pkgver
+        id: pkg
+        run: |
+          pkgver=$(node ./scripts/get-pkg-version.js)
+          echo ::set-output name=version::$pkgver
+        shell: bash
+      # Now we're set to finally release the beast!
+      # WINDOWS ==============================================================
+      - name: Build Windows NSIS installer
+        if: matrix.os == 'windows-latest' # Only if the job runs on Windows
+        run: yarn package-win
+      - name: Cache Windows release
+        if: matrix.os == 'windows-latest' # Only if the job runs on Windows
+        uses: actions/upload-artifact@v1
+        with:
+          name: Zettlr-${{ steps.pkg.outputs.version }}.exe
+          path: ./release/Zettlr-${{ steps.pkg.outputs.version }}.exe
+      # MACOS ================================================================
+      # - name: Build macOS DMG file
+      #   if: matrix.os == 'macos-latest' # Only if the job runs on macOS
+      #   run: APPLE_ID=${{ secrets.APPLE_ID }} APPLE_ID_PASS=${{ secrets.APPLE_ID_PASS }} CSC_LINK=${{ secrets.MACOS_CERT }}  CSC_KEY_PASSWORD=${{ secrets.MACOS_CERT_PASS }} npm run release:mac
+      # - name: Cache macOS release
+      #   if: matrix.os == 'macos-latest' # Only if the job runs on macOS
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: Zettlr-${{ steps.pkg.outputs.version }}.dmg
+      #     path: ./release/Zettlr-${{ steps.pkg.outputs.version }}.dmg
+      # LINUX ================================================================
+      - name: Build Linux targets
+        if: matrix.os == 'ubuntu-latest'
+        run: yarn package-linux
+      - name: Cache Linux Debian release
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v1
+        with:
+          name: Zettlr-${{ steps.pkg.outputs.version }}-amd64.deb
+          path: ./release/Zettlr-${{ steps.pkg.outputs.version }}-amd64.deb
+      - name: Cache Linux Fedora release
+        if: matrix.os == 'ubuntu-latest
+        uses: actions/upload-artifact@v1
+        with:
+          name: Zettlr-${{ steps.pkg.outputs.version }}-x86_64.rpm
+          path: ./release/Zettlr-${{ steps.pkg.outputs.version }}-x86_64.rpm
+      - name: Cache Linux AppImage (x32) release
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v1
+        with:
+          name: Zettlr-${{ steps.pkg.outputs.version }}-i386.AppImage
+          path: ./release/Zettlr-${{ steps.pkg.outputs.version }}-i386.AppImage
+      - name: Cache Linux AppImage (x64) release
+        if: matrix.os == 'ubuntu-latest'
+        uses: actions/upload-artifact@v1
+        with:
+          name: Zettlr-${{ steps.pkg.outputs.version }}-x86_64.AppImage
+          path: ./release/Zettlr-${{ steps.pkg.outputs.version }}-x86_64.AppImage
 
-    - name: Create Github Release
-      id: create_release
-      uses: actions/create-release@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-      with:
-        tag_name: v${{ env.PACKAGE_VERSION }}
-        release_name: ${{ env.PACKAGE_VERSION }}
-        draft: true
-        prerelease: false
-  docker_build:
-    if: success()
+
+  # As soon as the build matrix has completed correctly, this job will
+  # commence, creating a new draft release, downloading all assets from
+  # the previous job, verifying the checksum integrity, and uploading that
+  # whole mess to the draft release.
+  prepare_release:
+    needs: [build] # Make sure (and wait until) the build has succeeded
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v1
-    - name: Setting up Node
-      uses: actions/setup-node@v1
-      with:
-        node-version: '10.15.1'
-    - uses: mr-smithers-excellent/docker-build-push@v2
-      with:
-        image: danobot/notorious
-        tag: ${{ env.PACKAGE_VERSION }}
-        registry: hub.docker.com
-        dockerfile: Dockerfile.prod
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+      # Clone the repository to get the ./scripts/get-pkg-version.js and the ./package.json
+      - uses: actions/checkout@v2
+      # Setup node to run the retrieval script
+      - name: Setup NodeJS 12.x
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.15.0'
+      - name: Retrieve the current package version
+        id: pkg
+        run: |
+          pkgver=$(node ./scripts/get-pkg-version.js)
+          echo ::set-output name=version::$pkgver
+      # Now, download all resulting assets from the previous steps.
+      - name: Download the Windows asset
+        uses: actions/download-artifact@v1
+        with:
+          name: Zettlr-${{ steps.pkg.outputs.version }}.exe
+          path: .
+      - name: Download the macOS asset
+        uses: actions/download-artifact@v1
+        with:
+          name: Zettlr-${{ steps.pkg.outputs.version }}.dmg
+          path: .
+      - name: Download the Debian asset
+        uses: actions/download-artifact@v1
+        with:
+          name: Zettlr-${{ steps.pkg.outputs.version }}-amd64.deb
+          path: .
+      - name: Download the Fedora asset
+        uses: actions/download-artifact@v1
+        with:
+          name: Zettlr-${{ steps.pkg.outputs.version }}-x86_64.rpm
+          path: .
+      - name: Download the AppImage (x32) asset
+        uses: actions/download-artifact@v1
+        with:
+          name: Zettlr-${{ steps.pkg.outputs.version }}-i386.AppImage
+          path: .
+      - name: Download the AppImage (x64) asset
+        uses: actions/download-artifact@v1
+        with:
+          name: Zettlr-${{ steps.pkg.outputs.version }}-x86_64.AppImage
+          path: .
+      # Now we are set, we have all five release assets on the VM. It's time to create the
+      # SHA-checksums file and then upload everything!
+      - name: Generate SHA256 checksums
+        run: |
+          sha256sum "Zettlr-${{ steps.pkg.outputs.version }}.exe" > "SHA256SUMS.txt"
+          sha256sum "Zettlr-${{ steps.pkg.outputs.version }}.dmg" >> "SHA256SUMS.txt"
+          sha256sum "Zettlr-${{ steps.pkg.outputs.version }}-amd64.deb" >> "SHA256SUMS.txt"
+          sha256sum "Zettlr-${{ steps.pkg.outputs.version }}-x86_64.rpm" >> "SHA256SUMS.txt"
+          sha256sum "Zettlr-${{ steps.pkg.outputs.version }}-i386.AppImage" >> "SHA256SUMS.txt"
+          sha256sum "Zettlr-${{ steps.pkg.outputs.version }}-x86_64.AppImage" >> "SHA256SUMS.txt"
+      - name: Verify checksums
+        run: sha256sum -c SHA256SUMS.txt
+      # Create a new release draft
+      - name: Create a new release draft
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v${{ steps.pkg.outputs.version }} # tag_name is required, but can be overridden during edit
+          release_name: Release v${{ steps.pkg.outputs.version }} # release_name is required
+          body: If you can read this, we have forgotten to fill in the changelog. Sorry!
+          draft: true # Always create as draft, so that we can populate the remaining values easily
+
+
+      # And finally, upload that shit
+      - name: Upload Windows asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./Zettlr-${{ steps.pkg.outputs.version }}.exe
+          asset_name: Zettlr-${{ steps.pkg.outputs.version }}.exe
+          asset_content_type: application/x-msdownload
+
+
+      - name: Upload macOS asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./Zettlr-${{ steps.pkg.outputs.version }}.dmg
+          asset_name: Zettlr-${{ steps.pkg.outputs.version }}.dmg
+          asset_content_type: application/octet-stream
+
+
+      - name: Upload Debian asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./Zettlr-${{ steps.pkg.outputs.version }}-amd64.deb
+          asset_name: Zettlr-${{ steps.pkg.outputs.version }}-amd64.deb
+          asset_content_type: application/octet-stream
+
+
+      - name: Upload Fedora asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./Zettlr-${{ steps.pkg.outputs.version }}-x86_64.rpm
+          asset_name: Zettlr-${{ steps.pkg.outputs.version }}-x86_64.rpm
+          asset_content_type: application/octet-stream
+
+
+      - name: Upload AppImage (x32) asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./Zettlr-${{ steps.pkg.outputs.version }}-i386.AppImage
+          asset_name: Zettlr-${{ steps.pkg.outputs.version }}-i386.AppImage
+          asset_content_type: application/octet-stream
+
+
+      - name: Upload AppImage (x64) asset
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./Zettlr-${{ steps.pkg.outputs.version }}-x86_64.AppImage
+          asset_name: Zettlr-${{ steps.pkg.outputs.version }}-x86_64.AppImage
+          asset_content_type: application/octet-stream
+
+      - name: Upload the checksums
+        uses: actions/upload-release-asset@v1.0.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./SHA256SUMS.txt
+          asset_name: SHA256SUMS.txt
+          asset_content_type: text/plain
