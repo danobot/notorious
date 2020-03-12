@@ -18,7 +18,7 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        npx standard-version -a --no-verify --prerelease alpha --skip.commit --skip.tag
+        npx standard-version -a --no-verify --prerelease alpha --skip.commit --skip.tag --skip.changelog
         echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
       env:
         CI: true

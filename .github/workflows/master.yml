@@ -35,7 +35,38 @@ on:
 # them onto a separate VM running the release-job to verify
 # the checksums and create a draft release.
 jobs:
+  release_management:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+      - name: Setting up Node
+        uses: actions/setup-node@v1
+        with:
+          node-version: '10.15.1'
+      - name: Preparing release
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          pushd ./app
+            npx standard-version -a --no-verify --prerelease alpha --skip.commit --skip.tag --skip.changelog
+            echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
+          popd
+          npx standard-version -a --no-verify --prerelease alpha --skip.commit --skip.tag
+        env:
+          CI: true
+      # - name: Push to master
+      #   uses: ad-m/github-push-action@v0.5.0
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      # - name: Merge back to develop
+      #   uses: ad-m/github-push-action@v0.5.0
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: develop
   build:
+    needs: [release_management]
+
     # The build job needs to be built on Win, Linux, and macOS
     # Win32 --> build NSIS
     # macOS --> build DMG
@@ -74,8 +105,10 @@ jobs:
       - name: Emit pkgver
         id: pkg
         run: |
+          appver=$(node -p -e "require('.app/package.json').version")
           pkgver=$(node -p -e "require('./package.json').version")
-          echo ::set-output name=version::$pkgver
+          echo ::set-output name=version::$appver
+          echo ::set-output name=package_version::$pkgver
         shell: bash
       # Now we're set to finally release the beast!
       # WINDOWS ==============================================================
@@ -286,3 +319,4 @@ jobs:
           asset_path: ./SHA256SUMS.txt
           asset_name: SHA256SUMS.txt
           asset_content_type: text/plain
+
