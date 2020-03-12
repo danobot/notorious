@@ -32,19 +32,21 @@ export default function EditorPane({contentArea, note,
           <FieldForm label="title" value={note.title} onUpdate={e => updateNote(note._id, {"title": e.target.value})} />
           <div>{note.tags}</div>
         </NoteHeader>
+        <Editor>
 
-        <SimpleMDE id={note._id}
-          value={note.content}
-          events={{
-            'blur': handleBlur,
-          }}
-          options={{
-            autosave: {
-              enabled: true,
-              uniqueId: note._id,
-              delay:1000
-            },
-          }} />;
+          <SimpleMDE id={note._id}
+            value={note.content}
+            events={{
+              'blur': handleBlur,
+            }}
+            options={{
+              autosave: {
+                enabled: true,
+                uniqueId: note._id,
+                delay:1000
+              },
+            }} />;
+        </Editor>
         <div>{JSON.stringify(note, null, 2)}</div>
 
       </> : <>No note selected</>}

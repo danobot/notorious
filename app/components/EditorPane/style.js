@@ -19,6 +19,9 @@ export const NoteHeader = styled.div`
 export const NoteTitle = styled.h1`
 
 `
+export const Editor = styled.div`
+border: none;
+`
 
 export const MainMenuStyleOld = styled.div`
   margin: 0;
