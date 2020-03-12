@@ -1,8 +1,12 @@
 {
-  "name": "fastnote",
-  "productName": "FastNote",
+  "name": "notorious",
+  "productName": "Notorious",
   "version": "0.1.1-alpha.6",
   "description": "Note taking application with cross-device synchronisation and offline support in mind.",
+  "author": {
+    "name": "Daniel Mason",
+    "email": "danielbaker210@gmail.com"
+  },
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
     "build-dll": "cross-env NODE_ENV=development webpack --config ./configs/webpack.config.renderer.dev.dll.babel.js --colors",

@@ -82,12 +82,18 @@ jobs:
       - name: Build Windows NSIS installer
         if: matrix.os == 'windows-latest' # Only if the job runs on Windows
         run: yarn package-win
-      - name: Cache Windows release
+      - name: Cache Windows Exe release
         if: matrix.os == 'windows-latest' # Only if the job runs on Windows
         uses: actions/upload-artifact@v1
         with:
           name: Notorious-${{ steps.pkg.outputs.version }}.exe
-          path: ./release/Notorious-${{ steps.pkg.outputs.version }}.exe
+          path: ./release/Notorious Setup ${{ steps.pkg.outputs.version }}.exe
+      - name: Cache Windows MSI release
+        if: matrix.os == 'windows-latest' # Only if the job runs on Windows
+        uses: actions/upload-artifact@v1
+        with:
+          name: Notorious$-{{ steps.pkg.outputs.version }}.msi
+          path: ./release/Notorious ${{ steps.pkg.outputs.version }}.msi
       # MACOS ================================================================
       # - name: Build macOS DMG file
       #   if: matrix.os == 'macos-latest' # Only if the job runs on macOS
