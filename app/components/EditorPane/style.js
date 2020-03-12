@@ -21,6 +21,11 @@ export const NoteTitle = styled.h1`
 `
 export const Editor = styled.div`
 border: none;
+.CodeMirror {
+  border-left: none;
+  border-right: none;
+  border-radius: 0;
+}
 `
 
 export const MainMenuStyleOld = styled.div`

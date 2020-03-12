@@ -1,7 +1,6 @@
 import React, {useState, useRef} from 'react';
-import { NoteTitle,NoteHeader } from './style';
+import { NoteTitle,NoteHeader, Editor } from './style';
 
-import Editor from '@monaco-editor/react';
 
 import SimpleMDE from "react-simplemde-editor";
 import FieldForm from './FieldForm/FieldForm';

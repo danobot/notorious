@@ -113,25 +113,25 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: Notorious-${{ steps.pkg.outputs.version }}-amd64.deb
-          path: ./release/Notorious-${{ steps.pkg.outputs.version }}-amd64.deb
+          path: ./release/notorious_${{ steps.pkg.outputs.version }}_amd64.deb
       - name: Cache Linux Fedora release
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v1
         with:
           name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm
-          path: ./release/Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm
+          path: ./release/notorious-${{ steps.pkg.outputs.version }}.x86_64.rpm
       - name: Cache Linux AppImage (x32) release
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v1
         with:
           name: Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
-          path: ./release/Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
-      - name: Cache Linux AppImage (x64) release
-        if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v1
-        with:
-          name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage
-          path: ./release/Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage
+          path: ./release/Notorious-${{ steps.pkg.outputs.version }}.AppImage
+      # - name: Cache Linux AppImage (x64) release
+      #   if: matrix.os == 'ubuntu-latest'
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage
+      #     path: ./release/Notorious-${{ steps.pkg.outputs.version }}.x86_64.AppImage
 
 
   # As soon as the build matrix has completed correctly, this job will
