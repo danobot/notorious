@@ -74,7 +74,7 @@ jobs:
       - name: Emit pkgver
         id: pkg
         run: |
-          pkgver=$(node -p -e "require('./package.json').version)
+          pkgver=$(node -p -e "require('./package.json').version")
           echo ::set-output name=version::$pkgver
         shell: bash
       # Now we're set to finally release the beast!
@@ -146,7 +146,7 @@ jobs:
       - name: Retrieve the current package version
         id: pkg
         run: |
-          pkgver=$(node -p -e "require('./package.json').version)
+          pkgver=$(node -p -e "require('./package.json').version")
 
           echo ::set-output name=version::$pkgver
       # Now, download all resulting assets from the previous steps.
