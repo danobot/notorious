@@ -109,7 +109,7 @@ jobs:
           name: Zettlr-${{ steps.pkg.outputs.version }}-amd64.deb
           path: ./release/Zettlr-${{ steps.pkg.outputs.version }}-amd64.deb
       - name: Cache Linux Fedora release
-        if: matrix.os == 'ubuntu-latest
+        if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v1
         with:
           name: Zettlr-${{ steps.pkg.outputs.version }}-x86_64.rpm
