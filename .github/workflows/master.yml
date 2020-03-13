@@ -125,7 +125,7 @@ jobs:
         if: matrix.os == 'windows-latest' # Only if the job runs on Windows
         uses: actions/upload-artifact@v1
         with:
-          name: Notorious$-{{ steps.pkg.outputs.version }}.msi
+          name: Notorious-${{ steps.pkg.outputs.version }}.msi
           path: ./release/Notorious ${{ steps.pkg.outputs.version }}.msi
       # MACOS ================================================================
       # - name: Build macOS DMG file
@@ -223,14 +223,24 @@ jobs:
       # SHA-checksums file and then upload everything!
       - name: Generate SHA256 checksums
         run: |
+          ls -la
+          pwd
+          cd "/home/runner/work/notorious/notorious"
+          ls -la
           sha256sum "Notorious-${{ steps.pkg.outputs.version }}.exe" > "SHA256SUMS.txt"
           sha256sum "Notorious-${{ steps.pkg.outputs.version }}.dmg" >> "SHA256SUMS.txt"
           sha256sum "Notorious-${{ steps.pkg.outputs.version }}-amd64.deb" >> "SHA256SUMS.txt"
           sha256sum "Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm" >> "SHA256SUMS.txt"
           sha256sum "Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage" >> "SHA256SUMS.txt"
+
         # sha256sum "Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage" >> "SHA256SUMS.txt"
       - name: Verify checksums
-        run: sha256sum -c SHA256SUMS.txt
+        run: |
+          ls -la
+          pwd
+          cd "/home/runner/work/notorious/notorious"
+          ls -la
+          sha256sum -c SHA256SUMS.txt
       # Create a new release draft
       - name: Create a new release draft
         id: create_release
@@ -251,7 +261,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Notorious-${{ steps.pkg.outputs.version }}.exe
+          asset_path: /home/runner/work/notorious/notorious/Notorious-${{ steps.pkg.outputs.version }}.exe
           asset_name: Notorious-${{ steps.pkg.outputs.version }}.exe
           asset_content_type: application/x-msdownload
 
@@ -273,7 +283,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Notorious-${{ steps.pkg.outputs.version }}-amd64.deb
+          asset_path: /home/runner/work/notorious/notorious/Notorious-${{ steps.pkg.outputs.version }}-amd64.deb
           asset_name: Notorious-${{ steps.pkg.outputs.version }}-amd64.deb
           asset_content_type: application/octet-stream
 
@@ -284,7 +294,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm
+          asset_path: /home/runner/work/notorious/notorious/Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm
           asset_name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm
           asset_content_type: application/octet-stream
 
@@ -295,7 +305,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
+          asset_path: /home/runner/work/notorious/notorious/Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
           asset_name: Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
           asset_content_type: application/octet-stream
 
@@ -316,7 +326,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./SHA256SUMS.txt
+          asset_path: /home/runner/work/notorious/notorious/SHA256SUMS.txt
           asset_name: SHA256SUMS.txt
           asset_content_type: text/plain
 
