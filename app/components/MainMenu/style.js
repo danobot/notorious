@@ -13,31 +13,18 @@ export const MainMenuStyle = styled.div`
 
 
 `
-
-export const MainMenuStyleOld = styled.div`
-  margin: 0;
-  padding: 0;
-  // width: 200px;
-  background-color: ${props => props.theme.colors.background.dark};
-  color: ${props => props.theme.colors.text.light} !important;
-  // position: fixed;
-  height: 100%;
-  overflow: auto;
-  .ant-tree-node-content-wrapper, .ant-tree, .ant-tree-title,  {
-    color: ${props => props.theme.colors.text.light} !important;
-    &.ant-tree-node-selected, &.ant-tree-node-content-wrapper-normal {
-      background-color: ${props => props.theme.colors.background.dark};
-
-    }
-  };
-
-
+export const MenuHeading = styled.h3`
+  padding: 0 0 0 0;
+  color: ${props => props.theme.colors.text.muted} !important;
+  font-size: 90%;
+  font-weight: bold;
 `
-export const MenuItem = styled.div`
-  // height: 25px;
+
+export const MenuItemNormal = styled.div`
+`
+export const MenuItemStyle = styled.div`
   padding: 10px 10px 10px 10px;
-  // padding: 5px 10px 5px 10px;
 `
-export const MenuItemSelected = styled(MenuItem)`
+export const MenuItemSelected = styled(MenuItemNormal)`
   background-color: ${props => props.theme.colors.menu.selected}
 `

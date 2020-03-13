@@ -23,7 +23,8 @@ class MiddleMenuCont extends React.PureComponent {
 function mapStateToProps(state) {
   return {
     selection: state.mainMenu.nbSelection,
-    visibleNotes: state.notes.filter(i => (state.mainMenu.nbSelection && i.notebookId === state.mainMenu.nbSelection))
+    visibleNotes: state.notes.filter(i => (state.mainMenu.nbSelection && i.notebookId === state.mainMenu.nbSelection)),
+    selectedNote: state.contentArea.selectedNote,
   };
 }
 

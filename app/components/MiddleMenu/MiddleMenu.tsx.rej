@@ -1,0 +1,12 @@
+diff a/app/components/MiddleMenu/MiddleMenu.tsx b/app/components/MiddleMenu/MiddleMenu.tsx	(rejected hunks)
+@@ -18,7 +18,9 @@
+   return (
+       <MiddleMenuStyle id="MiddleMenu" style={{height: '100%'}}>
+         <TopBar id="topbar">
+-          <Button onClick={e=> createNote(selection)}>Plus</Button>
++          <Button size="small" onClick={e=> createNote(selection)}>
++            <FontAwesomeIcon icon={faEdit} />
++          </Button>
+         </TopBar>
+ 
+         <Scrollbars autoHide id="scrollbar">

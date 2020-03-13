@@ -15,10 +15,16 @@ const notesReducer = createReducer(initialState, {
       if (item._id !== action.id) {
         return item
       }
+      let extra = {}
+      let c = action.attributes
+      if (action.attributes.skipUpdatedAt || false) {
+        delete c.skipUpdatedAt
+      } else {
+        c.updatedAt = Date.now()
+      }
       return {
         ...item,
-        ...action.attributes,
-        updatedAt: Date.now()
+        ...c
       }
     })
   },

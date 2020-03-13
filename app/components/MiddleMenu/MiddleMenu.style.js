@@ -17,27 +17,16 @@ export const MiddleMenuStyleOld = styled.div`
 `
 export const NoteList = styled.div`
 // color: ${props => props.theme.colors.text.dark};
+margin-top: 50px;
 `
 export const TopBar = styled.div`
-// color: ${props => props.theme.colors.text.dark};
-`
-export const MiddleLayout = styled.div`
-
-`
-export const NoteList2= styled.div`
-flex: 1 auto;
-margin: 0;
-padding: 0;
+  position: fixed;
+  // color: ${props => props.theme.colors.text.dark};
+  height: 50px;
   width: 100%;
-  outline: none;
-  height: 100%;
-  overflow: auto;
+  z-index: 50;
 `
-export const TopBar2 = styled.div`
-color: green;
-`
-export const MiddleLayout2 = styled.div`
-  flex-direction: column;
-  flex: 1 auto;
+
+export const MiddleLayout = styled.div`
 
 `

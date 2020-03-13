@@ -19,13 +19,28 @@ export const NoteHeader = styled.div`
 export const NoteTitle = styled.h1`
 
 `
+export const NoteMeta = styled.div`
+  margin: 5px 0 5px 0;
+  color: ${props => props.theme.colors.text.muted}
+`
+export const NoteMetaItem = styled.div`
+  display: inline;
+  margin-right: 10px;
+  font-size: smaller;
+`
+export const NoteMetaIcon = styled.span`
+  margin-right: 5px;
+`
 export const Editor = styled.div`
-border: none;
-.CodeMirror {
-  border-left: none;
-  border-right: none;
-  border-radius: 0;
-}
+  border: none;
+  .CodeMirror {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  }
+  .editor-toolbar {
+    color: ${props => props.theme.colors.text.muted}
+  }
 `
 
 export const MainMenuStyleOld = styled.div`
