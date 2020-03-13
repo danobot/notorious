@@ -255,7 +255,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Notorious-${{ steps.pkg.outputs.version }}.exe
+          asset_path: ./Notorious Setup ${{ steps.pkg.outputs.version }}.exe
           asset_name: Notorious-${{ steps.pkg.outputs.version }}.exe
           asset_content_type: application/x-msdownload
 
@@ -277,7 +277,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Notorious-${{ steps.pkg.outputs.version }}-amd64.deb
+          asset_path: ./notorious_${{ steps.pkg.outputs.version }}_amd64.deb
           asset_name: Notorious-${{ steps.pkg.outputs.version }}-amd64.deb
           asset_content_type: application/octet-stream
 
@@ -288,7 +288,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm
+          asset_path: ./notorious-${{ steps.pkg.outputs.version }}.x86_64.rpm
           asset_name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm
           asset_content_type: application/octet-stream
 
@@ -299,7 +299,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
+          asset_path: ./Notorious-${{ steps.pkg.outputs.version }}.AppImage
           asset_name: Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
           asset_content_type: application/octet-stream
 
