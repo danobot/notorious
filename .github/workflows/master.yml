@@ -225,7 +225,7 @@ jobs:
         run: |
           ls -la
           sha256sum "Notorious Setup ${{ steps.pkg.outputs.version }}.exe" > "SHA256SUMS.txt"
-        # sha256sum "Notorious-${{ steps.pkg.outputs.version }}.dmg" >> "SHA256SUMS.txt"
+          # sha256sum "Notorious-${{ steps.pkg.outputs.version }}.dmg" >> "SHA256SUMS.txt"
           sha256sum "notorious_${{ steps.pkg.outputs.version }}_amd64.deb" >> "SHA256SUMS.txt"
           sha256sum "notorious-${{ steps.pkg.outputs.version }}.x86_64.rpm" >> "SHA256SUMS.txt"
           sha256sum "Notorious-${{ steps.pkg.outputs.version }}.AppImage" >> "SHA256SUMS.txt"
