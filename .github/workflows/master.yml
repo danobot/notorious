@@ -112,7 +112,7 @@ jobs:
           yarn
       # Now we're set to finally release the beast!
       # WINDOWS ==============================================================
-      - name: Build Windows NSIS installer
+      - name: Build Windows Installer
         if: matrix.os == 'windows-latest' # Only if the job runs on Windows
         run: yarn package-win
       - name: Cache Windows Exe release
@@ -185,7 +185,7 @@ jobs:
       - name: Retrieve the current package version
         id: pkg
         run: |
-          pkgver=$(node -p -e "require('./package.json').version")
+          pkgver=$(node -p -e "require('./app/package.json').version")
 
           echo ::set-output name=version::$pkgver
       # Now, download all resulting assets from the previous steps.
@@ -214,11 +214,11 @@ jobs:
         with:
           name: Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
           path: .
-      - name: Download the AppImage (x64) asset
-        uses: actions/download-artifact@v1
-        with:
-          name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage
-          path: .
+      # - name: Download the AppImage (x64) asset
+      #   uses: actions/download-artifact@v1
+      #   with:
+      #     name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage
+      #     path: .
       # Now we are set, we have all five release assets on the VM. It's time to create the
       # SHA-checksums file and then upload everything!
       - name: Generate SHA256 checksums
@@ -228,7 +228,7 @@ jobs:
           sha256sum "Notorious-${{ steps.pkg.outputs.version }}-amd64.deb" >> "SHA256SUMS.txt"
           sha256sum "Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm" >> "SHA256SUMS.txt"
           sha256sum "Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage" >> "SHA256SUMS.txt"
-          sha256sum "Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage" >> "SHA256SUMS.txt"
+        # sha256sum "Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage" >> "SHA256SUMS.txt"
       - name: Verify checksums
         run: sha256sum -c SHA256SUMS.txt
       # Create a new release draft
