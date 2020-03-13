@@ -32,14 +32,14 @@
 .Resizer.vertical {
   width: 11px;
   margin: 0 -5px;
-  border-left: 1px solid rgba(255, 255, 255, 0);
-  border-right: 1px solid rgba(255, 255, 255, 0);
+  border-left: 1px solid transparent;
+  border-right: 1px solid transparent;
   cursor: col-resize;
 }
 
 .Resizer.vertical:hover {
-  border-left: 5px solid rgba(0, 0, 0, 0.5);
-  border-right: 5px solid rgba(0, 0, 0, 0.5);
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
 }
 .Resizer.disabled {
   cursor: not-allowed;
@@ -49,4 +49,12 @@
 }
 .Pane {
   height: 100%;
+}
+.splitter-layout .layout-splitter {
+  background-color: transparent;
+
+}
+.splitter-layout .layout-splitter {
+  width: 1px;
+  background-color: transparent;
 }

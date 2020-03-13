@@ -87,6 +87,17 @@ jobs:
         with:
           node-version: '10.15.0'
 
+      # Save the current package.json's version value
+      # as the output from this step so that we can
+      # reference it later on.
+      - name: Emit pkgver
+        id: pkg
+        run: |
+          appver=$(node -p -e "require('./app/package.json').version")
+          pkgver=$(node -p -e "require('./package.json').version")
+          echo ::set-output name=version::$appver
+          echo ::set-output name=package_version::$pkgver
+        shell: bash
       # On Windows server, we have to create the handlebars-directory
       # manually, because the node-process always crashes when it
       # attempts literally the same thing.
@@ -99,17 +110,6 @@ jobs:
         run: |
           npm install
           yarn
-      # Save the current package.json's version value
-      # as the output from this step so that we can
-      # reference it later on.
-      - name: Emit pkgver
-        id: pkg
-        run: |
-          appver=$(node -p -e "require('.app/package.json').version")
-          pkgver=$(node -p -e "require('./package.json').version")
-          echo ::set-output name=version::$appver
-          echo ::set-output name=package_version::$pkgver
-        shell: bash
       # Now we're set to finally release the beast!
       # WINDOWS ==============================================================
       - name: Build Windows NSIS installer

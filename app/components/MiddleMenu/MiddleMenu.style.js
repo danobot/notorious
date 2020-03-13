@@ -20,11 +20,11 @@ export const NoteList = styled.div`
 margin-top: 50px;
 `
 export const TopBar = styled.div`
-  position: fixed;
+  position: absolute;
   // color: ${props => props.theme.colors.text.dark};
   height: 50px;
   width: 100%;
-  z-index: 50;
+  z-index: 2;
 `
 
 export const MiddleLayout = styled.div`

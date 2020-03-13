@@ -39,7 +39,11 @@ export const Editor = styled.div`
     border-radius: 0;
   }
   .editor-toolbar {
-    color: ${props => props.theme.colors.text.muted}
+    color: ${props => props.theme.colors.text.muted};
+    border-top: none;
+    border-left: none;
+    border-right: none;
+
   }
 `
 
