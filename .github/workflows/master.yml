@@ -49,21 +49,21 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           pushd ./app
-            npx standard-version -a --no-verify --prerelease alpha --skip.commit --skip.tag --skip.changelog
+            npx standard-version -a --no-verify --prerelease alpha --skip.tag --skip.changelog
             echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
           popd
-          npx standard-version -a --no-verify --prerelease alpha --skip.commit --skip.tag
+          npx standard-version -a --no-verify --prerelease alpha --skip.tag
         env:
           CI: true
-      # - name: Push to master
-      #   uses: ad-m/github-push-action@v0.5.0
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Merge back to develop
-      #   uses: ad-m/github-push-action@v0.5.0
-      #   with:
-      #     github_token: ${{ secrets.GITHUB_TOKEN }}
-      #     branch: develop
+      - name: Push to master
+        uses: ad-m/github-push-action@v0.5.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Merge back to develop
+        uses: ad-m/github-push-action@v0.5.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: develop
   build:
     needs: [release_management]
 
