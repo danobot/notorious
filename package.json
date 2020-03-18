@@ -324,7 +324,7 @@
   "standard-version": {
     "scripts": {
       "release": "git add package.json",
-      "precommit": "echo [skip ci]\""
+      "precommit": "echo \"[skip ci]\""
     }
   }
 }
