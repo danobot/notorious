@@ -114,9 +114,8 @@ jobs:
       # WINDOWS ==============================================================
       - name: Build Windows Installer
         if: matrix.os == 'windows-latest' # Only if the job runs on Windows
-        run: yarn package-win
-        with:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: GH_TOKEN=${ secrets.GITHUB_TOKEN }} yarn package-win
+
       - name: Cache Windows Exe release
         if: matrix.os == 'windows-latest' # Only if the job runs on Windows
         uses: actions/upload-artifact@v1
@@ -132,9 +131,7 @@ jobs:
       # MACOS ================================================================
       # - name: Build macOS DMG file
       #   if: matrix.os == 'macos-latest' # Only if the job runs on macOS
-      #   run: APPLE_ID=${{ secrets.APPLE_ID }} APPLE_ID_PASS=${{ secrets.APPLE_ID_PASS }} CSC_LINK=${{ secrets.MACOS_CERT }}  CSC_KEY_PASSWORD=${{ secrets.MACOS_CERT_PASS }} npm run release:mac
-      #   with:
-      #     GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #   run: GH_TOKEN=${ secrets.GITHUB_TOKEN }} APPLE_ID=${{ secrets.APPLE_ID }} APPLE_ID_PASS=${{ secrets.APPLE_ID_PASS }} CSC_LINK=${{ secrets.MACOS_CERT }}  CSC_KEY_PASSWORD=${{ secrets.MACOS_CERT_PASS }} npm run release:mac
       # - name: Cache macOS release
       #   if: matrix.os == 'macos-latest' # Only if the job runs on macOS
       #   uses: actions/upload-artifact@v1
@@ -144,9 +141,7 @@ jobs:
       # LINUX ================================================================
       - name: Build Linux targets
         if: matrix.os == 'ubuntu-latest'
-        run: yarn package-linux
-        with:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: GH_TOKEN=${ secrets.GITHUB_TOKEN }} yarn package-linux
       - name: Cache Linux Debian release
         if: matrix.os == 'ubuntu-latest'
         uses: actions/upload-artifact@v1
