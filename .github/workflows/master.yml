@@ -114,10 +114,9 @@ jobs:
       # WINDOWS ==============================================================
       - name: Build Windows Installer
         if: matrix.os == 'windows-latest' # Only if the job runs on Windows
-        run: |
-          set GH_TOKEN=${{ secrets.GITHUB_TOKEN }}
-          yarn package-win
-
+        run: yarn package-win
+        env:   
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - name: Cache Windows Exe release
         if: matrix.os == 'windows-latest' # Only if the job runs on Windows
         uses: actions/upload-artifact@v1
