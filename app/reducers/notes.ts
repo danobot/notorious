@@ -2,13 +2,16 @@ import { persistentCollectionReducer } from 'redux-pouchdb';
 import PouchDB from 'pouchdb'
 import config from '../utils/config';
 import {createReducer} from '../utils/utils'
+import { UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE, REMOVE_EDITOR, ADD_EDITOR } from './noteActions';
 
 
-import { UPDATE_NOTE, CREATE_NOTE } from './noteActions';
 const initialState = []
 const notesReducer = createReducer(initialState, {
   [CREATE_NOTE]: (state, action) => {
-    return [...state, {title: "Untitled", createdAt: Date.now(), updatedAt: Date.now(), notebookId: action.notebookId, isNew: true}]
+    return [...state, {title: "Untitled", createdAt: Date.now(), updatedAt: Date.now(), notebookId: action.notebookId, contents:[{"id": 1, markdown: ""}], isNew: true}]
+  },
+  [DELETE_NOTE]: (state, action) => {
+    return state.filter((item) => item._id !== action.noteId)
   },
   [UPDATE_NOTE]: (state, action) => {
     return  state.map((item, id) => {
@@ -18,13 +21,31 @@ const notesReducer = createReducer(initialState, {
       let extra = {}
       let c = action.attributes
       if (action.attributes.skipUpdatedAt || false) {
-        delete c.skipUpdatedAt
       } else {
         c.updatedAt = Date.now()
       }
+      delete c.skipUpdatedAt
       return {
         ...item,
         ...c
+      }
+    })
+  },
+  [ADD_EDITOR]: (state, action) => {
+    return  state.map((item, id) => {
+      if (item._id !== action.id) {
+        return item
+      }
+      return {
+        ...item,
+        contents: [
+          ...item.contents,
+          {
+            id: item.contents.length + 1,
+            createdAt: Date.now(),
+            markdown: ""
+          }
+        ]
       }
     })
   },

@@ -24,6 +24,7 @@ export const MenuItemNormal = styled.div`
 `
 export const MenuItemStyle = styled.div`
   padding: 10px 10px 10px 10px;
+  cursor: default;
 `
 export const MenuItemSelected = styled(MenuItemNormal)`
   background-color: ${props => props.theme.colors.menu.selected}

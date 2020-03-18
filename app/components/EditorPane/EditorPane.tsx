@@ -1,19 +1,19 @@
 import React, {useState, useRef} from 'react';
-import { NoteTitle,NoteHeader, Editor, NoteMeta, NoteMetaIcon, NoteMetaItem } from './style';
+import { NoteTitle,NoteHeader, EditorStyle, NoteMeta, NoteMetaIcon, NoteMetaItem } from './style';
 
 
 import SimpleMDE from "react-simplemde-editor";
 import FieldForm from './FieldForm/FieldForm';
 import Moment from "react-moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import {
-
-  faClock
-} from "@fortawesome/free-regular-svg-icons";
-import {faHistory } from "@fortawesome/free-solid-svg-icons";
+import Editor from '@monaco-editor/react';
+import { faClock } from "@fortawesome/free-regular-svg-icons";
+import { faHistory, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { deleteNote } from '../../reducers/noteActions';
+import { Button } from 'antd';
 export default function EditorPane({contentArea, note,
-  updateNote
+  updateNote,
+  deleteNote
 }) {
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [state, setState] = useState({});
@@ -38,30 +38,34 @@ export default function EditorPane({contentArea, note,
         <NoteHeader>
           <NoteMeta>
 
-            <NoteMetaItem alt="Created"><NoteMetaIcon><FontAwesomeIcon icon={faClock} /></NoteMetaIcon><Moment format="MMM D, YYYY">{note.createAt}</Moment>
-            </NoteMetaItem>
+            <NoteMetaItem alt="Created"><NoteMetaIcon><FontAwesomeIcon icon={faClock} /></NoteMetaIcon><Moment format="MMM D, YYYY">{note.createAt}</Moment></NoteMetaItem>
             <NoteMetaItem alt="Updated"><NoteMetaIcon><FontAwesomeIcon icon={faHistory} /></NoteMetaIcon><Moment format="MMM D, YYYY">{note.updatedAt}</Moment></NoteMetaItem>
+            <NoteMetaItem alt="ID">{note._id}</NoteMetaItem>
+            <NoteMetaItem alt="delete"><Button size="small" onClick={e => deleteNote(note._id)}><FontAwesomeIcon icon={faTrashAlt} /></Button></NoteMetaItem>
           </NoteMeta>
           <FieldForm label="title" value={note.title} onUpdate={e => updateNote(note._id, {"title": e.target.value})} />
           <div>{note.tags}</div>
         </NoteHeader>
-        <Editor>
+        <EditorStyle>
+          { note.contents.map(editor =>
+          // <Editor key={editor.id} height="90vh" language="javascript" />
 
-          <SimpleMDE id={note._id}
-            value={note.content}
+          <SimpleMDE id={note._id + editor.id} key={editor.id}
+            value={editor.markdown}
             events={{
               'blur': handleBlur,
             }}
             options={{
               autosave: {
                 enabled: true,
-                uniqueId: note._id,
+                uniqueId: note._id + editor.id,
                 delay:1000
               },
-            }} />;
-        </Editor>
-        {/* <div>{JSON.stringify(note, null, 2)}</div> */}
+            }} />
 
+            )
+          };
+          </EditorStyle>
       </> : <>No note selected</>}
     </>
 

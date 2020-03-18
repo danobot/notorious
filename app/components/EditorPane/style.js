@@ -31,7 +31,7 @@ export const NoteMetaItem = styled.div`
 export const NoteMetaIcon = styled.span`
   margin-right: 5px;
 `
-export const Editor = styled.div`
+export const EditorStyle = styled.div`
   border: none;
   .CodeMirror {
     border-left: none;

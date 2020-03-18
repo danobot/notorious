@@ -8,11 +8,11 @@ import Moment from "react-moment";
 export default function NoteCard(props) {
   const {title, content, tags, _id, createdAt, updatedAt} = props.note
   return (
-    <NoteCardStyle onClick={e=>props.handleClick(props.note)} selected={props.selected}>
+    <NoteCardStyle key={_id+'stye'} onClick={e=>props.handleClick(props.note)} selected={props.selected}>
       <NoteListTitle>{title}</NoteListTitle>
       <NoteCardMeta><Moment fromNow>{createdAt}</Moment></NoteCardMeta>
       <NoteTags>
-        {tags && tags.length > 0 && tags.map(t=><Tag key={`${_id}${t}` }>{t}</Tag>)}
+        {tags && tags.length > 0 && tags.map(t=><Tag key={`${_id}-${t}` }>{t}</Tag>)}
       </NoteTags>
       <NotePreview>
         <EllipsisText text={removeMd(content)} length={60} />
