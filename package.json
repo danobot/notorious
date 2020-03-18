@@ -25,9 +25,9 @@
     "package": "yarn build && electron-builder build --publish never",
     "package-all": "yarn build && electron-builder build -mwl",
     "package-ci": "yarn postinstall && yarn build && electron-builder --publish always",
-    "package-dmg": "yarn postinstall && yarn build && electron-builder build --dmg",
-    "package-linux": "yarn build && electron-builder build --linux",
-    "package-win": "yarn build && electron-builder build --win --x64",
+    "package-dmg": "yarn postinstall && yarn build && electron-builder build --dmg --publish always",
+    "package-linux": "yarn build && electron-builder build --linux --publish always",
+    "package-win": "yarn build && electron-builder build --win --x64 --publish always",
     "postinstall": "node -r @babel/register internals/scripts/CheckNativeDep.js && electron-builder install-app-deps && yarn build-dll && opencollective-postinstall",
     "postlint-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{js,jsx,json,html,css,less,scss,yml}'",
     "postlint-styles-fix": "prettier --ignore-path .eslintignore --single-quote --write '**/*.{css,scss}'",
@@ -84,13 +84,15 @@
           "type": "link",
           "path": "/Applications"
         }
-      ]
+      ],
+      "publish": ["github"]
     },
     "win": {
       "target": [
         "nsis",
         "msi"
-      ]
+      ],
+      "publish": ["github"]
     },
     "linux": {
       "target": [
@@ -98,7 +100,8 @@
         "rpm",
         "AppImage"
       ],
-      "category": "Development"
+      "category": "Development",
+      "publish": ["github"]
     },
     "directories": {
       "buildResources": "resources",
@@ -107,8 +110,7 @@
     "publish": {
       "provider": "github",
       "owner": "danobot",
-      "repo": "notorious",
-      "private": true
+      "repo": "notorious"
     }
   },
   "repository": {
@@ -320,11 +322,6 @@
   },
   "browserslist": [
     "extends browserslist-config-erb"
-  ],
-  "standard-version": {
-    "scripts": {
-      "release": "git add package.json",
-      "precommit": "echo \"[skip ci]\""
-    }
-  }
+  ]
+
 }
