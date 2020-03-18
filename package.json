@@ -1,7 +1,11 @@
 {
   "name": "notorious",
   "productName": "Notorious",
+<<<<<<< HEAD
   "version": "0.1.1-alpha.6",
+=======
+  "version": "0.1.1-alpha.8",
+>>>>>>> 21c55bf72e5b06e3da6befc2f8c48cd850af3405
   "description": "Note taking application with cross-device synchronisation and offline support in mind.",
   "author": {
     "name": "Daniel Mason",
@@ -85,14 +89,18 @@
           "path": "/Applications"
         }
       ],
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     },
     "win": {
       "target": [
         "nsis",
         "msi"
       ],
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     },
     "linux": {
       "target": [
@@ -101,7 +109,9 @@
         "AppImage"
       ],
       "category": "Development",
-      "publish": ["github"]
+      "publish": [
+        "github"
+      ]
     },
     "directories": {
       "buildResources": "resources",
@@ -323,5 +333,4 @@
   "browserslist": [
     "extends browserslist-config-erb"
   ]
-
 }
