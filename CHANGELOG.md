@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.1-alpha.19 (2020-03-19)
+
+
+### Bug Fixes
+
+* ci ([dbf4f88](https://github.com/danobot/notorious/commit/dbf4f888ed9602f3d101b61a0ebfa4781103049b))
+* delete ([3d41e95](https://github.com/danobot/notorious/commit/3d41e9583666906cd20068cf044f8829e66ec86f))
+
 ### 0.1.1-alpha.18 (2020-03-19)
 
 
