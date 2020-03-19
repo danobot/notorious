@@ -59,11 +59,11 @@ jobs:
         uses: ad-m/github-push-action@v0.5.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Merge back to develop
-        uses: ad-m/github-push-action@v0.5.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: develop
+      # - name: Merge back to develop
+      #   uses: ad-m/github-push-action@v0.5.0
+      #   with:
+      #     github_token: ${{ secrets.GITHUB_TOKEN }}
+      #     branch: develop
   build:
     needs: [release_management]
 
@@ -245,7 +245,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tag_name: v${{ steps.pkg.outputs.version }} # tag_name is required, but can be overridden during edit
-          release_name: Release v${{ steps.pkg.outputs.version }} # release_name is required
+          release_name: v${{ steps.pkg.outputs.version }} # release_name is required
           body: If you can read this, we have forgotten to fill in the changelog. Sorry!
           draft: true # Always create as draft, so that we can populate the remaining values easily
 
