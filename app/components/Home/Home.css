@@ -1,0 +1,29 @@
+#sidemenus  {
+
+}
+.content {
+ 
+}
+.middlemenu {
+
+}
+.mainmenu {
+
+}
+@media screen and (max-width: 700px) {
+  .sidemenus {
+    width: 100%;
+    height: auto;
+    position: relative;
+  }
+  .sidemenus a {float: left;}
+  .content {margin-left: 0;}
+}
+
+/* On screens that are less than 400px, display the bar vertically, instead of horizontally */
+@media screen and (max-width: 400px) {
+  .side-menus a {
+    text-align: center;
+    float: none;
+  }
+}

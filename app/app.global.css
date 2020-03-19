@@ -1,0 +1,13 @@
+/*
+ * @NOTE: Prepend a `~` to css file paths that are in your node_modules
+ *        See https://github.com/webpack-contrib/sass-loader#imports
+ */
+@import '~@fortawesome/fontawesome-free/css/all.css';
+@import '~antd/dist/antd.css';
+@import 'style/react-split-pane.css';
+@import 'style/ant-customisation.css';
+@import 'style/context-menu.css';
+@import "~easymde/dist/easymde.min.css";
+
+@import '~react-splitter-layout/lib/index.css'
+
