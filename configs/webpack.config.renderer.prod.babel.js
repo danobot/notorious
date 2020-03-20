@@ -204,9 +204,10 @@ export default merge.smart(baseConfig, {
      * development checks
      */
     new webpack.EnvironmentPlugin({
-      NODE_ENV: 'production',
-      DEBUG_PROD: false,
-      E2E_BUILD: false
+      NODE_ENV: 'production'
+      // these are not applied correctly and do not work danobot/noteapp#25
+      //DEBUG_PROD: 'true',
+      //E2E_BUILD: 'true' 
     }),
 
     new MiniCssExtractPlugin({

@@ -53,3 +53,5 @@ nullconfig/*
 nullnotebooks/*
 nullnotes/*
 nullpersisted/*
+.env
+docker-compose.yaml

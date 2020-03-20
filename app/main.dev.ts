@@ -43,11 +43,10 @@ const installExtensions = async () => {
 const createWindow = async () => {
   if (
     process.env.NODE_ENV === 'development' ||
-    process.env.DEBUG_PROD === 'true'
+    process.env.DEBUG_PROD === 'true' || true
   ) {
     await installExtensions();
   }
-
 
 
   mainWindow = new BrowserWindow({
@@ -60,7 +59,7 @@ const createWindow = async () => {
             nodeIntegration: true
           }
         : {
-            preload: path.join(__dirname, 'dist/renderer.prod.js')
+            preload: path.join(__dirname, 'dist/renderer.prod.js')  // this one causes font awesome icons to be really big [danobot/noteapp#25]. dirty fix by enabling E2E_BUILD
           }
   });
 
