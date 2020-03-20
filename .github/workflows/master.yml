@@ -108,7 +108,7 @@ jobs:
       # Perform all necessary pre-build steps (LESS, handlebars, and so forth)
       - name: Set up build environment and compile the assets
         run: |
-          npm install
+          # npm install
           yarn
       # Now we're set to finally release the beast!
       # WINDOWS ==============================================================
