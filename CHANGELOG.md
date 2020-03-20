@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 0.1.1-alpha.22 (2020-03-20)
+
+
+### Features
+
+* note card context menu ([0c6f966](https://github.com/danobot/notorious/commit/0c6f9666296fb284cc810241de53c12f47527169))
+* various ([475a2cc](https://github.com/danobot/notorious/commit/475a2cc0b01b431f227f6b5db9dfa38e518286e0))
+
+
+### Bug Fixes
+
+* ci ([291fc58](https://github.com/danobot/notorious/commit/291fc587e5cbefdc9b9ab168c4f514fa84d33e8a))
+* ci ([dbf4f88](https://github.com/danobot/notorious/commit/dbf4f888ed9602f3d101b61a0ebfa4781103049b))
+* delete ([3d41e95](https://github.com/danobot/notorious/commit/3d41e9583666906cd20068cf044f8829e66ec86f))
+
 ### 0.1.1-alpha.21 (2020-03-20)
 
 
