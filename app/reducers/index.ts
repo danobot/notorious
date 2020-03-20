@@ -12,7 +12,7 @@ export default function createRootReducer(history: History) {
   return combineReducers({
     router: connectRouter(history),
     notes: notesReducer,
-    notebooks: notebooksReducer,
+    // notebooks: notebooksReducer,
     mainMenu: mainMenuReducer,
     settings: homePageReducer,
     contentArea: contentAreaReducer,

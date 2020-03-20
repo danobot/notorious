@@ -1,5 +1,5 @@
 import { createReducer } from '../../utils/utils'
-import { SELECT_NOTEBOOK, CREATE_NOTEBOOK, SHOW_NOTEBOOK_MODAL, HIDE_NOTEBOOK_MODAL } from './actions';
+import { SELECT_NOTEBOOK, SHOW_NOTEBOOK_MODAL, HIDE_NOTEBOOK_MODAL } from './actions';
 import { configStorage } from '../../utils/localStorage';
 
 

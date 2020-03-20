@@ -6,61 +6,48 @@ export const DELETE_NOTE = 'DELETE_NOTE';
 export const ADD_EDITOR = 'ADD_EDITOR';
 export const REMOVE_EDITOR = 'REMOVE_EDITOR';
 
-
-export function updateNote(id: string,  attributes: string) {
-  return (dispatch: Dispatch, getState: GetState) => {
-      dispatch(
-        {
-          type: UPDATE_NOTE,
-          id,
-          attributes
-        }
-      );
-
+export function updateNote(id: string, attributes: string) {
+  return dispatch => {
+    dispatch({
+      type: UPDATE_NOTE,
+      id,
+      attributes
+    });
   };
 }
 
-
-export function createNote(notebookId: string) {
-  return (dispatch: Dispatch, getState: GetState) => {
-    dispatch(
-      {
-        type: CREATE_NOTE,
-        notebookId
-      }
-    );
+export function createNote(parent: string) {
+  return dispatch => {
+    dispatch({
+      type: CREATE_NOTE,
+      parent
+    });
   };
 }
+
 export function deleteNote(noteId: string) {
-  return (dispatch: Dispatch, getState: GetState) => {
-    dispatch(
-      {
-        type: DELETE_NOTE,
-        noteId
-      }
-    );
+  return dispatch => {
+    dispatch({
+      type: DELETE_NOTE,
+      noteId
+    });
   };
 }
 
-
-export function addEditorColumn(note: String) {
-  return (dispatch: Dispatch, getState: GetState) => {
-    dispatch(
-      {
-        type: ADD_EDITOR,
-        id: note._id
-      }
-    );
+export function addEditorColumn(note: string) {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: ADD_EDITOR,
+      id: note._id
+    });
   };
 }
 
-export function removeEditorColumn(note: String) {
-  return (dispatch: Dispatch, getState: GetState) => {
-    dispatch(
-      {
-        type: REMOVE_EDITOR,
-        id: note._id
-      }
-    );
+export function removeEditorColumn(note: string) {
+  return (dispatch: Dispatch) => {
+    dispatch({
+      type: REMOVE_EDITOR,
+      id: note._id
+    });
   };
 }

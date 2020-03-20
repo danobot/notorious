@@ -27,9 +27,9 @@ export default function MainMenu({
     console.log(data.foo);
   };
   const newNotebookSubmitAction = data => {
+    hideNotebookModal();
     console.log('newNotebookSubmitAction', data);
     createNotebook({ title: data.value });
-    hideNotebookModal();
   };
   return (
     <MainMenuStyle>

@@ -6,15 +6,15 @@ import * as actions from '../ContentAreaCont/actions';
 import * as noteActions from '../../reducers/noteActions';
 
 
-// import { MiddleMenuStateType } from '../../reducers/types';
 
-const URL = "classes/Note"
+
+
 class MiddleMenuCont extends React.PureComponent {
-  componentDidUpdate = (prevProps) => {
-    if (prevProps.selection !== this.props.selection && this.props.selection) {
+  // componentDidUpdate = (prevProps) => {
+  //   if (prevProps.selection !== this.props.selection && this.props.selection) {
 
-    }
-  }
+  //   }
+  // }
   render() {
     return <MiddleMenu {...this.props}/>;
   }
@@ -23,7 +23,7 @@ class MiddleMenuCont extends React.PureComponent {
 function mapStateToProps(state) {
   return {
     selection: state.mainMenu.nbSelection,
-    visibleNotes: state.notes.filter(i => (state.mainMenu.nbSelection && i.notebookId === state.mainMenu.nbSelection)),
+    visibleNotes: state.notes.filter(i => (state.mainMenu.nbSelection && i.parent === state.mainMenu.nbSelection)),
     selectedNote: state.contentArea.selectedNote,
   };
 }

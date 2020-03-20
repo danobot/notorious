@@ -46,6 +46,8 @@ export default function EditorPane({contentArea, note,
           <FieldForm label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => updateNote(note._id, {"title": e.target.value})} />
           <div>{note.tags}</div>
         </NoteHeader>
+        {note.type && note.type === "columns" && <p>column type</p>}
+        {note.type && note.type === "container" && <p>container type</p>}
         <EditorStyle>
           { note.contents.map(editor =>
           // <Editor key={editor.id} height="90vh" language="javascript" />
