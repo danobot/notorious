@@ -1,7 +1,7 @@
 import React, {useState}  from 'react';
 import styled from 'styled-components';
 // import SplitPane, { Pane } from 'react-split-pane';
-import SplitterLayout from 'react-splitter-layout';
+// import SplitterLayout from 'react-splitter-layout';
 
 import MainMenuCont from '../../containers/MainMenu/MainMenuCont';
 import CounterPage from '../../containers/CounterPage/CounterPage';
@@ -15,6 +15,9 @@ import ContentAreaCont from '../../containers/ContentAreaCont/ContentAreaCont';
 import { Input, Modal } from 'antd';
 import { Form, Formik } from 'formik';
 import isElectron from 'is-electron';
+import SplitPane from 'react-split-pane';
+import Pane from 'react-split-pane'
+
 const mapStateToProps = (state) => {
   return {
     settings: state.settings
@@ -78,18 +81,20 @@ console.log("isElectron()", isElectron())
     )}
     </Formik> :<></>
   }
-    <SplitterLayout id={sizeMain}
+    {/* <SplitterLayout id={sizeMain}
       percentage={true}
       secondaryInitialSize={sizeMain}
       onSecondaryPaneSizeChange={size => {
         setstate({...state, sizeMain: size})
       }}
       onDragEnd={e=>resizeMainMenuAction(sizeMain, state.sizeMain)}
-      >
+      > */}
+      <SplitPane split="vertical" style={{height: "100%"}}>
+        <Pane initialSize="15%" ><MainMenuCont /></Pane>
+        <Pane initialSize="20%" ><MiddleMenuCont /></Pane>
+        <Pane ><ContentAreaCont /></Pane>
 
-        <MainMenuCont />
-
-    <SplitterLayout
+    {/* <SplitterLayout
       percentage={true}
 
       id={sizeMiddle}
@@ -98,12 +103,11 @@ console.log("isElectron()", isElectron())
         setstate({...state, sizeMiddle: size})
       }}
       onDragEnd={e=>resizeMiddleMenuAction(sizeMiddle, state.sizeMiddle)}
-      >
-        <MiddleMenuCont />
-        <ContentAreaCont />
+      > */}
 
-      </SplitterLayout>
-    </SplitterLayout>
+
+      {/* </SplitterLayout>
+    </SplitterLayout> */}
 
     {/* <SplitPane  split="vertical" >
       <Pane   >
@@ -118,7 +122,8 @@ console.log("isElectron()", isElectron())
             <p>Main</p>
         </Pane        </SplitPane>
       </Pane>
-    </SplitPane> */}
+    </SplitPane>*/}
+    </SplitPane>
 </>
   );
 }

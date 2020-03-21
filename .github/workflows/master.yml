@@ -37,7 +37,7 @@ on:
 jobs:
   release_management:
     runs-on: ubuntu-latest
-
+    if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v1
       - name: Setting up Node
@@ -173,156 +173,157 @@ jobs:
   # commence, creating a new draft release, downloading all assets from
   # the previous job, verifying the checksum integrity, and uploading that
   # whole mess to the draft release.
-  prepare_release:
-    needs: [build] # Make sure (and wait until) the build has succeeded
-    runs-on: ubuntu-latest
-    steps:
-      # Clone the repository to get the ./scripts/get-pkg-version.js and the ./package.json
-      - uses: actions/checkout@v2
-      # Setup node to run the retrieval script
-      - name: Setup NodeJS 12.x
-        uses: actions/setup-node@v1
-        with:
-          node-version: '10.15.0'
-      - name: Retrieve the current package version
-        id: pkg
-        run: |
-          pkgver=$(node -p -e "require('./app/package.json').version")
+  # prepare_release:
+  #   needs: [build] # Make sure (and wait until) the build has succeeded
+  #   runs-on: ubuntu-latest
+  #   if: github.ref == 'refs/heads/master'
+  #   steps:
+  #     # Clone the repository to get the ./scripts/get-pkg-version.js and the ./package.json
+  #     - uses: actions/checkout@v2
+  #     # Setup node to run the retrieval script
+  #     - name: Setup NodeJS 12.x
+  #       uses: actions/setup-node@v1
+  #       with:
+  #         node-version: '10.15.0'
+  #     - name: Retrieve the current package version
+  #       id: pkg
+  #       run: |
+  #         pkgver=$(node -p -e "require('./app/package.json').version")
 
-          echo ::set-output name=version::$pkgver
-      # Now, download all resulting assets from the previous steps.
-      - name: Download the Windows asset
-        uses: actions/download-artifact@v1
-        with:
-          name: Notorious-${{ steps.pkg.outputs.version }}.exe
-          path: .
-      # - name: Download the macOS asset
-      #   uses: actions/download-artifact@v1
-      #   with:
-      #     name: Notorious-${{ steps.pkg.outputs.version }}.dmg
-      #     path: .
-      - name: Download the Debian asset
-        uses: actions/download-artifact@v1
-        with:
-          name: Notorious-${{ steps.pkg.outputs.version }}-amd64.deb
-          path: .
-      - name: Download the Fedora asset
-        uses: actions/download-artifact@v1
-        with:
-          name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm
-          path: .
-      - name: Download the AppImage (x32) asset
-        uses: actions/download-artifact@v1
-        with:
-          name: Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
-          path: .
-      # - name: Download the AppImage (x64) asset
-      #   uses: actions/download-artifact@v1
-      #   with:
-      #     name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage
-      #     path: .
-      # Now we are set, we have all five release assets on the VM. It's time to create the
-      # SHA-checksums file and then upload everything!
-      - name: Generate SHA256 checksums
-        run: |
-          ls -la
-          sha256sum "Notorious Setup ${{ steps.pkg.outputs.version }}.exe" > "SHA256SUMS.txt"
-          # sha256sum "Notorious-${{ steps.pkg.outputs.version }}.dmg" >> "SHA256SUMS.txt"
-          sha256sum "notorious_${{ steps.pkg.outputs.version }}_amd64.deb" >> "SHA256SUMS.txt"
-          sha256sum "notorious-${{ steps.pkg.outputs.version }}.x86_64.rpm" >> "SHA256SUMS.txt"
-          sha256sum "Notorious-${{ steps.pkg.outputs.version }}.AppImage" >> "SHA256SUMS.txt"
+  #         echo ::set-output name=version::$pkgver
+  #     # Now, download all resulting assets from the previous steps.
+  #     - name: Download the Windows asset
+  #       uses: actions/download-artifact@v1
+  #       with:
+  #         name: Notorious-${{ steps.pkg.outputs.version }}.exe
+  #         path: .
+  #     # - name: Download the macOS asset
+  #     #   uses: actions/download-artifact@v1
+  #     #   with:
+  #     #     name: Notorious-${{ steps.pkg.outputs.version }}.dmg
+  #     #     path: .
+  #     - name: Download the Debian asset
+  #       uses: actions/download-artifact@v1
+  #       with:
+  #         name: Notorious-${{ steps.pkg.outputs.version }}-amd64.deb
+  #         path: .
+  #     - name: Download the Fedora asset
+  #       uses: actions/download-artifact@v1
+  #       with:
+  #         name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm
+  #         path: .
+  #     - name: Download the AppImage (x32) asset
+  #       uses: actions/download-artifact@v1
+  #       with:
+  #         name: Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
+  #         path: .
+  #     # - name: Download the AppImage (x64) asset
+  #     #   uses: actions/download-artifact@v1
+  #     #   with:
+  #     #     name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage
+  #     #     path: .
+  #     # Now we are set, we have all five release assets on the VM. It's time to create the
+  #     # SHA-checksums file and then upload everything!
+  #     - name: Generate SHA256 checksums
+  #       run: |
+  #         ls -la
+  #         sha256sum "Notorious Setup ${{ steps.pkg.outputs.version }}.exe" > "SHA256SUMS.txt"
+  #         # sha256sum "Notorious-${{ steps.pkg.outputs.version }}.dmg" >> "SHA256SUMS.txt"
+  #         sha256sum "notorious_${{ steps.pkg.outputs.version }}_amd64.deb" >> "SHA256SUMS.txt"
+  #         sha256sum "notorious-${{ steps.pkg.outputs.version }}.x86_64.rpm" >> "SHA256SUMS.txt"
+  #         sha256sum "Notorious-${{ steps.pkg.outputs.version }}.AppImage" >> "SHA256SUMS.txt"
 
-        # sha256sum "Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage" >> "SHA256SUMS.txt"
-      - name: Verify checksums
-        run: |
-          ls -la
-          sha256sum -c SHA256SUMS.txt
-      # Create a new release draft
-      - name: Create a new release draft
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: v${{ steps.pkg.outputs.version }} # tag_name is required, but can be overridden during edit
-          release_name: v${{ steps.pkg.outputs.version }} # release_name is required
-          body: If you can read this, we have forgotten to fill in the changelog. Sorry!
-          draft: true # Always create as draft, so that we can populate the remaining values easily
-
-
-      # And finally, upload that shit
-      - name: Upload Windows asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Notorious Setup ${{ steps.pkg.outputs.version }}.exe
-          asset_name: Notorious-${{ steps.pkg.outputs.version }}.exe
-          asset_content_type: application/x-msdownload
+  #       # sha256sum "Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage" >> "SHA256SUMS.txt"
+  #     - name: Verify checksums
+  #       run: |
+  #         ls -la
+  #         sha256sum -c SHA256SUMS.txt
+  #     # Create a new release draft
+  #     - name: Create a new release draft
+  #       id: create_release
+  #       uses: actions/create-release@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         tag_name: v${{ steps.pkg.outputs.version }} # tag_name is required, but can be overridden during edit
+  #         release_name: v${{ steps.pkg.outputs.version }} # release_name is required
+  #         body: If you can read this, we have forgotten to fill in the changelog. Sorry!
+  #         draft: true # Always create as draft, so that we can populate the remaining values easily
 
 
-      # - name: Upload macOS asset
-      #   uses: actions/upload-release-asset@v1.0.1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: ./Notorious-${{ steps.pkg.outputs.version }}.dmg
-      #     asset_name: Notorious-${{ steps.pkg.outputs.version }}.dmg
-      #     asset_content_type: application/octet-stream
+  #     # And finally, upload that shit
+  #     - name: Upload Windows asset
+  #       uses: actions/upload-release-asset@v1.0.1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         upload_url: ${{ steps.create_release.outputs.upload_url }}
+  #         asset_path: ./Notorious Setup ${{ steps.pkg.outputs.version }}.exe
+  #         asset_name: Notorious-${{ steps.pkg.outputs.version }}.exe
+  #         asset_content_type: application/x-msdownload
 
 
-      - name: Upload Debian asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./notorious_${{ steps.pkg.outputs.version }}_amd64.deb
-          asset_name: Notorious-${{ steps.pkg.outputs.version }}-amd64.deb
-          asset_content_type: application/octet-stream
+  #     # - name: Upload macOS asset
+  #     #   uses: actions/upload-release-asset@v1.0.1
+  #     #   env:
+  #     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     #   with:
+  #     #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+  #     #     asset_path: ./Notorious-${{ steps.pkg.outputs.version }}.dmg
+  #     #     asset_name: Notorious-${{ steps.pkg.outputs.version }}.dmg
+  #     #     asset_content_type: application/octet-stream
 
 
-      - name: Upload Fedora asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./notorious-${{ steps.pkg.outputs.version }}.x86_64.rpm
-          asset_name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm
-          asset_content_type: application/octet-stream
+  #     - name: Upload Debian asset
+  #       uses: actions/upload-release-asset@v1.0.1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         upload_url: ${{ steps.create_release.outputs.upload_url }}
+  #         asset_path: ./notorious_${{ steps.pkg.outputs.version }}_amd64.deb
+  #         asset_name: Notorious-${{ steps.pkg.outputs.version }}-amd64.deb
+  #         asset_content_type: application/octet-stream
 
 
-      - name: Upload AppImage (x32) asset
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./Notorious-${{ steps.pkg.outputs.version }}.AppImage
-          asset_name: Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
-          asset_content_type: application/octet-stream
+  #     - name: Upload Fedora asset
+  #       uses: actions/upload-release-asset@v1.0.1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         upload_url: ${{ steps.create_release.outputs.upload_url }}
+  #         asset_path: ./notorious-${{ steps.pkg.outputs.version }}.x86_64.rpm
+  #         asset_name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm
+  #         asset_content_type: application/octet-stream
 
 
-      # - name: Upload AppImage (x64) asset
-      #   uses: actions/upload-release-asset@v1.0.1
-      #   env:
-      #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      #   with:
-      #     upload_url: ${{ steps.create_release.outputs.upload_url }}
-      #     asset_path: ./Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage
-      #     asset_name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage
-      #     asset_content_type: application/octet-stream
+  #     - name: Upload AppImage (x32) asset
+  #       uses: actions/upload-release-asset@v1.0.1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         upload_url: ${{ steps.create_release.outputs.upload_url }}
+  #         asset_path: ./Notorious-${{ steps.pkg.outputs.version }}.AppImage
+  #         asset_name: Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
+  #         asset_content_type: application/octet-stream
 
-      - name: Upload the checksums
-        uses: actions/upload-release-asset@v1.0.1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./SHA256SUMS.txt
-          asset_name: SHA256SUMS.txt
-          asset_content_type: text/plain
+
+  #     # - name: Upload AppImage (x64) asset
+  #     #   uses: actions/upload-release-asset@v1.0.1
+  #     #   env:
+  #     #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #     #   with:
+  #     #     upload_url: ${{ steps.create_release.outputs.upload_url }}
+  #     #     asset_path: ./Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage
+  #     #     asset_name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage
+  #     #     asset_content_type: application/octet-stream
+
+  #     - name: Upload the checksums
+  #       uses: actions/upload-release-asset@v1.0.1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         upload_url: ${{ steps.create_release.outputs.upload_url }}
+  #         asset_path: ./SHA256SUMS.txt
+  #         asset_name: SHA256SUMS.txt
+  #         asset_content_type: text/plain
 

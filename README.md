@@ -4,6 +4,8 @@
 
 This project is in early development. 
 
+![master](https://github.com/danobot/notorious/workflows/Build/badge.svg?branch=master)
+![latest](https://github.com/danobot/notorious/workflows/Build/badge.svg?branch=develop)
 
 # Install
 

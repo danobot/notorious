@@ -10,13 +10,20 @@ export const notebookSelector = createSelector(
 )
 export const findSelectedNote = createSelector(
   allNotes,
-  (all, state) => all.filter(n=> n._id === state.configs.selectedNote)[0]
+  configs,
+  (all, configs) => {
+
+    // console.log("all: ", all)
+    // console.log("configs: ", configs)
+    return all.filter(n=> n._id === configs.selectedNote)[0]
+  }
 )
 export const savingNew = createSelector(
   allNotes,
   (all) => (all.filter(n => n.isNew))
 )
-export const findChildren = parent => createSelector(
+export const findChildren = createSelector(
   allNotes,
-  (all) => all.filter(n => n.parent === parent)
+  findSelectedNote,
+  (all, note) => all.filter(n => note && note.children && note.children.indexOf(n._id) > -1)
 )

@@ -8,7 +8,7 @@ import { MainMenuStateType } from '../../reducers/types';
 import * as actions from './actions';
 import * as noteActions from '../../reducers/noteActions';
 import EditorPane from '../../components/EditorPane/EditorPane';
-import { findChildren } from '../MainMenu/selectors';
+import { findChildren, findSelectedNote } from '../MainMenu/selectors';
 
 class ContentAreaCont extends PureComponent {
   componentWillMount = () => {
@@ -24,15 +24,17 @@ class ContentAreaCont extends PureComponent {
 function mapStateToProps(state: MainMenuStateType) {
   return {
     contentArea: state.contentArea,
-    note: state.notes.filter(e=> e._id === state.configs.selectedNote)[0]
-    //children: findChildren(state.configs.selectedNote || '')
+    note: findSelectedNote(state), //state.notes.filter(e=> e._id === state.configs.selectedNote)[0],
+    subNotes: findChildren(state)
 
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
-  console.log(actions)
-  return bindActionCreators(Object.assign(actions, noteActions), dispatch)
+  return {
+    noteActions: bindActionCreators(noteActions, dispatch),
+    ...bindActionCreators(actions, dispatch)
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContentAreaCont);

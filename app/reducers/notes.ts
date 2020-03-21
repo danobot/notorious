@@ -80,45 +80,27 @@ const notesReducer = createReducer(initialState, {
         }
       })
     },
-    "@@redux-pouchdb/UPDATE_ARRAY_REDUCER": (state, action) =>{
+    // "@@redux-pouchdb/UPDATE_ARRAY_REDUCER": (state, action) =>{
 
-      if (action.doc.isNew) { //if its a new notesReducer, we want to update it in the state
-        console.log("Its a new note", state)
-        return state.map((item, index) => {
-          if (item._id !== action.doc._id) { return item }
+    //   if (action.doc.isNew) { //if its a new notesReducer, we want to update it in the state
+    //     console.log("Its a new note", state)
+    //     return state.map((item, index) => {
+    //       if (item._id !== action.doc._id) { return item }
 
-          const { isNew, ...newState } = {
-            ...item,
-            ...action.item
-          };
+    //       const { isNew, ...newState } = {
+    //         ...item,
+    //         ...action.item
+    //       };
 
-          console.log("state without new", newState)
-          // Otherwise, this is the one we want - return an updated value
-          return newState
-        });
-      } else {
-        return state
-      }
-    },
-    [TOGGLE_PIN_NOTE]: (state, action) => {
-      return state.map((note, id) => {
-        if (note._id !== action.id) { return note }
-        if (note.pinned !== action.pinned)
-          return {...note, pinned: action.pinned }
-        else
-          return note
-      })
-    },
-    [TOGGLE_MENU_SHOW_NOTE]: (state, action) => {
-      return state.map((note, id) => {
-        if (note._id !== action.id) { return note }
-        if (note.showInMenu !== action.showInMenu) {
-          return {...note, showInMenu: action.showInMenu }
-        } else {
-          return note
-        }
-      })
-    }
+    //       console.log("state without new", newState)
+    //       // Otherwise, this is the one we want - return an updated value
+    //       return newState
+    //     });
+    //   } else {
+    //     return state
+    //   }
+    // },
+
   }
 );
 
