@@ -43,7 +43,7 @@ Contributions in any form are encouraged and happily merged back into the codeba
 * Submitting pull requests
 * recommending the software to others (Spreading the word)
 * donating spare change
-* or just being content user (we love you)
+* or just being a happy user (we love you)
 
 ## Donations
 
