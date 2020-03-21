@@ -10,11 +10,12 @@ import {
 } from 'react-contextmenu';
 import {
   NoteCardStyle,
-  NoteListTitle,
-  NotePreview,
-  NoteTags,
-  NoteCardMeta
 } from './NoteCard.style';
+import { RightFloaty, InlineItem } from '../../../style/utils.style';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import { faClock } from "@fortawesome/free-regular-svg-icons";
+import {  faFolderOpen, faInbox } from "@fortawesome/free-solid-svg-icons";
 
 const removeMd = require('remove-markdown');
 
@@ -26,27 +27,33 @@ export default function NoteCard(props) {
     cmChangeKindHandler,
     cmDeleteNoteHandler
   } = props.handlers;
-  const { title, content, tags, _id, createdAt, updatedAt } = props.note;
+  const { title, content, tags, _id, createdAt, updatedAt,children, kind } = props.note;
   return (
     <>
       <ContextMenuTrigger id={`${_id}cm`}>
         <NoteCardStyle
           key={`${_id}style`}
           onClick={e => props.handleClick(props.note)}
-          selected={props.selected}
+          {...props}
         >
-          <NoteListTitle>{title || 'Untitled Note'}</NoteListTitle>
-          <NoteCardMeta>
-            <Moment fromNow>{createdAt}</Moment>
-          </NoteCardMeta>
-          <NoteTags>
-            {tags &&
+          <div className="noteListTitle">{title || 'Untitled Note'}</div>
+          <div className="noteCardMeta">
+            {children.length > 0 && <InlineItem><FontAwesomeIcon icon={faFolderOpen} />{children.length}</InlineItem>}
+            {kind === 'collection' && <InlineItem><FontAwesomeIcon icon={faInbox} /></InlineItem>}
+            <InlineItem><Moment fromNow>{createdAt}</Moment></InlineItem>
+            <RightFloaty>
+
+            </RightFloaty>
+          </div>
+          <div className="noteTags">
+          {tags &&
               tags.length > 0 &&
               tags.map(t => <Tag key={`${_id}-${t}`}>{t}</Tag>)}
-          </NoteTags>
-          <NotePreview>
+          </div>
+            <div className="notePreview">
             <EllipsisText text={removeMd(content)} length={60} />
-          </NotePreview>
+
+            </div>
         </NoteCardStyle>
       </ContextMenuTrigger>
 
@@ -67,7 +74,7 @@ export default function NoteCard(props) {
             <span>Show in menu</span>
           )}
         </MenuItem>
-        <SubMenu title="Change kind to...">
+        <SubMenu title="Change kind to..." delay={0}>
           <MenuItem
             data={{ note: props.note, kind: 'collection' }}
             onClick={cmChangeKindHandler}
@@ -79,6 +86,12 @@ export default function NoteCard(props) {
             onClick={cmChangeKindHandler}
           >
             Column
+          </MenuItem>
+          <MenuItem
+            data={{ note: props.note, kind: 'normal' }}
+            onClick={cmChangeKindHandler}
+          >
+            Normal
           </MenuItem>
         </SubMenu>
         <MenuItem
