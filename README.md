@@ -2,10 +2,12 @@
 
 # Introduction
 
-This project is in early development. 
+This project is in early development.
 
-![master](https://github.com/danobot/notorious/workflows/Build/badge.svg?branch=master)
-![latest](https://github.com/danobot/notorious/workflows/Build/badge.svg?branch=develop)
+|Stream|Status|
+|---|---|
+|Latest|![latest](https://github.com/danobot/notorious/workflows/Build/badge.svg?branch=develop)|
+|Master|![master](https://github.com/danobot/notorious/workflows/Build/badge.svg?branch=master)|
 
 # Install
 

@@ -28,6 +28,7 @@ on:
   push:
     branches:
       - master
+      - develop
 
 # We need two jobs: First a build-job, running on a matrix
 # to build all necessary releases, which also uploads all
