@@ -38,14 +38,17 @@ on:
 jobs:
   release_management:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v1
+        if: github.ref == 'refs/heads/master'
       - name: Setting up Node
         uses: actions/setup-node@v1
+        if: github.ref == 'refs/heads/master'
         with:
           node-version: '10.15.1'
       - name: Preparing release
+        if: github.ref == 'refs/heads/master'
+
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -57,6 +60,8 @@ jobs:
         env:
           CI: true
       - name: Push to master
+        if: github.ref == 'refs/heads/master'
+
         uses: ad-m/github-push-action@v0.5.0
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
