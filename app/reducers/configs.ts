@@ -14,14 +14,11 @@ function configReducer(state = initialState, action: Action<string>) {
       const newState = {...state, [action.id]: action.attributes}
       saveState(newState)
       return newState
-    case '@@redux-pouchdb/SET_OBJECT_REDUCER':
-      return action.state
+    // case '@@redux-pouchdb/SET_OBJECT_REDUCER':
+    //   return action.state
     default:
       return state
   }
 
 }
-export default persistentDocumentReducer(
-  new PouchDB(`${config.db}config`),
-  'persisted'
-)(configReducer);
+export default configReducer;

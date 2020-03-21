@@ -37,6 +37,7 @@ export default function ModalForm({formSubmitHandler, placeholder,visible, title
               >
                 <Form>
                   <Input
+                    autoFocus={true}
                     name="value"
                     value={values.value}
                     onChange={handleChange}

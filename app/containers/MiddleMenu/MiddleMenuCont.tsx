@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import MiddleMenu from '../../components/MiddleMenu/MiddleMenu';
 import * as actions from '../ContentAreaCont/actions';
 import * as noteActions from '../../reducers/noteActions';
+import { savingNew } from '../MainMenu/selectors';
 
 
 
@@ -25,6 +26,7 @@ function mapStateToProps(state) {
     selection: state.mainMenu.nbSelection,
     visibleNotes: state.notes.filter(i => (state.mainMenu.nbSelection && i.parent === state.mainMenu.nbSelection)),
     selectedNote: state.contentArea.selectedNote,
+    savingNew: savingNew()
   };
 }
 

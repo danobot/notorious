@@ -22,14 +22,12 @@ function configReducer(state = initialState, action: Action<string>) {
       return {...state, sizeMain: action.size}
     case RESIZE_MIDDLE_MENU:
       return {...state, sizeMiddle: action.size}
-    case '@@redux-pouchdb/SET_OBJECT_REDUCER':
-      return action.state
+    // case '@@redux-pouchdb/SET_OBJECT_REDUCER':
+    //   return action.state
+    // would need to check if state.config is different to current state, if it is return action.state.config
     default:
       return state.settings ? state.settings : state;
   }
 
 }
-export default persistentDocumentReducer(
-  new PouchDB(`${config.db}config`),
-  'config'
-)(configReducer);
+export default configReducer;

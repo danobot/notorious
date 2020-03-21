@@ -16,11 +16,12 @@ export function updateNote(id: string, attributes: string) {
   };
 }
 
-export function createNote(parent: string) {
+export function createNote(parent: string, attributes: object) {
   return dispatch => {
     dispatch({
       type: CREATE_NOTE,
-      parent
+      parent,
+      attributes
     });
   };
 }

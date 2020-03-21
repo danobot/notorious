@@ -8,7 +8,7 @@ import Moment from "react-moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Editor from '@monaco-editor/react';
 import { faClock } from "@fortawesome/free-regular-svg-icons";
-import { faHistory, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { faHistory, faTrashAlt, faFolderOpen } from "@fortawesome/free-solid-svg-icons";
 import { deleteNote } from '../../reducers/noteActions';
 import { Button } from 'antd';
 export default function EditorPane({contentArea, note,
@@ -40,16 +40,30 @@ export default function EditorPane({contentArea, note,
 
             <NoteMetaItem alt="Created"><NoteMetaIcon><FontAwesomeIcon icon={faClock} /></NoteMetaIcon><Moment format="MMM D, YYYY">{note.createAt}</Moment></NoteMetaItem>
             <NoteMetaItem alt="Updated"><NoteMetaIcon><FontAwesomeIcon icon={faHistory} /></NoteMetaIcon><Moment format="MMM D, YYYY">{note.updatedAt}</Moment></NoteMetaItem>
+            {note.children.length > 0 && <NoteMetaItem alt="subnoteCount"><FontAwesomeIcon icon={faFolderOpen} /> {note.children.length}</NoteMetaItem>}
             <NoteMetaItem alt="ID">{note._id}</NoteMetaItem>
             <NoteMetaItem alt="delete"><Button size="small" onClick={e => deleteNote(note._id)}><FontAwesomeIcon icon={faTrashAlt} /></Button></NoteMetaItem>
           </NoteMeta>
           <FieldForm label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => updateNote(note._id, {"title": e.target.value})} />
           <div>{note.tags}</div>
         </NoteHeader>
-        {note.type && note.type === "columns" && <p>column type</p>}
-        {note.type && note.type === "container" && <p>container type</p>}
+        {note.kind && note.kind === "columns" && <p>column type, need to get all notes that have this note as the parent and display their  contents below {note.children.length}</p>}
+        {note.kind && note.kind === "collection" && <p>collection type</p>}
         <EditorStyle>
-          { note.contents.map(editor =>
+          <SimpleMDE id={note._id } key={note._id}
+            value={note.content}
+            events={{
+              'blur': handleBlur,
+            }}
+            options={{
+              autosave: {
+                enabled: true,
+                uniqueId: note._id,
+                delay:1000
+              },
+            }} />
+
+          {/* { note.contents.map(editor =>
           // <Editor key={editor.id} height="90vh" language="javascript" />
 
           <SimpleMDE id={note._id + editor.id} key={editor.id}
@@ -66,7 +80,7 @@ export default function EditorPane({contentArea, note,
             }} />
 
             )
-          };
+          }; */}
           </EditorStyle>
       </> : <>No note selected</>}
     </>

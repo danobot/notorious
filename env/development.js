@@ -1,3 +1,3 @@
 module.exports = {
-  db: 'http://admin:admin123@localhost:5984/'
+  db: 'http://admin:admin@localhost:5984/'
 };

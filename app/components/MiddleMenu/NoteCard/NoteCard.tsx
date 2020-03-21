@@ -23,13 +23,13 @@ export default function NoteCard(props) {
     cmPinNoteHandler,
     cmCreateChildNoteHandler,
     cmShowInMenuHandler,
-    cmChangeTypeHandler,
+    cmChangeKindHandler,
     cmDeleteNoteHandler
   } = props.handlers;
   const { title, content, tags, _id, createdAt, updatedAt } = props.note;
   return (
     <>
-      <ContextMenuTrigger id="notecard-context">
+      <ContextMenuTrigger id={`${_id}cm`}>
         <NoteCardStyle
           key={`${_id}style`}
           onClick={e => props.handleClick(props.note)}
@@ -50,7 +50,7 @@ export default function NoteCard(props) {
         </NoteCardStyle>
       </ContextMenuTrigger>
 
-      <ContextMenu id="notecard-context" key={`${_id}cm`}>
+      <ContextMenu id={`${_id}cm`} key={`${_id}cm`}>
         <MenuItem data={{ note: props.note }} onClick={cmPinNoteHandler}>
           {props.note.pinned ? <span>Unpin</span> : <span>Pin to top</span>}
         </MenuItem>
@@ -67,16 +67,16 @@ export default function NoteCard(props) {
             <span>Show in menu</span>
           )}
         </MenuItem>
-        <SubMenu title="Change type to...">
+        <SubMenu title="Change kind to...">
           <MenuItem
-            data={{ note: props.note, type: 'collection' }}
-            onClick={cmChangeTypeHandler}
+            data={{ note: props.note, kind: 'collection' }}
+            onClick={cmChangeKindHandler}
           >
             Collection
           </MenuItem>
           <MenuItem
-            data={{ note: props.note, type: 'columns' }}
-            onClick={cmChangeTypeHandler}
+            data={{ note: props.note, kind: 'columns' }}
+            onClick={cmChangeKindHandler}
           >
             Column
           </MenuItem>

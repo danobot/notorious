@@ -22,19 +22,21 @@ export default function MiddleMenu({
   createNote,
   selectedNote,
   deleteNote,
- updateNote
+ updateNote,
+ savingNew
 }) {
   const notecardContextHandlers = {
     cmPinNoteHandler: (e, {note}) => updateNote(note._id, {pinned: !note.pinned}),
-    cmCreateChildNoteHandler: (e, {note}) => createNote(note._id),
+    cmCreateChildNoteHandler: (e, {note}) => createNote(note._id, {}),
     cmShowInMenuHandler: (e, {note}) => updateNote(note._id, {showInMenu: !note.showInMenu }),
-    cmChangeTypeHandler: (e, {note, type}) => updateNote(note._id, {type}),
+    cmChangeKindHandler: (e, {note, kind}) => updateNote(note._id, {kind}),
     cmDeleteNoteHandler: (e, {note}) => deleteNote(note._id),
   };
   return (
     <MiddleMenuStyle id="MiddleMenu" style={{ height: '100%' }}>
       <TopBar id="topbar">
-        <Button size="small" onClick={e => createNote(selection)}>
+        {/* <p>{JSON.stringify(savingNew, null, 2)}</p> */}
+        <Button size="small"  onClick={e => createNote(selection, {})}>
           <FontAwesomeIcon icon={faEdit} />
         </Button>
       </TopBar>
