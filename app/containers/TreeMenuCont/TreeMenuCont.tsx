@@ -28,8 +28,7 @@ class TreeMenuCont extends React.Component {
     const icon = this.state.open ? <FontAwesomeIcon onClick={e=> this.setState({open: false})} icon={faChevronDown} /> : <FontAwesomeIcon onClick={e=> this.setState({open: true})} icon={faChevronRight} />
     const MenuItemComponent = (selectedNotebook === _id) ? MenuItemSelected : MenuItemNormal
 console.log(subNotes)
-const s={paddingLeft: `$}px !important`}
-    return <div  >
+    return <div>
         {subNotes && subNotes.length ===0 && <MenuItemComponent onClick={e=>selectNotebook(note)} key={"menucokponent"+_id}>
           <MenuItem indent={this.props.level*6} label={note.title} icon={<FontAwesomeIcon icon={faFile} />}
            key={note._id} right={<MenuItemRightFloat>{note.children.length}</MenuItemRightFloat>}
@@ -37,7 +36,7 @@ const s={paddingLeft: `$}px !important`}
 
            </MenuItem>
           </MenuItemComponent>}
-        {subNotes && subNotes.length > 0 && <>       <MenuItemComponent key={"menucokponent"+_id}   onClick={e=>selectNotebook(note)}>  <MenuItem
+        {subNotes && subNotes.length > 0 && <>       <MenuItemComponent key={"menucokponent"+_id} onClick={e=>selectNotebook(note)}>  <MenuItem
         indent={this.props.level*6}
           key={"MenuItem"+_id}
           label={
@@ -47,13 +46,13 @@ const s={paddingLeft: `$}px !important`}
           }
           icon={icon}
           right={
-                <MenuItemRightFloat><FontAwesomeIcon  icon={faPlusCircle} /></MenuItemRightFloat>
+                <MenuItemRightFloat><FontAwesomeIcon icon={faPlusCircle} /></MenuItemRightFloat>
           }
           compKey={"parentnotebook"+_id}
         /> </MenuItemComponent>
 
 
-        { this.state.open && subNotes.map(n=> <TreeMenuContWrapped note={n} key={"treemendsu"+this.props.level + n._id} level={this.props.level+1}    selectNotebook={selectNotebook}
+        { this.state.open && subNotes.map(n=> <TreeMenuContWrapped note={n} key={"treemendsu"+this.props.level + n._id} level={this.props.level+1} selectNotebook={selectNotebook}
           selectedNotebook={selectedNotebook}/>) }
         </>
       }

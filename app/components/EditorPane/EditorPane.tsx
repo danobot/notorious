@@ -12,6 +12,7 @@ import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { faHistory, faTrashAlt, faFolderOpen } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from 'antd';
+import CollectionEditor from './CollectionEditor/CollectionEditor';
 export default function EditorPane({contentArea, note,
   subNotes,
   noteActions
@@ -52,7 +53,11 @@ export default function EditorPane({contentArea, note,
           <ColumnEditor subNotes={subNotes} noteActions={noteActions} />
         </EditorStyle>
         }
-        {note.kind && note.kind === "collection" && <p>collection type</p>}
+        {note.kind && note.kind === "collection" && <EditorStyle>
+          <CollectionEditor subNotes={subNotes} noteActions={noteActions} />
+        </EditorStyle>}
+
+
         {!note.kind && <EditorStyle>
           <SimpleMDE id={note._id } key={note._id}
             value={note.content}
