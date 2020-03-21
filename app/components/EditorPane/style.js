@@ -65,6 +65,16 @@ export const MainMenuStyleOld = styled.div`
 
 `
 export const MenuItem = styled.div`
-  height: 25px'
-cursor: hand;
+  height: 25px;
+  cursor: hand;
+`
+export const MyInput = styled.div`
+  .ant-input, .ant-input:focus {
+    border: none;
+    border-color: ${props => props.theme.colors.text.light};
+    outline: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+  }
 `

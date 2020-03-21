@@ -1,5 +1,6 @@
 import React, {useState, useRef} from 'react';
 import { NoteTitle,NoteHeader, EditorStyle, NoteMeta, NoteMetaIcon } from './style';
+import styled from 'styled-components';
 
 
 import SimpleMDE from "react-simplemde-editor";
@@ -14,6 +15,12 @@ import { faHistory, faTrashAlt, faFolderOpen, faFingerprint } from "@fortawesome
 import { Button } from 'antd';
 import CollectionEditor from './CollectionEditor/CollectionEditor';
 import { InlineItem, RightFloaty } from '../../style/utils.style';
+const NoteTitleInput = styled(FieldForm)`
+  font-size: 18pt;
+  font-weight: bold;
+  padding: 0;
+`
+
 export default function EditorPane({contentArea, note,
   subNotes,
   noteActions
@@ -50,7 +57,7 @@ export default function EditorPane({contentArea, note,
 
             </RightFloaty>
           </NoteMeta>
-          <FieldForm label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => noteActions.updateNote(note._id, {"title": e.target.value})} />
+          <NoteTitleInput label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => noteActions.updateNote(note._id, {"title": e.target.value})} />
           <div>{note.tags}</div>
         </NoteHeader>
         {note.kind && note.kind === "columns" && <EditorStyle>
