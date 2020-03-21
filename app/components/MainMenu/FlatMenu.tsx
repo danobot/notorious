@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuItemNormal,MenuItemSelected } from './style';
+import { MenuItemNormal,MenuItemSelected, MenuItemRightFloat } from './style';
 import MenuItem from './MenuItem'
 export default function FlatMenu({items, selectNotebook, selectedNotebook, icon}) {
   let style = {}
@@ -10,7 +10,7 @@ export default function FlatMenu({items, selectNotebook, selectedNotebook, icon}
 
 
         return <MenuItemComponent onClick={e=>selectNotebook(item)} key={item._id}>
-          <MenuItem label={item.title} icon={icon} key={item._id} ></MenuItem>
+          <MenuItem label={item.title} icon={icon} key={item._id} right={<MenuItemRightFloat>{item.children.length}</MenuItemRightFloat>} ></MenuItem>
           </MenuItemComponent>
       }
       )}

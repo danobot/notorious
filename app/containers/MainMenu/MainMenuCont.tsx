@@ -21,7 +21,7 @@ class MainMenuCont extends PureComponent {
 
 function mapStateToProps(state: MainMenuStateType) {
   return {
-    notebooks: notebookSelector(state),
+    notebooks: notebookSelector(state).filter( n => n.parent === "root"),
     selectedNotebook: state.mainMenu.nbSelection,
     ...state.mainMenu
 
