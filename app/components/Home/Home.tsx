@@ -90,9 +90,9 @@ console.log("isElectron()", isElectron())
       onDragEnd={e=>resizeMainMenuAction(sizeMain, state.sizeMain)}
       > */}
       <SplitPane split="vertical" style={{height: "100%"}}>
-        <Pane initialSize="15%" ><MainMenuCont /></Pane>
-        <Pane initialSize="20%" ><MiddleMenuCont /></Pane>
-        <Pane ><ContentAreaCont /></Pane>
+        <Pane initialSize="15%" maxWidth="25%" ><MainMenuCont /></Pane>
+        <Pane initialSize="20%" maxWidth="25%"><MiddleMenuCont /></Pane>
+        <Pane initialSize="65%"><ContentAreaCont /></Pane>
 
     {/* <SplitterLayout
       percentage={true}

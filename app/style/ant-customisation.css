@@ -6,3 +6,10 @@
   -webkit-box-shadow: none;
   box-shadow: none;
 }
+
+#root {
+  height: 100%;
+}
+html {
+  overflow: hidden;
+}
