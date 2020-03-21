@@ -1,8 +1,8 @@
 import { createSelector } from 'reselect'
 
 const allNotes = state => state && state.notes || []
-const configs = state => state && state.configs
-const state = state => state
+export const configs = state => state && state.configs
+export const state = state => state
 
 export const notebookSelector = createSelector(
   allNotes,
@@ -27,3 +27,14 @@ export const findChildren = createSelector(
   findSelectedNote,
   (all, note) => all.filter(n => note && note.children && note.children.indexOf(n._id) > -1)
 )
+export const findChildrenOfNote = (note) => {
+  console.log("findChildrenOfNote: ", note)
+  return createSelector(
+    allNotes,
+    (all) => {
+      console.log("all: ", all)
+    return all.filter(n => n.parent === note._id)
+
+  }
+    )
+}

@@ -1,14 +1,24 @@
 import React from 'react';
-import { MainMenuStyle, MenuHeading } from './style';
-import FlatMenu from './FlatMenu';
-import MenuItem from './MenuItem';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faPlusCircle,
+  faFile,
+  faTrash,
+  faBook
+} from '@fortawesome/free-solid-svg-icons';
 import {
   ContextMenu,
   MenuItem as ContexMenuItem,
   ContextMenuTrigger
 } from 'react-contextmenu';
+import { Button } from 'antd';
+import { MainMenuStyle, MenuHeading, MenuItemRightFloat } from './style';
+import FlatMenu from './FlatMenu';
+import MenuItem from './MenuItem';
 
 import ModalForm from '../util/ModalForm';
+import TreeMenu from './TreeMenu';
+import TreeMenuCont from '../../containers/TreeMenuCont/TreeMenuCont';
 
 export default function MainMenu({
   notebooks,
@@ -20,7 +30,6 @@ export default function MainMenu({
   createNotebook
 }) {
   const contextCreateNewNotebook = (e, data) => {
-    console.log(data.foo);
     showNotebookModal();
   };
   const contextAction = (e, data) => {
@@ -34,23 +43,48 @@ export default function MainMenu({
   return (
     <MainMenuStyle>
       {/* <p>{JSON.stringify(data, true, 2)}</p> */}
+
+      <MenuItem
+        label="All notes"
+        icon={<FontAwesomeIcon icon={faBook} />}
+        compKey="allNotesMenuItem"
+      />
+
+      <MenuItem
+        label="Trash"
+        icon={<FontAwesomeIcon icon={faTrash} />}
+        compKey="trashMenuItem"
+      />
+      {/* <TreeMenu items={data && data.results}/> */}
       <ContextMenuTrigger id="mainmenu_notebooks">
         <MenuItem
-          label={
-            <MenuHeading>
-              <span></span>Notebooks
-            </MenuHeading>
+          label={<MenuHeading>Notebooks</MenuHeading>}
+          skipIcon={true}
+          right={
+            <MenuItemRightFloat>
+              <FontAwesomeIcon
+                onClick={e => contextCreateNewNotebook(e, null)}
+                icon={faPlusCircle}
+              />
+            </MenuItemRightFloat>
           }
           compKey="Notebooks"
         />
       </ContextMenuTrigger>
-      <MenuItem label={'Test menu Item'} compKey="ye" />
-      {/* <TreeMenu items={data && data.results}/> */}
-      <FlatMenu
+
+      {notebooks.map(n => (
+        <TreeMenuCont
+          note={n}
+          key={`treemenu${n._id}`}
+          selectNotebook={selectNotebook}
+          selectedNotebook={selectedNotebook}
+        />
+      ))}
+      {/* <FlatMenu
         items={notebooks}
         selectNotebook={selectNotebook}
         selectedNotebook={selectedNotebook}
-      />
+      /> */}
       <ContextMenu id="mainmenu_notebooks">
         <ContexMenuItem
           data={{ foo: 'bar' }}
@@ -65,7 +99,7 @@ export default function MainMenu({
         title="Create Notebook"
         placeholder="Notebook title"
         formSubmitHandler={newNotebookSubmitAction}
-        initialValue={''}
+        initialValue=""
         handleCancel={e => hideNotebookModal()}
       />
     </MainMenuStyle>

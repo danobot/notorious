@@ -1,12 +1,25 @@
 import React from 'react';
-import { MenuItemStyle } from './style';
+import { MenuItemStyle, MenuItemIcon, MenuItemLabel } from './style';
 
-export default function MenuItem({onClickHandler=()=>{}, icon, label, compKey}) {
+export default function MenuItem({
+  onClickHandler = () => {},
+  icon,
+  label,
+  compKey,
+  right,
+  indent,
+   skipIcon=false
+}) {
   return (
-      <MenuItemStyle onClick={e=>onClickHandler()} key={compKey}>
-          <span>{icon}</span>
-          {label}
-          <span className="float-right">Test</span>
-          </MenuItemStyle>
+    <MenuItemStyle
+      onClick={e => onClickHandler()}
+      key={compKey}
+      indent={indent}
+    >
+      {!skipIcon && <MenuItemIcon>{icon}</MenuItemIcon>}
+      <MenuItemLabel>{label}</MenuItemLabel>
+      {right}
+    </MenuItemStyle>
   );
 }
+
