@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1-alpha.27](https://github.com/danobot/notorious/compare/v0.1.1-alpha.22...v0.1.1-alpha.27) (2020-03-21)
+
+
+### Features
+
+* Collection Editor (basic) ([a6c2159](https://github.com/danobot/notorious/commit/a6c2159aa5fd276bbe1914446b699fbe3fecbec6))
+* Tree menu ([882f45c](https://github.com/danobot/notorious/commit/882f45c079f64a407ad6b2e0aa379d094e9837c2))
+* Tree menu ([9f52f9b](https://github.com/danobot/notorious/commit/9f52f9bd3e4be099600102ab03a327c0c5b8fdc2))
+* various ([2075533](https://github.com/danobot/notorious/commit/2075533d8e03807114ffa7dd97775cad176ade71))
+* various ([94dead2](https://github.com/danobot/notorious/commit/94dead26f86f338631df2232dbe720de411dc050))
+* various ([4329606](https://github.com/danobot/notorious/commit/4329606230e190e1d9d0222ab581cf931a1fe167))
+
+
+### Bug Fixes
+
+* split style ([a743d65](https://github.com/danobot/notorious/commit/a743d65adce14b55c685fee9547d52bf4609fb97))
+
 ### [0.1.1-alpha.26](https://github.com/danobot/notorious/compare/v0.1.1-alpha.22...v0.1.1-alpha.26) (2020-03-21)
 
 
