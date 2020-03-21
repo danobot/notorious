@@ -23,7 +23,7 @@ export const TopBar = styled.div`
   position: absolute;
   // color: ${props => props.theme.colors.text.dark};
   height: 50px;
-  width: 100%;
+  /* width: 100%; */
   z-index: 2;
 `
 

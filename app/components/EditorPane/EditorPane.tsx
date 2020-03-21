@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import { NoteTitle,NoteHeader, EditorStyle, NoteMeta, NoteMetaIcon, NoteMetaItem } from './style';
+import { NoteTitle,NoteHeader, EditorStyle, NoteMeta, NoteMetaIcon } from './style';
 
 
 import SimpleMDE from "react-simplemde-editor";
@@ -9,10 +9,11 @@ import Moment from "react-moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Editor from '@monaco-editor/react';
 import { faClock } from "@fortawesome/free-regular-svg-icons";
-import { faHistory, faTrashAlt, faFolderOpen } from "@fortawesome/free-solid-svg-icons";
+import { faHistory, faTrashAlt, faFolderOpen, faFingerprint } from "@fortawesome/free-solid-svg-icons";
 
 import { Button } from 'antd';
 import CollectionEditor from './CollectionEditor/CollectionEditor';
+import { InlineItem, RightFloaty } from '../../style/utils.style';
 export default function EditorPane({contentArea, note,
   subNotes,
   noteActions
@@ -40,11 +41,14 @@ export default function EditorPane({contentArea, note,
         <NoteHeader>
           <NoteMeta>
 
-            <NoteMetaItem alt="Created"><NoteMetaIcon><FontAwesomeIcon icon={faClock} /></NoteMetaIcon><Moment format="MMM D, YYYY">{note.createAt}</Moment></NoteMetaItem>
-            <NoteMetaItem alt="Updated"><NoteMetaIcon><FontAwesomeIcon icon={faHistory} /></NoteMetaIcon><Moment format="MMM D, YYYY">{note.updatedAt}</Moment></NoteMetaItem>
-            {note.children.length > 0 && <NoteMetaItem alt="subnoteCount"><FontAwesomeIcon icon={faFolderOpen} /> {note.children.length}</NoteMetaItem>}
-            <NoteMetaItem alt="ID">{note._id}</NoteMetaItem>
-            <NoteMetaItem alt="delete"><Button size="small" onClick={e => noteActions.deleteNote(note._id)}><FontAwesomeIcon icon={faTrashAlt} /></Button></NoteMetaItem>
+            <InlineItem alt="Created"><FontAwesomeIcon icon={faClock} /><Moment format="MMM D, YYYY">{note.createAt}</Moment></InlineItem>
+            <InlineItem alt="Updated"><FontAwesomeIcon icon={faHistory} /><Moment format="MMM D, YYYY">{note.updatedAt}</Moment></InlineItem>
+            {note.children.length > 0 && <InlineItem alt="subnoteCount"><FontAwesomeIcon icon={faFolderOpen} />{note.children.length}</InlineItem>}
+            <InlineItem alt="ID"><FontAwesomeIcon icon={faFingerprint} />{note._id}</InlineItem>
+            <RightFloaty>
+              <InlineItem alt="delete"><Button size="small" onClick={e => noteActions.deleteNote(note._id)}><FontAwesomeIcon icon={faTrashAlt} /></Button></InlineItem>
+
+            </RightFloaty>
           </NoteMeta>
           <FieldForm label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => noteActions.updateNote(note._id, {"title": e.target.value})} />
           <div>{note.tags}</div>
@@ -58,7 +62,7 @@ export default function EditorPane({contentArea, note,
         </EditorStyle>}
 
 
-        {!note.kind && <EditorStyle>
+        {(!note.kind || note.kind === 'normal') && <EditorStyle>
           <SimpleMDE id={note._id } key={note._id}
             value={note.content}
             events={{
@@ -73,7 +77,6 @@ export default function EditorPane({contentArea, note,
             }} />
 
           {/* { note.contents.map(editor =>
-          // <Editor key={editor.id} height="90vh" language="javascript" />
 
           <SimpleMDE id={note._id + editor.id} key={editor.id}
             value={editor.markdown}

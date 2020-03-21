@@ -9,12 +9,13 @@ export const MainMenuStyle = styled.div`
   color: ${props => props.theme.colors.text.light} !important;
 
   height: 100%;
-// cursor: pointer;
+ /* cursor: pointer; */
 
 
 `
 export const NoteHeader = styled.div`
   margin: 10px 10px 10px 10px;
+  z-index: 10;
 `
 export const NoteTitle = styled.h1`
 
@@ -23,11 +24,7 @@ export const NoteMeta = styled.div`
   margin: 5px 0 5px 0;
   color: ${props => props.theme.colors.text.muted}
 `
-export const NoteMetaItem = styled.div`
-  display: inline;
-  margin-right: 10px;
-  font-size: smaller;
-`
+
 export const NoteMetaIcon = styled.span`
   margin-right: 5px;
 `
@@ -37,6 +34,7 @@ export const EditorStyle = styled.div`
     border-left: none;
     border-right: none;
     border-radius: 0;
+    z-index: 0;
   }
   .editor-toolbar {
     color: ${props => props.theme.colors.text.muted};

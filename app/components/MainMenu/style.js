@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Tree } from 'antd';
+import { RightFloaty } from '../../style/utils.style';
 const { TreeNode } = Tree;
 
 
@@ -17,14 +18,13 @@ export const MenuHeading = styled.div`
 `
 
 
-export const MenuItemRightFloat = styled.div`
-  float: right;
-  display: inline-block;
+
+
+export const MenuItemRightFloat = styled(RightFloaty)`
   color: ${props => props.theme.colors.text.muted};
   font-size: smaller;
   vertical-align: center;
   font-weight: bold;
-  padding: 3px 4px 0px 0px;
 
 `
 export const MenuItemNormal = styled.div`
