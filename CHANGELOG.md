@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1-alpha.35](https://github.com/danobot/notorious/compare/v0.1.1-alpha.30...v0.1.1-alpha.35) (2020-03-22)
+
+
+### Features
+
+* implement local pouchdb with remote replication target. closes [#58](https://github.com/danobot/notorious/issues/58) ([00bb7e4](https://github.com/danobot/notorious/commit/00bb7e4ca4ad2fdbfb3270d450a0836b5dab1a60))
+* offline sync ([ab6247b](https://github.com/danobot/notorious/commit/ab6247b6ba17a8c972be74945046250540b40143))
+* offline sync improvements ([5518ad2](https://github.com/danobot/notorious/commit/5518ad26d5c821dc5dd838019a52a8adc455a52e))
+
+
+### Bug Fixes
+
+* ci ([c555141](https://github.com/danobot/notorious/commit/c555141e27d3ace6a3d2ea66fc8d1a98dcb65d5a))
+* ci ([48ddac8](https://github.com/danobot/notorious/commit/48ddac87efa45d7addf31007131f8aed40254d3c))
+* ci ([732f51e](https://github.com/danobot/notorious/commit/732f51e3e96e92c5cce9575a8bf5d480e0e2d87b))
+* ci ([b544717](https://github.com/danobot/notorious/commit/b5447179ba76caa821862396b1138920c623edba))
+* disable spell check ([8527442](https://github.com/danobot/notorious/commit/8527442f34613a74bee2b37a7f5b7daa2299e22b))
+* style ([904065d](https://github.com/danobot/notorious/commit/904065d3925f6f9ffa3b54ccb54af96da77f549e))
+
 ### [0.1.1-alpha.34](https://github.com/danobot/notorious/compare/v0.1.1-alpha.30...v0.1.1-alpha.34) (2020-03-22)
 
 
