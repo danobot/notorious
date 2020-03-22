@@ -14,7 +14,7 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 
 import AppUpdater from "./AppUpdater";
-import { pouchInit } from '.';
+// import { pouchInit } from '.';
 
 
 let mainWindow: BrowserWindow | null = null;
@@ -52,8 +52,6 @@ const createWindow = async () => {
 
   mainWindow = new BrowserWindow({
     show: false,
-    width: 1024,
-    height: 728,
     webPreferences:
       process.env.NODE_ENV === 'development' || process.env.E2E_BUILD === 'true'
         ? {
@@ -72,7 +70,6 @@ const createWindow = async () => {
     if (!mainWindow) {
       throw new Error('"mainWindow" is not defined');
     }
-    mainWindow.maximize()
     if (process.env.START_MINIMIZED) {
       mainWindow.minimize();
     } else {
@@ -105,7 +102,7 @@ app.on('window-all-closed', () => {
   }
 
   console.log("Cancelling sync")
-  pouchInit.sync.cancel()
+  // pouchInit.sync.cancel()
 });
 
 app.on('ready', createWindow);

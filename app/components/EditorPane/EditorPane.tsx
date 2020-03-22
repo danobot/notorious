@@ -76,6 +76,7 @@ export default function EditorPane({contentArea, note,
               'blur': handleBlur,
             }}
             options={{
+              spellChecker: false,
               autosave: {
                 enabled: true,
                 uniqueId: note._id,

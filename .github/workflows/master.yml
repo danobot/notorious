@@ -26,9 +26,9 @@ name: Build
 # Only when we push to master, as this indicates a build
 on:
   push:
-    branches:
-      - master
-      - develop
+#     branches:
+#       - master
+#       - develop
 
 # We need two jobs: First a build-job, running on a matrix
 # to build all necessary releases, which also uploads all
@@ -118,9 +118,14 @@ jobs:
           yarn
       # Now we're set to finally release the beast!
       # WINDOWS ==============================================================
-      - name: Build Windows Installer
-        if: matrix.os == 'windows-latest' # Only if the job runs on Windows
+      - name: Build & Publish Windows Installer
+        if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master'
         run: yarn package-win
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build Windows Installer
+        if: matrix.os == 'windows-latest' && github.ref != 'refs/heads/master'
+        run: yarn package-win-build
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # - name: Cache Windows Exe release
@@ -146,9 +151,12 @@ jobs:
       # #     name: Notorious-${{ steps.pkg.outputs.version }}.dmg
       # #     path: ./release/Notorious-${{ steps.pkg.outputs.version }}.dmg
       # LINUX ================================================================
-      - name: Build Linux targets
-        if: matrix.os == 'ubuntu-latest'
+      - name: Build & Publish Linux installers
+        if: matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/master'
         run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} yarn package-linux
+      - name: Build Linux installers
+        if: matrix.os == 'ubuntu-latest' && github.ref != 'refs/heads/master'
+        run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} yarn package-linux-build
       # - name: Cache Linux Debian release
       #   if: matrix.os == 'ubuntu-latest'
       #   uses: actions/upload-artifact@v1

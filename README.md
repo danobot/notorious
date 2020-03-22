@@ -1,13 +1,16 @@
-
-
+![GitHub package.json version](https://img.shields.io/github/package-json/v/danobot/notorious?style=flat-square)
+[![GitHub download](https://img.shields.io/github/downloads/danobot/notorious/total.svg?style=flat-square&color=green)](https://github.com/danobot/notorious/releases/latest)
+[![License](https://img.shields.io/github/license/danobot/notorious.svg?style=flat-square)](https://github.com/danobot/notorious/blob/develop/COPYING)
+[![donate paypal](https://img.shields.io/badge/donate-PayPal-blue.svg?style=flat-square)](https://paypal.me/danielb160)
+[![donate gofundme](https://img.shields.io/badge/donate-GoFundMe-orange?style=flat-square)](https://gf.me/u/w62k93)
 # Introduction
 
 This project is in early development.
 
 |Stream|Status|
 |---|---|
-|Latest|![latest](https://github.com/danobot/notorious/workflows/Build/badge.svg?branch=develop)|
-|Master|![master](https://github.com/danobot/notorious/workflows/Build/badge.svg?branch=master)|
+|Latest|![latest](https://github.com/danobot/notorious/workflows/Build/badge.svg?style=flat-square&branch=develop)|
+|Master|![master](https://github.com/danobot/notorious/workflows/Build/badge.svg?style=flat-square&branch=master)|
 
 # Install
 
