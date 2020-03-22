@@ -23,12 +23,12 @@ services:
       labels:
         - "traefik.enable=true"
         - "traefik.docker.network=public"
-        - "traefik.http.routers.fastnote-backend.rule=Host(`couch.example.com`)"
-        - "traefik.http.routers.fastnote-backend.entrypoints=https"
-        - "traefik.http.routers.fastnote-backend.tls.certresolver=myhttpchallenge"
-        - "traefik.http.services.noteapp_couchdb.passHostHeader=true"
-    fastnote_web:
-      container_name: fastnote
+        - "traefik.http.routers.notorious-backend.rule=Host(`${COUCH_SUBDOMAIN}.${DOMAIN_NAME}`)"
+        - "traefik.http.routers.notorious-backend.entrypoints=https"
+        - "traefik.http.routers.notorious-backend.tls.certresolver=myhttpchallenge"
+        - "traefik.http.services.notorious-backend.loadbalancer.server.port=5984"
+    notorious_web:
+      container_name: notorious
       build:
         context: .
         dockerfile: Dockerfile.prod
@@ -40,9 +40,10 @@ services:
       labels:
         - "traefik.enable=true"
         - "traefik.docker.network=public"
-        - "traefik.http.routers.fastnote.rule=Host(`notorious.example.com`)"
-        - "traefik.http.routers.fastnote.entrypoints=https,http"
-        - "traefik.http.routers.fastnote.tls.certresolver=myhttpchallenge"
+        - "traefik.http.routers.notorious.rule=Host(`${NOTORIOUS_SUBDOMAIN}.${DOMAIN_NAME}`)"
+        - "traefik.http.routers.notorious.entrypoints=https"
+        - "traefik.http.routers.notorious.tls.certresolver=myhttpchallenge"
+        - "traefik.http.services.notorious-web.loadbalancer.server.port=9645"
 
 volumes:
   db_data:

@@ -105,7 +105,7 @@
         "rpm",
         "AppImage"
       ],
-      "category": "Development",
+      "category": "Productivity",
       "publish": [
         "github"
       ]
