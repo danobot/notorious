@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1-alpha.34](https://github.com/danobot/notorious/compare/v0.1.1-alpha.30...v0.1.1-alpha.34) (2020-03-22)
+
+
+### Features
+
+* implement local pouchdb with remote replication target. closes [#58](https://github.com/danobot/notorious/issues/58) ([00bb7e4](https://github.com/danobot/notorious/commit/00bb7e4ca4ad2fdbfb3270d450a0836b5dab1a60))
+* offline sync ([ab6247b](https://github.com/danobot/notorious/commit/ab6247b6ba17a8c972be74945046250540b40143))
+* offline sync improvements ([5518ad2](https://github.com/danobot/notorious/commit/5518ad26d5c821dc5dd838019a52a8adc455a52e))
+
+
+### Bug Fixes
+
+* style ([904065d](https://github.com/danobot/notorious/commit/904065d3925f6f9ffa3b54ccb54af96da77f549e))
+
 ### [0.1.1-alpha.33](https://github.com/danobot/notorious/compare/v0.1.1-alpha.30...v0.1.1-alpha.33) (2020-03-22)
 
 
