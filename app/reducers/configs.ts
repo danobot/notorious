@@ -1,5 +1,5 @@
-import { persistentDocumentReducer } from 'redux-pouchdb';
-import PouchDB from 'pouchdb'
+// import { persistentDocumentReducer } from 'redux-pouchdb';
+// import PouchDB from 'pouchdb'
 import config from '../utils/config';
 import {
   SET_CONFIG

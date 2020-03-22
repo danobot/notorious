@@ -14,10 +14,9 @@ if (!isElectron()) {
     console.error("App is not running in electron. DB_CONNECTION environment variable containing the full database connection string must be defined on docker container")
   }
 } else {
-  console.log("is electron")
 
   const c = store.get('db')
-  console.log("electron store : config: ", c)
+  console.log("Using backend: ", c)
   if (c) {
     config.db = c
 
