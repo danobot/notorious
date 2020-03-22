@@ -24,11 +24,11 @@ name: Build
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Only when we push to master, as this indicates a build
-on:
-  push:
-    branches:
-      - master
-      - develop
+# on:
+#   push:
+#     branches:
+#       - master
+#       - develop
 
 # We need two jobs: First a build-job, running on a matrix
 # to build all necessary releases, which also uploads all

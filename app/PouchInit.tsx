@@ -10,6 +10,7 @@ export const notesDB = new PouchDB('data/notes');
 const remoteNotesDb = new PouchDB(`${config.db}/notes`);
 
 export default class PouchInit {
+  sync;
   constructor() {
     log.transports.file.level = 'debug';
     PouchDB.logger = log;
