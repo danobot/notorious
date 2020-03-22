@@ -123,56 +123,56 @@ jobs:
         run: yarn package-win
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Cache Windows Exe release
-        if: matrix.os == 'windows-latest' # Only if the job runs on Windows
-        uses: actions/upload-artifact@v1
-        with:
-          name: Notorious-${{ steps.pkg.outputs.version }}.exe
-          path: ./release/Notorious Setup ${{ steps.pkg.outputs.version }}.exe
-      - name: Cache Windows MSI release
-        if: matrix.os == 'windows-latest' # Only if the job runs on Windows
-        uses: actions/upload-artifact@v1
-        with:
-          name: Notorious-${{ steps.pkg.outputs.version }}.msi
-          path: ./release/Notorious ${{ steps.pkg.outputs.version }}.msi
-      # MACOS ================================================================
-      # - name: Build macOS DMG file
-      #   if: matrix.os == 'macos-latest' # Only if the job runs on macOS
-      #   run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} APPLE_ID=${{ secrets.APPLE_ID }} APPLE_ID_PASS=${{ secrets.APPLE_ID_PASS }} CSC_LINK=${{ secrets.MACOS_CERT }}  CSC_KEY_PASSWORD=${{ secrets.MACOS_CERT_PASS }} npm run release:mac
-      # - name: Cache macOS release
-      #   if: matrix.os == 'macos-latest' # Only if the job runs on macOS
+      # - name: Cache Windows Exe release
+      #   if: matrix.os == 'windows-latest' # Only if the job runs on Windows
       #   uses: actions/upload-artifact@v1
       #   with:
-      #     name: Notorious-${{ steps.pkg.outputs.version }}.dmg
-      #     path: ./release/Notorious-${{ steps.pkg.outputs.version }}.dmg
+      #     name: Notorious-${{ steps.pkg.outputs.version }}.exe
+      #     path: ./release/Notorious Setup ${{ steps.pkg.outputs.version }}.exe
+      # - name: Cache Windows MSI release
+      #   if: matrix.os == 'windows-latest' # Only if the job runs on Windows
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: Notorious-${{ steps.pkg.outputs.version }}.msi
+      #     path: ./release/Notorious ${{ steps.pkg.outputs.version }}.msi
+      # # MACOS ================================================================
+      # # - name: Build macOS DMG file
+      # #   if: matrix.os == 'macos-latest' # Only if the job runs on macOS
+      # #   run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} APPLE_ID=${{ secrets.APPLE_ID }} APPLE_ID_PASS=${{ secrets.APPLE_ID_PASS }} CSC_LINK=${{ secrets.MACOS_CERT }}  CSC_KEY_PASSWORD=${{ secrets.MACOS_CERT_PASS }} npm run release:mac
+      # # - name: Cache macOS release
+      # #   if: matrix.os == 'macos-latest' # Only if the job runs on macOS
+      # #   uses: actions/upload-artifact@v1
+      # #   with:
+      # #     name: Notorious-${{ steps.pkg.outputs.version }}.dmg
+      # #     path: ./release/Notorious-${{ steps.pkg.outputs.version }}.dmg
       # LINUX ================================================================
       - name: Build Linux targets
         if: matrix.os == 'ubuntu-latest'
         run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} yarn package-linux
-      - name: Cache Linux Debian release
-        if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v1
-        with:
-          name: Notorious-${{ steps.pkg.outputs.version }}-amd64.deb
-          path: ./release/notorious_${{ steps.pkg.outputs.version }}_amd64.deb
-      - name: Cache Linux Fedora release
-        if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v1
-        with:
-          name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm
-          path: ./release/notorious-${{ steps.pkg.outputs.version }}.x86_64.rpm
-      - name: Cache Linux AppImage (x32) release
-        if: matrix.os == 'ubuntu-latest'
-        uses: actions/upload-artifact@v1
-        with:
-          name: Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
-          path: ./release/Notorious-${{ steps.pkg.outputs.version }}.AppImage
-      # - name: Cache Linux AppImage (x64) release
+      # - name: Cache Linux Debian release
       #   if: matrix.os == 'ubuntu-latest'
       #   uses: actions/upload-artifact@v1
       #   with:
-      #     name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage
-      #     path: ./release/Notorious-${{ steps.pkg.outputs.version }}.x86_64.AppImage
+      #     name: Notorious-${{ steps.pkg.outputs.version }}-amd64.deb
+      #     path: ./release/notorious_${{ steps.pkg.outputs.version }}_amd64.deb
+      # - name: Cache Linux Fedora release
+      #   if: matrix.os == 'ubuntu-latest'
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm
+      #     path: ./release/notorious-${{ steps.pkg.outputs.version }}.x86_64.rpm
+      # - name: Cache Linux AppImage (x32) release
+      #   if: matrix.os == 'ubuntu-latest'
+      #   uses: actions/upload-artifact@v1
+      #   with:
+      #     name: Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
+      #     path: ./release/Notorious-${{ steps.pkg.outputs.version }}.AppImage
+      # # - name: Cache Linux AppImage (x64) release
+      # #   if: matrix.os == 'ubuntu-latest'
+      # #   uses: actions/upload-artifact@v1
+      # #   with:
+      # #     name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage
+      # #     path: ./release/Notorious-${{ steps.pkg.outputs.version }}.x86_64.AppImage
 
 
   # As soon as the build matrix has completed correctly, this job will
