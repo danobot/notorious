@@ -65,7 +65,7 @@ console.log("isElectron()", isElectron())
         onOk={handleSubmit}
       >
         <p>Let's get you started with Notorious! Enter the full connection string to your CouchDB backend. Examples are shown below:</p>
-        <p><pre>https://username:password@couchdb.example.com</pre></p>
+        <p><pre>https://username:password@couchdb.example.com/</pre>(The trailing slash is important)</p>
         <p><pre>local_data/</pre></p>
           {errors && <p>{errors["all"]}</p> }
             <Form>

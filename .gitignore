@@ -49,9 +49,6 @@ npm-debug.log.*
 *.sass.d.ts
 *.scss.d.ts
 .cache/*
-nullconfig/*
-nullnotebooks/*
-nullnotes/*
-nullpersisted/*
+data/*
 .env
 docker-compose.yaml

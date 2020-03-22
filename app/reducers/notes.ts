@@ -5,6 +5,7 @@ import { v4 as uuid } from 'uuid';
 import {createReducer} from '../utils/utils'
 // import { createReducer } from '@reduxjs/toolkit'
 import { UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE, REMOVE_EDITOR, ADD_EDITOR, TOGGLE_MENU_SHOW_NOTE, TOGGLE_PIN_NOTE } from './noteActions';
+import { notesDB } from '../pouchdb';
 
 
 const initialState = []
@@ -105,6 +106,6 @@ const notesReducer = createReducer(initialState, {
 );
 
 export default persistentCollectionReducer(
-  new PouchDB(`${config.db}notes`),
+  notesDB,
   'notes'
 )(notesReducer);
