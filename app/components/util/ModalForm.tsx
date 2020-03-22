@@ -3,6 +3,7 @@ import FieldForm from '../EditorPane/FieldForm/FieldForm';
 import { Formik, Form } from 'formik';
 import { Modal, Input } from 'antd';
 import { MyInput } from '../EditorPane/style';
+import { NotoModal } from './utils.style';
 
 export default function ModalForm({formSubmitHandler, placeholder,visible, title, initialValue, handleCancel}) {
 
@@ -30,24 +31,35 @@ export default function ModalForm({formSubmitHandler, placeholder,visible, title
                handleSubmit,
                isSubmitting,
            }) => (
-              <Modal
-                title={title}
-                visible={visible}
-                onOk={handleSubmit}
-                onCancel={handleCancel}
-              >
-                <Form>
-                <MyInput>
-                  <Input
-                    autoFocus={true}
-                    name="value"
-                    value={values.value}
-                    onChange={handleChange}
-                    placeholder={placeholder}
-                    />
-                  </MyInput>
-                </Form>
-              </Modal>
+             <NotoModal>
+
+                <Modal
+                  title={title}
+                  visible={visible}
+                  onOk={handleSubmit}
+                  onCancel={handleCancel}
+                  width={350}
+                  headerStyle={{padding:'0'}}
+                  bodyStyle={
+                    {
+                      padding: "5px"
+                    }
+                  }
+                >
+                  <Form>
+                  <MyInput>
+                    <Input
+                      autoFocus={true}
+                      name="value"
+                      value={values.value}
+                      onChange={handleChange}
+                      placeholder={placeholder}
+                      />
+                    </MyInput>
+                  </Form>
+                </Modal>
+             </NotoModal>
+
     )}
     </Formik>
   );
