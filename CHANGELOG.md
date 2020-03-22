@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1-alpha.32](https://github.com/danobot/notorious/compare/v0.1.1-alpha.30...v0.1.1-alpha.32) (2020-03-22)
+
+
+### Bug Fixes
+
+* style ([904065d](https://github.com/danobot/notorious/commit/904065d3925f6f9ffa3b54ccb54af96da77f549e))
+
 ### [0.1.1-alpha.31](https://github.com/danobot/notorious/compare/v0.1.1-alpha.28...v0.1.1-alpha.31) (2020-03-22)
 
 ### [0.1.1-alpha.30](https://github.com/danobot/notorious/compare/v0.1.1-alpha.28...v0.1.1-alpha.30) (2020-03-22)
