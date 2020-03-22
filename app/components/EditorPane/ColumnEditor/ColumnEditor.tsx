@@ -45,11 +45,7 @@ export default function ColumnEditor({ subNotes, noteActions }) {
               'blur': handleBlur(editor),
             }}
             options={{
-              autosave: {
-                enabled: true,
-                uniqueId: unique,
-                delay:1000
-              },
+              spellChecker: false
             }} />
 
           })}

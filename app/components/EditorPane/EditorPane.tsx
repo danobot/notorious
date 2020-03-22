@@ -76,31 +76,11 @@ export default function EditorPane({contentArea, note,
               'blur': handleBlur,
             }}
             options={{
-              spellChecker: false,
-              autosave: {
-                enabled: true,
-                uniqueId: note._id,
-                delay:1000
-              },
+              spellChecker: false
+
             }} />
 
-          {/* { note.contents.map(editor =>
-
-          <SimpleMDE id={note._id + editor.id} key={editor.id}
-            value={editor.markdown}
-            events={{
-              'blur': handleBlur,
-            }}
-            options={{
-              autosave: {
-                enabled: true,
-                uniqueId: note._id + editor.id,
-                delay:1000
-              },
-            }} />
-
-            )
-          }; */}
+      
           </EditorStyle>
           }
       </> : <>No note selected</>}
