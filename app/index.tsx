@@ -8,7 +8,7 @@ import './app.global.css';
 
 import PouchInit from "./PouchInit";
 
-const pouchInit = new PouchInit();
+export const pouchInit = new PouchInit();
 
 // Configure Store
 const store = configureStore();

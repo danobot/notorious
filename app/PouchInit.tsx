@@ -22,10 +22,32 @@ export default class PouchInit {
       console.log('remoteNotesDb', info);
     });
 
-    notesDB.sync(remoteNotesDb, syncOpts).then(e => {
-      console.log(e);
-    });
-
+    this.sync = notesDB.sync(remoteNotesDb, syncOpts).on('change', function(info) {
+        console.log('remoteNotesDb sync:     handle change', info);
+      })
+      .on('paused', function(err) {
+        console.log(
+          'remoteNotesDb sync:     replication paused (e.g. replication up to date, user went offline)',
+          err
+        );
+      })
+      .on('remoteNotesDb active', function() {
+        console.log(
+          'replicate sync:     resumed (e.g. new changes replicating, user went back online)'
+        );
+      })
+      .on('remoteNotesDb denied', function(err) {
+        console.log(
+          ' sync:     a document failed to replicate (e.g. due to permissions)',
+          err
+        );
+      })
+      .on('remoteNotesDb sync:     complete', function(info) {
+        console.log('handle complete', info);
+      })
+      .on('remoteNotesDb sync:     error', function(err) {
+        console.log('handle error', err);
+      });
     remoteNotesDb
       .changes()
       .on('change', function(info) {
@@ -54,7 +76,9 @@ export default class PouchInit {
       .on('remoteNotesDb error', function(err) {
         console.log('handle error', err);
       });
-    notesDB
+
+
+      notesDB
       .changes()
       .on('change', function(info) {
         console.log('handle change', info);

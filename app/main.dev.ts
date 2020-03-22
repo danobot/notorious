@@ -14,6 +14,7 @@ import log from 'electron-log';
 import MenuBuilder from './menu';
 
 import AppUpdater from "./AppUpdater";
+import { pouchInit } from '.';
 
 
 let mainWindow: BrowserWindow | null = null;
@@ -102,6 +103,9 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
+
+  console.log("Cancelling sync")
+  pouchInit.sync.cancel()
 });
 
 app.on('ready', createWindow);
