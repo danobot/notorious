@@ -1,6 +1,6 @@
-import { persistentDocumentReducer } from 'redux-pouchdb';
-import PouchDB from 'pouchdb'
-import config from '../../utils/config';
+// import { persistentDocumentReducer } from 'redux-pouchdb';
+// import PouchDB from 'pouchdb'
+// import config from '../../utils/config';
 import {
   RESIZE_SIDEBAR,
   RESIZE_MAIN_MENU,

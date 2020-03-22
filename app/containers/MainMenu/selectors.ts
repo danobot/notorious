@@ -28,11 +28,11 @@ export const findChildren = createSelector(
   (all, note) => all.filter(n => note && note.children && note.children.indexOf(n._id) > -1)
 )
 export const findChildrenOfNote = (note) => {
-  console.log("findChildrenOfNote: ", note)
+  // console.log("findChildrenOfNote: ", note)
   return createSelector(
     allNotes,
     (all) => {
-      console.log("all: ", all)
+      // console.log("all: ", all)
     return all.filter(n => n.parent === note._id)
 
   }

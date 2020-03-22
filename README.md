@@ -19,11 +19,11 @@ Go to the Github releases section and download the installer for your platform. 
 
 You have two options:
 
-* Set up your own backend for usage across multiple devices, including synchronisation and replication (for backups).
-* Use Notorious without a backend and store all data locally (possible but not recommended).
+* **Set up your own backend** for usage across multiple devices, including synchronisation and replication (for backups).
+* **Local data directory only**: Use Notorious without a backend and store all data locally (not recommended, see [Backing Up Data Directory](#backing-Up-Data-Directory)).
 
 
-## Step 2: Setup the backend
+## Step 2: Get the Docker Compose Files
 
 
 Notorious backend is a CouchDB database. I have included `docker-compose.sample.yaml` and `.env.sample` file to get you started quickly. Download and rename these files into a local folder. (You can clone this repository and run the commands below).
@@ -32,25 +32,27 @@ Notorious backend is a CouchDB database. I have included `docker-compose.sample.
 mv .env.sample .env
 mv docker-compose.sample.yaml docker-compose.yaml
 ```
+## Step 3: Edit the defaults
+Edit the contents of `.env`, providing long and secure passwords and changing the domain names and customise the docker labels to suit your Traefik setup. The backend server needs to be externally accessible (if you want to access Notorious from outside your home network.)
 
-Edit the contents of `.env`, providing long and secure passwords and changing the domain names.
 |Envrionment Variable|Description|
 |---|---|
 |`COUCHDB_USER`|Used by CouchDB server during setup.|
 |`COUCHDB_PASSWORD`| Used by CouchDB server during setup.|
 |`DB_CONNECTION`| Used by the web deployment (to access Notorious via a browser).|
 
-The docker-compos stack contains 3 containers:
-names.
-|Container|Description|
-|---|---|
-|`fauxton`|A CouchDB admin interface|
-|`couchdb`|CouchDB server|
-|`notorious_web`|Optional web server for accessing Notorious via a web browser. (Optional). You can comment out this section to disable it.|
+## Step 4: Start the docker compose stack
+ You can start the stack using `docker-compose up -d`. There are 3 containers:
+ 
+|Container|Description|Required|
+|---|---|---|
+|`couchdb`|CouchDB server|Required|
+|`fauxton`|A CouchDB admin interface|Required for Database initialisation (see below)|
+|`notorious_web`|Optional web server for accessing Notorious via a web browser. You can comment out this section to disable it.|Optional, but kinda cool|
 
-Once you have changed the values in `.env` and customised the docker labels to suit your Traefik setup, you can start the Docker stack using `docker-compose up -d`.
+## Step 5: Initialise the database
 
-Before you can start using Notorious you **must** initialise the CouchDB server by opening this link in your browser:
+**Before you can start using Notorious you must initialise the CouchDB server by opening this link in your browser:**
 
 ```
 http://admin:admin@hostname:5984/_utils#setup
@@ -58,12 +60,16 @@ http://admin:admin@hostname:5984/_utils#setup
 
 You are now ready to start using Notorious.
 
-Please consider supporting development (See Contributions heading).
+Please consider supporting development (See [Contributions](#contributions)).
 
 [Support my projects on GoFundMe](https://gf.me/u/w62k93)
 
 [Support my projects via PayPal](https://paypal.me/danielb160)
 
+## Backing Up Data Directory 
+This is applicable only if you don't have a backend server. Backing up or restoring the data directory when data is being synced to a remote server is untested and may have nasty consequences.
+
+Data is stored in `C:\Users\<username>\AppData\Roaming\Notorious\data`, backing up this directory will help avoid data loss. Make sure to close Notorious before any backup and restore operation to avoid data corruption.
 
 # Getting started with Development
 After cloning the repository and running `yarn` to fetch dependencies, you can start the app for development using `yarn dev`. This starts the renderer process in [**hot-module-replacement**](https://webpack.js.org/guides/hmr-react/) mode and starts a webpack dev server that sends hot updates to the renderer process:

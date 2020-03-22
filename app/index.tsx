@@ -5,6 +5,11 @@ import Root from './containers/Root';
 import { configureStore, history } from './store/configureStore';
 import './app.global.css';
 
+
+import PouchInit from "./PouchInit";
+
+const pouchInit = new PouchInit();
+
 // Configure Store
 const store = configureStore();
 

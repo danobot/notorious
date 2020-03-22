@@ -10,6 +10,6 @@ export default class AppUpdater {
     setInterval(() => {
       autoUpdater.checkForUpdatesAndNotify();
   }, 1000 * 60 * 15);
-    console.log("autoUpdater",autoUpdater)
+    // console.log("autoUpdater",autoUpdater)
   }
 }
