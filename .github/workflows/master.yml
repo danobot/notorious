@@ -1,29 +1,5 @@
 name: Build
 
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-# RATIONALE BEHIND THIS HUGE WORKFLOW
-#
-# GitHub Actions runs everything in a sandboxed VM, and we need to build
-# each asset on its "home" operating system, both because macOS code
-# signing, e.g., doesn't work on other platforms. Additionally, this way
-# we don't need WINE and, if necessary at some point, can build any
-# native dependencies.
-#
-# This workflow tries to use as few hacks and monkey patches as possible
-# to perform the same workflow as the ./scripts/make.sh-file. Therefore
-# we ONLY build the corresponding release on the build-VMs, and then
-# upload the resulting artifact to the Workflow.
-#
-# After all artifacts from the three VMs have been successfully uploaded
-# to the workflow run, we then download all of them on a fourth VM, where
-# we generate the checksums, verify the integrity and finally create a
-# new release draft where we upload everything in one step.
-#
-# Benefits: Native environments without the need to upload useless
-# stuff to foreign places (data scarcity, DRY).
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
-# Only when we push to master, as this indicates a build
 on:
   push:
 #     branches:
@@ -73,10 +49,6 @@ jobs:
   build:
     needs: [release_management]
 
-    # The build job needs to be built on Win, Linux, and macOS
-    # Win32 --> build NSIS
-    # macOS --> build DMG
-    # Linux --> build DEB, RPM, and AppImage
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
@@ -85,18 +57,13 @@ jobs:
     runs-on: ${{ matrix.os }}
 
     steps:
-      # Clone the repository
       - uses: actions/checkout@v2
-      # Setup node
       - name: Setup NodeJS 12.x
         uses: actions/setup-node@v1
         with:
           node-version: '10.15.0'
 
-      # Save the current package.json's version value
-      # as the output from this step so that we can
-      # reference it later on.
-      - name: Emit pkgver
+      - name: Get version numbers from package.json
         id: pkg
         run: |
           appver=$(node -p -e "require('./app/package.json').version")
@@ -111,12 +78,9 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: New-Item -Path "./source/common/assets" -Name "handlebars" -ItemType "directory" # Hello, PowerShell ._.
 
-      # Perform all necessary pre-build steps (LESS, handlebars, and so forth)
       - name: Set up build environment and compile the assets
         run: |
-          # npm install
           yarn
-      # Now we're set to finally release the beast!
       # WINDOWS ==============================================================
       - name: Build & Publish Windows Installer
         if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master'
@@ -128,18 +92,6 @@ jobs:
         run: yarn package-win-build
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      # - name: Cache Windows Exe release
-      #   if: matrix.os == 'windows-latest' # Only if the job runs on Windows
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: Notorious-${{ steps.pkg.outputs.version }}.exe
-      #     path: ./release/Notorious Setup ${{ steps.pkg.outputs.version }}.exe
-      # - name: Cache Windows MSI release
-      #   if: matrix.os == 'windows-latest' # Only if the job runs on Windows
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: Notorious-${{ steps.pkg.outputs.version }}.msi
-      #     path: ./release/Notorious ${{ steps.pkg.outputs.version }}.msi
       # # MACOS ================================================================
       # # - name: Build macOS DMG file
       # #   if: matrix.os == 'macos-latest' # Only if the job runs on macOS
@@ -150,6 +102,7 @@ jobs:
       # #   with:
       # #     name: Notorious-${{ steps.pkg.outputs.version }}.dmg
       # #     path: ./release/Notorious-${{ steps.pkg.outputs.version }}.dmg
+
       # LINUX ================================================================
       - name: Build & Publish Linux installers
         if: matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/master'
@@ -157,31 +110,6 @@ jobs:
       - name: Build Linux installers
         if: matrix.os == 'ubuntu-latest' && github.ref != 'refs/heads/master'
         run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} yarn package-linux-build
-      # - name: Cache Linux Debian release
-      #   if: matrix.os == 'ubuntu-latest'
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: Notorious-${{ steps.pkg.outputs.version }}-amd64.deb
-      #     path: ./release/notorious_${{ steps.pkg.outputs.version }}_amd64.deb
-      # - name: Cache Linux Fedora release
-      #   if: matrix.os == 'ubuntu-latest'
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.rpm
-      #     path: ./release/notorious-${{ steps.pkg.outputs.version }}.x86_64.rpm
-      # - name: Cache Linux AppImage (x32) release
-      #   if: matrix.os == 'ubuntu-latest'
-      #   uses: actions/upload-artifact@v1
-      #   with:
-      #     name: Notorious-${{ steps.pkg.outputs.version }}-i386.AppImage
-      #     path: ./release/Notorious-${{ steps.pkg.outputs.version }}.AppImage
-      # # - name: Cache Linux AppImage (x64) release
-      # #   if: matrix.os == 'ubuntu-latest'
-      # #   uses: actions/upload-artifact@v1
-      # #   with:
-      # #     name: Notorious-${{ steps.pkg.outputs.version }}-x86_64.AppImage
-      # #     path: ./release/Notorious-${{ steps.pkg.outputs.version }}.x86_64.AppImage
-
 
   # As soon as the build matrix has completed correctly, this job will
   # commence, creating a new draft release, downloading all assets from
