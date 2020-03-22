@@ -24,8 +24,8 @@ name: Build
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # Only when we push to master, as this indicates a build
-# on:
-#   push:
+on:
+  push:
 #     branches:
 #       - master
 #       - develop
