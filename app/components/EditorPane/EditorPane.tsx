@@ -51,7 +51,7 @@ export default function EditorPane({contentArea, note,
             <InlineItem alt="Created"><FontAwesomeIcon icon={faClock} /><Moment format="MMM D, YYYY">{note.createAt}</Moment></InlineItem>
             <InlineItem alt="Updated"><FontAwesomeIcon icon={faHistory} /><Moment format="MMM D, YYYY">{note.updatedAt}</Moment></InlineItem>
             {note.children.length > 0 && <InlineItem alt="subnoteCount"><FontAwesomeIcon icon={faFolderOpen} />{note.children.length}</InlineItem>}
-            <InlineItem alt="ID"><FontAwesomeIcon icon={faFingerprint} />{note._id}</InlineItem>
+            <InlineItem alt="ID"><FontAwesomeIcon icon={faFingerprint} />{note._id.split("-")[0]}</InlineItem>
             <RightFloaty>
               <InlineItem alt="delete"><Button size="small" onClick={e => noteActions.deleteNote(note._id)}><FontAwesomeIcon icon={faTrashAlt} /></Button></InlineItem>
 

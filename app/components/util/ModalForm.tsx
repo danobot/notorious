@@ -2,6 +2,7 @@ import React from 'react';
 import FieldForm from '../EditorPane/FieldForm/FieldForm';
 import { Formik, Form } from 'formik';
 import { Modal, Input } from 'antd';
+import { MyInput } from '../EditorPane/style';
 
 export default function ModalForm({formSubmitHandler, placeholder,visible, title, initialValue, handleCancel}) {
 
@@ -36,15 +37,17 @@ export default function ModalForm({formSubmitHandler, placeholder,visible, title
                 onCancel={handleCancel}
               >
                 <Form>
+                <MyInput>
                   <Input
                     autoFocus={true}
                     name="value"
                     value={values.value}
                     onChange={handleChange}
                     placeholder={placeholder}
-                  />
+                    />
+                  </MyInput>
                 </Form>
-                </Modal>
+              </Modal>
     )}
     </Formik>
   );
