@@ -1,5 +1,4 @@
 import { GetState, Dispatch } from '../../reducers/types';
-const Store = require('electron-store');
 import {store} from '../../utils/config'
 export const RESIZE_SIDEBAR = 'RESIZE_SIDEBAR';
 export const RESIZE_MAIN_MENU = 'RESIZE_MAIN_MENU';
