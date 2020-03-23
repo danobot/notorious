@@ -30,16 +30,10 @@ COPY --from=build /app/web/dist /usr/share/nginx/html
 RUN rm /etc/nginx/conf.d/default.conf
 COPY web/nginx.conf /etc/nginx/conf.d/default.conf
 COPY web/gzip.conf /etc/nginx/conf.d/gzip.conf
-# RUN echo "http://admin:admin@localhost:5984" > /usr/share/nginx/html/env-config.js
 EXPOSE 80
 COPY web/env.sh .
 RUN touch .env
-# Add bash
-
-# Make our shell script executable
 RUN chmod +x env.sh
-RUN which sh
 
 # Start Nginx server
 CMD ["/bin/sh", "-c", "/usr/share/nginx/html/env.sh && nginx -g \"daemon off;\""]
-# CMD ["nginx", "-g", "daemon off;"]
