@@ -65,12 +65,12 @@ export default function EditorPane({contentArea, note,
         </EditorStyle>
         }
         {note.kind && note.kind === "collection" && <EditorStyle>
-          <CollectionEditor subNotes={subNotes} noteActions={noteActions} />
+          <CollectionEditor key={`collectioneditor-${note._id}`} subNotes={subNotes} noteActions={noteActions} />
         </EditorStyle>}
 
 
         {(!note.kind || note.kind === 'normal') && <EditorStyle>
-          <SimpleMDE id={note._id } key={note._id}
+          <SimpleMDE id={note._id } key={note._id+note._rev}
             value={note.content}
             events={{
               'blur': handleBlur,
@@ -80,7 +80,7 @@ export default function EditorPane({contentArea, note,
 
             }} />
 
-      
+
           </EditorStyle>
           }
       </> : <>No note selected</>}

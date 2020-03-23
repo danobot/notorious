@@ -241,9 +241,12 @@ const productionConfig = merge.smart(baseConfig, {
       hash: true,
       template: './web/index.web.html',
       filename: 'index.html' // relative to root of the application
-    })
+    }),
+    new webpack.NormalModuleReplacementPlugin(
+      /app\/reducers\/config\/configs\.electron.ts/,
+      './configs.web.ts'
+    )
   ],
-
   // Uncomment this only for testing the production build in a local dev server using `yarn start-dev-prod`
   // ,devServer: {
   //   port: 8081,

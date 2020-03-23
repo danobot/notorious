@@ -2,19 +2,6 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.1.1-alpha.37](https://github.com/danobot/notorious/compare/v0.1.1-alpha.35...v0.1.1-alpha.37) (2020-03-23)
-
-
-### Features
-
-* web docker env ([c46fc4e](https://github.com/danobot/notorious/commit/c46fc4e31b8804a2c4dde244166323a35368dc85))
-
-
-### Bug Fixes
-
-* configs reducer ([2d61611](https://github.com/danobot/notorious/commit/2d6161100137c97a2b0f640ef7cb01cf75190621))
-* dockerfile ([3dcfafe](https://github.com/danobot/notorious/commit/3dcfafe7a716e59a959dad3eca942d907e4597b0))
-
 ### [0.1.1-alpha.36](https://github.com/danobot/notorious/compare/v0.1.1-alpha.34...v0.1.1-alpha.36) (2020-03-22)
 
 
