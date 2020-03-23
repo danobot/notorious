@@ -30,7 +30,24 @@ const productionConfig = merge.smart(baseConfig, {
     filename: 'web.prod.js',
     libraryTarget: 'var'
   },
-
+  node: {
+    fs: 'empty',
+    'graceful-fs': 'empty',
+    'write-file-atomic': 'empty',
+    'fs-extra': 'empty',
+    'fs-realpath': 'empty',
+    'electron-updater': 'empty',
+    'electron-log': 'empty',
+    'electron-devtools-installer': 'empty',
+    glob: 'empty',
+    child_process: 'empty',
+    module: 'empty',
+    electron: 'empty',
+    net: 'empty',
+    dns: 'empty',
+    tls: 'empty',
+    jsonfile: 'empty'
+  },
   module: {
     rules: [
       // Extract all .global.css to style.css as is
