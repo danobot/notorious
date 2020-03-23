@@ -42,6 +42,7 @@ export default function EditorPane({contentArea, note,
       noteActions.updateNote(note._id, { content: value.getValue() })
     }
   };
+  const noteref = note && note._id+note._rev
   return (
     <>
       { note ? <>
@@ -61,16 +62,16 @@ export default function EditorPane({contentArea, note,
           <div>{note.tags}</div>
         </NoteHeader>
         {note.kind && note.kind === "columns" && <EditorStyle>
-          <ColumnEditor subNotes={subNotes} noteActions={noteActions} />
+          <ColumnEditor key={`column-editor-${noteref}`} note={note} subNotes={subNotes} noteActions={noteActions} />
         </EditorStyle>
         }
         {note.kind && note.kind === "collection" && <EditorStyle>
-          <CollectionEditor key={`collectioneditor-${note._id}`} subNotes={subNotes} noteActions={noteActions} />
+          <CollectionEditor key={`collectioneditor-${noteref}`} note={note} subNotes={subNotes} noteActions={noteActions} />
         </EditorStyle>}
 
 
         {(!note.kind || note.kind === 'normal') && <EditorStyle>
-          <SimpleMDE id={note._id } key={note._id+note._rev}
+          <SimpleMDE id={noteref } key={noteref}
             value={note.content}
             events={{
               'blur': handleBlur,

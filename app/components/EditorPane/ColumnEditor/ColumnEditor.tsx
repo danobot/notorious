@@ -11,7 +11,7 @@ import { faHistory, faTrashAlt, faFolderOpen } from "@fortawesome/free-solid-svg
 import { Button } from 'antd';
 
 import SplitPane from 'react-split-pane';
-export default function ColumnEditor({ subNotes, noteActions }) {
+export default function ColumnEditor({ subNotes, noteActions, note }) {
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [state, setState] = useState({});
   const valueGetter = useRef();
@@ -31,14 +31,13 @@ export default function ColumnEditor({ subNotes, noteActions }) {
       noteActions.updateNote(note._id, { content: value.getValue() });
     }
   };
+  const noteref = note._id+note._rev
+
   return (
     <>
-    <SplitPane split="vertical" >
-
+    <SplitPane split="vertical" key={noteref}>
       {subNotes.map(editor => {
-        const unique = "column-editor" + editor._id
-
-        // <Editor key={editor.id} height="90vh" language="javascript" />
+        const unique = "column-editor-" + editor._id + editor._ref
         return <SimpleMDE id={unique} key={unique}
             value={editor.content}
             events={{
