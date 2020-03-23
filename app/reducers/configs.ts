@@ -7,8 +7,8 @@ import {
 import { loadState, saveState } from '../utils/localStorage';
 import { configDB } from '../PouchInit';
 
-// const initialState = loadState() || {}
-const initialState =  {"_id": "_local/config"}
+const initialState = loadState() || {}
+// const initialState =  {"_id": "_local/config"}
 
 function configReducer(state = initialState, action: Action<string>) {
   switch (action.type) {
@@ -24,7 +24,8 @@ function configReducer(state = initialState, action: Action<string>) {
 
 }
 
-export default persistentDocumentReducer(
-  configDB,
-  'configs'
-)(configReducer);
+// export default persistentDocumentReducer(
+//   configDB,
+//   'configs'
+// )(configReducer);
+export default configReducer;
