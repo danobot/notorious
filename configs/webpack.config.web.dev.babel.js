@@ -193,7 +193,6 @@ const devConfig = merge.smart(baseConfig, {
     }),
 
     new webpack.NoEmitOnErrorsPlugin(),
-
     /**
      * Create global constants which can be configured at compile time.
      *
@@ -218,7 +217,11 @@ const devConfig = merge.smart(baseConfig, {
       hash: true,
       template: './web/index.web.html',
       filename: 'index.html' // relative to root of the application
-    })
+    }),
+    new webpack.NormalModuleReplacementPlugin(
+      /app\/reducers\/config\/configs\.electron.ts/,
+      './config.web.js'
+    )
   ],
 
   node: {

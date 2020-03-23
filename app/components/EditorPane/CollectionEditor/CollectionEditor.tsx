@@ -14,7 +14,7 @@ export default function CollectionEditor({ subNotes, noteActions }) {
 
   return (
     <>
-      {subNotes.map(editor => <p>{editor.title}</p>)}
+      {subNotes.map(editor => <p key={editor._id}>{editor.title}</p>)}
 
     </>
   );

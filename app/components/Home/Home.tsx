@@ -46,8 +46,8 @@ console.log("isElectron()", isElectron())
           return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
-        // setConfig('db', values.connectionString)
-        saveStoreConfig('db', values.connectionString)
+        setConfig('db', values.connectionString)
+        // saveStoreConfig('db', values.connectionString)
         location.reload()
       }}
   >

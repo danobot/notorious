@@ -9,10 +9,16 @@ COPY /yarn.lock /app/yarn.lock
 COPY /app/yarn.lock /app/app/yarn.lock
 COPY babel.config.js /app/babel.config.js
 COPY /internals/scripts /app/internals/scripts
-COPY /configs /app/configs
 COPY /app/index.tsx /app/app/index.tsx
 # RUN rm -rf node_modules && yarn cache clean
+COPY /configs/webpack.config.base.js /app/configs/webpack.config.base.js
+COPY /configs/webpack.config.eslint.js /app/configs/webpack.config.eslint.js
+COPY /configs/webpack.config.renderer.dev.babel.js /app/configs/webpack.config.renderer.dev.babel.js
+COPY /configs/webpack.config.renderer.dev.dll.babel.js /app/configs/webpack.config.renderer.dev.dll.babel.js
+COPY /configs/webpack.config.renderer.prod.babel.js /app/configs/webpack.config.renderer.prod.babel.js
+COPY /configs/webpack.config.main.prod.babel.js /app/configs/webpack.config.main.prod.babel.js
 RUN yarn --non-interactive --network-concurrency 10
+COPY /configs /app/configs
 COPY . /app
 RUN yarn --non-interactive build-web
 
@@ -27,8 +33,7 @@ COPY web/gzip.conf /etc/nginx/conf.d/gzip.conf
 # RUN echo "http://admin:admin@localhost:5984" > /usr/share/nginx/html/env-config.js
 EXPOSE 80
 COPY web/env.sh .
-# COPY .env .
-RUN ls -la
+RUN touch .env
 # Add bash
 
 # Make our shell script executable
