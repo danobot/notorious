@@ -1,6 +1,7 @@
 import React from 'react';
 import Home from '../../components/Home/Home';
 import * as actions from './actions';
+import * as configActions from '../../reducers/configActions';
 
 import { connect, ReactReduxContext } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -22,7 +23,7 @@ function mapStateToProps(state: MiddleMenuStateType) {
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
-  return bindActionCreators(actions, dispatch)
+  return bindActionCreators(Object.assign(actions,configActions), dispatch)
 
 }
 

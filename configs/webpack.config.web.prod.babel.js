@@ -30,6 +30,7 @@ const productionConfig = merge.smart(baseConfig, {
     filename: 'web.prod.js',
     libraryTarget: 'var'
   },
+
   node: {
     fs: 'empty',
     'graceful-fs': 'empty',
@@ -223,7 +224,9 @@ const productionConfig = merge.smart(baseConfig, {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production'
     }),
-
+    // new webpack.DefinePlugin({
+    //   'process.env.DB_CONNECTION': JSON.stringify(process.env.DB_CONNECTION)
+    // }),
     new MiniCssExtractPlugin({
       filename: 'style.css'
     }),
@@ -239,7 +242,8 @@ const productionConfig = merge.smart(baseConfig, {
       template: './web/index.template.html',
       filename: 'index.html' // relative to root of the application
     })
-  ]
+  ],
+
   // Uncomment this only for testing the production build in a local dev server using `yarn start-dev-prod`
   // ,devServer: {
   //   port: 8081,

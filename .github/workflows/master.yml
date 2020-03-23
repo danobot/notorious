@@ -288,4 +288,3 @@ jobs:
   #         asset_path: ./SHA256SUMS.txt
   #         asset_name: SHA256SUMS.txt
   #         asset_content_type: text/plain
-

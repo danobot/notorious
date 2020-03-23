@@ -6,8 +6,10 @@ const log = require('electron-log');
 const syncOpts = { live: true, retry: true };
 // PouchDB.debug.enable('*');
 export const notesDB = new PouchDB('data/notes');
-
+//  const configDB = new PouchDB('data/config');
 const remoteNotesDb = new PouchDB(`${config.db}/notes`);
+
+// const remoteConfigDb = new PouchDB(`${config.db}/Config`);
 
 export default class PouchInit {
   sync;
@@ -22,7 +24,9 @@ export default class PouchInit {
     remoteNotesDb.info().then(function(info) {
       console.log('remoteNotesDb', info);
     });
-
+    // configDB.sync(remoteConfigDb, syncOpts).on('change', function(info) {
+    //   console.log('remoteConfigDb sync:     handle change', info);
+    // })
     this.sync = notesDB.sync(remoteNotesDb, syncOpts).on('change', function(info) {
         console.log('remoteNotesDb sync:     handle change', info);
       })
