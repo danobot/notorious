@@ -53,3 +53,6 @@ data/*
 .env
 docker-compose.yaml
 nullnotes/*
+# Temporary env files
+/public/env-config.js
+env-config.js

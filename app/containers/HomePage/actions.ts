@@ -1,5 +1,4 @@
 import { GetState, Dispatch } from '../../reducers/types';
-const Store = require('electron-store');
 import {store} from '../../utils/config'
 export const RESIZE_SIDEBAR = 'RESIZE_SIDEBAR';
 export const RESIZE_MAIN_MENU = 'RESIZE_MAIN_MENU';
@@ -66,7 +65,11 @@ export function setMainMenuVisibility(visible: boolean) {
 export function saveStoreConfig(key: string, vb: any) {
   return (dispatch: Dispatch, getState: GetState) => {
     console.log("savings", key, vb, store)
-      store.set(key, vb)
+    dispatch({
+      type: SET_CONFIG,
+      id: key,
+      attributes: vb
+    })
 
   };
 }

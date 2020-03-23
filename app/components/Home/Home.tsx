@@ -24,7 +24,7 @@ const mapStateToProps = (state) => {
   };
 }
 export default function Home(props) {
-  const {resizeSidebarAction, resizeMainMenuAction, resizeMiddleMenuAction, settings, sizeMain, sizeSidebar, sizeMiddle, config, saveStoreConfig} = props
+  const {resizeSidebarAction, resizeMainMenuAction, resizeMiddleMenuAction, settings, saveStoreConfig, sizeMain, sizeSidebar, sizeMiddle, config, setConfig} = props
 // console.log("Home", props )
 const [state, setstate] = useState({sizeMain: 0, sizeMiddle: 0})
 const handleSizeChange = size => {
@@ -46,6 +46,7 @@ console.log("isElectron()", isElectron())
           return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
+        // setConfig('db', values.connectionString)
         saveStoreConfig('db', values.connectionString)
         location.reload()
       }}
@@ -65,8 +66,8 @@ console.log("isElectron()", isElectron())
         onOk={handleSubmit}
       >
         <p>Let's get you started with Notorious! Enter the full connection string to your CouchDB backend. Examples are shown below:</p>
-        <p><pre>https://username:password@couchdb.example.com</pre> (no trailing slash)</p>
-        <p><pre>local_data/</pre></p>
+        <p>https://username:password@couchdb.example.com (no trailing slash)</p>
+        <p>local_data/</p>
           {errors && <p>{errors["all"]}</p> }
             <Form>
               <Input className="ant-input"

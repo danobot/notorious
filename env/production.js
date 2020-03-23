@@ -1,3 +1,3 @@
 module.exports = {
-  db: process.env.DB_CONNECTION
+  db: "http://admin:admin@localhost:5984"
 };

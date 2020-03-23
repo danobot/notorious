@@ -31,6 +31,24 @@ const productionConfig = merge.smart(baseConfig, {
     libraryTarget: 'var'
   },
 
+  node: {
+    fs: 'empty',
+    'graceful-fs': 'empty',
+    'write-file-atomic': 'empty',
+    'fs-extra': 'empty',
+    'fs-realpath': 'empty',
+    'electron-updater': 'empty',
+    'electron-log': 'empty',
+    'electron-devtools-installer': 'empty',
+    glob: 'empty',
+    child_process: 'empty',
+    module: 'empty',
+    electron: 'empty',
+    net: 'empty',
+    dns: 'empty',
+    tls: 'empty',
+    jsonfile: 'empty'
+  },
   module: {
     rules: [
       // Extract all .global.css to style.css as is
@@ -206,7 +224,9 @@ const productionConfig = merge.smart(baseConfig, {
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'production'
     }),
-
+    // new webpack.DefinePlugin({
+    //   'process.env.DB_CONNECTION': JSON.stringify(process.env.DB_CONNECTION)
+    // }),
     new MiniCssExtractPlugin({
       filename: 'style.css'
     }),
@@ -219,10 +239,11 @@ const productionConfig = merge.smart(baseConfig, {
 
     new HtmlWebpackPlugin({
       hash: true,
-      template: './web/index.template.html',
+      template: './web/index.web.html',
       filename: 'index.html' // relative to root of the application
     })
-  ]
+  ],
+
   // Uncomment this only for testing the production build in a local dev server using `yarn start-dev-prod`
   // ,devServer: {
   //   port: 8081,

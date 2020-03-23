@@ -41,6 +41,7 @@ const devConfig = merge.smart(baseConfig, {
   node: {
     fs: 'empty',
     'graceful-fs': 'empty',
+    'write-file-atomic': 'empty',
     'fs-extra': 'empty',
     'fs-realpath': 'empty',
     'electron-updater': 'empty',
@@ -215,7 +216,7 @@ const devConfig = merge.smart(baseConfig, {
 
     new HtmlWebpackPlugin({
       hash: true,
-      template: './web/index.template.html',
+      template: './web/index.web.html',
       filename: 'index.html' // relative to root of the application
     })
   ],
