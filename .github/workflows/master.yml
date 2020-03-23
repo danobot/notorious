@@ -81,15 +81,16 @@ jobs:
         run: New-Item -Path "./source/common/assets" -Name "handlebars" -ItemType "directory" # Hello, PowerShell ._.
 
       - name: Set up build environment and compile the assets
+        if: matrix.os != 'ubuntu-18.04'
         run: |
           yarn
       # WINDOWS ==============================================================
-      - name: Build & Publish Windows Installer
+      - name: "[Windows Build] Build & Publish Windows Installer"
         if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master'
         run: yarn package-win
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build Windows Installer
+      - name: "[Windows Build] Build Windows Installer"
         if: matrix.os == 'windows-latest' && github.ref != 'refs/heads/master'
         run: yarn package-win-build
         env:
@@ -117,7 +118,7 @@ jobs:
       # LINUX DOCKER ================================================================
       - name: "[Docker Build] Login to DockerHub Registry"
         if: matrix.os == 'ubuntu-18.04'
-        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
       - name: "[Docker Build] Build the tagged Docker image"
         if: matrix.os == 'ubuntu-18.04' && github.ref == 'refs/heads/master'
         run: docker build . --file Dockerfile.prod --tag danobot/notorious:${{ steps.pkg.outputs.version }}
