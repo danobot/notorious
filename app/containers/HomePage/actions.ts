@@ -65,12 +65,11 @@ export function setMainMenuVisibility(visible: boolean) {
 export function saveStoreConfig(key: string, vb: any) {
   return (dispatch: Dispatch, getState: GetState) => {
     console.log("savings", key, vb, store)
-    // dispatch({
-    //   type: SET_CONFIG,
-    //   id: key,
-    //   attributes: vb
-    // })
-      store.set(key, vb)
+    dispatch({
+      type: SET_CONFIG,
+      id: key,
+      attributes: vb
+    })
 
   };
 }

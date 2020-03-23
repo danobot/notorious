@@ -15,6 +15,8 @@ function configReducer(state = initialState, action: Action<string>) {
     case SET_CONFIG:
       const newState = {...state, [action.id]: action.attributes}
       // saveState(newState)
+      store.set(key, vb)
+
       return newState
     // case '@@redux-pouchdb/SET_OBJECT_REDUCER':
     //   return action.state

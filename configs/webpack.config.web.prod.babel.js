@@ -239,7 +239,7 @@ const productionConfig = merge.smart(baseConfig, {
 
     new HtmlWebpackPlugin({
       hash: true,
-      template: './web/index.template.html',
+      template: './web/index.web.html',
       filename: 'index.html' // relative to root of the application
     })
   ],

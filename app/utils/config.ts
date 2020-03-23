@@ -1,9 +1,6 @@
 
 import isElectron from 'is-electron';
 import PouchDB from 'pouchdb';
-const Store = require('electron-store');
-
-const store = new Store('config');
 
 const config = require('config');
 
@@ -12,8 +9,8 @@ const config = require('config');
 
 
 if (!isElectron()) {
-  console.log("Web deployment. Using backend URL: ", config)
-  console.log("Web deployment. window._env_: ", window._env_)
+  console.log("Web deployment. Webpack compiled config: ", config)
+  console.log("Web deployment. .env file config: ", window._env_)
 
   if (window._env_.DB_CONNECTION) {
     config.db = window._env_.DB_CONNECTION
@@ -21,6 +18,10 @@ if (!isElectron()) {
     console.error("App is not running in electron. DB_CONNECTION environment variable containing the full database connection string must be defined on docker container")
   }
 } else {
+  const Store = require('electron-store');
+
+  const store = new Store('config');
+
   const c = store.get('db')
   // const configDB = new PouchDB('data/config');
   // const con = configDB.get("_local/config")
@@ -33,4 +34,3 @@ if (!isElectron()) {
   }
 }
 export default config
-export {store}
