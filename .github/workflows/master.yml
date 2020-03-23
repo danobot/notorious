@@ -51,7 +51,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest, ubuntu-18.04]
 
     # Define the operating system
     runs-on: ${{ matrix.os }}
@@ -60,6 +60,8 @@ jobs:
       - uses: actions/checkout@v2
       - name: Setup NodeJS 12.x
         uses: actions/setup-node@v1
+        if: matrix.os != 'ubuntu-18.04'
+
         with:
           node-version: '10.15.0'
 
@@ -79,15 +81,16 @@ jobs:
         run: New-Item -Path "./source/common/assets" -Name "handlebars" -ItemType "directory" # Hello, PowerShell ._.
 
       - name: Set up build environment and compile the assets
+        if: matrix.os != 'ubuntu-18.04'
         run: |
           yarn
       # WINDOWS ==============================================================
-      - name: Build & Publish Windows Installer
+      - name: "[Windows Build] Build & Publish Windows Installer"
         if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master'
         run: yarn package-win
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build Windows Installer
+      - name: "[Windows Build] Build Windows Installer"
         if: matrix.os == 'windows-latest' && github.ref != 'refs/heads/master'
         run: yarn package-win-build
         env:
@@ -104,13 +107,30 @@ jobs:
       # #     path: ./release/Notorious-${{ steps.pkg.outputs.version }}.dmg
 
       # LINUX ================================================================
-      - name: Build & Publish Linux installers
+      - name: "[Linux Build] Build & Publish Linux installers"
         if: matrix.os == 'ubuntu-latest' && github.ref == 'refs/heads/master'
         run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} yarn package-linux
-      - name: Build Linux installers
+      - name: "[Linux Build] Build Linux installers"
         if: matrix.os == 'ubuntu-latest' && github.ref != 'refs/heads/master'
         run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} yarn package-linux-build
 
+
+      # LINUX DOCKER ================================================================
+      - name: "[Docker Build] Login to DockerHub Registry"
+        if: matrix.os == 'ubuntu-18.04'
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+      - name: "[Docker Build] Build the tagged Docker image"
+        if: matrix.os == 'ubuntu-18.04' && github.ref == 'refs/heads/master'
+        run: docker build . --file Dockerfile.prod --tag danobot/notorious:${{ steps.pkg.outputs.version }}
+      - name: "[Docker Build] Push the tagged Docker image"
+        if: matrix.os == 'ubuntu-18.04' && github.ref == 'refs/heads/master'
+        run: docker push danobot/notorious:${{ steps.pkg.outputs.version }}
+      - name: "[Docker Build] Build the latest Docker image"
+        if: matrix.os == 'ubuntu-18.04' && github.ref != 'refs/heads/master'
+        run: docker build . --file Dockerfile.prod --tag danobot/notorious:latest
+      - name: "[Docker Build] Push the latest Docker image"
+        if: matrix.os == 'ubuntu-18.04' && github.ref == 'refs/heads/develop'
+        run: docker push danobot/notorious:latest
   # As soon as the build matrix has completed correctly, this job will
   # commence, creating a new draft release, downloading all assets from
   # the previous job, verifying the checksum integrity, and uploading that
