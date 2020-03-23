@@ -33,8 +33,7 @@ COPY web/gzip.conf /etc/nginx/conf.d/gzip.conf
 # RUN echo "http://admin:admin@localhost:5984" > /usr/share/nginx/html/env-config.js
 EXPOSE 80
 COPY web/env.sh .
-COPY .env .
-RUN ls -la
+RUN touch .env
 # Add bash
 
 # Make our shell script executable
