@@ -5,7 +5,7 @@ import CreatableSelect from 'react-select/creatable';
 // import { colourOptions } from '../data';
 
 const MultiSelect = (props) => {
-  const { label, value, onUpdate , placeholder, className, tags} = props
+  const { label, value, onUpdate , placeholder, className, values} = props
   const style = {
     control: (provided, state) =>({...provided,
     border: 'none'
@@ -19,9 +19,13 @@ const MultiSelect = (props) => {
         console.log(newValue);
         console.log(`action: ${actionMeta.action}`);
         console.groupEnd();
+    if (newValue) {
 
-        const tags = newValue.map(t => t.value)
-        onUpdate(tags)
+      const tags = newValue.map(t => t.value)
+      onUpdate(tags)
+    } else {
+      onUpdate([])
+    }
 
 }
 
@@ -29,11 +33,15 @@ const MultiSelect = (props) => {
       <CreatableSelect
       style={style}
         name={label}
+        key={label}
         placeholder="Add tags..."
         isMulti
         isClearable={false}
+        value={values ? values.map(t=>({label: t,value:t})) : []}
+        // value={[{label: "gfsd",value:"hi"}]}
+
         onChange={submitHander}
-        options={tags} // [{label: "git", value: "git"}]
+        options={[]} // [{label: "git", value: "git"}]
       />
   )
 }
