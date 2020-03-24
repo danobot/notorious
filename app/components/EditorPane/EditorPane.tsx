@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 import SimpleMDE from "react-simplemde-editor";
 import FieldForm from './FieldForm/FieldForm';
+import MultiSelect from './FieldForm/MultiSelect';
 import ColumnEditor from './ColumnEditor/ColumnEditor';
 import Moment from "react-moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -59,6 +60,7 @@ export default function EditorPane({contentArea, note,
             </RightFloaty>
           </NoteMeta>
           <NoteTitleInput label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => noteActions.updateNote(note._id, {"title": e.target.value})} />
+          <MultiSelect label="tags" values={note.tags} onUpdate={tags => noteActions.updateNote(note._id, {"tags": tags})} />
           <div>{note.tags}</div>
         </NoteHeader>
         {note.kind && note.kind === "columns" && <EditorStyle>
