@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1-alpha.39](https://github.com/danobot/notorious/compare/v0.1.1-alpha.37...v0.1.1-alpha.39) (2020-03-24)
+
+
+### Features
+
+* tagging ([e3bca4d](https://github.com/danobot/notorious/commit/e3bca4d598d65bfac3d2f88f54b65d7bc4b8e0c9))
+* tagging ([8cd2af9](https://github.com/danobot/notorious/commit/8cd2af90b3cb8792ec160ec264f01a5e39521c90))
+
 ### [0.1.1-alpha.38](https://github.com/danobot/notorious/compare/v0.1.1-alpha.35...v0.1.1-alpha.38) (2020-03-23)
 
 
