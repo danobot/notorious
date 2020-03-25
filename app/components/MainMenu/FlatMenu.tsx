@@ -9,7 +9,7 @@ export default function FlatMenu({items, selectNotebook, selectedNotebook, icon}
         const MenuItemComponent = (selectedNotebook === item._id) ? MenuItemSelected : MenuItemNormal
 
 
-        return <MenuItemComponent onClick={e=>selectNotebook(item)} key={item._id}>
+        return <MenuItemComponent onClick={e=>selectNotebook(item._id)} key={item._id}>
           <MenuItem label={item.title} icon={icon} key={item._id} right={<MenuItemRightFloat>{item.children.length}</MenuItemRightFloat>} ></MenuItem>
           </MenuItemComponent>
       }

@@ -10,6 +10,7 @@ import { MenuHeading, MenuItemRightFloat, MenuItemSelected, MenuItemNormal, Menu
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronRight, faChevronDown, faPlusCircle, faFile } from '@fortawesome/free-solid-svg-icons';
+import { DotLine } from '../../components/util/utils.style';
 
 
 
@@ -21,27 +22,24 @@ class TreeMenuCont extends React.Component {
 
 
   render() {
-    console.log("this.props", this.props)
-    console.log("this.state", this.state)
     const {selectedNotebook, selectNotebook, note, subNotes} = this.props
     const {_id, title} = note
     const icon = this.state.open ? <FontAwesomeIcon onClick={e=> this.setState({open: false})} icon={faChevronDown} /> : <FontAwesomeIcon onClick={e=> this.setState({open: true})} icon={faChevronRight} />
     const MenuItemComponent = (selectedNotebook === _id) ? MenuItemSelected : MenuItemNormal
-console.log(subNotes)
     return <div>
-        {subNotes && subNotes.length ===0 && <MenuItemComponent onClick={e=>selectNotebook(note)} key={"menucokponent"+_id}>
-          <MenuItem indent={this.props.level*6} label={note.title} icon={<FontAwesomeIcon icon={faFile} />}
+        {subNotes && subNotes.length ===0 && <MenuItemComponent onClick={e=>selectNotebook(note._id)} key={"menucokponent"+_id}>
+          <MenuItem indent={this.props.level*6} label={<DotLine>{note.title}</DotLine>} icon={<FontAwesomeIcon icon={faFile} />}
            key={note._id} right={<MenuItemRightFloat>{note.children.length}</MenuItemRightFloat>}
            >
 
            </MenuItem>
           </MenuItemComponent>}
-        {subNotes && subNotes.length > 0 && <>       <MenuItemComponent key={"menucokponent"+_id} onClick={e=>selectNotebook(note)}>  <MenuItem
+        {subNotes && subNotes.length > 0 && <>       <MenuItemComponent key={"menucokponent"+_id} onClick={e=>selectNotebook(note._id)}>  <MenuItem
         indent={this.props.level*6}
           key={"MenuItem"+_id}
           label={
             <MenuHeading>
-              {note.title }
+              <DotLine>{note.title }</DotLine>
             </MenuHeading>
           }
           icon={icon}
@@ -65,7 +63,7 @@ function mapStateToProps(state, props) {
     allNotes: state.notes,
     subNotes: findChildrenOfNote(props.note)(state).filter(n => n.showInMenu),
     level: props.level || 0,
-    selectedNotebook: state.mainMenu.nbSelection,
+    selectedNotebook: state.mainMenu.filter,
   };
 }
 

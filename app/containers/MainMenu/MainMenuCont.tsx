@@ -14,7 +14,7 @@ class MainMenuCont extends PureComponent {
 
   }
   render() {
-    return <MainMenu key={this.props.selection} {...this.props}/>;
+    return <MainMenu {...this.props}/>;
 
   }
 }
@@ -22,7 +22,8 @@ class MainMenuCont extends PureComponent {
 function mapStateToProps(state: MainMenuStateType) {
   return {
     notebooks: notebookSelector(state).filter( n => n.parent === "root"),
-    selectedNotebook: state.mainMenu.nbSelection,
+    selectedNotebook: state.configs.selectedNotebook,
+    showNotebookModalToggle: state.modals.showNotebookModalToggle,
     ...state.mainMenu
 
   };

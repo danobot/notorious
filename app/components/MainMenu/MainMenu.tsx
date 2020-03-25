@@ -48,12 +48,15 @@ export default function MainMenu({
         label="All notes"
         icon={<FontAwesomeIcon icon={faBook} />}
         compKey="allNotesMenuItem"
+        onClickHandler={e=> selectNotebook("ALL")}
       />
 
       <MenuItem
         label="Trash"
         icon={<FontAwesomeIcon icon={faTrash} />}
         compKey="trashMenuItem"
+        onClickHandler={e=> selectNotebook("TRASH")}
+
       />
       {/* <TreeMenu items={data && data.results}/> */}
       <ContextMenuTrigger id="mainmenu_notebooks">

@@ -1,7 +1,6 @@
 import { persistentCollectionReducer } from 'redux-pouchdb';
 import PouchDB from 'pouchdb'
 import config from '../utils/config';
-import { v4 as uuid } from 'uuid';
 import {createReducer} from '../utils/utils'
 // import { createReducer } from '@reduxjs/toolkit'
 import { UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE, REMOVE_EDITOR, ADD_EDITOR, TOGGLE_MENU_SHOW_NOTE, TOGGLE_PIN_NOTE } from './noteActions';
@@ -11,7 +10,8 @@ import { notesDB } from '../PouchInit';
 const initialState = []
 const notesReducer = createReducer(initialState, {
     [CREATE_NOTE]: (state, action) => {
-      const noteId = uuid()
+      const noteId = action.id
+
       const newState = state.map((note, id) => {
         if (note._id !== action.parent) { return note }
         return {...note, children: [...note.children, noteId]} // add new child to parents `children` array (for easy read operation)
@@ -43,9 +43,6 @@ const notesReducer = createReducer(initialState, {
           return {...note, children: splicedChildren} // remove child entry
         })
       }
-
-      console.log("newState: ",newState)
-
 
       return newState // and add new note to array
     },
@@ -80,27 +77,7 @@ const notesReducer = createReducer(initialState, {
           ]
         }
       })
-    },
-    // "@@redux-pouchdb/UPDATE_ARRAY_REDUCER": (state, action) =>{
-
-    //   if (action.doc.isNew) { //if its a new notesReducer, we want to update it in the state
-    //     console.log("Its a new note", state)
-    //     return state.map((item, index) => {
-    //       if (item._id !== action.doc._id) { return item }
-
-    //       const { isNew, ...newState } = {
-    //         ...item,
-    //         ...action.item
-    //       };
-
-    //       console.log("state without new", newState)
-    //       // Otherwise, this is the one we want - return an updated value
-    //       return newState
-    //     });
-    //   } else {
-    //     return state
-    //   }
-    // },
+    }
 
   }
 );

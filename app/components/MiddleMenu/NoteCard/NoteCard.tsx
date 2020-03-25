@@ -33,7 +33,7 @@ export default function NoteCard(props) {
       <ContextMenuTrigger id={`${_id}cm`}>
         <NoteCardStyle
           key={`${_id}style`}
-          onClick={e => props.handleClick(props.note)}
+          onClick={e => props.handleClick(props.note._id)}
           {...props}
         >
           <div className="noteListTitle">{title || 'Untitled Note'}</div>

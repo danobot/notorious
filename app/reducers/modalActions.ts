@@ -1,23 +1,11 @@
 import { GetState, Dispatch } from '../../reducers/types';
 import { setConfig } from '../../reducers/configActions';
 
-export const SELECT_NOTEBOOK = 'SELECT_NOTEBOOK';
-export const SELECT_NOTES_FILTER = 'SELECT_NOTES_FILTER';
 export const SHOW_NOTEBOOK_MODAL = 'SHOW_NOTEBOOK_MODAL';
 export const HIDE_NOTEBOOK_MODAL = 'HIDE_NOTEBOOK_MODAL';
 
 
-export function selectNotebook(nb: String) {
-  return (dispatch: Dispatch, state) => {
-    dispatch(setConfig("selectedNotebook", nb))
-    dispatch(
-      {
-        type: SELECT_NOTEBOOK,
-        filter: nb
-      }
-    );
-  };
-}
+
 
 export function showNotebookModal() {
   return (dispatch: Dispatch, state) => {

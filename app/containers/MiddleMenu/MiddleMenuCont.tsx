@@ -20,11 +20,20 @@ class MiddleMenuCont extends React.PureComponent {
     return <MiddleMenu {...this.props}/>;
   }
 }
-
 function mapStateToProps(state) {
+  const noteSetSelector = (filter, notes) => {
+    switch(filter) {
+      case "ALL":
+        return notes
+      case "TRASH":
+        return notes.filter(i => i.trashed)
+      default:
+        return notes.filter(i => (i.parent === filter))
+      }
+    }
   return {
-    selection: state.mainMenu.nbSelection,
-    visibleNotes: state.notes.filter(i => (state.mainMenu.nbSelection && i.parent === state.mainMenu.nbSelection)),
+    selection: state.mainMenu.filter,
+    visibleNotes: noteSetSelector(state.mainMenu.filter, state.notes),
     selectedNote: state.contentArea.selectedNote,
     savingNew: savingNew()
   };
