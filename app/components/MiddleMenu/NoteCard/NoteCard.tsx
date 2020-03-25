@@ -38,7 +38,7 @@ export default function NoteCard(props) {
         >
           <div className="noteListTitle">{title || 'Untitled Note'}</div>
           <div className="noteCardMeta">
-            {children.length > 0 && <InlineItem><FontAwesomeIcon icon={faFolderOpen} />{children.length}</InlineItem>}
+            {children && children.length > 0 && <InlineItem><FontAwesomeIcon icon={faFolderOpen} />{children.length}</InlineItem>}
             {kind === 'collection' && <InlineItem><FontAwesomeIcon icon={faInbox} /></InlineItem>}
             <InlineItem><Moment fromNow>{createdAt}</Moment></InlineItem>
             <RightFloaty>
