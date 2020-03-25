@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1-alpha.41](https://github.com/danobot/notorious/compare/v0.1.1-alpha.39...v0.1.1-alpha.41) (2020-03-25)
+
+
+### Features
+
+* All notes menu item, select new note/notebook on creation ([ddb1093](https://github.com/danobot/notorious/commit/ddb1093e22bbc7454843661d7b86d26ff5e688b0))
+* All notes menu item, select new note/notebook on creation ([b699628](https://github.com/danobot/notorious/commit/b699628a8a83ac4637594e89084cade619a56302)), closes [#45](https://github.com/danobot/notorious/issues/45) [#51](https://github.com/danobot/notorious/issues/51) [#32](https://github.com/danobot/notorious/issues/32)
+
 ### [0.1.1-alpha.40](https://github.com/danobot/notorious/compare/v0.1.1-alpha.37...v0.1.1-alpha.40) (2020-03-24)
 
 
