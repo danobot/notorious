@@ -1,4 +1,6 @@
 import { GetState, Dispatch } from '../../reducers/types';
+import { v4 as uuid } from 'uuid';
+import { selectNoteAction } from '../containers/ContentAreaCont/actions';
 
 export const UPDATE_NOTE = 'UPDATE_NOTE';
 export const CREATE_NOTE = 'CREATE_NOTE';
@@ -17,9 +19,25 @@ export function updateNote(id: string, attributes: string) {
 }
 
 export function createNote(parent: string, attributes: object) {
+  const noteId = uuid()
   return dispatch => {
+    dispatch(selectNoteAction(noteId))
     dispatch({
       type: CREATE_NOTE,
+      id: noteId,
+      parent,
+      attributes
+    });
+  };
+}
+
+export function createNoteWithId(id: string, parent: string, attributes: object) {
+
+  return dispatch => {
+    // dispatch(selectNoteAction(id))
+    dispatch({
+      type: CREATE_NOTE,
+      id,
       parent,
       attributes
     });

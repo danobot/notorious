@@ -20,26 +20,34 @@ export const MenuHeading = styled.div`
 
 
 
-export const MenuItemRightFloat = styled(RightFloaty)`
+export const MenuItemNormal = styled.div`
+`
+export const MenuItemRowItem = styled.div`
+display: table-cell;
+margin: 0 3px 0 0;
+`
+export const MenuItemRightFloat = styled(MenuItemRowItem)`
   color: ${props => props.theme.colors.text.muted};
   font-size: smaller;
   vertical-align: center;
   font-weight: bold;
 
 `
-export const MenuItemNormal = styled.div`
-`
-export const MenuItemRowItem = styled.div`
-  display: inline-block;
-  margin: 0 3px 0 0;
-`
 export const MenuItemIcon = styled(MenuItemRowItem)`
   width: 15px;
 color: ${props => props.theme.colors.text.muted};
 font-size: smaller;
+padding: 0 5px 0 0 ;
 
 `
 export const MenuItemLabel = styled(MenuItemRowItem)`
+width: 100%;
+td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+  max-width: 0;
+}
 
 `
 
@@ -49,6 +57,7 @@ export const MenuItemStyle = styled.div`
   padding: 5px 10px 5px ${props => 7+props.indent || 7}px;
   color: ${props => props.theme.colors.text.muted} !important;
   cursor: default;
+  white-space: nowrap;
 `
 export const MenuItemSelected = styled(MenuItemNormal)`
   background-color: ${props => props.theme.colors.menu.selected}

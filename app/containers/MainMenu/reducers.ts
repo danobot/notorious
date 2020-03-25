@@ -1,24 +1,17 @@
 import { createReducer } from '../../utils/utils'
-import { SELECT_NOTEBOOK, SHOW_NOTEBOOK_MODAL, HIDE_NOTEBOOK_MODAL } from './actions';
+import { SELECT_NOTEBOOK, SELECT_NOTES_FILTER, HIDE_NOTEBOOK_MODAL } from './actions';
 import { configStorage } from '../../utils/localStorage';
+import { CREATE_NOTEBOOK } from '../../reducers/notebookActions';
 
 
 const initialState = {
   visibleNotes: [],
-  nbSelection: configStorage['selectedNotebook'],
-  showNotebookModalToggle: false
+  filter: configStorage['selectedNotebook']
 }
 
 const mainMenuReducer = createReducer(initialState, {
   [SELECT_NOTEBOOK]: (state, action) => {
-    return {...state, nbSelection: action.id}
-
-  },
-  [SHOW_NOTEBOOK_MODAL]: (state, action) => {
-    return {...state, showNotebookModalToggle: true}
-  },
-  [HIDE_NOTEBOOK_MODAL]: (state, action) => {
-    return {...state, showNotebookModalToggle: false}
+    return {...state, filter: action.filter}
   }
 
 });

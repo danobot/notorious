@@ -2,21 +2,18 @@ import { Action } from 'redux';
 import { SELECT_NOTE } from './actions';
 import { createReducer } from '../../utils/utils';
 import { configStorage } from '../../utils/localStorage';
+import { CREATE_NOTE } from '../../reducers/noteActions';
 const initialState = {
   selectedNote: configStorage['selectedNote']
 }
 
-const mainMenuReducer = createReducer(initialState, {
+const contentAreaReducer = createReducer(initialState, {
   [SELECT_NOTE]: (state, action) => {
     return {...state, selectedNote: action.id};
-  },
-  "@@redux-pouchdb/UPDATE_ARRAY_REDUCER": (state, action) => { // if newly received note is a new note we want to display it in the editor pane
-      if (action.doc.isNew) {
-        return {...state, selectedNote: action.doc._id};
-      } else {
-        return state
-      }
   }
+  // [CREATE_NOTE]: (state, action) => {
+  //   return {...state, selectedNote: action.id};
+  // }
 
 });
-export default mainMenuReducer;
+export default contentAreaReducer;
