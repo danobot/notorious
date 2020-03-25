@@ -7,6 +7,7 @@ import { notebookSelector } from './selectors'
 import { MainMenuStateType } from '../../reducers/types';
 import * as actions from './actions';
 import * as notebookActions from '../../reducers/notebookActions';
+import * as modalActions from '../../reducers/modalActions';
 
 class MainMenuCont extends PureComponent {
   componentWillMount = () => {
@@ -30,7 +31,7 @@ function mapStateToProps(state: MainMenuStateType) {
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
-  return bindActionCreators(Object.assign(actions, notebookActions), dispatch)
+  return bindActionCreators(Object.assign(modalActions,actions, notebookActions), dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainMenuCont);
