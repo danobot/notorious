@@ -5,6 +5,7 @@ import {createReducer} from '../utils/utils'
 // import { createReducer } from '@reduxjs/toolkit'
 import { UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE, REMOVE_EDITOR, ADD_EDITOR, TOGGLE_MENU_SHOW_NOTE, TOGGLE_PIN_NOTE } from './noteActions';
 import { notesDB } from '../PouchInit';
+import { SELECT_NOTE } from '../containers/ContentAreaCont/actions';
 
 
 const initialState = []
@@ -16,7 +17,7 @@ const notesReducer = createReducer(initialState, {
         if (note._id !== action.parent) { return note }
         return {...note, children: [...note.children, noteId]} // add new child to parents `children` array (for easy read operation)
       })
-      const newNote = {_id: noteId, title: "", createdAt: Date.now(), updatedAt: Date.now(), parent: action.parent, children: [], content: "", ...action.attributes}
+      const newNote = {_id: noteId, title: "", createdAt: Date.now(), updatedAt: Date.now(), parent: action.parent, children: [], schema: "note", content: "", ...action.attributes}
       return [...newState, newNote] // and add new note to array
     },
     [DELETE_NOTE]: (state, action) => {
@@ -75,6 +76,19 @@ const notesReducer = createReducer(initialState, {
               markdown: ""
             }
           ]
+        }
+      })
+    },
+    [SELECT_NOTE]: (state, action) => { // when we select the note, save its id in the parents lastSelectedChild field
+      console.group("SELECT_NOTE in notes reducer")
+      console.log("action", action)
+      console.groupEnd()
+      return  state.map((item, id) => {
+        if (item.children && item.children.indexOf(action.id) === -1) { return item }
+        console.log("updating", item.title)
+        return {
+          ...item,
+          lastSelectedChild: action.id
         }
       })
     }

@@ -31,6 +31,7 @@ export function createNote(parent: string, attributes: object) {
   };
 }
 
+/** Called by create notebook action because the ID must be genreated there. */
 export function createNoteWithId(id: string, parent: string, attributes: object) {
 
   return dispatch => {

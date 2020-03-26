@@ -8,7 +8,7 @@ export const HIDE_NOTEBOOK_MODAL = 'HIDE_NOTEBOOK_MODAL';
 
 
 export function showNotebookModal() {
-  return (dispatch: Dispatch, state) => {
+  return (dispatch: Dispatch, getState) => {
     dispatch(
       {
         type: SHOW_NOTEBOOK_MODAL
@@ -17,7 +17,7 @@ export function showNotebookModal() {
   };
 }
 export function hideNotebookModal() {
-  return (dispatch: Dispatch, state) => {
+  return (dispatch: Dispatch, getState) => {
     dispatch(
       {
         type: HIDE_NOTEBOOK_MODAL
