@@ -123,6 +123,9 @@ export default class MenuBuilder {
           click: () => {
             this.mainWindow.webContents.toggleDevTools();
           }
+        },
+        {
+          label: `v${version}`
         }
       ]
     };
@@ -142,6 +145,9 @@ export default class MenuBuilder {
           click: () => {
             this.mainWindow.webContents.toggleDevTools();
           }
+        },
+        {
+          label: `v${version}`
         }
       ]
     };
@@ -224,6 +230,9 @@ export default class MenuBuilder {
                   click: () => {
                     this.mainWindow.webContents.toggleDevTools();
                   }
+                },
+                {
+                  label: `v${version}`
                 }
               ]
             : [
@@ -235,17 +244,11 @@ export default class MenuBuilder {
                       !this.mainWindow.isFullScreen()
                     );
                   }
+                },
+                {
+                  label: `v${version}`
                 }
               ]
-      },
-      {
-        label: '&View',
-        submenu: [
-          {
-            label: `v${version}`
-          }
-
-        ]
       }
     ];
 
