@@ -65,7 +65,7 @@ export default function NoteCard(props) {
           data={{ note: props.note }}
           onClick={cmCreateChildNoteHandler}
         >
-          Create Child Note
+          New sub-note
         </MenuItem>
         <MenuItem data={{ note: props.note }} onClick={cmShowInMenuHandler}>
           {props.note.showInMenu ? (

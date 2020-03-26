@@ -27,18 +27,26 @@ export default function MainMenu({
   showNotebookModalToggle,
   hideNotebookModal,
   showNotebookModal,
-  createNotebook
+  createNotebook,
+  deleteNote,
+  updateNote,
+  modalData
 }) {
+  const mainMenuContextHandlers = {
+    cmCreateNotebookInside: (e, {note}) => createNotebook({parent: note._id}),
+    cmShowInMenuHandler: (e, {note}) => updateNote(note._id, {showInMenu: !note.showInMenu, kind: "collection" }),
+    cmDeleteNoteHandler: (e, {note}) => deleteNote(note._id),
+  };
   const contextCreateNewNotebook = (e, data) => {
-    showNotebookModal();
+    showNotebookModal(data);
   };
   const contextAction = (e, data) => {
     console.log(data.foo);
   };
-  const newNotebookSubmitAction = data => {
+  const newNotebookSubmitAction = (data, additional) => {
     hideNotebookModal();
     console.log('newNotebookSubmitAction', data);
-    createNotebook({ title: data.value });
+    createNotebook({ title: data.value, ...additional });
   };
   return (
     <MainMenuStyle>
@@ -81,6 +89,7 @@ export default function MainMenu({
           key={`treemenu${n._id}`}
           selectNotebook={selectNotebook}
           selectedNotebook={selectedNotebook}
+          handlers={mainMenuContextHandlers}
         />
       ))}
       {/* <FlatMenu
@@ -100,6 +109,7 @@ export default function MainMenu({
       <ModalForm
         visible={showNotebookModalToggle}
         title="Create Notebook"
+        data={modalData}
         placeholder="Notebook title"
         formSubmitHandler={newNotebookSubmitAction}
         initialValue=""

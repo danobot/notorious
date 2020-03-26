@@ -7,6 +7,7 @@ import { notebookSelector } from './selectors'
 import { MainMenuStateType } from '../../reducers/types';
 import * as actions from './actions';
 import * as notebookActions from '../../reducers/notebookActions';
+import * as noteActions from '../../reducers/noteActions';
 import * as modalActions from '../../reducers/modalActions';
 
 class MainMenuCont extends PureComponent {
@@ -25,13 +26,14 @@ function mapStateToProps(state: MainMenuStateType) {
     notebooks: notebookSelector(state).filter( n => n.parent === "root"),
     selectedNotebook: state.configs.selectedNotebook,
     showNotebookModalToggle: state.modals.showNotebookModalToggle,
+    modalData: state.modals.showNotebookData,
     ...state.mainMenu
 
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
-  return bindActionCreators(Object.assign(modalActions,actions, notebookActions), dispatch)
+  return bindActionCreators(Object.assign(actions, modalActions, notebookActions, noteActions), dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainMenuCont);
