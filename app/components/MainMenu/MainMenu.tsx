@@ -30,12 +30,14 @@ export default function MainMenu({
   createNotebook,
   deleteNote,
   updateNote,
-  modalData
+  modalData,
+  selectNoteAction
 }) {
   const mainMenuContextHandlers = {
     cmCreateNotebookInside: (e, {note}) => createNotebook({parent: note._id}),
     cmShowInMenuHandler: (e, {note}) => updateNote(note._id, {showInMenu: !note.showInMenu, kind: "collection" }),
     cmDeleteNoteHandler: (e, {note}) => deleteNote(note._id),
+    cmOpenInEditor: (e, {note}) => selectNoteAction(note._id),
   };
   const contextCreateNewNotebook = (e, data) => {
     showNotebookModal(data);
@@ -55,7 +57,7 @@ export default function MainMenu({
       <MenuItem
         label="All notes"
         icon={<FontAwesomeIcon icon={faBook} />}
-        compKey="allNotesMenuItem"
+        compKey="MenuItem"
         onClickHandler={e=> selectNotebook("ALL")}
       />
 

@@ -1,7 +1,7 @@
 import { GetState, Dispatch } from '../../reducers/types';
 import { setConfig } from '../../reducers/configActions';
 import { selectNoteAction } from '../ContentAreaCont/actions';
-
+import {allNotes} from './selectors'
 export const SELECT_NOTEBOOK = 'SELECT_NOTEBOOK';
 export const SELECT_NOTES_FILTER = 'SELECT_NOTES_FILTER';
 
@@ -9,10 +9,11 @@ export const SELECT_NOTES_FILTER = 'SELECT_NOTES_FILTER';
 export function selectNotebook(nb: String) {
   return (dispatch: Dispatch, getState) => {
     const state = getState()
-    // console.log("selectNotebook", state)
+    console.log("selectNotebook", allNotes)
     dispatch(setConfig("selectedNotebook", nb))
-    const notebook = state.notes && state.notes.filter(n => n._id === nb)[0]
-    const notesInNotebook = state.notes && state.notes.filter(n => n.parent === nb)
+    const notes = allNotes(state);
+    const notebook = notes && notes.filter(n => n._id === nb)[0]
+    const notesInNotebook = notes && notes.filter(n => n.parent === nb)
     let selectedId = null;
     // console.log("notebook", notebook)
     // console.log("notesInNotebook", notesInNotebook)

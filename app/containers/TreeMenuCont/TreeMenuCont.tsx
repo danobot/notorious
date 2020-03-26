@@ -13,7 +13,7 @@ import {
   ContextMenuTrigger
 } from 'react-contextmenu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronRight, faChevronDown, faPlusCircle, faFile } from '@fortawesome/free-solid-svg-icons';
+import { faChevronRight, faChevronDown, faPlusCircle, faFolder } from '@fortawesome/free-solid-svg-icons';
 import { DotLine } from '../../components/util/utils.style';
 
 
@@ -30,34 +30,18 @@ class TreeMenuCont extends React.Component {
     const {
       cmCreateNotebookInside,
       cmShowInMenuHandler,
-      cmDeleteNoteHandler
+      cmDeleteNoteHandler,
+      cmOpenInEditor
     } = handlers;
     const {_id, title} = note
     const icon = this.state.open ? <FontAwesomeIcon onClick={e=> this.setState({open: false})} icon={faChevronDown} /> : <FontAwesomeIcon onClick={e=> this.setState({open: true})} icon={faChevronRight} />
     const MenuItemComponent = (selectedNotebook === _id) ? MenuItemSelected : MenuItemNormal
     return <div>
 
-{/*
-<ContextMenu id="mainmenu_notebooks">
-        <ContexMenuItem
-          data={{ foo: 'bar' }}
-          onClick={cmCreateNotebookInside}
-        >
-          New Notebook
-        </ContexMenuItem>
-      </ContextMenu>
-      <ContextMenuTrigger id="mainmenu_notebooks">
-        <MenuItem
-          label={<MenuHeading>Notebooks</MenuHeading>}
-          skipIcon={true}
-
-          compKey="Noteffdbooks"
-        />
-      </ContextMenuTrigger> */}
         {subNotes && subNotes.length ===0 && <ContextMenuTrigger id={`main-menu-context-${_id}`} key={`main-menu-context-trigger-a-${_id}`}>
           <MenuItemComponent onClick={e=>selectNotebook(note._id)} key={"menucokponent"+_id}>
 
-            <MenuItem indent={this.props.level*6} label={<DotLine>{note.title}</DotLine>} icon={<FontAwesomeIcon icon={faFile} />}
+            <MenuItem indent={this.props.level*6} label={<DotLine>{note.title}</DotLine>} icon={<FontAwesomeIcon icon={faFolder} />}
             key={note._id} right={<MenuItemRightFloat>{note.children.length}</MenuItemRightFloat>}
             >
             </MenuItem>
@@ -75,9 +59,9 @@ class TreeMenuCont extends React.Component {
             </MenuHeading>
           }
           icon={icon}
-          right={
-                <MenuItemRightFloat><FontAwesomeIcon icon={faPlusCircle} /></MenuItemRightFloat>
-          }
+          // right={
+          //       <MenuItemRightFloat><FontAwesomeIcon icon={faPlusCircle} /></MenuItemRightFloat>
+          // }
           compKey={"parentnotebook"+_id}
         />
         </MenuItemComponent>
@@ -97,6 +81,10 @@ class TreeMenuCont extends React.Component {
       }
       <ContextMenu key={`main-menu-context-menu-${_id}`} id={`main-menu-context-${_id}`} >
 
+
+        <ContexMenuItem data={{ note: note }} onClick={cmOpenInEditor}>
+          Open in editor
+        </ContexMenuItem>
         <ContexMenuItem
           data={{ note: note }}
           onClick={(e, data) => {
@@ -129,7 +117,7 @@ class TreeMenuCont extends React.Component {
 
 function mapStateToProps(state, props) {
   return {
-    allNotes: state.notes,
+    allNotes: allNotes(state),
     subNotes: findChildrenOfNote(props.note)(state).filter(n => n.showInMenu),
     level: props.level || 0,
     selectedNotebook: state.mainMenu.filter,
