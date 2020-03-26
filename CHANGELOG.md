@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1-alpha.43](https://github.com/danobot/notorious/compare/v0.1.1-alpha.41...v0.1.1-alpha.43) (2020-03-26)
+
+
+### Features
+
+*  context menu to manage notebooks via main menu tree ([1a15d37](https://github.com/danobot/notorious/commit/1a15d377811b3c58847857a949d4d254b0652136))
+* add open in editr context action ([18372d3](https://github.com/danobot/notorious/commit/18372d3ad878e128c71eeab657bd6d06b83c58c9))
+* remember last selected note within  a notebook ([12e1dbf](https://github.com/danobot/notorious/commit/12e1dbf56725cbfdfd517cbc1a419ecb45794dc3))
+
+
+### Bug Fixes
+
+* menu ([b085694](https://github.com/danobot/notorious/commit/b085694d75f902fed863cea1e78b2847bcea911e))
+
 ### [0.1.1-alpha.42](https://github.com/danobot/notorious/compare/v0.1.1-alpha.40...v0.1.1-alpha.42) (2020-03-25)
 
 
