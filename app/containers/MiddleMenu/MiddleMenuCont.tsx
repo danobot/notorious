@@ -5,6 +5,7 @@ import MiddleMenu from '../../components/MiddleMenu/MiddleMenu';
 import * as actions from '../ContentAreaCont/actions';
 import * as noteActions from '../../reducers/noteActions';
 import { savingNew } from '../MainMenu/selectors';
+import { allNotes } from '../MainMenu/selectors';
 
 
 
@@ -33,7 +34,7 @@ function mapStateToProps(state) {
     }
   return {
     selection: state.mainMenu.filter,
-    visibleNotes: noteSetSelector(state.mainMenu.filter, state.notes),
+    visibleNotes: noteSetSelector(state.mainMenu.filter, allNotes(state)),
     selectedNote: state.contentArea.selectedNote,
     savingNew: savingNew()
   };

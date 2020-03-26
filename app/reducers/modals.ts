@@ -7,10 +7,10 @@ const initialState = {
 
 const modalReducer = createReducer(initialState, {
   [SHOW_NOTEBOOK_MODAL]: (state, action) => {
-    return {...state, showNotebookModalToggle: true}
+    return {...state, showNotebookModalToggle: true, showNotebookData: action.attributes}
   },
   [HIDE_NOTEBOOK_MODAL]: (state, action) => {
-    return {...state, showNotebookModalToggle: false}
+    return {...state, showNotebookModalToggle: false, showNotebookData: null}
   }
 
 });

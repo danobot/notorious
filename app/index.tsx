@@ -11,7 +11,7 @@ import PouchInit from "./PouchInit";
 export const pouchInit = new PouchInit();
 
 // Configure Store
-const store = configureStore();
+export const store = configureStore();
 
 const AppContainer = process.env.PLAIN_HMR ? Fragment : ReactHotAppContainer;
 

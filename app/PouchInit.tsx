@@ -1,8 +1,7 @@
 import PouchDB from 'pouchdb';
 import config from './utils/config';
-
 const log = require('electron-log');
-
+import {store} from '.'
 const syncOpts = { live: true, retry: true };
 // PouchDB.debug.enable('*');
 export const notesDB = new PouchDB('data/notes');
@@ -36,23 +35,25 @@ export default class PouchInit {
           err
         );
       })
-      .on('remoteNotesDb active', function() {
+      .on('active', function() {
         console.log(
-          'replicate sync:     resumed (e.g. new changes replicating, user went back online)'
+          'notesDB replicate sync:     resumed (e.g. new changes replicating, user went back online)'
         );
       })
-      .on('remoteNotesDb denied', function(err) {
+      .on('denied', function(err) {
         console.log(
-          ' sync:     a document failed to replicate (e.g. due to permissions)',
+          ' notesDB sync:     a document failed to replicate (e.g. due to permissions)',
           err
         );
       })
-      .on('remoteNotesDb sync:     complete', function(info) {
-        console.log('handle complete', info);
+      .on('complete', function(info) {
+        console.log('notesDB sync:     handle complete', info);
       })
-      .on('remoteNotesDb sync:     error', function(err) {
-        console.log('handle error', err);
+      .on('error', function(err) {
+        console.log('notesDB sync:     handle error', err);
       });
+
+
     remoteNotesDb
       .changes()
       .on('change', function(info) {
@@ -60,56 +61,56 @@ export default class PouchInit {
       })
       .on('paused', function(err) {
         console.log(
-          'remoteNotesDb replication paused (e.g. replication up to date, user went offline)',
+          'remoteDB replication paused (e.g. replication up to date, user went offline)',
           err
         );
       })
-      .on('remoteNotesDb active', function() {
+      .on('active', function() {
         console.log(
-          'replicate resumed (e.g. new changes replicating, user went back online)'
+          'remoteDB replicate resumed (e.g. new changes replicating, user went back online)'
         );
       })
-      .on('remoteNotesDb denied', function(err) {
+      .on('denied', function(err) {
         console.log(
-          'a document failed to replicate (e.g. due to permissions)',
+          'remoteDB a document failed to replicate (e.g. due to permissions)',
           err
         );
       })
-      .on('remoteNotesDb complete', function(info) {
-        console.log('handle complete', info);
+      .on('complete', function(info) {
+        console.log('remoteDB handle complete', info);
       })
-      .on('remoteNotesDb error', function(err) {
-        console.log('handle error', err);
+      .on('error', function(err) {
+        console.log('remoteDB handle error', err);
       });
 
 
       notesDB
       .changes()
       .on('change', function(info) {
-        console.log('handle change', info);
+        console.log('notesDB handle change', info);
       })
       .on('paused', function(err) {
         console.log(
-          'replication paused (e.g. replication up to date, user went offline)',
+          'notesDB replication paused (e.g. replication up to date, user went offline)',
           err
         );
       })
       .on('active', function() {
         console.log(
-          'replicate resumed (e.g. new changes replicating, user went back online)'
+          'notesDB replicate resumed (e.g. new changes replicating, user went back online)'
         );
       })
       .on('denied', function(err) {
         console.log(
-          'a document failed to replicate (e.g. due to permissions)',
+          'notesDB a document failed to replicate (e.g. due to permissions)',
           err
         );
       })
       .on('complete', function(info) {
-        console.log('handle complete', info);
+        console.log('notesDB handle complete', info);
       })
       .on('error', function(err) {
-        console.log('handle error', err);
+        console.log('notesDB handle error', err);
       });
   }
 }

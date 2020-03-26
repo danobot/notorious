@@ -5,7 +5,7 @@ import { Modal, Input } from 'antd';
 import { MyInput } from '../EditorPane/style';
 import { NotoModal } from './utils.style';
 
-export default function ModalForm({formSubmitHandler, placeholder,visible, title, initialValue, handleCancel}) {
+export default function ModalForm({formSubmitHandler, placeholder,visible, title, initialValue, handleCancel, data}) {
 
   return (
     <Formik
@@ -17,7 +17,7 @@ export default function ModalForm({formSubmitHandler, placeholder,visible, title
            }}
            onSubmit={(values, { setSubmitting }) => {
             console.log("onSubmit:: ", values)
-            formSubmitHandler(values)
+            formSubmitHandler(values, data)
             values.value = ""
             setSubmitting(false)
            }}
