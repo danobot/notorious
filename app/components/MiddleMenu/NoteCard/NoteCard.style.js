@@ -19,10 +19,14 @@ export const NoteCardStyle = styled.div`
   }
   .noteTags {
     .ant-tag {
-      font-size: x-small;
+      font-size: 8pt;
       padding: 0px 2px 0px 2px;
       margin-right: 2px;
       border-radius: 1px;
+      border: none;
+      color: ${props => props.selected ? props.theme.colors.text.light : props.theme.colors.text.black};
+      background: transparent;
+
     }
   }
 `

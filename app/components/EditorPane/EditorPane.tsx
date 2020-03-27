@@ -16,6 +16,7 @@ import { faHistory, faTrashAlt, faFolderOpen, faFingerprint } from "@fortawesome
 import { Button } from 'antd';
 import CollectionEditor from './CollectionEditor/CollectionEditor';
 import { InlineItem, RightFloaty } from '../../style/utils.style';
+import { findExistingTags } from '../../containers/MainMenu/selectors';
 const NoteTitleInput = styled(FieldForm)`
   font-size: 18pt;
   font-weight: bold;
@@ -24,18 +25,13 @@ const NoteTitleInput = styled(FieldForm)`
 
 export default function EditorPane({contentArea, note,
   subNotes,
-  noteActions
+  noteActions,
+  existingTags
 }) {
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [state, setState] = useState({});
   const valueGetter = useRef();
 
-  function handleEditorDidMount(_valueGetter) {
-    console.log("Editor did mount")
-    setIsEditorReady(true);
-    valueGetter.current = _valueGetter;
-    print(valueGetter.current())
-  }
   const handleBlur = value => {
     console.log(value.getValue())
     setState({ content: value.getValue() });
@@ -60,8 +56,7 @@ export default function EditorPane({contentArea, note,
             </RightFloaty>
           </NoteMeta>
           <NoteTitleInput label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => noteActions.updateNote(note._id, {"title": e.target.value})} />
-          <MultiSelect label="tags" values={note.tags} onUpdate={tags => noteActions.updateNote(note._id, {"tags": tags})} />
-          <div>{note.tags}</div>
+          <MultiSelect id={`react-select-${note.id}-${note._rev}`} label="tags" values={note.tags} options={existingTags.map(t=> ({label: t, value: t}))} onUpdate={tags => noteActions.updateNote(note._id, {"tags": tags})} />
         </NoteHeader>
         {note.kind && note.kind === "columns" && <EditorStyle>
           <ColumnEditor key={`column-editor-${noteref}`} note={note} subNotes={subNotes} noteActions={noteActions} />
