@@ -1,18 +1,43 @@
 import React from 'react';
-import { MyInput } from '../style';
+import { MyInput, CustomSelect } from '../style';
 
 import CreatableSelect from 'react-select/creatable';
 // import { colourOptions } from '../data';
-
 const MultiSelect = (props) => {
-  const { label, value, onUpdate , placeholder, className, values} = props
-  const style = {
-    control: (provided, state) =>({...provided,
-    border: 'none'
+  const { label, value, onUpdate , placeholder, className, values, options, id} = props
+  const styles = {
+    control: (provided, state) =>({
+      ...provided,
+      border: 'none',
+      borderWidth: 0,
+      borderStyle: 'none',
+      borderColor: 'transparent',
+      boxShadow: 'none'
     }),
-    valueContainer: (provided, state) =>({...provided,
-    padding:0
+    valueContainer: (provided, state) =>({
+      ...provided,
+      padding: 0,
+      border:  'none'
+    }),
+    container: (provided, state) =>({
+      ...provided,
+      padding: 0,
+      border:  'none'
+    }),
+    menu: (provided, state) =>({
+      ...provided,
+      padding: 0,
+      border:  'none'
+    }),
+    multiValueLabel: (provided, state) =>({
+      ...provided,
+      padding: 0
+    }),
+    multiValueRemove: (provided, state) =>({
+      ...provided,
+      padding: '0 2px 0 2px'
     })
+
   }
   const submitHander = (newValue: any, actionMeta: any) => {
         console.group('Value Changed');
@@ -30,19 +55,24 @@ const MultiSelect = (props) => {
 }
 
     return (
+      // <CustomSelect>
+
       <CreatableSelect
-      style={style}
-        name={label}
-        key={label}
-        placeholder="Add tags..."
+      id={id}
+      styles={styles}
+      name={label}
+      key={label}
+      classNamePrefix="rs"
+      placeholder="Add tags..."
         isMulti
         isClearable={false}
         value={values ? values.map(t=>({label: t,value:t})) : []}
         // value={[{label: "gfsd",value:"hi"}]}
 
         onChange={submitHander}
-        options={[]} // [{label: "git", value: "git"}]
+        options={options}
       />
+        // </CustomSelect>
   )
 }
 

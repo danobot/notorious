@@ -16,7 +16,6 @@ const initialState = c || {}
 // const initialState =  {"_id": "_local/config"}
 
 function configReducer(state = initialState, action: Action<string>) {
-  console.log("configReducer: ", action)
   switch (action.type) {
     case SET_CONFIG:
       const newState = {...state, [action.id]: action.attributes} // leave it, it works.

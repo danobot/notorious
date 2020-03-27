@@ -7,3 +7,11 @@ export function createReducer(initialState, handlers) {
     }
   }
 }
+
+
+export const uniq = (d) => {
+  return d.reduce((accum, cur) => {
+    if (accum.indexOf(cur) === -1) accum.push(cur);
+    return accum;
+  }, [] );
+}

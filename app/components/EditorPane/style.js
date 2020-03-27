@@ -69,12 +69,22 @@ export const MenuItem = styled.div`
   cursor: hand;
 `
 export const MyInput = styled.div`
-  .ant-input, .ant-input:focus {
+.ant-input, .ant-input:focus {
+  border: none;
+  border-color: ${props => props.theme.colors.text.light};
+  outline: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+`
+
+export const CustomSelect = styled.div`
+  .rs__value-container, .rs__control, .rs__control--is-focused, .rs__control--menu-is-open {
     border: none;
-    border-color: ${props => props.theme.colors.text.light};
-    outline: 0;
-    border-radius: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-  }
+    padding: 0;
+    outline: none;
+    border-color: 'transparent' !important;
+    box-shadow: 'none' !important;
+
 `

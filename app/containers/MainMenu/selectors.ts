@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect'
+import { uniq } from '../../utils/utils'
 
 const allNotesInternal = state => {return (state && state.notes )? state.notes.filter(n=>n.schema === "note") : [] }
 export const configs = state => state && state.configs
@@ -19,10 +20,14 @@ export const allNotes = createSelector(
   allNotesInternal,
   (all) => all
 )
-export const savingNew = createSelector(
+
+export const findExistingTags = createSelector(
   allNotesInternal,
-  (all) => (all.filter(n => n.isNew))
+  (all) => (all.reduce((initial, item) => {
+    return (item.tags && item.tags.length > 0 )? uniq([initial, item.tags].flat()) : initial
+  }, []))
 )
+
 export const findChildren = createSelector(
   allNotesInternal,
   findSelectedNote,
