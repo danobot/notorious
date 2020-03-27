@@ -14,7 +14,6 @@ const initialState = {
 }
 
 function configReducer(state = initialState, action: Action<string>) {
-  console.log(action.type)
   switch (action.type) {
     case RESIZE_SIDEBAR:
       return {...state, sizeSidebar: action.size}
