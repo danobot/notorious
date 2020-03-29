@@ -2,9 +2,9 @@ import React from 'react';
 import {DelayInput} from 'react-delay-input';
 import { Formik } from 'formik';
 import { Form } from 'antd';
-import { MyInput } from '../style';
 const FieldForm = (props) => {
   const { label, value, onUpdate , placeholder, className} = props
+  const delay = props.delay ? props.delay : 1000
 
     return (
           <Formik
@@ -27,17 +27,18 @@ const FieldForm = (props) => {
                   handleChange,
                   handleBlur,
                   handleSubmit,
-                  isSubmitting,
+                  isSubmitting,setValues
               }) => (
                 <Form>
-                  <MyInput>
-                    <DelayInput className={`ant-input ant-input-lg ${className}`}
+                  {/* <MyInput> */}
+                    <DelayInput className={`ant-input  ${className}`}
                       name={label}
                       value={value}
-                      delayTimeout={1000}
+                      delayTimeout={delay}
                       onChange={event => onUpdate(event)}
-                      placeholder={placeholder} />
-                    </MyInput>
+                      placeholder={placeholder}
+                       />
+                    {/* </MyInput> */}
                 </Form>
               )}
           </Formik>

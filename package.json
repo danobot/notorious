@@ -297,6 +297,7 @@
     "electron-log": "^4.0.6",
     "electron-store": "^5.1.1",
     "electron-updater": "^4.2.5",
+    "flexsearch": "^0.6.32",
     "formik": "^2.1.4",
     "history": "^4.10.1",
     "html-webpack-plugin": "^3.2.0",

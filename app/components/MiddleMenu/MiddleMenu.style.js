@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Button } from 'antd';
 
 export const MiddleMenuStyle = styled.div`
   background-color: ${props => props.theme.colors.background.light};
@@ -16,17 +17,45 @@ export const MiddleMenuStyleOld = styled.div`
   top: 0;
 `
 export const NoteList = styled.div`
-// color: ${props => props.theme.colors.text.dark};
-margin-top: 50px;
+/* color: ${props => props.theme.colors.text.dark}; */
+ margin-bottom: 30px; /* required to make the last note in scroll list fully visible */
 `
 export const TopBar = styled.div`
-  position: absolute;
-  // color: ${props => props.theme.colors.text.dark};
-  height: 50px;
-  /* width: 100%; */
+background: ${props => props.theme.colors.background.menu};
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+  /* color: ${props => props.theme.colors.text.dark}; */
+  height: 40px;
+  width: 100%;
   z-index: 2;
+  padding: 7px 5px 7px 5px;
 `
 
+export const NotoriousButtonStyle = styled(Button)`
+  border: none;
+  background: transparent;
+
+  .ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active {
+    background-color: ${props => props.theme.colors.background.selected};
+    background: transparent;
+  }
+
+`
 export const MiddleLayout = styled.div`
 
+`
+
+export const TopBarItem = styled.div`
+  display: table-cell;
+  margin: 0 3px 0 0;
+  width: 100%;
+  padding: 2px;
+`
+
+
+
+export const TopBarButton = styled.div`
+
+border: none;
 `

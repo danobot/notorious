@@ -14,8 +14,8 @@ import {
 import { RightFloaty, InlineItem } from '../../../style/utils.style';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { faClock } from "@fortawesome/free-regular-svg-icons";
-import {  faFolderOpen, faInbox } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faListAlt  } from "@fortawesome/free-regular-svg-icons";
+import {  faFolderOpen, faInbox, faColumns, faTasks, faFile, faThumbtack, faTh} from "@fortawesome/free-solid-svg-icons";
 
 const removeMd = require('remove-markdown');
 
@@ -27,7 +27,7 @@ export default function NoteCard(props) {
     cmChangeKindHandler,
     cmDeleteNoteHandler
   } = props.handlers;
-  const { title, content, tags, _id, createdAt, updatedAt,children, kind } = props.note;
+  const { title, content, tags, _id, createdAt, updatedAt,children, kind, pinned } = props.note;
   return (
     <>
       <ContextMenuTrigger id={`${_id}cm`}>
@@ -38,10 +38,15 @@ export default function NoteCard(props) {
         >
           <div className="noteListTitle">{title || 'Untitled Note'}</div>
           <div className="noteCardMeta">
-            {children && children.length > 0 && <InlineItem><FontAwesomeIcon icon={faFolderOpen} />{children.length}</InlineItem>}
-            {kind === 'collection' && <InlineItem><FontAwesomeIcon icon={faInbox} /></InlineItem>}
-            <InlineItem><Moment fromNow>{createdAt}</Moment></InlineItem>
+            {children && children.length > 0 && <InlineItem><FontAwesomeIcon icon={faFolderOpen} title={`Contains ${children.length} subnotes`} />{children.length}</InlineItem>}
+            <InlineItem title={new Date(createdAt)}><Moment fromNow>{createdAt}</Moment></InlineItem>
             <RightFloaty>
+              {pinned && <InlineItem><FontAwesomeIcon title="This note is pinned" icon={faThumbtack} /></InlineItem>}
+              {kind === 'collection' && <InlineItem><FontAwesomeIcon title="Note Type: Collection" icon={faInbox} /></InlineItem>}
+              {kind === 'tasks' && <InlineItem><FontAwesomeIcon title="Note Type: tasks" icon={faTasks} /></InlineItem>}
+              {kind === 'index' && <InlineItem><FontAwesomeIcon title="Note Type: index" icon={faListAlt} /></InlineItem>}
+              {kind === 'columns' && <InlineItem><FontAwesomeIcon title="Note Type: columns" icon={faColumns} /></InlineItem>}
+              {kind === 'group' && <InlineItem><FontAwesomeIcon title="Note Type: group" icon={faTh} /></InlineItem>}
 
             </RightFloaty>
           </div>
@@ -79,19 +84,37 @@ export default function NoteCard(props) {
             data={{ note: props.note, kind: 'collection' }}
             onClick={cmChangeKindHandler}
           >
-            Collection
+           <FontAwesomeIcon icon={faFolderOpen} /> Collection
+          </MenuItem>
+          <MenuItem
+            data={{ note: props.note, kind: 'index' }}
+            onClick={cmChangeKindHandler}
+          >
+           <FontAwesomeIcon icon={faListAlt} /> Index
+          </MenuItem>
+          <MenuItem
+            data={{ note: props.note, kind: 'tasks' }}
+            onClick={cmChangeKindHandler}
+          >
+            <FontAwesomeIcon icon={faTasks} /> Tasks
           </MenuItem>
           <MenuItem
             data={{ note: props.note, kind: 'columns' }}
             onClick={cmChangeKindHandler}
           >
-            Column
+            <FontAwesomeIcon icon={faColumns} /> Column
+          </MenuItem>
+          <MenuItem
+            data={{ note: props.note, kind: 'group' }}
+            onClick={cmChangeKindHandler}
+          >
+            <FontAwesomeIcon icon={faTh} /> Group
           </MenuItem>
           <MenuItem
             data={{ note: props.note, kind: 'normal' }}
             onClick={cmChangeKindHandler}
           >
-            Normal
+            <FontAwesomeIcon icon={faFile} />  Normal
           </MenuItem>
         </SubMenu>
         <MenuItem
