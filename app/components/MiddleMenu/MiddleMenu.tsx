@@ -1,12 +1,16 @@
 import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit } from '@fortawesome/free-regular-svg-icons';
-// import {
+import {  } from '@fortawesome/free-regular-svg-icons';
+import styled from 'styled-components';
+import {TopBarItem, TopBarButton, CustomButtonStyle} from './MiddleMenu.style'
+import FieldForm from '../EditorPane/FieldForm/FieldForm';
 
-// } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPlus
+} from "@fortawesome/free-solid-svg-icons";
 
-import { Button } from 'antd';
+import { Button, Empty } from 'antd';
 import NoteCard from './NoteCard/NoteCard';
 import {
   MiddleMenuStyle,
@@ -15,6 +19,27 @@ import {
   TopBar
 } from './MiddleMenu.style';
 
+
+export const NoteTitleInput = styled(FieldForm)`
+  width: 100%;
+.ant-input, .ant-input-lg, .ant-input:focus {
+  padding: 5px;
+  outline: 0;
+    border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: none;
+  height: 25px;
+}
+  /* .ant-form {
+    width: 100%;
+  }
+  .ant-input, .ant-input:focus {
+  border-color: ${props => props.theme.colors.text.light};
+
+  width:100%;
+} */
+`
 export default function MiddleMenu({
   visibleNotes,
   selection,
@@ -23,8 +48,10 @@ export default function MiddleMenu({
   selectedNote,
   deleteNote,
  updateNote,
- savingNew
+ savingNew,
+ searchNotes
 }) {
+
   const notecardContextHandlers = {
     cmPinNoteHandler: (e, {note}) => updateNote(note._id, {pinned: !note.pinned}),
     cmCreateChildNoteHandler: (e, {note}) => createNote(note._id, {}),
@@ -32,13 +59,20 @@ export default function MiddleMenu({
     cmChangeKindHandler: (e, {note, kind}) => updateNote(note._id, {kind}),
     cmDeleteNoteHandler: (e, {note}) => deleteNote(note._id),
   };
+
   return (
     <MiddleMenuStyle id="MiddleMenu" style={{ height: '100%' }}>
       <TopBar id="topbar">
-        {/* <p>{JSON.stringify(savingNew, null, 2)}</p> */}
-        <Button size="small"  onClick={e => createNote(selection, {})}>
-          <FontAwesomeIcon icon={faEdit} />
-        </Button>
+
+        <TopBarItem>
+        <NoteTitleInput label="search" placeholder="Search" onUpdate={e => searchNotes(e.target.value)} delay={2} className="ant-input-sm" />
+
+        </TopBarItem>
+        <TopBarItem>
+            <CustomButtonStyle size="small"  onClick={e => createNote(selection, {})}>
+              <FontAwesomeIcon icon={faPlus} />
+            </CustomButtonStyle>
+        </TopBarItem>
       </TopBar>
 
       <Scrollbars autoHide id="scrollbar">
@@ -55,7 +89,20 @@ export default function MiddleMenu({
               />
             ))
           ) : (
-            <p>No notes to show.</p>
+            <Empty style={{marginTop: '300px'}}
+              image={Empty.PRESENTED_IMAGE_SIMPLE}
+              imageStyle={{
+                height: 60,
+              }}
+              description={
+                <span>
+                  <p>This notebook is empty.</p>
+                  <p>Create a note or select a notebook.</p>
+                </span>
+              }
+            >
+              <Button type="primary" onClick={e => createNote(selection, {})}>New Note</Button>
+            </Empty>
           )}
         </NoteList>
       </Scrollbars>

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const RightFloaty = styled.div`
   float: right;
   display: inline-block;
-  padding: 3px 4px 0px 0px;
+  /* padding: 3px 4px 0px 0px; */
 `;
 export const InlineItem = styled.div`
   display: inline;

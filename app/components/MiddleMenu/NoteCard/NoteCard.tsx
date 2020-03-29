@@ -14,8 +14,8 @@ import {
 import { RightFloaty, InlineItem } from '../../../style/utils.style';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { faClock } from "@fortawesome/free-regular-svg-icons";
-import {  faFolderOpen, faInbox } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faListAlt  } from "@fortawesome/free-regular-svg-icons";
+import {  faFolderOpen, faInbox, faColumns, faTasks, faFile} from "@fortawesome/free-solid-svg-icons";
 
 const removeMd = require('remove-markdown');
 
@@ -79,19 +79,31 @@ export default function NoteCard(props) {
             data={{ note: props.note, kind: 'collection' }}
             onClick={cmChangeKindHandler}
           >
-            Collection
+           <FontAwesomeIcon icon={faFolderOpen} /> Collection
+          </MenuItem>
+          <MenuItem
+            data={{ note: props.note, kind: 'index' }}
+            onClick={cmChangeKindHandler}
+          >
+           <FontAwesomeIcon icon={faListAlt} /> Index
+          </MenuItem>
+          <MenuItem
+            data={{ note: props.note, kind: 'tasks' }}
+            onClick={cmChangeKindHandler}
+          >
+            <FontAwesomeIcon icon={faTasks} /> Tasks
           </MenuItem>
           <MenuItem
             data={{ note: props.note, kind: 'columns' }}
             onClick={cmChangeKindHandler}
           >
-            Column
+            <FontAwesomeIcon icon={faColumns} /> Column
           </MenuItem>
           <MenuItem
             data={{ note: props.note, kind: 'normal' }}
             onClick={cmChangeKindHandler}
           >
-            Normal
+            <FontAwesomeIcon icon={faFile} />  Normal
           </MenuItem>
         </SubMenu>
         <MenuItem

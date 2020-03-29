@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Tree } from 'antd';
+import { TopBar } from '../MiddleMenu/MiddleMenu.style';
 const { TreeNode } = Tree;
 
 
@@ -13,15 +14,16 @@ export const MainMenuStyle = styled.div`
 
 
 `
-export const NoteHeader = styled.div`
-  margin: 10px 10px 10px 10px;
+export const NoteHeader = styled(TopBar)`
+  /* padding: 10px 10px 0 10px; */
   z-index: 10;
 `
 export const NoteTitle = styled.h1`
 
 `
 export const NoteMeta = styled.div`
-  margin: 5px 0 5px 0;
+  padding: 2px 0 2px 5px;
+  vertical-align: center;
   color: ${props => props.theme.colors.text.muted}
 `
 
@@ -76,6 +78,7 @@ export const MyInput = styled.div`
   border-radius: 0;
   -webkit-box-shadow: none;
   box-shadow: none;
+  width:100%;
 }
 `
 
@@ -87,4 +90,7 @@ export const CustomSelect = styled.div`
     border-color: 'transparent' !important;
     box-shadow: 'none' !important;
 
+`
+export const MainContent = styled.div`
+margin-top: 74px;
 `

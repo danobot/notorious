@@ -1,7 +1,8 @@
 import React, {useState, useRef} from 'react';
-import { NoteTitle,NoteHeader, EditorStyle, NoteMeta, NoteMetaIcon } from './style';
+import { NoteTitle,NoteHeader, EditorStyle, NoteMeta, NoteMetaIcon, MainContent} from './style';
 import styled from 'styled-components';
 
+import { MyInput } from './style';
 
 import SimpleMDE from "react-simplemde-editor";
 import FieldForm from './FieldForm/FieldForm';
@@ -13,14 +14,25 @@ import Editor from '@monaco-editor/react';
 import { faClock } from "@fortawesome/free-regular-svg-icons";
 import { faHistory, faTrashAlt, faFolderOpen, faFingerprint } from "@fortawesome/free-solid-svg-icons";
 
-import { Button } from 'antd';
+import { Button, Empty } from 'antd';
 import CollectionEditor from './CollectionEditor/CollectionEditor';
 import { InlineItem, RightFloaty } from '../../style/utils.style';
 import { findExistingTags } from '../../containers/MainMenu/selectors';
+
 const NoteTitleInput = styled(FieldForm)`
   font-size: 18pt;
   font-weight: bold;
   padding: 0;
+  margin-top: 10px;
+  .ant-input, .ant-input:focus {
+  border: none;
+  border-color: ${props => props.theme.colors.text.light};
+  outline: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  width:100%;
+}
 `
 
 export default function EditorPane({contentArea, note,
@@ -55,9 +67,16 @@ export default function EditorPane({contentArea, note,
 
             </RightFloaty>
           </NoteMeta>
-          <NoteTitleInput label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => noteActions.updateNote(note._id, {"title": e.target.value})} />
+          <MyInput>
+
+          <NoteTitleInput label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => noteActions.updateNote(note._id, {"title": e.target.value})} className="ant-input-lg" />
+          </MyInput>
           <MultiSelect id={`react-select-${note.id}-${note._rev}`} label="tags" values={note.tags} options={existingTags.map(t=> ({label: t, value: t}))} onUpdate={tags => noteActions.updateNote(note._id, {"tags": tags})} />
         </NoteHeader>
+
+      <MainContent>
+
+
         {note.kind && note.kind === "columns" && <EditorStyle>
           <ColumnEditor key={`column-editor-${noteref}`} note={note} subNotes={subNotes} noteActions={noteActions} />
         </EditorStyle>
@@ -81,7 +100,21 @@ export default function EditorPane({contentArea, note,
 
           </EditorStyle>
           }
-      </> : <>No note selected</>}
+      </MainContent>
+
+      </> :  <Empty style={{marginTop: '200px'}}
+    // image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+    imageStyle={{
+      height: 60,
+    }}
+    description={
+      <span>
+        <p>No note selected.</p>
+        <p>Select a note or notebook from the menus on the left.</p>
+      </span>
+    }
+  >
+  </Empty>}
     </>
 
   );
