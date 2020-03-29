@@ -36,6 +36,9 @@ class TreeMenuCont extends React.Component {
     const {_id, title} = note
     const icon = this.state.open ? <FontAwesomeIcon onClick={e=> this.setState({open: false})} icon={faChevronDown} /> : <FontAwesomeIcon onClick={e=> this.setState({open: true})} icon={faChevronRight} />
     const MenuItemComponent = (selectedNotebook === _id) ? MenuItemSelected : MenuItemNormal
+
+    // we dont want to close a notebook menu when it is first selected. We want to close it on click (given its already selected) and open it given its closed.
+    const singleClickHandler = (selectedNotebook !== _id) ? () => {selectNotebook(note._id);  this.setState({open: true})} : () => {selectNotebook(note._id); this.setState({open: !this.state.open})}
     return <div>
 
         {subNotes && subNotes.length ===0 && <ContextMenuTrigger id={`main-menu-context-${_id}`} key={`main-menu-context-trigger-a-${_id}`}>
@@ -49,7 +52,7 @@ class TreeMenuCont extends React.Component {
           </ContextMenuTrigger>
           }
         {subNotes && subNotes.length > 0 && <>   <ContextMenuTrigger id={`main-menu-context-${_id}`} key={`main-menu-context-trigger-b-${_id}`}>
-        <MenuItemComponent key={"menucokponent"+_id} onClick={e=>selectNotebook(note._id)}>
+        <MenuItemComponent key={"menucokponent"+_id} onClick={e=> {singleClickHandler() }}>
         <MenuItem
         indent={this.props.level*6}
           key={"MenuItem"+_id}
