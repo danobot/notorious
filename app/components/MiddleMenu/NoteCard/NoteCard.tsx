@@ -2,6 +2,8 @@ import React from 'react';
 import EllipsisText from 'react-ellipsis-text';
 import { Tag } from 'antd';
 import Moment from 'react-moment';
+import styled from 'styled-components';
+
 import {
   ContextMenu,
   ContextMenuTrigger,
@@ -11,14 +13,21 @@ import {
 import {
   NoteCardStyle,
 } from './NoteCard.style';
-import { RightFloaty, InlineItem } from '../../../style/utils.style';
+import { RightFloaty } from '../../../style/utils.style';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faClock, faListAlt  } from "@fortawesome/free-regular-svg-icons";
-import {  faFolderOpen, faInbox, faColumns, faTasks, faFile, faThumbtack, faTh} from "@fortawesome/free-solid-svg-icons";
+import {  faFolderOpen, faInbox, faColumns, faTasks, faFile, faThumbtack, faTh, faStream} from "@fortawesome/free-solid-svg-icons";
 
 const removeMd = require('remove-markdown');
-
+export const InlineItem = styled.div`
+  display: inline;
+  margin-right: 3px;
+  font-size: smaller;
+  > .svg-inline--fa {
+    margin-right: 2px;
+  }
+`
 export default function NoteCard(props) {
   const {
     cmPinNoteHandler,
@@ -27,7 +36,7 @@ export default function NoteCard(props) {
     cmChangeKindHandler,
     cmDeleteNoteHandler
   } = props.handlers;
-  const { title, content, tags, _id, createdAt, updatedAt,children, kind, pinned } = props.note;
+  const { title, content, tags, _id, createdAt, updatedAt,children, kind, pinned, showInMenu } = props.note;
   return (
     <>
       <ContextMenuTrigger id={`${_id}cm`}>
@@ -40,8 +49,12 @@ export default function NoteCard(props) {
           <div className="noteCardMeta">
             {children && children.length > 0 && <InlineItem><FontAwesomeIcon icon={faFolderOpen} title={`Contains ${children.length} subnotes`} />{children.length}</InlineItem>}
             <InlineItem title={new Date(createdAt)}><Moment fromNow>{createdAt}</Moment></InlineItem>
+
+            {tags &&
+              tags.length > 0 &&<InlineItem >{ tags.map(t => <span style={{marginLeft: '3px', fontStyle: 'italic'}}>{t}</span>) }</InlineItem>}
             <RightFloaty>
               {pinned && <InlineItem><FontAwesomeIcon title="This note is pinned" icon={faThumbtack} /></InlineItem>}
+              {showInMenu && <InlineItem><FontAwesomeIcon title="Shown in menu" icon={faStream} /></InlineItem>}
               {kind === 'collection' && <InlineItem><FontAwesomeIcon title="Note Type: Collection" icon={faInbox} /></InlineItem>}
               {kind === 'tasks' && <InlineItem><FontAwesomeIcon title="Note Type: tasks" icon={faTasks} /></InlineItem>}
               {kind === 'index' && <InlineItem><FontAwesomeIcon title="Note Type: index" icon={faListAlt} /></InlineItem>}
@@ -51,9 +64,7 @@ export default function NoteCard(props) {
             </RightFloaty>
           </div>
           <div className="noteTags">
-          {tags &&
-              tags.length > 0 &&
-              tags.map(t => <Tag key={`${_id}-${t}`}>{t}</Tag>)}
+
           </div>
             <div className="notePreview">
             <EllipsisText text={removeMd(content)} length={60} />
