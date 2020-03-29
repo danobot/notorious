@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1-alpha.46](https://github.com/danobot/notorious/compare/v0.1.1-alpha.44...v0.1.1-alpha.46) (2020-03-29)
+
+
+### Bug Fixes
+
+* closes [#85](https://github.com/danobot/notorious/issues/85) single click should open notebook menu ([10dcab4](https://github.com/danobot/notorious/commit/10dcab4ae779e738f944dcb1bcde91868a21d9fd))
+* tag styling ([30eb737](https://github.com/danobot/notorious/commit/30eb73733b50fed41f3bc7ceacebff6da285ffd5))
+
 ### [0.1.1-alpha.45](https://github.com/danobot/notorious/compare/v0.1.1-alpha.43...v0.1.1-alpha.45) (2020-03-29)
 
 
