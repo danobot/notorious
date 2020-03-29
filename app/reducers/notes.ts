@@ -29,9 +29,9 @@ const notesReducer = createReducer(initialState, {
         return state // we cannot delete a note with children... what would we do with the children? THINK OF THE CHILDREN!!! D:
       }
       const parent = noteToBeNuked.parent
-      console.log("parent: ",parent)
-      console.log("parent.children: ",parent.children)
-      if (parent !== "root") {
+      if (parent !== undefined && parent !== "root") {
+        console.log("parent: ",parent)
+        console.log("parent.children: ",parent.children)
         newState = newState.map((note, id) => {
           if (note._id !== parent) { return note }
           // we found the parent note:

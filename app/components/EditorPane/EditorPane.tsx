@@ -12,12 +12,13 @@ import Moment from "react-moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Editor from '@monaco-editor/react';
 import { faClock } from "@fortawesome/free-regular-svg-icons";
-import { faHistory, faTrashAlt, faFolderOpen, faFingerprint } from "@fortawesome/free-solid-svg-icons";
+import { faHistory, faTrashAlt, faFolderOpen, faFingerprint, faThumbtack } from "@fortawesome/free-solid-svg-icons";
 
 import { Button, Empty } from 'antd';
 import CollectionEditor from './CollectionEditor/CollectionEditor';
 import { InlineItem, RightFloaty } from '../../style/utils.style';
 import { findExistingTags } from '../../containers/MainMenu/selectors';
+import { NotoriousButtonStyle } from '../MiddleMenu/MiddleMenu.style';
 
 const NoteTitleInput = styled(FieldForm)`
   font-size: 18pt;
@@ -58,12 +59,13 @@ export default function EditorPane({contentArea, note,
         <NoteHeader>
           <NoteMeta>
 
-            <InlineItem alt="Created"><FontAwesomeIcon icon={faClock} /><Moment format="MMM D, YYYY">{note.createAt}</Moment></InlineItem>
-            <InlineItem alt="Updated"><FontAwesomeIcon icon={faHistory} /><Moment format="MMM D, YYYY">{note.updatedAt}</Moment></InlineItem>
+            <InlineItem alt="Created"><FontAwesomeIcon title="Created at" icon={faClock} /><Moment title={new Date(note.createdAt)} format="MMM D, YYYY">{note.createAt}</Moment></InlineItem>
+            <InlineItem alt="Updated"><FontAwesomeIcon title="Updated at" icon={faHistory} /><Moment title={new Date(note.updatedAt)} format="MMM D, YYYY">{note.updatedAt}</Moment></InlineItem>
             {note.children && note.children.length > 0 && <InlineItem alt="subnoteCount"><FontAwesomeIcon icon={faFolderOpen} />{note.children.length}</InlineItem>}
-            <InlineItem alt="ID"><FontAwesomeIcon icon={faFingerprint} />{note._id.split("-")[0]}</InlineItem>
+            <InlineItem alt="ID"><FontAwesomeIcon title="Identifier" icon={faFingerprint} /><span title={note._id}>{note._id.split("-")[0]}</span></InlineItem>
             <RightFloaty>
-              <InlineItem alt="delete"><Button size="small" onClick={e => noteActions.deleteNote(note._id)}><FontAwesomeIcon icon={faTrashAlt} /></Button></InlineItem>
+              <InlineItem alt="pin"><NotoriousButtonStyle size="small" onClick={e => noteActions.updateNote(note._id, {pinned: !note.pinned})}><FontAwesomeIcon icon={faThumbtack} /></NotoriousButtonStyle></InlineItem>
+              <InlineItem alt="delete"><NotoriousButtonStyle size="small" onClick={e => noteActions.deleteNote(note._id)}><FontAwesomeIcon icon={faTrashAlt} /></NotoriousButtonStyle></InlineItem>
 
             </RightFloaty>
           </NoteMeta>
@@ -102,8 +104,8 @@ export default function EditorPane({contentArea, note,
           }
       </MainContent>
 
-      </> :  <Empty style={{marginTop: '200px'}}
-    // image="https://gw.alipayobjects.com/zos/antfincdn/ZHrcdLPrvN/empty.svg"
+      </> :  <Empty style={{marginTop: '350px'}}
+     image={Empty.PRESENTED_IMAGE_SIMPLE}
     imageStyle={{
       height: 60,
     }}

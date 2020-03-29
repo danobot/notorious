@@ -3,7 +3,7 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {  } from '@fortawesome/free-regular-svg-icons';
 import styled from 'styled-components';
-import {TopBarItem, TopBarButton, CustomButtonStyle} from './MiddleMenu.style'
+import {TopBarItem, TopBarButton, NotoriousButtonStyle} from './MiddleMenu.style'
 import FieldForm from '../EditorPane/FieldForm/FieldForm';
 
 import {
@@ -69,9 +69,9 @@ export default function MiddleMenu({
 
         </TopBarItem>
         <TopBarItem>
-            <CustomButtonStyle size="small"  onClick={e => createNote(selection, {})}>
+            <NotoriousButtonStyle size="small"  onClick={e => createNote(selection, {})}>
               <FontAwesomeIcon icon={faPlus} />
-            </CustomButtonStyle>
+            </NotoriousButtonStyle>
         </TopBarItem>
       </TopBar>
 

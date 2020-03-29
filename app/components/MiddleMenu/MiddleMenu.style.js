@@ -32,14 +32,14 @@ background: ${props => props.theme.colors.background.menu};
   padding: 7px 5px 7px 5px;
 `
 
-export const CustomButtonStyle = styled(Button)`
-border: none;
-background: transparent;
-
-.ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active {
-   background-color: ${props => props.theme.colors.background.selected};
+export const NotoriousButtonStyle = styled(Button)`
+  border: none;
   background: transparent;
-}
+
+  .ant-btn:hover, .ant-btn:focus, .ant-btn:active, .ant-btn.active {
+    background-color: ${props => props.theme.colors.background.selected};
+    background: transparent;
+  }
 
 `
 export const MiddleLayout = styled.div`
