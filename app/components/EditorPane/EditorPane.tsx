@@ -39,7 +39,8 @@ const NoteTitleInput = styled(FieldForm)`
 export default function EditorPane({contentArea, note,
   subNotes,
   noteActions,
-  existingTags
+  existingTags,
+  selectNoteAction
 }) {
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [state, setState] = useState({});
@@ -86,6 +87,13 @@ export default function EditorPane({contentArea, note,
         {note.kind && note.kind === "collection" && <EditorStyle>
           <CollectionEditor key={`collectioneditor-${noteref}`} note={note} subNotes={subNotes} noteActions={noteActions} />
         </EditorStyle>}
+        {note.kind && note.kind === "index" && <EditorStyle>
+          <ol style={{marginTop: '50px'}}>
+          {subNotes.map(n=><li><h5 onClick={e=> selectNoteAction(n._id)}>{n.title || "Untitled Note"}</h5></li>)}
+
+          </ol>
+
+        </EditorStyle>}
 
 
         {(!note.kind || note.kind === 'normal') && <EditorStyle>
@@ -110,10 +118,10 @@ export default function EditorPane({contentArea, note,
       height: 60,
     }}
     description={
-      <span>
+      <div>
         <p>No note selected.</p>
         <p>Select a note or notebook from the menus on the left.</p>
-      </span>
+      </div>
     }
   >
   </Empty>}

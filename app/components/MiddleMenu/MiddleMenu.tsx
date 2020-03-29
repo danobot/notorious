@@ -95,10 +95,10 @@ export default function MiddleMenu({
                 height: 60,
               }}
               description={
-                <span>
+                <div>
                   <p>This notebook is empty.</p>
                   <p>Create a note or select a notebook.</p>
-                </span>
+                </div>
               }
             >
               <Button type="primary" onClick={e => createNote(selection, {})}>New Note</Button>

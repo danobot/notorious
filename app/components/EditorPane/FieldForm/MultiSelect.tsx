@@ -36,6 +36,10 @@ const MultiSelect = (props) => {
     multiValueRemove: (provided, state) =>({
       ...provided,
       padding: '0 2px 0 2px'
+    }),
+    indicatorsContainer: (provided, state) =>({
+      ...provided,
+      visibility: 'hidden'
     })
 
   }

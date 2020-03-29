@@ -83,6 +83,9 @@ export const MyInput = styled.div`
 `
 
 export const CustomSelect = styled.div`
+  .rs__indicators {
+    visibility: hidden;
+  }
   .rs__value-container, .rs__control, .rs__control--is-focused, .rs__control--menu-is-open {
     border: none;
     padding: 0;
