@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1-alpha.45](https://github.com/danobot/notorious/compare/v0.1.1-alpha.43...v0.1.1-alpha.45) (2020-03-29)
+
+
+### Features
+
+* icons and tweaks ([810b90e](https://github.com/danobot/notorious/commit/810b90e8d93c557b4834f4590e13e45dad4ae0df))
+* search functionality, cleaned up styling, iconography ([a3dee39](https://github.com/danobot/notorious/commit/a3dee392e6ff41f620226b4d311d58bc39c0fcd1))
+
+
+### Bug Fixes
+
+* revert replication optimisation (first time sync fails) ([a817b90](https://github.com/danobot/notorious/commit/a817b908ea0d3725cba53bfe00024eef5473e512))
+* tweaks ([1cda197](https://github.com/danobot/notorious/commit/1cda197e23a94bac931d529335be4ceb5ec6a783))
+
 ### [0.1.1-alpha.44](https://github.com/danobot/notorious/compare/v0.1.1-alpha.42...v0.1.1-alpha.44) (2020-03-27)
 
 
