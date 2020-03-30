@@ -94,12 +94,8 @@ export default function MiddleMenu({
               imageStyle={{
                 height: 60,
               }}
-              description={
-                <div>
-                  <p>This notebook is empty.</p>
-                  <p>Create a note or select a notebook.</p>
-                </div>
-              }
+              description="This notebook is empty. Create a note or select a notebook."
+              
             >
               <Button type="primary" onClick={e => createNote(selection, {})}>New Note</Button>
             </Empty>

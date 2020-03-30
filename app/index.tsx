@@ -23,3 +23,10 @@ document.addEventListener('DOMContentLoaded', () =>
     document.getElementById('root')
   )
 );
+// window.addEventListener("beforeunload", (ev) =>
+// {
+//   ev.preventDefault();
+//     pouchInit.close()
+//     return true
+//     // return ev.returnValue = 'Are you sure you want to close?';
+// });

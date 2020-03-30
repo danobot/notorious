@@ -34,7 +34,7 @@ export default class PouchInit {
 
         // then two-way, continuous, retriable sync
         notesDB
-          .sync(remoteNotesDb, opts)
+          .sync(remoteNotesDb, syncOpts)
           .on('change', function(info) {
             console.log('remoteNotesDb sync:     handle change', info);
           })
