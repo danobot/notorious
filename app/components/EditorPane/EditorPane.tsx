@@ -89,7 +89,7 @@ export default function EditorPane({contentArea, note,
         </EditorStyle>}
         {note.kind && note.kind === "index" && <EditorStyle>
           <ol style={{marginTop: '50px'}}>
-          {subNotes.map(n=><li><h5 onClick={e=> selectNoteAction(n._id)}>{n.title || "Untitled Note"}</h5></li>)}
+          {subNotes.map(n=><li key={`index-item-${n._id}`}><h5 onClick={e=> selectNoteAction(n._id)}>{n.title || "Untitled Note"}</h5></li>)}
 
           </ol>
 
@@ -117,11 +117,7 @@ export default function EditorPane({contentArea, note,
     imageStyle={{
       height: 60,
     }}
-    description={
-      <div>
-        <p>No note selected.</p>
-        <p>Select a note or notebook from the menus on the left.</p>
-      </div>
+    description={<span>No note selected. Select something on the left.</span>
     }
   >
   </Empty>}

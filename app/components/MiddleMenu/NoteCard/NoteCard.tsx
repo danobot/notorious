@@ -50,8 +50,6 @@ export default function NoteCard(props) {
             {children && children.length > 0 && <InlineItem><FontAwesomeIcon icon={faFolderOpen} title={`Contains ${children.length} subnotes`} />{children.length}</InlineItem>}
             <InlineItem title={new Date(createdAt)}><Moment fromNow>{createdAt}</Moment></InlineItem>
 
-            {tags &&
-              tags.length > 0 &&<InlineItem >{ tags.map(t => <span style={{marginLeft: '3px', fontStyle: 'italic'}}>{t}</span>) }</InlineItem>}
             <RightFloaty>
               {pinned && <InlineItem><FontAwesomeIcon title="This note is pinned" icon={faThumbtack} /></InlineItem>}
               {showInMenu && <InlineItem><FontAwesomeIcon title="Shown in menu" icon={faStream} /></InlineItem>}
@@ -65,6 +63,8 @@ export default function NoteCard(props) {
           </div>
           <div className="noteTags">
 
+          {tags &&
+              tags.length > 0 &&<InlineItem >{ tags.map(t => <span key={`tag-${_id}-${t}`} style={{marginLeft: '3px', fontStyle: 'italic'}}>{t}</span>) }</InlineItem>}
           </div>
             <div className="notePreview">
             <EllipsisText text={removeMd(content)} length={60} />
