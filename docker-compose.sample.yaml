@@ -28,22 +28,21 @@ services:
         - "traefik.http.routers.notorious-backend.tls.certresolver=myhttpchallenge"
         - "traefik.http.services.notorious-backend.loadbalancer.server.port=5984"
     notorious_web:
-      container_name: notorious
-      build:
-        context: .
-        dockerfile: Dockerfile.prod
+      container_name: notorious_web
+      image: danobot/notorious:latest
       ports:
         - '9645:80'
       networks:
         - public
       env_file: .env
+      volumes:
+        - .env:/usr/share/nginx/html/.env
       labels:
         - "traefik.enable=true"
         - "traefik.docker.network=public"
         - "traefik.http.routers.notorious.rule=Host(`${NOTORIOUS_SUBDOMAIN}.${DOMAIN_NAME}`)"
         - "traefik.http.routers.notorious.entrypoints=https"
         - "traefik.http.routers.notorious.tls.certresolver=myhttpchallenge"
-        - "traefik.http.services.notorious-web.loadbalancer.server.port=9645"
 
 volumes:
   db_data:

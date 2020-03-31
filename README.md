@@ -69,7 +69,12 @@ Please consider supporting development (See [Contributions](#contributions)).
 
 [Support my projects via PayPal](https://paypal.me/danielb160)
 
-## Backing Up Data Directory 
+## Web deployment
+The `notorious_web` container spins up a web server you can use to access your notes through a web browser on the go. Take special note of the `volumes` section, which passes in the `.env` file to the container because the `DB_CONNECTION` string is required in order to connect back to your server.
+
+I recommend you put this behind some kind of basic authentication such as Traefik's `basic auth` middleware.
+
+# Backing Up Data Directory 
 This is applicable only if you don't have a backend server. Backing up or restoring the data directory when data is being synced to a remote server is untested and may have nasty consequences.
 
 Data is stored in `C:\Users\<username>\AppData\Roaming\Notorious\data`, backing up this directory will help avoid data loss. Make sure to close Notorious before any backup and restore operation to avoid data corruption.
