@@ -12,10 +12,6 @@ import * as modalActions from '../../reducers/modalActions';
 import * as contentAreaActions from '../ContentAreaCont/actions';
 
 class MainMenuCont extends PureComponent {
-  componentWillMount = () => {
-    console.log('MainMenuCont will mount');
-
-  }
   render() {
     return <MainMenu {...this.props}/>;
 
@@ -25,7 +21,7 @@ class MainMenuCont extends PureComponent {
 function mapStateToProps(state: MainMenuStateType) {
   return {
     notebooks: notebookSelector(state).filter( n => n.parent === "root"),
-    selectedNotebook: state.configs.selectedNotebook,
+    selectedNotebook: state.configs ? state.configs.selectedNotebook : null,
     showNotebookModalToggle: state.modals.showNotebookModalToggle,
     modalData: state.modals.showNotebookData,
     ...state.mainMenu

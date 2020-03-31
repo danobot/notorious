@@ -17,7 +17,7 @@ CheckNodeEnv('development');
 
 const port = process.env.PORT || 1111;
 const publicPath = `http://localhost:${port}/`;
-
+const srcDir = path.resolve(__dirname, '../src')
 const devConfig = merge.smart(baseConfig, {
   devtool: 'inline-source-map',
 
@@ -38,8 +38,8 @@ const devConfig = merge.smart(baseConfig, {
     filename: 'web.dev.js',
     libraryTarget: 'var'
   },
+
   node: {
-    fs: 'empty',
     'graceful-fs': 'empty',
     'write-file-atomic': 'empty',
     'fs-extra': 'empty',
@@ -50,11 +50,21 @@ const devConfig = merge.smart(baseConfig, {
     glob: 'empty',
     child_process: 'empty',
     module: 'empty',
+    conf: 'empty',
+    'electron-store': 'empty',
+    'path-exists': 'empty',
     electron: 'empty',
     net: 'empty',
     dns: 'empty',
     tls: 'empty',
+    fs: 'empty',
     jsonfile: 'empty'
+  },
+  resolve: {
+    alias: {
+      ConfigReducer: "./config/configs.web.ts",
+      configz: "./config.web.ts",
+    }
   },
   module: {
     rules: [
@@ -185,6 +195,9 @@ const devConfig = merge.smart(baseConfig, {
         use: 'url-loader'
       }
     ]
+
+
+
   },
 
   plugins: [
@@ -217,17 +230,21 @@ const devConfig = merge.smart(baseConfig, {
       hash: true,
       template: './web/index.web.html',
       filename: 'index.html' // relative to root of the application
-    }),
-    new webpack.NormalModuleReplacementPlugin(
-      /app\/reducers\/config\/configs\.electron.ts/,
-      './config.web.js'
-    )
+    })
+    // new webpack.NormalModuleReplacementPlugin(
+    //   /app\/reducers\/config\/configs\.electron.ts/,
+    //   './configs.web.js'
+    // ),
+    // new webpack.NormalModuleReplacementPlugin(
+    //   /app\/utils\/config.ts/,
+    //   './config.web.ts'
+    // )
   ],
 
-  node: {
-    __dirname: false,
-    __filename: false
-  },
+  // node: {
+  //   __dirname: false,
+  //   __filename: false
+  // },
 
   devServer: {
     port,

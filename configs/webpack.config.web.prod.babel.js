@@ -32,7 +32,6 @@ const productionConfig = merge.smart(baseConfig, {
   },
 
   node: {
-    fs: 'empty',
     'graceful-fs': 'empty',
     'write-file-atomic': 'empty',
     'fs-extra': 'empty',
@@ -43,11 +42,21 @@ const productionConfig = merge.smart(baseConfig, {
     glob: 'empty',
     child_process: 'empty',
     module: 'empty',
+    conf: 'empty',
+    'electron-store': 'empty',
+    'path-exists': 'empty',
     electron: 'empty',
     net: 'empty',
     dns: 'empty',
     tls: 'empty',
+    fs: 'empty',
     jsonfile: 'empty'
+  },
+  resolve: {
+    alias: {
+      ConfigReducer: "./config/configs.web.ts",
+      configz: "./config.web.ts",
+    }
   },
   module: {
     rules: [
@@ -248,32 +257,32 @@ const productionConfig = merge.smart(baseConfig, {
     )
   ],
   // Uncomment this only for testing the production build in a local dev server using `yarn start-dev-prod`
-  // ,devServer: {
-  //   port: 8081,
-  //   publicPath: 'http://localhost:8081',
-  //   compress: true,
-  //   noInfo: false,
-  //   stats: 'errors-only',
-  //   inline: true,
-  //   lazy: false,
-  //   hot: true,
-  //   headers: { 'Access-Control-Allow-Origin': '*' },
-  //   contentBase: path.join(__dirname, '../web'),
-  //   watchOptions: {
-  //     aggregateTimeout: 300,
-  //     ignored: /node_modules/,
-  //     poll: 100
-  //   },
-  //   historyApiFallback: {
-  //     verbose: true,
-  //     disableDotRule: false
-  //   },
-  //   before() {
-  //     if (process.env.START_HOT) {
-  //       console.log('Starting Web Process...');
-  //     }
-  //   }
-  // }
+  devServer: {
+    port: 8081,
+    publicPath: 'http://localhost:8081',
+    compress: true,
+    noInfo: false,
+    stats: 'errors-only',
+    inline: true,
+    lazy: false,
+    hot: true,
+    headers: { 'Access-Control-Allow-Origin': '*' },
+    contentBase: path.join(__dirname, '../web'),
+    watchOptions: {
+      aggregateTimeout: 300,
+      ignored: /node_modules/,
+      poll: 100
+    },
+    historyApiFallback: {
+      verbose: true,
+      disableDotRule: false
+    },
+    before() {
+      if (process.env.START_HOT) {
+        console.log('Starting Web Process...');
+      }
+    }
+  }
 });
 
 // Override the externals listing for web.

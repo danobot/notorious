@@ -2,7 +2,7 @@ import PouchDB from 'pouchdb';
 import config from './utils/config';
 import { store } from '.';
 
-const log = require('electron-log');
+// const log = require('electron-log');
 
 const syncOpts = { live: true, retry: true };
 // PouchDB.debug.enable('*');
@@ -18,8 +18,8 @@ export default class PouchInit {
   remoteNotesDb;
   notesDB;
   constructor() {
-    log.transports.file.level = 'debug';
-    PouchDB.logger = log;
+    // log.transports.file.level = 'debug';
+    // PouchDB.logger = log;
     notesDB.info().then(function(info) {
       console.log('notesDB', info);
     });

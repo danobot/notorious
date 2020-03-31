@@ -37,7 +37,8 @@ export default {
     extensions: ['.js', '.jsx', '.json', '.ts', '.tsx'],
     modules: [path.join(__dirname, '..', 'app'), 'node_modules'],
     alias: {
-      config: path.join(__dirname, '../env', process.env.NODE_ENV)
+      ConfigReducer: "./config/configs.electron.ts",
+      configz: "./config.electron.ts",
     }
   },
 

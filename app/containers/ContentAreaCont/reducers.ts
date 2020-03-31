@@ -1,9 +1,9 @@
 import { Action } from 'redux';
 import { SELECT_NOTE } from './actions';
 import { createReducer } from '../../utils/utils';
-import { configStorage } from '../../utils/localStorage';
+import config from '../../utils/config';
 const initialState = {
-  selectedNote: configStorage['selectedNote']
+  selectedNote: config.selectedNote
 }
 
 const contentAreaReducer = createReducer(initialState, {
