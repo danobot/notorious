@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1-alpha.47](https://github.com/danobot/notorious/compare/v0.1.1-alpha.45...v0.1.1-alpha.47) (2020-03-31)
+
+
+### Features
+
+* replication optimisation ([c51a856](https://github.com/danobot/notorious/commit/c51a8565d2ff3fd58d60a90d4c65dc8221fc2b28))
+
 ### [0.1.1-alpha.46](https://github.com/danobot/notorious/compare/v0.1.1-alpha.44...v0.1.1-alpha.46) (2020-03-29)
 
 
