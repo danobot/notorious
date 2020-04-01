@@ -29,10 +29,10 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           pushd ./app
-            npx standard-version -a --no-verify --release-as 0.2.0 --skip.changelog
+            npx standard-version -a --no-verify --release-as 0.2.0 --skip.changelog --skip.tag
             echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
           popd
-          npx standard-version -a --no-verify --release-as 0.2.0
+          npx standard-version -a --no-verify --release-as 0.2.0 --skip.tag --skip.changelog
         env:
           CI: true
       - name: Push to master
