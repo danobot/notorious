@@ -43,6 +43,7 @@ export default function NoteCard(props) {
     <>
       <ContextMenuTrigger id={`${_id}cm`}>
         <NoteCardStyle
+          className="noselect"
           key={`${_id}style`}
           onClick={e => props.handleClick(props.note._id)}
           {...props}

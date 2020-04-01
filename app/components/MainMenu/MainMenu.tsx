@@ -54,7 +54,7 @@ export default function MainMenu({
     createNotebook({ title: data.value, ...additional });
   };
   return (
-    <MainMenuStyle>
+    <MainMenuStyle className="noselect">
       {/* <p>{JSON.stringify(data, true, 2)}</p> */}
 
       <MenuItem

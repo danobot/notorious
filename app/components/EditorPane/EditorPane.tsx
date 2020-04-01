@@ -57,7 +57,7 @@ export default function EditorPane({contentArea, note,
   return (
     <>
       { note ? <>
-        <NoteHeader>
+        <NoteHeader className="noselect">
           <NoteMeta>
 
             <InlineItem alt="Created"><FontAwesomeIcon title="Created at" icon={faClock} /><Moment title={new Date(note.createdAt)} format="MMM D, YYYY">{note.createAt}</Moment></InlineItem>
