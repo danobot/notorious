@@ -1,5 +1,5 @@
 import React from 'react';
-import { MenuItemStyle, MenuItemIcon, MenuItemLabel } from './style';
+import { MenuItemStyle, MenuItemIcon, MenuItemLabel, MenuItemNormal, MenuItemSelected } from './style';
 
 export default function MenuItem({
   onClickHandler = () => {},
@@ -8,18 +8,23 @@ export default function MenuItem({
   compKey,
   right,
   indent,
-   skipIcon=false
+   skipIcon=false,
+   selected
 }) {
+  const MenuItemComponent = (selected) ? MenuItemSelected : MenuItemNormal;
+
   return (
-    <MenuItemStyle
-      onClick={e => onClickHandler()}
-      key={compKey}
-      indent={indent}
-    >
-      {!skipIcon && <MenuItemIcon>{icon}</MenuItemIcon>}
-      <MenuItemLabel>{label}</MenuItemLabel>
-      {right}
-    </MenuItemStyle>
+    <MenuItemComponent>
+      <MenuItemStyle
+        onClick={e => onClickHandler()}
+        key={compKey}
+        indent={indent}
+      >
+        {!skipIcon && <MenuItemIcon>{icon}</MenuItemIcon>}
+        <MenuItemLabel>{label}</MenuItemLabel>
+        {right}
+      </MenuItemStyle>
+    </MenuItemComponent>
   );
 }
 

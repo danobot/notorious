@@ -22,23 +22,24 @@ class MiddleMenuCont extends React.PureComponent {
   }
 }
 function mapStateToProps(state) {
-  const noteSetSelector = (filter, notes) => {
+  const noteSetSelector = (filter, allNotes, notes) => {
     console.log("noteSetSelector", filter)
     if (typeof filter === "object") {
-      return notes.filter(n => filter.indexOf(n._id) > -1)
+      return allNotes.filter(n => filter.indexOf(n._id) > -1)
     }
     switch(filter) {
       case "ALL":
-        return notes
+        return allNotes
       case "TRASH":
-        return notes.filter(i => i.trashed)
+        return notes.filter(i => i.deleted === true)
       default:
-        return notes.filter(i => (i.parent === filter))
+        return allNotes.filter(i => (i.parent === filter))
       }
     }
   return {
     selection: state.mainMenu.filter,
-    visibleNotes: noteSetSelector(state.mainMenu.filter, allNotes(state)),
+    visibleNotes: noteSetSelector(state.mainMenu.filter, allNotes(state), state.notes),
+    addButtonDisabled: state.mainMenu.filter === "TRASH",
     selectedNote: state.contentArea.selectedNote
   };
 }

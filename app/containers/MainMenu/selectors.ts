@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect'
 import { uniq } from '../../utils/utils'
 
-const allNotesInternal = state => {return (state && state.notes )? state.notes.filter(n=>n.schema === "note") : [] }
+const allNotesInternal = state => {return (state && state.notes )? state.notes.filter(n=>n.schema === "note" && !n.deleted) : [] }
 export const configs = state => state && state.configs
 export const state = state => state
 

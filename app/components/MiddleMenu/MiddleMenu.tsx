@@ -18,6 +18,7 @@ import {
   MiddleLayout,
   TopBar
 } from './MiddleMenu.style';
+import { restoreNote } from '../../reducers/noteActions';
 
 
 export const NoteTitleInput = styled(FieldForm)`
@@ -46,10 +47,13 @@ export default function MiddleMenu({
   selectNoteAction,
   createNote,
   selectedNote,
-  deleteNote,
+  softDeleteNote,
  updateNote,
  savingNew,
- searchNotes
+ searchNotes,
+ addButtonDisabled,
+ restoreNote,
+ deleteNote
 }) {
 
   const notecardContextHandlers = {
@@ -57,7 +61,9 @@ export default function MiddleMenu({
     cmCreateChildNoteHandler: (e, {note}) => createNote(note._id, {}),
     cmShowInMenuHandler: (e, {note}) => updateNote(note._id, {showInMenu: !note.showInMenu, kind: "collection" }),
     cmChangeKindHandler: (e, {note, kind}) => updateNote(note._id, {kind}),
-    cmDeleteNoteHandler: (e, {note}) => deleteNote(note._id),
+    cmDeleteNoteHandler: (e, {note}) => softDeleteNote(note._id),
+    cmHardDeleteNoteHandler: (e, {note}) => deleteNote(note._id),
+    cmRestoreNoteHandler: (e, {note}) => restoreNote(note._id)
   };
 
   return (
@@ -69,7 +75,7 @@ export default function MiddleMenu({
 
         </TopBarItem>
         <TopBarItem>
-            <NotoriousButtonStyle size="small"  onClick={e => createNote(selection, {})}>
+            <NotoriousButtonStyle size="small"  onClick={e => createNote(selection, {})} disabled={addButtonDisabled}>
               <FontAwesomeIcon icon={faPlus} />
             </NotoriousButtonStyle>
         </TopBarItem>
@@ -95,7 +101,7 @@ export default function MiddleMenu({
                 height: 60,
               }}
               description="This notebook is empty. Create a note or select a notebook."
-              
+
             >
               <Button type="primary" onClick={e => createNote(selection, {})}>New Note</Button>
             </Empty>

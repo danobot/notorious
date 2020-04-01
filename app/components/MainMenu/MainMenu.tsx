@@ -28,7 +28,7 @@ export default function MainMenu({
   hideNotebookModal,
   showNotebookModal,
   createNotebook,
-  deleteNote,
+  softDeleteNote,
   updateNote,
   modalData,
   selectNoteAction
@@ -36,7 +36,7 @@ export default function MainMenu({
   const mainMenuContextHandlers = {
     cmCreateNotebookInside: (e, {note}) => createNotebook({parent: note._id}),
     cmShowInMenuHandler: (e, {note}) => updateNote(note._id, {showInMenu: !note.showInMenu, kind: "collection" }),
-    cmDeleteNoteHandler: (e, {note}) => deleteNote(note._id),
+    cmDeleteNoteHandler: (e, {note}) => softDeleteNote(note._id),
     cmOpenInEditor: (e, {note}) => selectNoteAction(note._id),
   };
   const contextCreateNewNotebook = (e, data) => {
@@ -59,6 +59,8 @@ export default function MainMenu({
         icon={<FontAwesomeIcon icon={faBook} />}
         compKey="MenuItem"
         onClickHandler={e=> selectNotebook("ALL")}
+        selected={selectedNotebook === "ALL"}
+
       />
 
       <MenuItem
@@ -66,7 +68,7 @@ export default function MainMenu({
         icon={<FontAwesomeIcon icon={faTrash} />}
         compKey="trashMenuItem"
         onClickHandler={e=> selectNotebook("TRASH")}
-
+        selected={selectedNotebook === "TRASH"}
       />
       {/* <TreeMenu items={data && data.results}/> */}
       <ContextMenuTrigger id="mainmenu_notebooks">
@@ -90,7 +92,6 @@ export default function MainMenu({
           note={n}
           key={`treemenu${n._id}`}
           selectNotebook={selectNotebook}
-          selectedNotebook={selectedNotebook}
           handlers={mainMenuContextHandlers}
         />
       ))}
