@@ -17,7 +17,7 @@ import { RightFloaty } from '../../../style/utils.style';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faClock, faListAlt  } from "@fortawesome/free-regular-svg-icons";
-import {  faFolderOpen, faInbox, faColumns, faTasks, faFile, faThumbtack, faTh, faStream} from "@fortawesome/free-solid-svg-icons";
+import {  faFolderOpen, faInbox, faColumns, faTasks, faFile, faThumbtack, faTh, faStream, faTimesCircle, faExclamationTriangle , faStar} from "@fortawesome/free-solid-svg-icons";
 
 const removeMd = require('remove-markdown');
 export const InlineItem = styled.div`
@@ -34,13 +34,16 @@ export default function NoteCard(props) {
     cmCreateChildNoteHandler,
     cmShowInMenuHandler,
     cmChangeKindHandler,
-    cmDeleteNoteHandler
+    cmDeleteNoteHandler,
+    cmRestoreNoteHandler,
+    cmHardDeleteNoteHandler
   } = props.handlers;
-  const { title, content, tags, _id, createdAt, updatedAt,children, kind, pinned, showInMenu } = props.note;
+  const { title, content, tags, _id, createdAt, updatedAt,children, kind, pinned, showInMenu,starred, deleted} = props.note;
   return (
     <>
       <ContextMenuTrigger id={`${_id}cm`}>
         <NoteCardStyle
+          className="noselect"
           key={`${_id}style`}
           onClick={e => props.handleClick(props.note._id)}
           {...props}
@@ -57,7 +60,8 @@ export default function NoteCard(props) {
               {kind === 'tasks' && <InlineItem><FontAwesomeIcon title="Note Type: tasks" icon={faTasks} /></InlineItem>}
               {kind === 'index' && <InlineItem><FontAwesomeIcon title="Note Type: index" icon={faListAlt} /></InlineItem>}
               {kind === 'columns' && <InlineItem><FontAwesomeIcon title="Note Type: columns" icon={faColumns} /></InlineItem>}
-              {kind === 'group' && <InlineItem><FontAwesomeIcon title="Note Type: group" icon={faTh} /></InlineItem>}
+              {starred && <InlineItem><FontAwesomeIcon title="Favourited" icon={faStar} /></InlineItem>}
+              {deleted && children.length > 0 && <InlineItem><FontAwesomeIcon title="This note cannot be deleted until all its subnotes have been removed." icon={faExclamationTriangle} /></InlineItem>}
 
             </RightFloaty>
           </div>
@@ -90,7 +94,7 @@ export default function NoteCard(props) {
             <span>Show in menu</span>
           )}
         </MenuItem>
-        <SubMenu title="Change kind to..." delay={0}>
+        <SubMenu title="Change type" delay={0}>
           <MenuItem
             data={{ note: props.note, kind: 'collection' }}
             onClick={cmChangeKindHandler}
@@ -130,11 +134,21 @@ export default function NoteCard(props) {
         </SubMenu>
         <MenuItem
           data={{ note: props.note }}
-          onClick={cmDeleteNoteHandler}
+          onClick={props.note.deleted ? cmRestoreNoteHandler : cmDeleteNoteHandler}
           style={{ backgroundColor: 'red' }}
         >
-          Delete
+          {props.note.deleted === true ? "Restore from Trash" : "Delete"}
         </MenuItem>
+
+        { props.note.deleted === true &&    <>
+          <MenuItem divider />
+         <MenuItem
+          data={{ note: props.note }}
+          onClick={cmHardDeleteNoteHandler}
+          style={{ backgroundColor: 'red' }}
+        >
+            Delete permanently
+        </MenuItem></> }
       </ContextMenu>
     </>
   );

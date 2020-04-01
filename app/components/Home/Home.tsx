@@ -31,8 +31,6 @@ const handleSizeChange = size => {
   setstate({sizeMain: size})
 }
 
-console.log("config", config)
-console.log("isElectron()", isElectron())
   return (<>
   { isElectron() && config && config.db === null ? <Formik
       enableReinitialize={true}

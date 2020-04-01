@@ -13,6 +13,14 @@ export const MainMenuStyle = styled.div`
 export const MenuHeading = styled.div`
   padding: 0 0 0 0;
   color: ${props => props.theme.colors.text.muted} !important;
+  font-size: 110%;
+  font-weight: bold;
+  margin: 10px 0 0 0;
+  font-variant-caps: all-small-caps;
+`
+export const TreeHeading = styled.div`
+  padding: 0 0 0 0;
+  color: ${props => props.theme.colors.text.muted} !important;
   font-size: 90%;
   font-weight: bold;
 `

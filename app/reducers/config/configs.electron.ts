@@ -1,10 +1,9 @@
-import { persistentDocumentReducer } from 'redux-pouchdb';
-// import PouchDB from 'pouchdb'
-import config from '../utils/config';
+
+// this electron implementation is served by webpack by default using alias in webpack.config.base.js
+
 import {
   SET_CONFIG
 } from '../configActions';
-import { configDB } from '../PouchInit';
 const Store = require('electron-store');
 /**
  * For Electron deployment, wewant to use electron-store to store configuration.

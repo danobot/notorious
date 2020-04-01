@@ -86,10 +86,11 @@ const notesReducer = createReducer(initialState, {
       return  state.map((item, id) => {
         if (item.children && item.children.indexOf(action.id) === -1) { return item }
         console.log("updating", item.title)
-        return {
-          ...item,
-          lastSelectedChild: action.id
-        }
+        let newState = item
+        // if (!item.deleted) { // unless we are selecting the note in the Trash, set last selected child
+        // }
+        newState.lastSelectedChild = action.id
+        return newState
       })
     }
 

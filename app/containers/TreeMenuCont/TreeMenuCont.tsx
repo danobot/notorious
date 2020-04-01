@@ -6,7 +6,7 @@ import * as actions from '../ContentAreaCont/actions';
 import * as noteActions from '../../reducers/noteActions';
 import { allNotes, findSelectedNote, findChildrenOfNote } from '../MainMenu/selectors';
 import MenuItem from '../../components/MainMenu/MenuItem';
-import { MenuHeading, MenuItemRightFloat, MenuItemSelected, MenuItemNormal, MenuItemStyle } from '../../components/MainMenu/style';
+import { MenuHeading, MenuItemRightFloat, MenuItemSelected, MenuItemNormal, MenuItemStyle, TreeHeading } from '../../components/MainMenu/style';
 import {
   ContextMenu,
   MenuItem as ContexMenuItem,
@@ -26,7 +26,7 @@ class TreeMenuCont extends React.Component {
 
 
   render() {
-    const {selectedNotebook, selectNotebook, note, subNotes, handlers} = this.props
+    const {selectedNotebook, selectNotebook, note, subNotes, handlers, children} = this.props
     const {
       cmCreateNotebookInside,
       cmShowInMenuHandler,
@@ -34,40 +34,43 @@ class TreeMenuCont extends React.Component {
       cmOpenInEditor
     } = handlers;
     const {_id, title} = note
+    console.log(selectedNotebook)
     const icon = this.state.open ? <FontAwesomeIcon onClick={e=> this.setState({open: false})} icon={faChevronDown} /> : <FontAwesomeIcon onClick={e=> this.setState({open: true})} icon={faChevronRight} />
-    const MenuItemComponent = (selectedNotebook === _id) ? MenuItemSelected : MenuItemNormal
 
     // we dont want to close a notebook menu when it is first selected. We want to close it on click (given its already selected) and open it given its closed.
     const singleClickHandler = (selectedNotebook !== _id) ? () => {selectNotebook(note._id);  this.setState({open: true})} : () => {selectNotebook(note._id); this.setState({open: !this.state.open})}
     return <div>
 
         {subNotes && subNotes.length ===0 && <ContextMenuTrigger id={`main-menu-context-${_id}`} key={`main-menu-context-trigger-a-${_id}`}>
-          <MenuItemComponent onClick={e=>selectNotebook(note._id)} key={"menucokponent"+_id}>
 
-            <MenuItem indent={this.props.level*6} label={<DotLine>{note.title}</DotLine>} icon={<FontAwesomeIcon icon={faFolder} />}
-            key={note._id} right={<MenuItemRightFloat>{note.children.length}</MenuItemRightFloat>}
-            >
-            </MenuItem>
-            </MenuItemComponent>
+            <MenuItem
+            indent={this.props.level*16}
+            label={<DotLine>{note.title}</DotLine>}
+            icon={<FontAwesomeIcon icon={faFolder} />}
+            key={note._id} right={<MenuItemRightFloat>{children.length}</MenuItemRightFloat>}
+            selected={selectedNotebook === _id}
+            onClickHandler={e=>selectNotebook(note._id)} key={"menucokponent"+_id}
+            />
           </ContextMenuTrigger>
           }
         {subNotes && subNotes.length > 0 && <>   <ContextMenuTrigger id={`main-menu-context-${_id}`} key={`main-menu-context-trigger-b-${_id}`}>
-        <MenuItemComponent key={"menucokponent"+_id} onClick={e=> {singleClickHandler() }}>
         <MenuItem
-        indent={this.props.level*6}
+          key={"menucokponent"+_id} onClickHandler={e=> {singleClickHandler() }}
+          indent={this.props.level*16}
           key={"MenuItem"+_id}
           label={
-            <MenuHeading>
+            <TreeHeading>
               <DotLine>{note.title }</DotLine>
-            </MenuHeading>
+            </TreeHeading>
           }
           icon={icon}
+          selected={selectedNotebook === _id}
+
           // right={
           //       <MenuItemRightFloat><FontAwesomeIcon icon={faPlusCircle} /></MenuItemRightFloat>
           // }
           compKey={"parentnotebook"+_id}
         />
-        </MenuItemComponent>
         </ContextMenuTrigger>
 
 
@@ -76,7 +79,7 @@ class TreeMenuCont extends React.Component {
             key={"treemendsu"+this.props.level + n._id}
             level={this.props.level+1}
             selectNotebook={selectNotebook}
-            selectedNotebook={selectedNotebook}
+            children={children}
             handlers={handlers} />) }
 
 
@@ -121,7 +124,8 @@ class TreeMenuCont extends React.Component {
 function mapStateToProps(state, props) {
   return {
     allNotes: allNotes(state),
-    subNotes: findChildrenOfNote(props.note)(state).filter(n => n.showInMenu),
+    subNotes: findChildrenOfNote(props.note)(state).filter(n => n.showInMenu), // children that can be displayed in menu
+    children: findChildrenOfNote(props.note)(state), // all children
     level: props.level || 0,
     selectedNotebook: state.mainMenu.filter,
   };

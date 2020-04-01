@@ -7,6 +7,7 @@ export const CREATE_NOTE = 'CREATE_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
 export const ADD_EDITOR = 'ADD_EDITOR';
 export const REMOVE_EDITOR = 'REMOVE_EDITOR';
+export const SOFT_DELETE_NOTE = 'SOFT_DELETE_NOTE';
 
 export function updateNote(id: string, attributes: string) {
   return dispatch => {
@@ -51,6 +52,16 @@ export function deleteNote(noteId: string) {
       type: DELETE_NOTE,
       noteId
     });
+  };
+}
+export function softDeleteNote(noteId: string) {
+  return dispatch => {
+    dispatch(updateNote(noteId, {deleted: true}));
+  };
+}
+export function restoreNote(noteId: string) {
+  return dispatch => {
+    dispatch(updateNote(noteId, {deleted: false}));
   };
 }
 
