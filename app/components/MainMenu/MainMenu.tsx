@@ -4,7 +4,8 @@ import {
   faPlusCircle,
   faFile,
   faTrash,
-  faBook
+  faBook,
+  faStar
 } from '@fortawesome/free-solid-svg-icons';
 import {
   ContextMenu,
@@ -69,6 +70,13 @@ export default function MainMenu({
         compKey="trashMenuItem"
         onClickHandler={e=> selectNotebook("TRASH")}
         selected={selectedNotebook === "TRASH"}
+      />
+      <MenuItem
+        label="Favourites"
+        icon={<FontAwesomeIcon icon={faStar} />}
+        compKey="favMenuItem"
+        onClickHandler={e=> selectNotebook("FAV")}
+        selected={selectedNotebook === "FAV"}
       />
       {/* <TreeMenu items={data && data.results}/> */}
       <ContextMenuTrigger id="mainmenu_notebooks">

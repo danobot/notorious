@@ -31,7 +31,9 @@ function mapStateToProps(state) {
       case "ALL":
         return allNotes
       case "TRASH":
-        return notes.filter(i => i.deleted === true)
+        return notes.filter(i => i.deleted)
+      case "FAV":
+        return allNotes.filter(i => i.starred)
       default:
         return allNotes.filter(i => (i.parent === filter))
       }

@@ -17,7 +17,7 @@ import { RightFloaty } from '../../../style/utils.style';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faClock, faListAlt  } from "@fortawesome/free-regular-svg-icons";
-import {  faFolderOpen, faInbox, faColumns, faTasks, faFile, faThumbtack, faTh, faStream, faTimesCircle, faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import {  faFolderOpen, faInbox, faColumns, faTasks, faFile, faThumbtack, faTh, faStream, faTimesCircle, faExclamationTriangle , faStar} from "@fortawesome/free-solid-svg-icons";
 
 const removeMd = require('remove-markdown');
 export const InlineItem = styled.div`
@@ -38,7 +38,7 @@ export default function NoteCard(props) {
     cmRestoreNoteHandler,
     cmHardDeleteNoteHandler
   } = props.handlers;
-  const { title, content, tags, _id, createdAt, updatedAt,children, kind, pinned, showInMenu, deleted} = props.note;
+  const { title, content, tags, _id, createdAt, updatedAt,children, kind, pinned, showInMenu,starred, deleted} = props.note;
   return (
     <>
       <ContextMenuTrigger id={`${_id}cm`}>
@@ -59,6 +59,7 @@ export default function NoteCard(props) {
               {kind === 'tasks' && <InlineItem><FontAwesomeIcon title="Note Type: tasks" icon={faTasks} /></InlineItem>}
               {kind === 'index' && <InlineItem><FontAwesomeIcon title="Note Type: index" icon={faListAlt} /></InlineItem>}
               {kind === 'columns' && <InlineItem><FontAwesomeIcon title="Note Type: columns" icon={faColumns} /></InlineItem>}
+              {starred && <InlineItem><FontAwesomeIcon title="Favourited" icon={faStar} /></InlineItem>}
               {deleted && children.length > 0 && <InlineItem><FontAwesomeIcon title="This note cannot be deleted until all its subnotes have been removed." icon={faExclamationTriangle} /></InlineItem>}
 
             </RightFloaty>
