@@ -24,15 +24,15 @@ jobs:
           node-version: '10.15.1'
       - name: Preparing release
         if: github.ref == 'refs/heads/master'
-        #--prerelease alpha --skip.tag
+        #--prerelease alpha --skip.tag --release-as 0.2.0
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           pushd ./app
-            npx standard-version -a --no-verify --release-as 0.2.0 --skip.changelog --skip.tag
+            npx standard-version -a --no-verify --prerelease alpha --skip.changelog --skip.tag
             echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
           popd
-          npx standard-version -a --no-verify --release-as 0.2.0 --skip.tag --skip.changelog
+          npx standard-version -a --no-verify --prerelease alpha --skip.tag
         env:
           CI: true
       - name: Push to master
