@@ -27,6 +27,11 @@ function mapStateToProps(state) {
     if (typeof filter === "object") {
       return allNotes.filter(n => filter.indexOf(n._id) > -1)
     }
+    if (filter && filter.indexOf("tag::") > -1 ) {
+      const tag = filter.split("::")[1]
+      return allNotes.filter(n => n.tags && n.tags.indexOf(tag) > -1)
+    }
+
     switch(filter) {
       case "ALL":
         return allNotes

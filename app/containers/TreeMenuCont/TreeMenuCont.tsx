@@ -6,7 +6,7 @@ import * as actions from '../ContentAreaCont/actions';
 import * as noteActions from '../../reducers/noteActions';
 import { allNotes, findSelectedNote, findChildrenOfNote } from '../MainMenu/selectors';
 import MenuItem from '../../components/MainMenu/MenuItem';
-import { MenuHeading, MenuItemRightFloat, MenuItemSelected, MenuItemNormal, MenuItemStyle } from '../../components/MainMenu/style';
+import { MenuHeading, MenuItemRightFloat, MenuItemSelected, MenuItemNormal, MenuItemStyle, TreeHeading } from '../../components/MainMenu/style';
 import {
   ContextMenu,
   MenuItem as ContexMenuItem,
@@ -44,7 +44,7 @@ class TreeMenuCont extends React.Component {
         {subNotes && subNotes.length ===0 && <ContextMenuTrigger id={`main-menu-context-${_id}`} key={`main-menu-context-trigger-a-${_id}`}>
 
             <MenuItem
-            indent={this.props.level*6}
+            indent={this.props.level*16}
             label={<DotLine>{note.title}</DotLine>}
             icon={<FontAwesomeIcon icon={faFolder} />}
             key={note._id} right={<MenuItemRightFloat>{children.length}</MenuItemRightFloat>}
@@ -56,12 +56,12 @@ class TreeMenuCont extends React.Component {
         {subNotes && subNotes.length > 0 && <>   <ContextMenuTrigger id={`main-menu-context-${_id}`} key={`main-menu-context-trigger-b-${_id}`}>
         <MenuItem
           key={"menucokponent"+_id} onClickHandler={e=> {singleClickHandler() }}
-          indent={this.props.level*6}
+          indent={this.props.level*16}
           key={"MenuItem"+_id}
           label={
-            <MenuHeading>
+            <TreeHeading>
               <DotLine>{note.title }</DotLine>
-            </MenuHeading>
+            </TreeHeading>
           }
           icon={icon}
           selected={selectedNotebook === _id}

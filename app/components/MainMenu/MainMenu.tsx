@@ -5,7 +5,8 @@ import {
   faFile,
   faTrash,
   faBook,
-  faStar
+  faStar,
+  faTag
 } from '@fortawesome/free-solid-svg-icons';
 import {
   ContextMenu,
@@ -32,7 +33,8 @@ export default function MainMenu({
   softDeleteNote,
   updateNote,
   modalData,
-  selectNoteAction
+  selectNoteAction,
+  tags
 }) {
   const mainMenuContextHandlers = {
     cmCreateNotebookInside: (e, {note}) => createNotebook({parent: note._id}),
@@ -103,6 +105,26 @@ export default function MainMenu({
           handlers={mainMenuContextHandlers}
         />
       ))}
+
+      <MenuItem
+          label={<MenuHeading>Tags</MenuHeading>}
+          icon={ <FontAwesomeIcon
+            icon={faTag}
+          />}
+          compKey="tagsHeading"
+        />
+      {tags.map(n => (
+        <MenuItem
+        label={n}
+        // icon={ <FontAwesomeIcon
+        //   icon={faTag}
+        // />}
+        onClickHandler={e=> selectNotebook("tag::" +  n)}
+        selected={selectedNotebook === "tag::" +  n}
+        compKey={`tag-menu-item-${n}`}
+      />
+      ))}
+
       {/* <FlatMenu
         items={notebooks}
         selectNotebook={selectNotebook}
