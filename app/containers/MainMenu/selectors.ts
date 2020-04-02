@@ -42,3 +42,13 @@ export const findChildrenOfNote = (note) => {
   }
     )
 }
+export const findNote = (id) => {
+  return createSelector(
+    allNotesInternal,
+    (all) => {
+      const results = all.filter(n => n._id === id)
+    return results.length === 1 ? results[0] : null
+
+  }
+    )
+}

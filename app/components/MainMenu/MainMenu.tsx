@@ -122,6 +122,7 @@ export default function MainMenu({
         onClickHandler={e=> selectNotebook("tag::" +  n)}
         selected={selectedNotebook === "tag::" +  n}
         compKey={`tag-menu-item-${n}`}
+        key={`tag-menu-item-${n}`}
       />
       ))}
 
