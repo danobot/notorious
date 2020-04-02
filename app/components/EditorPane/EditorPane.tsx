@@ -12,7 +12,7 @@ import Moment from "react-moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Editor from '@monaco-editor/react';
 import { faClock, faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons";
-import { faHistory, faTrashAlt, faFolderOpen, faFingerprint, faThumbtack, faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
+import { faHistory, faTrashAlt, faCaretSquareRight, faFolderOpen, faFingerprint, faThumbtack,faBook, faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
 
 import { Button, Empty } from 'antd';
 import CollectionEditor from './CollectionEditor/CollectionEditor';
@@ -40,7 +40,8 @@ export default function EditorPane({contentArea, note,
   subNotes,
   noteActions,
   existingTags,
-  selectNoteAction
+  selectNoteAction,
+  parent
 }) {
   const [isEditorReady, setIsEditorReady] = useState(false);
   const [state, setState] = useState({});
@@ -60,15 +61,16 @@ export default function EditorPane({contentArea, note,
         <NoteHeader className="noselect">
           <NoteMeta>
 
-            <InlineItem alt="Created"><FontAwesomeIcon title="Created at" icon={faClock} /><Moment title={new Date(note.createdAt)} format="MMM D, YYYY">{note.createAt}</Moment></InlineItem>
-            <InlineItem alt="Updated"><FontAwesomeIcon title="Updated at" icon={faHistory} /><Moment title={new Date(note.updatedAt)} format="MMM D, YYYY">{note.updatedAt}</Moment></InlineItem>
-            {note.children && note.children.length > 0 && <InlineItem alt="subnoteCount"><FontAwesomeIcon icon={faFolderOpen} />{note.children.length}</InlineItem>}
-            <InlineItem alt="ID"><FontAwesomeIcon title="Identifier" icon={faFingerprint} /><span title={note._id}>{note._id.split("-")[0]}</span></InlineItem>
+            <InlineItem><FontAwesomeIcon title="Created at" icon={faClock} /><Moment title={new Date(note.createdAt)} format="MMM D, YYYY">{note.createAt}</Moment></InlineItem>
+            <InlineItem><FontAwesomeIcon title="Updated at" icon={faHistory} /><Moment title={new Date(note.updatedAt)} format="MMM D, YYYY">{note.updatedAt}</Moment></InlineItem>
+            {note.children && note.children.length > 0 && <InlineItem title="Number of Subnotes"><FontAwesomeIcon icon={faFolderOpen} />{note.children.length}</InlineItem>}
+            <InlineItem><FontAwesomeIcon title="Identifier" icon={faFingerprint} /><span title={note._id}>{note._id.split("-")[0]}</span></InlineItem>
+            {parent && <InlineItem><FontAwesomeIcon title="Notebook" icon={faBook} /><span style={{textDecoration: 'underline'}} onClick={e=> selectNoteAction(parent._id)}>{parent.title}</span></InlineItem>}
+            {note.showInMenu && <InlineItem><FontAwesomeIcon title="Menu item" icon={faCaretSquareRight} /><span>Menu Item</span></InlineItem>}
             <RightFloaty>
-              <InlineItem alt="star"><NotoriousButtonStyle title="Favourite Note" size="small" onClick={e => noteActions.updateNote(note._id, {starred: !note.starred})}><FontAwesomeIcon icon={note.starred ? faStarSolid : faStarOutline} /></NotoriousButtonStyle></InlineItem>
-              <InlineItem alt="pin"><NotoriousButtonStyle title="Pin note to top" size="small" onClick={e => noteActions.updateNote(note._id, {pinned: !note.pinned})}><FontAwesomeIcon icon={faThumbtack} /></NotoriousButtonStyle></InlineItem>
-              <InlineItem alt="delete"><NotoriousButtonStyle title="Move to trash" size="small" onClick={e => noteActions.softDeleteNote(note._id)}><FontAwesomeIcon icon={faTrashAlt} /></NotoriousButtonStyle></InlineItem>
-
+              <InlineItem><NotoriousButtonStyle title="Favourite Note" size="small" onClick={e => noteActions.updateNote(note._id, {starred: !note.starred})}><FontAwesomeIcon icon={note.starred ? faStarSolid : faStarOutline} /></NotoriousButtonStyle></InlineItem>
+              <InlineItem><NotoriousButtonStyle title="Pin note to top" size="small" onClick={e => noteActions.updateNote(note._id, {pinned: !note.pinned})}><FontAwesomeIcon icon={faThumbtack} /></NotoriousButtonStyle></InlineItem>
+              <InlineItem><NotoriousButtonStyle title="Move to trash" size="small" onClick={e => noteActions.softDeleteNote(note._id)}><FontAwesomeIcon icon={faTrashAlt} /></NotoriousButtonStyle></InlineItem>
             </RightFloaty>
           </NoteMeta>
           <MyInput>

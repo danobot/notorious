@@ -8,7 +8,8 @@ import { MainMenuStateType } from '../../reducers/types';
 import * as actions from './actions';
 import * as noteActions from '../../reducers/noteActions';
 import EditorPane from '../../components/EditorPane/EditorPane';
-import { findChildren, findSelectedNote, findExistingTags } from '../MainMenu/selectors';
+import { findChildren, findSelectedNote, findExistingTags, findNote } from '../MainMenu/selectors';
+import NotesWrapper from '../util/NotesWrapper';
 
 class ContentAreaCont extends PureComponent {
   componentWillMount = () => {
@@ -21,12 +22,14 @@ class ContentAreaCont extends PureComponent {
   }
 }
 
-function mapStateToProps(state: MainMenuStateType) {
+function mapStateToProps(state, props) {
+  const note = findSelectedNote(state)
   return {
     contentArea: state.contentArea,
-    note: findSelectedNote(state), //state.notes.filter(e=> e._id === state.configs.selectedNote)[0],
+    note: note, //state.notes.filter(e=> e._id === state.configs.selectedNote)[0],
     subNotes: findChildren(state),
-    existingTags: findExistingTags(state)
+    existingTags: findExistingTags(state),
+    parent: note &&  findNote(note.parent)(state)
 
   };
 }
