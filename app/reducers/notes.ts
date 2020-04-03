@@ -3,7 +3,7 @@ import PouchDB from 'pouchdb'
 import config from '../utils/config';
 import {createReducer} from '../utils/utils'
 // import { createReducer } from '@reduxjs/toolkit'
-import { UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE, REMOVE_EDITOR, ADD_EDITOR, TOGGLE_MENU_SHOW_NOTE, TOGGLE_PIN_NOTE } from './noteActions';
+import { UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE, REMOVE_EDITOR, ADD_EDITOR, TOGGLE_MENU_SHOW_NOTE, TOGGLE_PIN_NOTE, ADD_ATTACHMENT} from './noteActions';
 import { notesDB } from '../PouchInit';
 import { SELECT_NOTE } from '../containers/ContentAreaCont/actions';
 
@@ -60,22 +60,6 @@ const notesReducer = createReducer(initialState, {
         return {
           ...item,
           ...c
-        }
-      })
-    },
-    [ADD_EDITOR]: (state, action) => {
-      return  state.map((item, id) => {
-        if (item._id !== action.id) { return item }
-        return {
-          ...item,
-          contents: [
-            ...item.contents,
-            {
-              id: item.contents.length + 1,
-              createdAt: Date.now(),
-              markdown: ""
-            }
-          ]
         }
       })
     },
