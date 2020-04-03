@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-alpha.1](https://github.com/danobot/notorious/compare/v0.2.0...v0.2.1-alpha.1) (2020-04-03)
+
+
+### Features
+
+* redux actions for file attachments ([934c7d1](https://github.com/danobot/notorious/commit/934c7d1361a54b6a7445be2b9f8e9514c918adb1))
+
 ### [0.2.1-alpha.0](https://github.com/danobot/notorious/compare/v0.1.1-alpha.47...v0.2.1-alpha.0) (2020-04-02)
 
 
