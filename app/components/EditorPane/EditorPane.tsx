@@ -19,6 +19,7 @@ import CollectionEditor from './CollectionEditor/CollectionEditor';
 import { InlineItem, RightFloaty } from '../../style/utils.style';
 import { findExistingTags } from '../../containers/MainMenu/selectors';
 import { NotoriousButtonStyle } from '../MiddleMenu/MiddleMenu.style';
+import RichEditor from './RichEditor/RichEditor';
 
 const NoteTitleInput = styled(FieldForm)`
   font-size: 18pt;
@@ -102,6 +103,11 @@ export default function EditorPane({contentArea, note,
 
 
         {(!note.kind || note.kind === 'normal') && <EditorStyle>
+
+        {/* <RichEditor
+          id={noteref } key={noteref}
+          value={note.content}
+        /> */}
           <SimpleMDE id={noteref } key={noteref}
             value={note.content}
             events={{
