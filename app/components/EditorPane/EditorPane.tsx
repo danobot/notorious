@@ -41,6 +41,7 @@ export default function EditorPane({contentArea, note,
   noteActions,
   existingTags,
   selectNoteAction,
+  addAttachment,
   parent
 }) {
   const [isEditorReady, setIsEditorReady] = useState(false);
@@ -61,12 +62,13 @@ export default function EditorPane({contentArea, note,
         <NoteHeader className="noselect">
           <NoteMeta>
 
+            {parent && <InlineItem><FontAwesomeIcon title="Notebook" icon={faBook} /><span style={{textDecoration: 'underline'}} onClick={e=> selectNoteAction(parent._id)}>{parent.title}</span></InlineItem>}
+            {note.children && note.children.length > 0 && <InlineItem title="Number of Subnotes"><FontAwesomeIcon icon={faFolderOpen} />{note.children.length}</InlineItem>}
+            {/* <InlineItem><FontAwesomeIcon title="Identifier" icon={faFingerprint} /><span title={note._id}>{note._id.split("-")[0]}</span></InlineItem> */}
+            {/* <InlineItem><FontAwesomeIcon title="Notebook" icon={faBook} /><span onClick={e=> addAttachment(note._id, note._rev, "title.txt", "Fd", 'text/plain')}>Attachment</span></InlineItem> */}
+            {note.showInMenu && <InlineItem><FontAwesomeIcon title="Menu item" icon={faCaretSquareRight} /><span>Menu Item</span></InlineItem>}
             <InlineItem><FontAwesomeIcon title="Created at" icon={faClock} /><Moment title={new Date(note.createdAt)} format="MMM D, YYYY">{note.createAt}</Moment></InlineItem>
             <InlineItem><FontAwesomeIcon title="Updated at" icon={faHistory} /><Moment title={new Date(note.updatedAt)} format="MMM D, YYYY">{note.updatedAt}</Moment></InlineItem>
-            {note.children && note.children.length > 0 && <InlineItem title="Number of Subnotes"><FontAwesomeIcon icon={faFolderOpen} />{note.children.length}</InlineItem>}
-            <InlineItem><FontAwesomeIcon title="Identifier" icon={faFingerprint} /><span title={note._id}>{note._id.split("-")[0]}</span></InlineItem>
-            {parent && <InlineItem><FontAwesomeIcon title="Notebook" icon={faBook} /><span style={{textDecoration: 'underline'}} onClick={e=> selectNoteAction(parent._id)}>{parent.title}</span></InlineItem>}
-            {note.showInMenu && <InlineItem><FontAwesomeIcon title="Menu item" icon={faCaretSquareRight} /><span>Menu Item</span></InlineItem>}
             <RightFloaty>
               <InlineItem><NotoriousButtonStyle title="Favourite Note" size="small" onClick={e => noteActions.updateNote(note._id, {starred: !note.starred})}><FontAwesomeIcon icon={note.starred ? faStarSolid : faStarOutline} /></NotoriousButtonStyle></InlineItem>
               <InlineItem><NotoriousButtonStyle title="Pin note to top" size="small" onClick={e => noteActions.updateNote(note._id, {pinned: !note.pinned})}><FontAwesomeIcon icon={faThumbtack} /></NotoriousButtonStyle></InlineItem>
