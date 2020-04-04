@@ -17,6 +17,7 @@ import { Form, Formik } from 'formik';
 import isElectron from 'is-electron';
 import SplitPane from 'react-split-pane';
 import Pane from 'react-split-pane'
+import { waitSync} from 'redux-pouchdb';
 
 const mapStateToProps = (state) => {
   return {
@@ -24,12 +25,19 @@ const mapStateToProps = (state) => {
   };
 }
 export default function Home(props) {
-  const {resizeSidebarAction, resizeMainMenuAction, resizeMiddleMenuAction, settings, saveStoreConfig, sizeMain, sizeSidebar, sizeMiddle, config, setConfig} = props
+  const {resizeSidebarAction, resizeMainMenuAction, resizeMiddleMenuAction, settings, saveStoreConfig, sizeMain, sizeSidebar, sizeMiddle, config, setConfig, syncNotesSuccess, syncNotesError} = props
 // console.log("Home", props )
 const [state, setstate] = useState({sizeMain: 0, sizeMiddle: 0})
 const handleSizeChange = size => {
   setstate({sizeMain: size})
 }
+
+  // waitSync("notes").then(d => {
+  //   syncNotesSuccess()
+  // }).catch(e=> {
+  //   console.log("error sync: ", e)
+  //   syncNotesError()
+  // })
 
   return (<>
   { isElectron() && config && config.db === null ? <Formik

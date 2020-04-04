@@ -1,32 +1,22 @@
-// import { persistentDocumentReducer } from 'redux-pouchdb';
-// import PouchDB from 'pouchdb'
-// import config from '../../utils/config';
-import {
-  RESIZE_SIDEBAR,
-  RESIZE_MAIN_MENU,
-  RESIZE_MIDDLE_MENU
-} from './actions';
+import { createReducer } from '../../utils/utils'
+import { SYNC_NOTES_ERROR, SYNC_NOTES_SUCCESS } from './actions';
+import { UPDATE_NOTE } from '../../reducers/noteActions';
+
 
 const initialState = {
-  sizeMain: 85,
-  sizeMiddle: 70,
-  sizeSidebar: 20
+  notesSync: "pending"
 }
 
-function configReducer(state = initialState, action: Action<string>) {
-  switch (action.type) {
-    case RESIZE_SIDEBAR:
-      return {...state, sizeSidebar: action.size}
-    case RESIZE_MAIN_MENU:
-      return {...state, sizeMain: action.size}
-    case RESIZE_MIDDLE_MENU:
-      return {...state, sizeMiddle: action.size}
-    // case '@@redux-pouchdb/SET_OBJECT_REDUCER':
-    //   return action.state
-    // would need to check if state.config is different to current state, if it is return action.state.config
-    default:
-      return state.settings ? state.settings : state;
+const homePageReducer = createReducer(initialState, {
+  [SYNC_NOTES_ERROR]: (state, action) => {
+    return {...state, notesSync: "error"}
+  },
+  [SYNC_NOTES_SUCCESS]: (state, action) => {
+    return {...state, notesSync: "success"}
+  },
+  [UPDATE_NOTE]: (state, action) => {
+    return {...state, notesSync: "pending"}
   }
 
-}
-export default configReducer;
+});
+export default homePageReducer;
