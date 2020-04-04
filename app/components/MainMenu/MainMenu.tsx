@@ -13,13 +13,10 @@ import {
   MenuItem as ContexMenuItem,
   ContextMenuTrigger
 } from 'react-contextmenu';
-import { Button } from 'antd';
-import { MainMenuStyle, MenuHeading, MenuItemRightFloat } from './style';
-import FlatMenu from './FlatMenu';
+import { MainMenuStyle, MenuHeading, MenuItemRightFloat, MainMenuBottom } from './style';
 import MenuItem from './MenuItem';
 
 import ModalForm from '../util/ModalForm';
-import TreeMenu from './TreeMenu';
 import TreeMenuCont from '../../containers/TreeMenuCont/TreeMenuCont';
 
 export default function MainMenu({
@@ -34,10 +31,11 @@ export default function MainMenu({
   updateNote,
   modalData,
   selectNoteAction,
-  tags
+  tags,
+  notesSync
 }) {
   const mainMenuContextHandlers = {
-    cmCreateNotebookInside: (e, {note}) => createNotebook({parent: note._id}),
+    cmCreateNotebookInside: (e, {note}) => createNotebook(note._id),
     cmShowInMenuHandler: (e, {note}) => updateNote(note._id, {showInMenu: !note.showInMenu, kind: "collection" }),
     cmDeleteNoteHandler: (e, {note}) => softDeleteNote(note._id),
     cmOpenInEditor: (e, {note}) => selectNoteAction(note._id),
@@ -51,7 +49,7 @@ export default function MainMenu({
   const newNotebookSubmitAction = (data, additional) => {
     hideNotebookModal();
     console.log('newNotebookSubmitAction', data);
-    createNotebook({ title: data.value, ...additional });
+    createNotebook("root", { title: data.value, ...additional });
   };
   return (
     <MainMenuStyle className="noselect">
@@ -125,7 +123,12 @@ export default function MainMenu({
         key={`tag-menu-item-${n}`}
       />
       ))}
+{/* <MainMenuBottom>
+  {notesSync === "success" && "Sync Completed"}
+  {notesSync === "pending" && "Synchronising..."}
+  {notesSync === "error" && "Sync error"}
 
+</MainMenuBottom> */}
       {/* <FlatMenu
         items={notebooks}
         selectNotebook={selectNotebook}

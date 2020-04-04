@@ -70,3 +70,10 @@ export const MenuItemStyle = styled.div`
 export const MenuItemSelected = styled(MenuItemNormal)`
   background-color: ${props => props.theme.colors.menu.selected}
 `
+export const MainMenuBottom = styled.div`
+font-size: smaller;
+color: ${props => props.theme.colors.text.muted} !important;
+padding: 0 10px 0 10px;
+position: absolute;
+bottom: 0;
+`

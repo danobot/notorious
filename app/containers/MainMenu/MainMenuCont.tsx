@@ -1,5 +1,4 @@
 import React, { PureComponent } from 'react';
-
 import { bindActionCreators, Dispatch } from 'redux';
 import { connect } from 'react-redux';
 import MainMenu from '../../components/MainMenu/MainMenu';
@@ -10,9 +9,26 @@ import * as notebookActions from '../../reducers/notebookActions';
 import * as noteActions from '../../reducers/noteActions';
 import * as modalActions from '../../reducers/modalActions';
 import * as contentAreaActions from '../ContentAreaCont/actions';
+import * as homeActions from '../HomePage/actions';
 import { menuItemSorter, alphaSorter } from '../../utils/utils';
+import { waitSync } from 'redux-pouchdb';
+
+
+
 class MainMenuCont extends PureComponent {
+  //  componentDidUpdate = (prevProps) => {
+  //    if (prevProps.notes !== this.props.notes) {
+  //     const { syncNotesSuccess, syncNotesError} = this.props
+  //     waitSync("notes").then(d => {
+  //       syncNotesSuccess()
+  //     }).catch(e=> {
+  //       console.log("error sync: ", e)
+  //       syncNotesError()
+  //     })
+  //   }
+  // }
   render() {
+
     return <MainMenu {...this.props}/>;
 
   }
@@ -24,14 +40,16 @@ function mapStateToProps(state: MainMenuStateType) {
     selectedNotebook: state.configs ? state.configs.selectedNotebook : null,
     showNotebookModalToggle: state.modals.showNotebookModalToggle,
     modalData: state.modals.showNotebookData,
+    // notes: state.notes,
     tags: findExistingTags(state).sort(alphaSorter),
+    notesSync: state.settings.notesSync,
     ...state.mainMenu
 
   };
 }
 
 function mapDispatchToProps(dispatch: Dispatch) {
-  return bindActionCreators(Object.assign(actions, modalActions, notebookActions, noteActions,contentAreaActions), dispatch)
+  return bindActionCreators(Object.assign(actions, modalActions, notebookActions, noteActions,contentAreaActions, homeActions), dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainMenuCont);

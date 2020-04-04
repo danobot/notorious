@@ -5,11 +5,11 @@ import { selectNotebook } from '../containers/MainMenu/actions';
 
 export const CREATE_NOTEBOOK = 'CREATE_NOTEBOOK';
 
-export function createNotebook(attributes: object) {
+export function createNotebook(parent: string, attributes: object) {
   return (dispatch: Dispatch) => {
     const noteId = uuid()
     dispatch({type: CREATE_NOTEBOOK, attributes: { ...attributes, id: noteId }})
     dispatch(selectNotebook(noteId))
-    createNoteWithId(noteId, "root", { ...attributes, showInMenu: true, kind: 'collection' })(dispatch)
+    createNoteWithId(noteId, parent, { ...attributes, showInMenu: true, kind: 'collection' })(dispatch)
   };
 }
