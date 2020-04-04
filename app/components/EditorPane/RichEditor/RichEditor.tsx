@@ -1,6 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { Component, useCallback  } from 'react';
 
-
+import { debounce } from "lodash";
 
 import 'jodit';
 import JoditEditor from "jodit-react";
@@ -8,26 +8,33 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  } from "@fortawesome/free-regular-svg-icons";
 import {  } from "@fortawesome/free-solid-svg-icons";
 
+const handler = f => useCallback(debounce(f, 2000), []);
 
-export default class RichEditor extends Component {
+class RichEditor extends Component {
   constructor(props) {
       super(props);
       this.state = {
-          content: props.value,
+          content: props.note.content,
       }
   }
 
   updateContent(value) {
-      this.setState({content:value})
+    // handler(()=>this.props.noteActions.updateNote(this.props.note._id, {content: value}))
+// console.log(value)
+// this.props.noteActions.updateNote(this.props.note._id, {content: value})
+      // this.setState({content:value})
+      clearTimeout(this.timeout)
+      this.timeout = setTimeout(()=> {this.setState({content:value}) ;this.props.noteActions.updateNote(this.props.note._id, {content: value})}, 5000)
   }
 
   render() {
       return <JoditEditor
           value={this.state.content}
           config={{
-              readonly: false // all options from https://xdsoft.net/jodit/play.html
+              readonly: false,
+              height: '100%',
           }}
-          onChange={this.updateContent.bind(this)}
+          onChange={ this.updateContent.bind(this)}
       />
   }
 }
@@ -72,3 +79,4 @@ export default class RichEditor extends Component {
 //     </>
 //   );
 // }
+export default RichEditor;

@@ -1,5 +1,5 @@
 import React, {useState, useRef} from 'react';
-import { NoteTitle,NoteHeader, EditorStyle, NoteMeta, NoteMetaIcon, MainContent} from './style';
+import { NoteTitle,NoteHeader, EditorStyle, NoteMeta, NoteMetaIcon, MainContent, EditorRow, EditorPaneStyle} from './style';
 import styled from 'styled-components';
 
 import { MyInput } from './style';
@@ -59,7 +59,7 @@ export default function EditorPane({contentArea, note,
   const noteref = note && note._id+note._rev
   return (
     <>
-      { note ? <>
+      { note ? <EditorPaneStyle>
         <NoteHeader className="noselect">
           <NoteMeta>
 
@@ -76,12 +76,16 @@ export default function EditorPane({contentArea, note,
               <InlineItem><NotoriousButtonStyle title="Move to trash" size="small" onClick={e => noteActions.softDeleteNote(note._id)}><FontAwesomeIcon icon={faTrashAlt} /></NotoriousButtonStyle></InlineItem>
             </RightFloaty>
           </NoteMeta>
-          <MyInput>
-
-          <NoteTitleInput label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => noteActions.updateNote(note._id, {"title": e.target.value})} className="ant-input-lg" />
-          </MyInput>
-          <MultiSelect id={`react-select-${note.id}-${note._rev}`} label="tags" values={note.tags} options={existingTags.map(t=> ({label: t, value: t}))} onUpdate={tags => noteActions.updateNote(note._id, {"tags": tags})} />
         </NoteHeader>
+        <EditorRow>
+      <MyInput>
+
+      <NoteTitleInput label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => noteActions.updateNote(note._id, {"title": e.target.value})} className="ant-input-lg" />
+      </MyInput>
+        </EditorRow>
+      <EditorRow>
+      <MultiSelect id={`react-select-${note.id}-${note._rev}`} label="tags" values={note.tags} options={existingTags.map(t=> ({label: t, value: t}))} onUpdate={tags => noteActions.updateNote(note._id, {"tags": tags})} />
+        </EditorRow>
 
       <MainContent>
 
@@ -102,13 +106,14 @@ export default function EditorPane({contentArea, note,
         </EditorStyle>}
 
 
-        {(!note.kind || note.kind === 'normal') && <EditorStyle>
+        {(!note.kind || note.kind === 'normal') && <>
 
-        {/* <RichEditor
+        <RichEditor
           id={noteref } key={noteref}
-          value={note.content}
-        /> */}
-          <SimpleMDE id={noteref } key={noteref}
+          note={note}
+          noteActions={noteActions}
+        />
+          {/* <SimpleMDE id={noteref } key={noteref}
             value={note.content}
             events={{
               'blur': handleBlur,
@@ -116,14 +121,14 @@ export default function EditorPane({contentArea, note,
             options={{
               spellChecker: false
 
-            }} />
+            }} /> */}
 
 
-          </EditorStyle>
+          </>
           }
       </MainContent>
 
-      </> :  <Empty style={{marginTop: '350px'}}
+      </EditorPaneStyle> :  <Empty style={{marginTop: '350px'}}
      image={Empty.PRESENTED_IMAGE_SIMPLE}
     imageStyle={{
       height: 60,

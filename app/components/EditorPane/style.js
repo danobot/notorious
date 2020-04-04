@@ -32,6 +32,9 @@ export const NoteMetaIcon = styled.span`
 `
 export const EditorStyle = styled.div`
   border: none;
+
+  width: 100%;
+
   .CodeMirror {
     border-left: none;
     border-right: none;
@@ -70,9 +73,14 @@ export const MenuItem = styled.div`
   height: 25px;
   cursor: hand;
 `
+export const EditorRow = styled.div`
+  padding: 2px 5px 2px 5px;
+
+`
 export const MyInput = styled.div`
 .ant-input, .ant-input:focus {
   border: none;
+  width: 100%;
   border-color: ${props => props.theme.colors.text.light};
   outline: 0;
   border-radius: 0;
@@ -95,5 +103,15 @@ export const CustomSelect = styled.div`
 
 `
 export const MainContent = styled.div`
-margin-top: 74px;
+/* margin-top: 85px; */
+    width:100%;
+    /* height:80%; */
+    flex-grow: 1;
+`
+export const EditorPaneStyle = styled.div`
+/* margin-top: 85px; */
+    width:100%;
+    height:100%;
+    display: flex;
+    flex-direction: column;
 `
