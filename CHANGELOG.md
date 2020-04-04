@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-alpha.2](https://github.com/danobot/notorious/compare/v0.2.1-alpha.0...v0.2.1-alpha.2) (2020-04-04)
+
+
+### Features
+
+* rich text editor ([a853fcf](https://github.com/danobot/notorious/commit/a853fcfee3265f20b8ebe52ccaaea04c1cf4f401))
+* sync status (wip) ([18d4b8a](https://github.com/danobot/notorious/commit/18d4b8aa715951cdb11d9d8e9900b66b63888263))
+
 ### [0.2.1-alpha.1](https://github.com/danobot/notorious/compare/v0.2.0...v0.2.1-alpha.1) (2020-04-03)
 
 
