@@ -107,21 +107,23 @@ export default function EditorPane({contentArea, note,
 
 
         {(!note.kind || note.kind === 'normal') && <>
-
-        <RichEditor
-          id={noteref } key={noteref}
-          note={note}
-          noteActions={noteActions}
-        />
-          {/* <SimpleMDE id={noteref } key={noteref}
+          {!note.editor || note.editor === 'markdown' ?
+            <SimpleMDE id={noteref } key={noteref}
             value={note.content}
             events={{
               'blur': handleBlur,
             }}
             options={{
               spellChecker: false
+            }} />
+              : <RichEditor
+              id={noteref } key={noteref}
+              note={note}
+              noteActions={noteActions}
+              />
+              }
 
-            }} /> */}
+
 
 
           </>

@@ -58,6 +58,7 @@ export default function MiddleMenu({
 
   const notecardContextHandlers = {
     cmPinNoteHandler: (e, {note}) => updateNote(note._id, {pinned: !note.pinned}),
+    cmSwitchEditorHandler: (e, {note, editor}) => updateNote(note._id, {editor: editor}),
     cmCreateChildNoteHandler: (e, {note}) => createNote(note._id, {}),
     cmShowInMenuHandler: (e, {note}) => updateNote(note._id, {showInMenu: !note.showInMenu, kind: "collection" }),
     cmChangeKindHandler: (e, {note, kind}) => updateNote(note._id, {kind}),

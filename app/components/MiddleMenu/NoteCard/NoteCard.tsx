@@ -36,7 +36,8 @@ export default function NoteCard(props) {
     cmChangeKindHandler,
     cmDeleteNoteHandler,
     cmRestoreNoteHandler,
-    cmHardDeleteNoteHandler
+    cmHardDeleteNoteHandler,
+    cmSwitchEditorHandler
   } = props.handlers;
   const { title, content, tags, _id, createdAt, updatedAt,children, kind, pinned, showInMenu,starred, deleted} = props.note;
   return (
@@ -92,6 +93,13 @@ export default function NoteCard(props) {
             <span>Remove from menu</span>
           ) : (
             <span>Show in menu</span>
+          )}
+        </MenuItem>
+        <MenuItem data={{ note: props.note, editor: props.note.editor === "markdown" ? "richtext" : "markdown" }} onClick={cmSwitchEditorHandler}>
+          {props.note.editor === "markdown" ? (
+            <span>Switch to rich-text editor</span>
+          ) : (
+            <span>Switch to Markdown editor</span>
           )}
         </MenuItem>
         <SubMenu title="Change type" delay={0}>
