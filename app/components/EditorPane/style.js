@@ -73,9 +73,22 @@ export const MenuItem = styled.div`
   height: 25px;
   cursor: hand;
 `
+export const FlexWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+export const FlexFixed = styled.div`
+  display: flex;
+  height: 100px;
+`
+export const FlexContent = styled.div`
+  display: flex;
+  flex: 1;
+`
 export const EditorRow = styled.div`
   padding: 2px 5px 2px 5px;
-
+  display: block;
+  width: 100%;
 `
 export const MyInput = styled.div`
 .ant-input, .ant-input:focus {

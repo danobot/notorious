@@ -27,7 +27,8 @@ const MultiSelect = (props) => {
     menu: (provided, state) =>({
       ...provided,
       padding: 0,
-      border:  'none'
+      border:  'none',
+      zIndex: 50
     }),
     multiValueLabel: (provided, state) =>({
       ...provided,

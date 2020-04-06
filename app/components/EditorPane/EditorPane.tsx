@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react';
 import { NoteTitle,NoteHeader, EditorStyle, NoteMeta, NoteMetaIcon, MainContent, EditorRow, EditorPaneStyle} from './style';
 import styled from 'styled-components';
 
-import { MyInput } from './style';
+import { MyInput, FlexContent, FlexFixed } from './style';
 
 import SimpleMDE from "react-simplemde-editor";
 import FieldForm from './FieldForm/FieldForm';
@@ -61,6 +61,7 @@ export default function EditorPane({contentArea, note,
   return (
     <>
       { note ? <EditorPaneStyle>
+        <FlexFixed style={{height: '40px'}}>
         <NoteHeader className="noselect">
           <NoteMeta>
 
@@ -78,17 +79,22 @@ export default function EditorPane({contentArea, note,
             </RightFloaty>
           </NoteMeta>
         </NoteHeader>
-        <EditorRow>
-      <MyInput>
+        </FlexFixed>
+        <FlexFixed style={{height: '50px'}}>
 
-      <NoteTitleInput label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => noteActions.updateNote(note._id, {"title": e.target.value})} className="ant-input-lg" />
-      </MyInput>
-        </EditorRow>
-      <EditorRow>
-      <MultiSelect id={`react-select-${note.id}-${note._rev}`} label="tags" values={note.tags} options={existingTags.map(t=> ({label: t, value: t}))} onUpdate={tags => noteActions.updateNote(note._id, {"tags": tags})} />
-        </EditorRow>
+            <MyInput>
 
-      <MainContent>
+            <NoteTitleInput label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => noteActions.updateNote(note._id, {"title": e.target.value})} className="ant-input-lg" />
+            </MyInput>
+        </FlexFixed>
+        <FlexFixed style={{height: '50px'}}>
+          <EditorRow>
+
+            <MultiSelect id={`react-select-${note.id}-${note._rev}`} label="tags" values={note.tags} options={existingTags.map(t=> ({label: t, value: t}))} onUpdate={tags => noteActions.updateNote(note._id, {"tags": tags})} />
+          </EditorRow>
+          </FlexFixed >
+      <FlexContent>
+        <MainContent>
 
 
         {note.kind && note.kind === "columns" && <EditorStyle>
@@ -114,14 +120,7 @@ export default function EditorPane({contentArea, note,
             note={note}
             noteActions={noteActions}
            />
-            // <SimpleMDE id={noteref } key={noteref}
-            // value={note.content}
-            // events={{
-            //   'blur': handleBlur,
-            // }}
-            // options={{
-            //   spellChecker: false
-            // }} />
+
               : <RichEditor
               id={noteref } key={noteref}
               note={note}
@@ -135,7 +134,7 @@ export default function EditorPane({contentArea, note,
           </>
           }
       </MainContent>
-
+      </FlexContent>
       </EditorPaneStyle> :  <Empty style={{marginTop: '350px'}}
      image={Empty.PRESENTED_IMAGE_SIMPLE}
     imageStyle={{

@@ -95,11 +95,11 @@ export default function NoteCard(props) {
             <span>Show in menu</span>
           )}
         </MenuItem>
-        <MenuItem data={{ note: props.note, editor: props.note.editor === "markdown" ? "richtext" : "markdown" }} onClick={cmSwitchEditorHandler}>
-          {props.note.editor === "markdown" ? (
-            <span>Switch to rich-text editor</span>
-          ) : (
+        <MenuItem data={{ note: props.note, editor: props.note.editor === "richtext" ? "markdown" : "richtext" }} onClick={cmSwitchEditorHandler}>
+          {props.note.editor && props.note.editor === "richtext" ? (
             <span>Switch to Markdown editor</span>
+            ) : (
+              <span>Switch to rich-text editor</span>
           )}
         </MenuItem>
         <SubMenu title="Change type" delay={0}>

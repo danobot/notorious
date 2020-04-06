@@ -18,5 +18,12 @@ html {
 
 .CodeMirror {
   height: 100%;
-  overflow-y: hidden;
+  /* overflow-y: hidden; */
+}
+.CodeMirror-scroll {
+  width: 100%;
+}
+
+.react-codemirror2  {
+height: 100%;
 }

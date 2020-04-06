@@ -2,6 +2,7 @@ import React, { Component, useCallback  } from 'react';
 import {Controlled as ReactCodeMirror} from 'react-codemirror2';
 import { debounce } from "lodash";
 var HyperMD = require('hypermd')
+import { Resizable} from 're-resizable';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {  } from "@fortawesome/free-regular-svg-icons";
 import {  } from "@fortawesome/free-solid-svg-icons";
@@ -72,13 +73,20 @@ class MarkdownEditor extends Component {
       hmdHover: true,
       hmdTableAlign: true
     };
-      return <ReactCodeMirror value={this.state.content} ref={this.codeMirrorRef}
+      return <Resizable
+      defaultSize={{
+        width:"100%",
+        height:"100%",
+      }}
+    >
+      <ReactCodeMirror value={this.state.content} ref={this.codeMirrorRef}
       className="code-mirror_editor"
       options={options}
       onBeforeChange={(editor, data, value) => {
         this.setState({content: value});
       }}
-      onChange={updateContent} />;
+      onChange={updateContent} />
+    </Resizable>;
   }
 }
 export default MarkdownEditor;
