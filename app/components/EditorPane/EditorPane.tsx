@@ -20,6 +20,7 @@ import { InlineItem, RightFloaty } from '../../style/utils.style';
 import { findExistingTags } from '../../containers/MainMenu/selectors';
 import { NotoriousButtonStyle } from '../MiddleMenu/MiddleMenu.style';
 import RichEditor from './RichEditor/RichEditor';
+import MarkdownEditor from './MarkdownEditor/MarkdownEditor';
 
 const NoteTitleInput = styled(FieldForm)`
   font-size: 18pt;
@@ -107,15 +108,20 @@ export default function EditorPane({contentArea, note,
 
 
         {(!note.kind || note.kind === 'normal') && <>
-          {!note.editor || note.editor === 'markdown' ?
-            <SimpleMDE id={noteref } key={noteref}
-            value={note.content}
-            events={{
-              'blur': handleBlur,
-            }}
-            options={{
-              spellChecker: false
-            }} />
+          {!note.editor || note.editor === 'markdown' ? <MarkdownEditor
+            id={noteref }
+            key={noteref}
+            note={note}
+            noteActions={noteActions}
+           />
+            // <SimpleMDE id={noteref } key={noteref}
+            // value={note.content}
+            // events={{
+            //   'blur': handleBlur,
+            // }}
+            // options={{
+            //   spellChecker: false
+            // }} />
               : <RichEditor
               id={noteref } key={noteref}
               note={note}
