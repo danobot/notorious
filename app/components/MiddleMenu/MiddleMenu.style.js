@@ -21,7 +21,7 @@ export const NoteList = styled.div`
  margin-bottom: 30px; /* required to make the last note in scroll list fully visible */
 `
 export const TopBar = styled.div`
-background: ${props => props.theme.colors.background.menu};
+  background: ${props => props.theme.colors.background.menu};
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
