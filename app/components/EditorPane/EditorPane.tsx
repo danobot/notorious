@@ -1,5 +1,4 @@
 import React, {useState, useRef} from 'react';
-import { NoteTitle,NoteHeader, EditorStyle, NoteMeta, NoteMetaIcon, MainContent, EditorRow, EditorPaneStyle} from './style';
 import styled from 'styled-components';
 
 import { MyInput, FlexContent, FlexFixed } from './style';
@@ -15,6 +14,20 @@ import { faClock, faStar as faStarOutline } from "@fortawesome/free-regular-svg-
 import { faHistory, faTrashAlt, faCaretSquareRight, faFolderOpen, faFingerprint, faThumbtack,faBook, faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
 
 import { Button, Empty } from 'antd';
+import {
+  NoteTitle,
+  NoteHeader,
+  EditorStyle,
+  NoteMeta,
+  NoteMetaIcon,
+  MainContent,
+  EditorRow,
+  EditorPaneStyle,
+  EditorRowMeta,
+  EditorRowTitle,
+  EditorRowTags,
+  EditorRowMain
+} from './style';
 import CollectionEditor from './CollectionEditor/CollectionEditor';
 import { InlineItem, RightFloaty } from '../../style/utils.style';
 import { findExistingTags } from '../../containers/MainMenu/selectors';
@@ -26,7 +39,6 @@ const NoteTitleInput = styled(FieldForm)`
   font-size: 18pt;
   font-weight: bold;
   padding: 0;
-  margin-top: 10px;
   .ant-input, .ant-input:focus {
   border: none;
   border-color: ${props => props.theme.colors.text.light};
@@ -61,8 +73,7 @@ export default function EditorPane({contentArea, note,
   return (
     <>
       { note ? <EditorPaneStyle>
-        <FlexFixed style={{height: '40px'}}>
-        <NoteHeader className="noselect">
+        <EditorRowMeta>
           <NoteMeta>
 
             {parent && <InlineItem><FontAwesomeIcon title="Notebook" icon={faBook} /><span style={{textDecoration: 'underline'}} onClick={e=> selectNoteAction(parent._id)}>{parent.title}</span></InlineItem>}
@@ -78,23 +89,21 @@ export default function EditorPane({contentArea, note,
               <InlineItem><NotoriousButtonStyle title="Move to trash" size="small" onClick={e => noteActions.softDeleteNote(note._id)}><FontAwesomeIcon icon={faTrashAlt} /></NotoriousButtonStyle></InlineItem>
             </RightFloaty>
           </NoteMeta>
-        </NoteHeader>
-        </FlexFixed>
-        <FlexFixed style={{height: '50px'}}>
+        </EditorRowMeta>
+        <EditorRowTitle >
 
             <MyInput>
 
             <NoteTitleInput label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => noteActions.updateNote(note._id, {"title": e.target.value})} className="ant-input-lg" />
             </MyInput>
-        </FlexFixed>
-        <FlexFixed style={{height: '50px'}}>
+        </EditorRowTitle>
+        <EditorRowTags >
           <EditorRow>
 
             <MultiSelect id={`react-select-${note.id}-${note._rev}`} label="tags" values={note.tags} options={existingTags.map(t=> ({label: t, value: t}))} onUpdate={tags => noteActions.updateNote(note._id, {"tags": tags})} />
           </EditorRow>
-          </FlexFixed >
-      <FlexContent>
-        <MainContent>
+          </EditorRowTags >
+        <EditorRowMain>
 
 
         {note.kind && note.kind === "columns" && <EditorStyle>
@@ -133,8 +142,7 @@ export default function EditorPane({contentArea, note,
 
           </>
           }
-      </MainContent>
-      </FlexContent>
+      </EditorRowMain>
       </EditorPaneStyle> :  <Empty style={{marginTop: '350px'}}
      image={Empty.PRESENTED_IMAGE_SIMPLE}
     imageStyle={{

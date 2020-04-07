@@ -25,5 +25,10 @@ html {
 }
 
 .react-codemirror2  {
-height: 100%;
+  /* position: fixed; */
+  /* top: 120px; */
+  width: 100%;
+  /* right: 0; */
+  /* bottom: 0; */
+  height: 88vh; /* this number is magic, don't touch it */
 }
