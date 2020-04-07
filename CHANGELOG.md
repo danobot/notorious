@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-alpha.4](https://github.com/danobot/notorious/compare/v0.2.1-alpha.1...v0.2.1-alpha.4) (2020-04-07)
+
+
+### Features
+
+* hypermd editor ([f19dd81](https://github.com/danobot/notorious/commit/f19dd814183470a27ad83f6f92a271012ea93bb5))
+* toggle between editors (per-note) ([586b636](https://github.com/danobot/notorious/commit/586b636d34ddc52b85258226e2d9997f4ccd603a))
+
+
+### Bug Fixes
+
+* add imports back (after adding deps to package.json) ([33e318e](https://github.com/danobot/notorious/commit/33e318ed300370c0b4abe3f1c36b3b3c45cfc2de))
+* compilation error ([e2f619c](https://github.com/danobot/notorious/commit/e2f619c25ec00aa4e6ff66620dc9648ef6bd4270))
+* editor fills the correct amount of space and scrolling works ([874cceb](https://github.com/danobot/notorious/commit/874cceb49dac10d776c6fb3bf5e8350d01a4b64e))
+* style ([ecbf792](https://github.com/danobot/notorious/commit/ecbf792651cd48c370b1a085ba0e8ffaf7366acc))
+
 ### [0.2.1-alpha.3](https://github.com/danobot/notorious/compare/v0.2.1-alpha.1...v0.2.1-alpha.3) (2020-04-06)
 
 
