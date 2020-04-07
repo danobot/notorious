@@ -12,7 +12,8 @@ const MultiSelect = (props) => {
       borderWidth: 0,
       borderStyle: 'none',
       borderColor: 'transparent',
-      boxShadow: 'none'
+      boxShadow: 'none',
+      backgroundColor: 'unset'
     }),
     valueContainer: (provided, state) =>({
       ...provided,
@@ -22,7 +23,8 @@ const MultiSelect = (props) => {
     container: (provided, state) =>({
       ...provided,
       padding: 0,
-      border:  'none'
+      border:  'none',
+      backgroundColor: 'unset'
     }),
     menu: (provided, state) =>({
       ...provided,

@@ -116,15 +116,70 @@ export const CustomSelect = styled.div`
 
 `
 export const MainContent = styled.div`
-/* margin-top: 85px; */
     width:100%;
-    /* height:80%; */
     flex-grow: 1;
 `
-export const EditorPaneStyle = styled.div`
-/* margin-top: 85px; */
+/* export const EditorPaneStyle = styled.div`
     width:100%;
     height:100%;
     display: flex;
     flex-direction: column;
+` */
+
+
+/* Wrapper */
+export const EditorPaneStyle = styled.div`
+/* background: yellow; */
+  display: grid;
+  grid-template-columns: auto;
+  grid-template-rows: 40px 40px 40px auto;
+  height: 100%;
 `
+
+
+export const EditorRowMeta = styled.div`
+/* background: green; */
+  grid-row-start: 1;
+  grid-row-end: 1;
+  width: 100%;
+  height: 40px;
+  position: fixed;
+
+  top: 0;
+
+`
+export const EditorRowTitle = styled.div`
+/* background: orange; */
+  grid-row-start: 2;
+  grid-row-end: 2;
+  width: 100%;
+  height: 50px;
+  position: fixed;
+  top: 0;
+
+  margin-top: 40px;
+
+`
+export const EditorRowTags = styled.div`
+/* background: purple; */
+  grid-row-start: 3;
+  grid-row-end: 3;
+  width: 100%;
+  height:50px;
+  position: fixed;
+  top: 0;
+
+  margin-top: 80px;
+
+`
+export const EditorRowMain = styled.div`
+/* background: brown; */
+  grid-row-start: 4;
+  grid-row-end: 4;
+  width: 100%;
+
+  /* margin-top: 120px; */
+
+`
+
+
