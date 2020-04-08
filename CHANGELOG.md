@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-alpha.5](https://github.com/danobot/notorious/compare/v0.2.1-alpha.3...v0.2.1-alpha.5) (2020-04-08)
+
+
+### Features
+
+* sorting of notes ([eafc8e5](https://github.com/danobot/notorious/commit/eafc8e5c5b8406c25994e10a7e15d34e9ccfef5c))
+* styling ([2ce92a3](https://github.com/danobot/notorious/commit/2ce92a3e6d2399969383f89b24d351b40814e888))
+* title in middle menus ([6835748](https://github.com/danobot/notorious/commit/6835748a5fa92e6b8d65dd7988105233ff7be5cc))
+
+
+### Bug Fixes
+
+* meta background styling ([ad31636](https://github.com/danobot/notorious/commit/ad31636fad75b28801c81b6b363597657eb69664))
+
 ### [0.2.1-alpha.4](https://github.com/danobot/notorious/compare/v0.2.1-alpha.1...v0.2.1-alpha.4) (2020-04-07)
 
 
