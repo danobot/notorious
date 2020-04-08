@@ -31,7 +31,7 @@ import {
 import CollectionEditor from './CollectionEditor/CollectionEditor';
 import { InlineItem, RightFloaty } from '../../style/utils.style';
 import { findExistingTags } from '../../containers/MainMenu/selectors';
-import { NotoriousButtonStyle } from '../MiddleMenu/MiddleMenu.style';
+import { NotoriousButtonStyle, TopBar } from '../MiddleMenu/MiddleMenu.style';
 import RichEditor from './RichEditor/RichEditor';
 import MarkdownEditor from './MarkdownEditor/MarkdownEditor';
 
@@ -49,7 +49,6 @@ const NoteTitleInput = styled(FieldForm)`
   width:100%;
 }
 `
-
 export default function EditorPane({contentArea, note,
   subNotes,
   noteActions,
@@ -58,8 +57,8 @@ export default function EditorPane({contentArea, note,
   addAttachment,
   parent
 }) {
-  const [isEditorReady, setIsEditorReady] = useState(false);
   const [state, setState] = useState({});
+  const [count, setCount] = React.useState('100px')
   const valueGetter = useRef();
 
   const handleBlur = value => {
@@ -69,12 +68,13 @@ export default function EditorPane({contentArea, note,
       noteActions.updateNote(note._id, { content: value.getValue() })
     }
   };
-  const noteref = note && note._id+note._rev
+  const noteref = note && note._id + note._rev
   return (
     <>
       { note ? <EditorPaneStyle>
-        <EditorRowMeta>
-          <NoteMeta>
+        <EditorRowMeta >
+         <TopBar>
+            <NoteMeta>
 
             {parent && <InlineItem><FontAwesomeIcon title="Notebook" icon={faBook} /><span style={{textDecoration: 'underline'}} onClick={e=> selectNoteAction(parent._id)}>{parent.title}</span></InlineItem>}
             {note.children && note.children.length > 0 && <InlineItem title="Number of Subnotes"><FontAwesomeIcon icon={faFolderOpen} />{note.children.length}</InlineItem>}
@@ -89,6 +89,7 @@ export default function EditorPane({contentArea, note,
               <InlineItem><NotoriousButtonStyle title="Move to trash" size="small" onClick={e => noteActions.softDeleteNote(note._id)}><FontAwesomeIcon icon={faTrashAlt} /></NotoriousButtonStyle></InlineItem>
             </RightFloaty>
           </NoteMeta>
+          </TopBar>
         </EditorRowMeta>
         <EditorRowTitle >
 

@@ -13,7 +13,7 @@ import 'codemirror/mode/javascript/javascript';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/mode/markdown/markdown';
 import 'codemirror/mode/gfm/gfm';
-
+  
 import 'hypermd/core';
 import 'hypermd/mode/hypermd';
 
