@@ -13,7 +13,9 @@ const MultiSelect = (props) => {
       borderStyle: 'none',
       borderColor: 'transparent',
       boxShadow: 'none',
-      backgroundColor: 'unset'
+      backgroundColor: 'unset',
+      // display: 'block',
+      // zIndex: 1000
     }),
     valueContainer: (provided, state) =>({
       ...provided,
@@ -28,9 +30,10 @@ const MultiSelect = (props) => {
     }),
     menu: (provided, state) =>({
       ...provided,
-      padding: 0,
-      border:  'none',
-      zIndex: 50
+      // padding: 0,
+      // border:  'none',
+      //  zIndex: 10000,
+       transform: 'translateZ(1000)'
     }),
     multiValueLabel: (provided, state) =>({
       ...provided,
@@ -62,7 +65,7 @@ const MultiSelect = (props) => {
 }
 
     return (
-      // <CustomSelect>
+      <CustomSelect>
 
       <CreatableSelect
       id={id}
@@ -79,7 +82,7 @@ const MultiSelect = (props) => {
         onChange={submitHander}
         options={options}
       />
-        // </CustomSelect>
+       </CustomSelect>
   )
 }
 

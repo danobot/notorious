@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
 import styled from 'styled-components';
 
-import { MyInput, FlexContent, FlexFixed } from './style';
+import { MyInput } from './style';
 
 import SimpleMDE from "react-simplemde-editor";
 import FieldForm from './FieldForm/FieldForm';
@@ -15,13 +15,9 @@ import { faHistory, faTrashAlt, faCaretSquareRight, faFolderOpen, faFingerprint,
 
 import { Button, Empty } from 'antd';
 import {
-  NoteTitle,
-  NoteHeader,
   EditorStyle,
   NoteMeta,
-  NoteMetaIcon,
-  MainContent,
-  EditorRow,
+  Padding,
   EditorPaneStyle,
   EditorRowMeta,
   EditorRowTitle,
@@ -92,17 +88,19 @@ export default function EditorPane({contentArea, note,
           </TopBar>
         </EditorRowMeta>
         <EditorRowTitle >
+        <Padding>
 
             <MyInput>
 
             <NoteTitleInput label="title" value={note.title} placeholder="Untitled Note" onUpdate={e => noteActions.updateNote(note._id, {"title": e.target.value})} className="ant-input-lg" />
             </MyInput>
+          </Padding>
         </EditorRowTitle>
         <EditorRowTags >
-          <EditorRow>
+          <Padding>
 
             <MultiSelect id={`react-select-${note.id}-${note._rev}`} label="tags" values={note.tags} options={existingTags.map(t=> ({label: t, value: t}))} onUpdate={tags => noteActions.updateNote(note._id, {"tags": tags})} />
-          </EditorRow>
+          </Padding>
           </EditorRowTags >
         <EditorRowMain>
 

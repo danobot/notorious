@@ -18,28 +18,19 @@ import {
 } from './MiddleMenu.style';
 
 
-export const NoteTitleInput = styled(FieldForm)`
-  width: 100%;
-  .ant-form {
-    height: 100%;
-  }
-  .ant-input, .ant-input-lg, .ant-input:focus {
-    padding: 5px;
-    height: 100%;
+export const SearchBarInput = styled(FieldForm)`
+  .ant-input, .ant-input:focus, .ant-input-sm {
     outline: 0;
     border-radius: 0;
+    border: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    border: none;
 }
-  /* .ant-form {
-    width: 100%;
-  }
   .ant-input, .ant-input:focus {
   border-color: ${props => props.theme.colors.text.light};
 
   width:100%;
-} */
+}
 `
 export default function MiddleMenu({
   visibleNotes,
@@ -75,7 +66,7 @@ export default function MiddleMenu({
 
       </StickyLayoutTitle>
       <StickyLayoutMiddle>
-          <NoteTitleInput label="search" placeholder="Search" onUpdate={e => searchNotes(e.target.value)} delay={2} className="ant-input-sm" />
+          <SearchBarInput label="search" placeholder="Search" onUpdate={e => searchNotes(e.target.value)} delay={2} className="ant-input-sm" />
       </StickyLayoutMiddle>
       <StickyLayoutAddButton>
 

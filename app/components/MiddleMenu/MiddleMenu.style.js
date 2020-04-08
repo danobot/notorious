@@ -16,6 +16,8 @@ export const TopBar = styled.div`
   width: 100%;
   z-index: 2;
   padding: 7px 5px 7px 5px;
+  border-bottom: 1px solid ${props => props.theme.colors.background.lift};
+
 `
 
 export const NotoriousButtonStyle = styled(Button)`
@@ -53,7 +55,7 @@ export const StickyLayoutWrapper = styled.div`
 background: yellow;
   display: grid;
   grid-template-columns: 5%%;
-  grid-template-rows: 35px 25px auto;
+  grid-template-rows: 39px 25px auto;
   height: 100%;
 `
 
@@ -78,20 +80,20 @@ export const StickyLayoutMiddle = styled.div`
   grid-row-start: 1;
   grid-row-end: 1;
   grid-column-start: 1;
-  grid-column-end: 19;
+  grid-column-end: 18;
 
   justify-content: center;
   align-items: center;
-  padding: 5px 0px 1px 5px;
+  padding: 8px 0px 1px 5px;
 `
 export const StickyLayoutAddButton = styled.div`
 /* background: orange; */
   grid-row-start: 1;
   grid-row-end: 1;
-  grid-column-start: 19;
+  grid-column-start: 18;
   grid-column-end: 20;
   text-align: center;
-  padding: 5px 3px 3px 3px;
+  padding: 8px 3px 3px 3px;
 
 
 `

@@ -50,43 +50,13 @@ export const EditorStyle = styled.div`
   }
 `
 
-export const MainMenuStyleOld = styled.div`
-  margin: 0;
-  padding: 0;
-  // width: 200px;
-  background-color: ${props => props.theme.colors.background.dark};
-  color: ${props => props.theme.colors.text.light} !important;
-  // position: fixed;
-  height: 100%;
-  overflow: auto;
-  .ant-tree-node-content-wrapper, .ant-tree, .ant-tree-title,  {
-    color: ${props => props.theme.colors.text.light} !important;
-    &.ant-tree-node-selected, &.ant-tree-node-content-wrapper-normal {
-      background-color: ${props => props.theme.colors.background.dark};
-
-    }
-  };
-
-
-`
 export const MenuItem = styled.div`
   height: 25px;
   cursor: hand;
 `
-export const FlexWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-export const FlexFixed = styled.div`
-  display: flex;
-  height: 100px;
-`
-export const FlexContent = styled.div`
-  display: flex;
-  flex: 1;
-`
-export const EditorRow = styled.div`
-  padding: 2px 5px 2px 5px;
+
+export const Padding = styled.div`
+  padding: 0px 5px 0px 5px;
   display: block;
   width: 100%;
 `
@@ -104,81 +74,66 @@ export const MyInput = styled.div`
 `
 
 export const CustomSelect = styled.div`
-  .rs__indicators {
-    visibility: hidden;
+z-index: 1000;
+.rs__indicators {
+  visibility: hidden;
+}
+.rs__value-container, .rs__control, .rs__control--is-focused, .rs__control--menu-is-open {
+  border: none;
+  padding: 0;
+  outline: none;
+  border-color: 'transparent' !important;
+  box-shadow: 'none' !important;
+  z-index: 1000;
+}
+.rs__menu {
+    z-index: 1000;
   }
-  .rs__value-container, .rs__control, .rs__control--is-focused, .rs__control--menu-is-open {
-    border: none;
-    padding: 0;
-    outline: none;
-    border-color: 'transparent' !important;
-    box-shadow: 'none' !important;
-
 `
-export const MainContent = styled.div`
-    width:100%;
-    flex-grow: 1;
-`
-/* export const EditorPaneStyle = styled.div`
-    width:100%;
-    height:100%;
-    display: flex;
-    flex-direction: column;
-` */
 
 
 /* Wrapper */
 export const EditorPaneStyle = styled.div`
-/* background: yellow; */
+  /* background: yellow; */
   display: grid;
-  grid-template-columns: auto;
+  grid-template-columns: 100%;
   grid-template-rows: 40px 40px 40px auto;
   height: 100%;
+
 `
 
 
 export const EditorRowMeta = styled.div`
-/* background: green; */
+  /* background: green; */
   grid-row-start: 1;
   grid-row-end: 1;
   width: 100%;
-  height: 40px;
-  position: fixed;
+  position: sticky;
 
-  top: 0;
 
 `
 export const EditorRowTitle = styled.div`
-/* background: orange; */
+  /* background: orange; */
   grid-row-start: 2;
   grid-row-end: 2;
   width: 100%;
-  height: 50px;
-  position: fixed;
-  top: 0;
+  position: sticky;
 
-  margin-top: 40px;
 
 `
 export const EditorRowTags = styled.div`
-/* background: purple; */
+  /* background: purple; */
   grid-row-start: 3;
   grid-row-end: 3;
   width: 100%;
-  height:50px;
-  position: fixed;
-  top: 0;
-
-  margin-top: 80px;
-
+  border-bottom: 1px solid ${props => props.theme.colors.background.lift};
 `
+
 export const EditorRowMain = styled.div`
-/* background: brown; */
+  /* background: brown; */
   grid-row-start: 4;
   grid-row-end: 4;
-  width: 100%;
-
-  /* margin-top: 120px; */
+  overflow: hidden;
 
 `
 
