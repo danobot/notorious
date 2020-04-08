@@ -17,7 +17,17 @@ const notesReducer = createReducer(initialState, {
         if (note._id !== action.parent) { return note }
         return {...note, children: [...note.children, noteId]} // add new child to parents `children` array (for easy read operation)
       })
-      const newNote = {_id: noteId, title: "", createdAt: Date.now(), updatedAt: Date.now(), parent: action.parent, children: [], schema: "note", content: "", ...action.attributes}
+      const newNote = {_id: noteId,
+        title: "",
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        parent: action.parent,
+        children: [],
+        schema: "note",
+        content: "",
+        editor: config.defaultEditor || "markdown",
+        ...action.attributes
+      }
       return [...newState, newNote] // and add new note to array
     },
     [DELETE_NOTE]: (state, action) => {

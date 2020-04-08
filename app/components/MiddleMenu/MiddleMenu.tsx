@@ -1,48 +1,38 @@
 import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  } from '@fortawesome/free-regular-svg-icons';
 import styled from 'styled-components';
-import {TopBarItem, TopBarButton, NotoriousButtonStyle} from './MiddleMenu.style'
-import FieldForm from '../EditorPane/FieldForm/FieldForm';
-
-import {
-  faPlus
-} from "@fortawesome/free-solid-svg-icons";
-
 import { Button, Empty } from 'antd';
-import NoteCard from './NoteCard/NoteCard';
+import { faPlus, faSortAlphaDown, faSortAlphaUp, faSortAmountDownAlt } from '@fortawesome/free-solid-svg-icons';
 import {
+  TopBar,
+  TopBarItem,
+  NotoriousButtonStyle,
+  StickyLayoutMiddle,
+  StickyLayoutTitle,
+  StickyLayoutMain,
   MiddleMenuStyle,
   NoteList,
-  MiddleLayout,
-  TopBar
+  SortToggler
 } from './MiddleMenu.style';
-import { restoreNote } from '../../reducers/noteActions';
+import FieldForm from '../EditorPane/FieldForm/FieldForm';
 
+import NoteCard from './NoteCard/NoteCard';
+import { SORT_ALPHA_REVERSE, SORT_ALPHA, SORT_CUSTOM, SORT_CREATED_AT, SORT_UPDATED_AT } from '../../containers/MiddleMenu/actions';
 
-export const NoteTitleInput = styled(FieldForm)`
-  width: 100%;
-.ant-input, .ant-input-lg, .ant-input:focus {
-  padding: 5px;
-  outline: 0;
-    border-radius: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border: none;
-  height: 25px;
-}
-  /* .ant-form {
-    width: 100%;
-  }
-  .ant-input, .ant-input:focus {
+export const SearchBarInput = styled.div`
+  .ant-input {
   border-color: ${props => props.theme.colors.text.light};
 
-  width:100%;
-} */
+    outline: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
 `
 export default function MiddleMenu({
   visibleNotes,
+  sorter,
   selection,
   selectNoteAction,
   createNote,
@@ -53,7 +43,9 @@ export default function MiddleMenu({
  searchNotes,
  addButtonDisabled,
  restoreNote,
- deleteNote
+ deleteNote,
+ headerLabel,
+ sortNotes
 }) {
 
   const notecardContextHandlers = {
@@ -69,21 +61,45 @@ export default function MiddleMenu({
 
   return (
     <MiddleMenuStyle id="MiddleMenu" style={{ height: '100%' }}>
-      <TopBar id="topbar">
+      <StickyLayoutMiddle>
+        <TopBar>
 
+          <TopBarItem>
+            <SearchBarInput>
+
+            <FieldForm label="search" placeholder="Search" onUpdate={e => searchNotes(e.target.value)} delay={2} className="ant-input-sm" />
+            </SearchBarInput>
+          </TopBarItem>
+          <TopBarItem>
+                <NotoriousButtonStyle size="small"  onClick={e => createNote(selection, {})} disabled={addButtonDisabled}>
+                  <FontAwesomeIcon icon={faPlus} />
+                </NotoriousButtonStyle>
+
+          </TopBarItem>
+        </TopBar>
+      </StickyLayoutMiddle>
+      <StickyLayoutTitle>
+
+        {/* <TopBarItem style={{width: '15px'}}> */}
+        { sorter === SORT_ALPHA && <SortToggler onClick={e=>sortNotes(SORT_ALPHA_REVERSE)}> <FontAwesomeIcon icon={faSortAlphaDown} /> Title</SortToggler>}
+        { sorter === SORT_ALPHA_REVERSE && <SortToggler onClick={e=>sortNotes(SORT_CREATED_AT)}> <FontAwesomeIcon icon={faSortAlphaUp}  /> Title</SortToggler>}
+        { sorter === SORT_CREATED_AT && <SortToggler onClick={e=>sortNotes(SORT_UPDATED_AT)}> <FontAwesomeIcon icon={faSortAmountDownAlt} /> Created </SortToggler>}
+        { sorter === SORT_UPDATED_AT && <SortToggler onClick={e=>sortNotes(SORT_CUSTOM)}> <FontAwesomeIcon icon={faSortAmountDownAlt} /> Modified</SortToggler>}
+        { sorter === SORT_CUSTOM && <SortToggler onClick={e=>sortNotes(SORT_ALPHA)}> <FontAwesomeIcon icon={faSortAmountDownAlt} /> Custom</SortToggler>}
+        {/* </TopBarItem> */}
         <TopBarItem>
-        <NoteTitleInput label="search" placeholder="Search" onUpdate={e => searchNotes(e.target.value)} delay={2} className="ant-input-sm" />
+        <h4 style={{textAlign: 'center'}}>{headerLabel}</h4>
 
         </TopBarItem>
-        <TopBarItem>
-            <NotoriousButtonStyle size="small"  onClick={e => createNote(selection, {})} disabled={addButtonDisabled}>
-              <FontAwesomeIcon icon={faPlus} />
-            </NotoriousButtonStyle>
+        <TopBarItem style={{width: '15px'}}>
         </TopBarItem>
-      </TopBar>
+      </StickyLayoutTitle>
+
+<StickyLayoutMain>
 
       <Scrollbars autoHide id="scrollbar">
         {/* <div>{JSON.stringify(visibleNotes, null, 2)}</div> */}
+
         <NoteList id="notes-list">
           {visibleNotes.length > 0 ? (
             visibleNotes.map(i => (
@@ -96,7 +112,7 @@ export default function MiddleMenu({
               />
             ))
           ) : (
-            <Empty style={{marginTop: '300px'}}
+            <Empty style={{alignSelf: 'middle', alignItems: 'center'}}
               image={Empty.PRESENTED_IMAGE_SIMPLE}
               imageStyle={{
                 height: 60,
@@ -109,6 +125,8 @@ export default function MiddleMenu({
           )}
         </NoteList>
       </Scrollbars>
+</StickyLayoutMain>
+
     </MiddleMenuStyle>
   );
 }

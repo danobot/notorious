@@ -33,6 +33,7 @@ export const menuItemSorter = ( a, b ) => {
   }
   return 0;
 }
+
 export const alphaSorter = ( a, b ) => {
   const aTitle = a || ""
   const bTitle = b || ""
@@ -41,6 +42,61 @@ export const alphaSorter = ( a, b ) => {
   }
   if ( aTitle > bTitle ){
     return 1;
+  }
+  return 0;
+}
+export const alphaSorterReverse = ( a, b ) => {
+  const aTitle = a || ""
+  const bTitle = b || ""
+  if ( aTitle < bTitle ){
+    return 1;
+  }
+  if ( aTitle > bTitle ){
+    return -1;
+  }
+  return 0;
+}
+export const alphaTitleSorter = ( a, b ) => {
+  const aTitle = a.title || "Untitled Note"
+  const bTitle = b.title || "Untitled Note"
+  if ( aTitle < bTitle ){
+    return -1;
+  }
+  if ( aTitle > bTitle ){
+    return 1;
+  }
+  return 0;
+}
+export const alphaTitleSorterReverse = ( a, b ) => {
+  const aTitle = a.title || "Untitled Note"
+  const bTitle = b.title || "Untitled Note"
+  if ( aTitle < bTitle ){
+    return 1;
+  }
+  if ( aTitle > bTitle ){
+    return -1;
+  }
+  return 0;
+}
+export const updatedAtSorter = ( a, b ) => {
+  const aTitle = a.updatedAt || Date.now()
+  const bTitle = b.updatedAt || Date.now()
+  if ( aTitle < bTitle ){
+    return 1;
+  }
+  if ( aTitle > bTitle ){
+    return -1;
+  }
+  return 0;
+}
+export const customNoteSorter = ( a, b ) => {
+  const aTitle = a.order || ""
+  const bTitle = b.order || ""
+  if ( aTitle < bTitle ){
+    return 1;
+  }
+  if ( aTitle > bTitle ){
+    return -1;
   }
   return 0;
 }
