@@ -1,7 +1,7 @@
 {
   "name": "notorious",
   "productName": "Notorious",
-  "version": "0.1.1-alpha.36",
+  "version": "0.2.1",
   "description": "Note taking application with cross-device synchronisation and offline support in mind.",
   "author": {
     "name": "Daniel Mason",
@@ -304,6 +304,7 @@
     "hypermd": "^0.3.11",
     "is-electron": "^2.2.0",
     "jodit-react": "^1.0.42",
+    "re-resizable": "^6.3.2",
     "react": "^16.12.0",
     "react-codemirror": "^1.0.0",
     "react-codemirror2": "^7.1.0",
@@ -319,6 +320,7 @@
     "react-router-dom": "^5.1.2",
     "react-select": "^3.1.0",
     "react-simplemde-editor": "^4.1.0",
+    "react-sortable-hoc": "^1.11.0",
     "react-split-pane": "^2.0.3",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",

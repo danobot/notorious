@@ -9,6 +9,8 @@ export const NoteList = styled.div`
 export const TopBar = styled.div`
   z-index: 2;
   padding: 7px 5px 7px 5px;
+  background-color: ${props => props.theme.colors.background.light};
+
 `
 
 export const NotoriousButtonStyle = styled(Button)`
@@ -43,7 +45,6 @@ border: none;
 // Layout
 
 export const StickyLayoutWrapper = styled.div`
-background: yellow;\
   display: grid;
   grid-template-columns: 5%%;
   grid-template-rows: 39px 25px auto;

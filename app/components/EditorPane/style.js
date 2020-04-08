@@ -109,6 +109,7 @@ export const EditorRowMeta = styled.div`
   grid-row-end: 1;
   width: 100%;
   position: sticky;
+  border-bottom: 1px solid ${props => props.theme.colors.background.lift};
 
 
 `
