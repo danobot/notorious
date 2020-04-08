@@ -1,39 +1,38 @@
 import React from 'react';
 import { Scrollbars } from 'react-custom-scrollbars';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {  } from '@fortawesome/free-regular-svg-icons';
 import styled from 'styled-components';
-import {TopBarItem, TopBarButton, NotoriousButtonStyle, StickyLayoutMiddle, StickyLayoutTitle, StickyLayoutMain,StickyLayoutAddButton} from './MiddleMenu.style'
+import { Button, Empty } from 'antd';
+import { faPlus, faSortAlphaDown, faSortAlphaUp, faSortAmountDownAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+  TopBar,
+  TopBarItem,
+  NotoriousButtonStyle,
+  StickyLayoutMiddle,
+  StickyLayoutTitle,
+  StickyLayoutMain,
+  MiddleMenuStyle,
+  NoteList,
+  SortToggler
+} from './MiddleMenu.style';
 import FieldForm from '../EditorPane/FieldForm/FieldForm';
 
-import {
-  faPlus
-} from "@fortawesome/free-solid-svg-icons";
-
-import { Button, Empty } from 'antd';
 import NoteCard from './NoteCard/NoteCard';
-import {
-  MiddleMenuStyle,
-  NoteList
-} from './MiddleMenu.style';
+import { SORT_ALPHA_REVERSE, SORT_ALPHA, SORT_CUSTOM, SORT_CREATED_AT, SORT_UPDATED_AT } from '../../containers/MiddleMenu/actions';
 
-
-export const SearchBarInput = styled(FieldForm)`
-  .ant-input, .ant-input:focus, .ant-input-sm {
-    outline: 0;
-    border-radius: 0;
-    border: none;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-}
-  .ant-input, .ant-input:focus {
+export const SearchBarInput = styled.div`
+  .ant-input {
   border-color: ${props => props.theme.colors.text.light};
 
-  width:100%;
+    outline: 0;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
 }
 `
 export default function MiddleMenu({
   visibleNotes,
+  sorter,
   selection,
   selectNoteAction,
   createNote,
@@ -45,7 +44,8 @@ export default function MiddleMenu({
  addButtonDisabled,
  restoreNote,
  deleteNote,
- headerLabel
+ headerLabel,
+ sortNotes
 }) {
 
   const notecardContextHandlers = {
@@ -61,19 +61,39 @@ export default function MiddleMenu({
 
   return (
     <MiddleMenuStyle id="MiddleMenu" style={{ height: '100%' }}>
+      <StickyLayoutMiddle>
+        <TopBar>
+
+          <TopBarItem>
+            <SearchBarInput>
+
+            <FieldForm label="search" placeholder="Search" onUpdate={e => searchNotes(e.target.value)} delay={2} className="ant-input-sm" />
+            </SearchBarInput>
+          </TopBarItem>
+          <TopBarItem>
+                <NotoriousButtonStyle size="small"  onClick={e => createNote(selection, {})} disabled={addButtonDisabled}>
+                  <FontAwesomeIcon icon={faPlus} />
+                </NotoriousButtonStyle>
+
+          </TopBarItem>
+        </TopBar>
+      </StickyLayoutMiddle>
       <StickyLayoutTitle>
+
+        {/* <TopBarItem style={{width: '15px'}}> */}
+        { sorter === SORT_ALPHA && <SortToggler onClick={e=>sortNotes(SORT_ALPHA_REVERSE)}> <FontAwesomeIcon icon={faSortAlphaDown} /> Title</SortToggler>}
+        { sorter === SORT_ALPHA_REVERSE && <SortToggler onClick={e=>sortNotes(SORT_CREATED_AT)}> <FontAwesomeIcon icon={faSortAlphaUp}  /> Title</SortToggler>}
+        { sorter === SORT_CREATED_AT && <SortToggler onClick={e=>sortNotes(SORT_UPDATED_AT)}> <FontAwesomeIcon icon={faSortAmountDownAlt} /> Created </SortToggler>}
+        { sorter === SORT_UPDATED_AT && <SortToggler onClick={e=>sortNotes(SORT_CUSTOM)}> <FontAwesomeIcon icon={faSortAmountDownAlt} /> Modified</SortToggler>}
+        { sorter === SORT_CUSTOM && <SortToggler onClick={e=>sortNotes(SORT_ALPHA)}> <FontAwesomeIcon icon={faSortAmountDownAlt} /> Custom</SortToggler>}
+        {/* </TopBarItem> */}
+        <TopBarItem>
         <h4 style={{textAlign: 'center'}}>{headerLabel}</h4>
 
+        </TopBarItem>
+        <TopBarItem style={{width: '15px'}}>
+        </TopBarItem>
       </StickyLayoutTitle>
-      <StickyLayoutMiddle>
-          <SearchBarInput label="search" placeholder="Search" onUpdate={e => searchNotes(e.target.value)} delay={2} className="ant-input-sm" />
-      </StickyLayoutMiddle>
-      <StickyLayoutAddButton>
-
-              <NotoriousButtonStyle size="small"  onClick={e => createNote(selection, {})} disabled={addButtonDisabled}>
-                <FontAwesomeIcon icon={faPlus} />
-              </NotoriousButtonStyle>
-      </StickyLayoutAddButton>
 
 <StickyLayoutMain>
 

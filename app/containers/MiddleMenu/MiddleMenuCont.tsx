@@ -6,6 +6,7 @@ import * as contentAreaActions from '../ContentAreaCont/actions';
 import * as actions from './actions';
 import * as noteActions from '../../reducers/noteActions';
 import { allNotes } from '../MainMenu/selectors';
+import { alphaTitleSorter, alphaTitleSorterReverse, customNoteSorter, updatedAtSorter } from '../../utils/utils';
 
 
 
@@ -48,7 +49,7 @@ function mapStateToProps(state) {
         if (match.length === 1){
           return match[0].title
         }
-        return "Search: " + middleMenu.search
+        return ""
       }
   }
   const noteSetSelector = (filter, allNotes, notes) => {
@@ -72,12 +73,31 @@ function mapStateToProps(state) {
         return allNotes.filter(i => (i.parent === filter))
       }
     }
+  const noteSorter = (notes, middleMenu) => {
+
+    switch(middleMenu.sorter) {
+      case actions.SORT_ALPHA:
+        return notes.sort(alphaTitleSorter)
+      case actions.SORT_ALPHA_REVERSE:
+        return notes.sort(alphaTitleSorterReverse)
+      case actions.SORT_UPDATED_AT:
+        return notes.sort(updatedAtSorter)
+      case actions.SORT_CUSTOM:
+        return notes.sort(customNoteSorter)
+      default:
+        return notes
+      }
+    }
+
   return {
     selection: state.mainMenu.filter,
-    visibleNotes: noteSetSelector(state.mainMenu.filter, allNotes(state), state.notes),
+    visibleNotes: noteSorter(noteSetSelector(state.mainMenu.filter, allNotes(state), state.notes), state.middleMenu),
+
+    // visibleNotes: noteSetSelector(state.mainMenu.filter, allNotes(state), state.notes),
     addButtonDisabled: state.mainMenu.filter === "TRASH",
     selectedNote: state.contentArea.selectedNote,
-    headerLabel: notebookLabelMaker(state.mainMenu.filter, state.notes, state.middleMenu)
+    headerLabel: notebookLabelMaker(state.mainMenu.filter, state.notes, state.middleMenu),
+    sorter: state.middleMenu.sorter
   };
 }
 

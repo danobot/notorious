@@ -7,17 +7,8 @@ export const NoteList = styled.div`
  /* margin-bottom: 30px; required to make the last note in scroll list fully visible */
 `
 export const TopBar = styled.div`
-  background: ${props => props.theme.colors.background.menu};
-  position: -webkit-sticky; /* Safari */
-  position: sticky;
-  top: 0;
-  /* color: ${props => props.theme.colors.text.dark}; */
-  /* height: 40px; */
-  width: 100%;
   z-index: 2;
   padding: 7px 5px 7px 5px;
-  border-bottom: 1px solid ${props => props.theme.colors.background.lift};
-
 `
 
 export const NotoriousButtonStyle = styled(Button)`
@@ -38,7 +29,7 @@ export const TopBarItem = styled.div`
   display: table-cell;
   margin: 0 3px 0 0;
   width: 100%;
-  padding: 2px;
+  padding: 0 2px 0 2px;
 `
 
 
@@ -52,7 +43,7 @@ border: none;
 // Layout
 
 export const StickyLayoutWrapper = styled.div`
-background: yellow;
+background: yellow;\
   display: grid;
   grid-template-columns: 5%%;
   grid-template-rows: 39px 25px auto;
@@ -80,23 +71,23 @@ export const StickyLayoutMiddle = styled.div`
   grid-row-start: 1;
   grid-row-end: 1;
   grid-column-start: 1;
-  grid-column-end: 18;
+  grid-column-end: 20;
 
   justify-content: center;
   align-items: center;
-  padding: 8px 0px 1px 5px;
+  /* padding: 8px 0px 1px 5px; */
 `
-export const StickyLayoutAddButton = styled.div`
-/* background: orange; */
-  grid-row-start: 1;
-  grid-row-end: 1;
-  grid-column-start: 18;
-  grid-column-end: 20;
-  text-align: center;
-  padding: 8px 3px 3px 3px;
+// export const StickyLayoutAddButton = styled.div`
+// /* background: orange; */
+//   grid-row-start: 1;
+//   grid-row-end: 1;
+//   grid-column-start: 18;
+//   grid-column-end: 20;
+//   text-align: center;
+//   padding: 8px 3px 3px 3px;
 
 
-`
+// `
 
 export const StickyLayoutMain = styled.div`
 /* background: brown; */
@@ -105,4 +96,13 @@ export const StickyLayoutMain = styled.div`
   grid-column-start: 1;
   grid-column-end: 20;
 
+`
+export const SortToggler = styled.span`
+  white-space: nowrap;
+  color: ${props => props.theme.colors.text.muted};
+  font-size: xx-small;
+  font-weight: bold;
+  padding: 5px 0 0px 5px;
+  cursor: pointer;
+  position: absolute;
 `
