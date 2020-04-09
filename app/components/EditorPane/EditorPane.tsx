@@ -41,6 +41,7 @@ import { InlineItem, RightFloaty } from '../../style/utils.style';
 import { NotoriousButtonStyle, TopBar } from '../MiddleMenu/MiddleMenu.style';
 import RichEditor from './RichEditor/RichEditor';
 import MarkdownEditor from './MarkdownEditor/MarkdownEditor';
+import GroupEditor from './GroupEditor/GroupEditor';
 
 const NoteTitleInput = styled(FieldForm)`
   font-size: 18pt;
@@ -125,6 +126,10 @@ export default function EditorPane({contentArea, note,
         </EditorStyle>}
         {note.kind && note.kind === "index" && <EditorStyle>
           <IndexEditor note={note} subNotes={subNotes} noteActions={noteActions} />
+
+        </EditorStyle>}
+        {note.kind && note.kind === "group" && <EditorStyle>
+          <GroupEditor note={note} subNotes={subNotes} noteActions={noteActions} />
 
         </EditorStyle>}
 
