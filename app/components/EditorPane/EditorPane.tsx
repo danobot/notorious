@@ -7,13 +7,25 @@ import SimpleMDE from "react-simplemde-editor";
 import FieldForm from './FieldForm/FieldForm';
 import MultiSelect from './FieldForm/MultiSelect';
 import ColumnEditor from './ColumnEditor/ColumnEditor';
+import IndexEditor from './IndexEditor/IndexEditor';
 import Moment from "react-moment";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import Editor from '@monaco-editor/react';
-import { faClock, faStar as faStarOutline } from "@fortawesome/free-regular-svg-icons";
-import { faHistory, faTrashAlt, faCaretSquareRight, faFolderOpen, faFingerprint, faThumbtack,faBook, faStar as faStarSolid } from "@fortawesome/free-solid-svg-icons";
+import {
+  faClock,
+  faStar as faStarOutline
+} from '@fortawesome/free-regular-svg-icons';
+import {
+  faHistory,
+  faTrashAlt,
+  faCaretSquareRight,
+  faFolderOpen,
+  faFingerprint,
+  faThumbtack,
+  faBook,
+  faStar as faStarSolid
+} from '@fortawesome/free-solid-svg-icons';
 
-import { Button, Empty } from 'antd';
+import { Empty } from 'antd';
 import {
   EditorStyle,
   NoteMeta,
@@ -26,7 +38,6 @@ import {
 } from './style';
 import CollectionEditor from './CollectionEditor/CollectionEditor';
 import { InlineItem, RightFloaty } from '../../style/utils.style';
-import { findExistingTags } from '../../containers/MainMenu/selectors';
 import { NotoriousButtonStyle, TopBar } from '../MiddleMenu/MiddleMenu.style';
 import RichEditor from './RichEditor/RichEditor';
 import MarkdownEditor from './MarkdownEditor/MarkdownEditor';
@@ -113,10 +124,7 @@ export default function EditorPane({contentArea, note,
           <CollectionEditor key={`collectioneditor-${noteref}`} note={note} subNotes={subNotes} noteActions={noteActions} />
         </EditorStyle>}
         {note.kind && note.kind === "index" && <EditorStyle>
-          <ol style={{marginTop: '50px'}}>
-          {subNotes.map(n=><li key={`index-item-${n._id}`}><h5 onClick={e=> selectNoteAction(n._id)}>{n.title || "Untitled Note"}</h5></li>)}
-
-          </ol>
+          <IndexEditor note={note} subNotes={subNotes} noteActions={noteActions} />
 
         </EditorStyle>}
 

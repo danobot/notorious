@@ -71,7 +71,7 @@ export const MenuItemSelected = styled(MenuItemNormal)`
   background-color: ${props => props.theme.colors.menu.selected}
 `
 export const MainMenuBottom = styled.div`
-font-size: smaller;
+font-size: x-small;
 color: ${props => props.theme.colors.text.muted} !important;
 padding: 0 10px 0 10px;
 position: absolute;

@@ -8,10 +8,10 @@ import './app.global.css';
 
 import PouchInit from "./PouchInit";
 
-export const pouchInit = new PouchInit();
 
 // Configure Store
 export const store = configureStore();
+export const pouchInit = new PouchInit(store);
 
 const AppContainer = process.env.PLAIN_HMR ? Fragment : ReactHotAppContainer;
 

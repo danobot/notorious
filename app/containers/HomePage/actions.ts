@@ -1,6 +1,17 @@
 import { GetState, Dispatch } from '../../reducers/types';
 export const SYNC_NOTES_SUCCESS = 'SYNC_NOTES_SUCCESS';
 export const SYNC_NOTES_ERROR = 'SYNC_NOTES_ERROR';
+
+export const SYNC_ON_CHANGE = "ON_CHANGE";
+export const SYNC_ON_PAUSED = "ON_PAUSED";
+export const SYNC_ON_ACTIVE = "ON_ACTIVE";
+export const SYNC_ON_DENIED = "ON_DENIED";
+export const SYNC_ON_COMPLETE = "ON_COMPLETE";
+export const SYNC_ON_ERROR = "ON_ERROR";
+export const SYNC_FIRST_TIME_SYNC_SUCCESS = "SYNC_FIRST_TIME_SYNC_SUCCESS";
+export const SYNC_FIRST_TIME_SYNC_ERROR = "FIRST_TIME_SYNC_ERROR";
+
+
 // export const RESIZE_SIDEBAR = 'RESIZE_SIDEBAR';
 // export const RESIZE_MAIN_MENU = 'RESIZE_MAIN_MENU';
 // export const RESIZE_MIDDLE_MENU = 'RESIZE_MIDDLE_MENU';
