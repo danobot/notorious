@@ -2,6 +2,172 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-alpha.4](https://github.com/danobot/notorious/compare/v0.2.1-alpha.1...v0.2.1-alpha.4) (2020-04-07)
+
+
+### Features
+
+* hypermd editor ([f19dd81](https://github.com/danobot/notorious/commit/f19dd814183470a27ad83f6f92a271012ea93bb5))
+* toggle between editors (per-note) ([586b636](https://github.com/danobot/notorious/commit/586b636d34ddc52b85258226e2d9997f4ccd603a))
+
+
+### Bug Fixes
+
+* add imports back (after adding deps to package.json) ([33e318e](https://github.com/danobot/notorious/commit/33e318ed300370c0b4abe3f1c36b3b3c45cfc2de))
+* compilation error ([e2f619c](https://github.com/danobot/notorious/commit/e2f619c25ec00aa4e6ff66620dc9648ef6bd4270))
+* editor fills the correct amount of space and scrolling works ([874cceb](https://github.com/danobot/notorious/commit/874cceb49dac10d776c6fb3bf5e8350d01a4b64e))
+* style ([ecbf792](https://github.com/danobot/notorious/commit/ecbf792651cd48c370b1a085ba0e8ffaf7366acc))
+
+### [0.2.1-alpha.3](https://github.com/danobot/notorious/compare/v0.2.1-alpha.1...v0.2.1-alpha.3) (2020-04-06)
+
+
+### Features
+
+* hypermd editor ([f19dd81](https://github.com/danobot/notorious/commit/f19dd814183470a27ad83f6f92a271012ea93bb5))
+* toggle between editors (per-note) ([586b636](https://github.com/danobot/notorious/commit/586b636d34ddc52b85258226e2d9997f4ccd603a))
+
+
+### Bug Fixes
+
+* style ([ecbf792](https://github.com/danobot/notorious/commit/ecbf792651cd48c370b1a085ba0e8ffaf7366acc))
+
+### [0.2.1-alpha.2](https://github.com/danobot/notorious/compare/v0.2.1-alpha.0...v0.2.1-alpha.2) (2020-04-04)
+
+
+### Features
+
+* rich text editor ([a853fcf](https://github.com/danobot/notorious/commit/a853fcfee3265f20b8ebe52ccaaea04c1cf4f401))
+* sync status (wip) ([18d4b8a](https://github.com/danobot/notorious/commit/18d4b8aa715951cdb11d9d8e9900b66b63888263))
+
+### [0.2.1-alpha.1](https://github.com/danobot/notorious/compare/v0.2.0...v0.2.1-alpha.1) (2020-04-03)
+
+
+### Features
+
+* redux actions for file attachments ([934c7d1](https://github.com/danobot/notorious/commit/934c7d1361a54b6a7445be2b9f8e9514c918adb1))
+
+### [0.2.1-alpha.0](https://github.com/danobot/notorious/compare/v0.1.1-alpha.47...v0.2.1-alpha.0) (2020-04-02)
+
+
+### Features
+
+* closes 82, 104 ([962afd3](https://github.com/danobot/notorious/commit/962afd32328647ffd41eef1bb10542c3e6b0fd6a))
+
+### [0.1.1-alpha.47](https://github.com/danobot/notorious/compare/v0.1.1-alpha.45...v0.1.1-alpha.47) (2020-03-31)
+
+
+### Features
+
+* replication optimisation ([c51a856](https://github.com/danobot/notorious/commit/c51a8565d2ff3fd58d60a90d4c65dc8221fc2b28))
+
+### [0.1.1-alpha.46](https://github.com/danobot/notorious/compare/v0.1.1-alpha.44...v0.1.1-alpha.46) (2020-03-29)
+
+
+### Bug Fixes
+
+* closes [#85](https://github.com/danobot/notorious/issues/85) single click should open notebook menu ([10dcab4](https://github.com/danobot/notorious/commit/10dcab4ae779e738f944dcb1bcde91868a21d9fd))
+* tag styling ([30eb737](https://github.com/danobot/notorious/commit/30eb73733b50fed41f3bc7ceacebff6da285ffd5))
+
+### [0.1.1-alpha.45](https://github.com/danobot/notorious/compare/v0.1.1-alpha.43...v0.1.1-alpha.45) (2020-03-29)
+
+
+### Features
+
+* icons and tweaks ([810b90e](https://github.com/danobot/notorious/commit/810b90e8d93c557b4834f4590e13e45dad4ae0df))
+* search functionality, cleaned up styling, iconography ([a3dee39](https://github.com/danobot/notorious/commit/a3dee392e6ff41f620226b4d311d58bc39c0fcd1))
+
+
+### Bug Fixes
+
+* revert replication optimisation (first time sync fails) ([a817b90](https://github.com/danobot/notorious/commit/a817b908ea0d3725cba53bfe00024eef5473e512))
+* tweaks ([1cda197](https://github.com/danobot/notorious/commit/1cda197e23a94bac931d529335be4ceb5ec6a783))
+
+### [0.1.1-alpha.44](https://github.com/danobot/notorious/compare/v0.1.1-alpha.42...v0.1.1-alpha.44) (2020-03-27)
+
+
+### Features
+
+* optimise replication and performancecan you no ([904818f](https://github.com/danobot/notorious/commit/904818fbb6751e98c7c25c5090363ddd4adeb313))
+* suggest existing tags ([628ac66](https://github.com/danobot/notorious/commit/628ac66fc53ab19629be2144b518e861c7457932))
+
+### [0.1.1-alpha.43](https://github.com/danobot/notorious/compare/v0.1.1-alpha.41...v0.1.1-alpha.43) (2020-03-26)
+
+
+### Features
+
+*  context menu to manage notebooks via main menu tree ([1a15d37](https://github.com/danobot/notorious/commit/1a15d377811b3c58847857a949d4d254b0652136))
+* add open in editr context action ([18372d3](https://github.com/danobot/notorious/commit/18372d3ad878e128c71eeab657bd6d06b83c58c9))
+* remember last selected note within  a notebook ([12e1dbf](https://github.com/danobot/notorious/commit/12e1dbf56725cbfdfd517cbc1a419ecb45794dc3))
+
+
+### Bug Fixes
+
+* menu ([b085694](https://github.com/danobot/notorious/commit/b085694d75f902fed863cea1e78b2847bcea911e))
+
+### [0.1.1-alpha.42](https://github.com/danobot/notorious/compare/v0.1.1-alpha.40...v0.1.1-alpha.42) (2020-03-25)
+
+
+### Bug Fixes
+
+* defects ([d367926](https://github.com/danobot/notorious/commit/d367926795ef11e907ad3a65ade6f485b638253e))
+
+### [0.1.1-alpha.41](https://github.com/danobot/notorious/compare/v0.1.1-alpha.39...v0.1.1-alpha.41) (2020-03-25)
+
+
+### Features
+
+* All notes menu item, select new note/notebook on creation ([ddb1093](https://github.com/danobot/notorious/commit/ddb1093e22bbc7454843661d7b86d26ff5e688b0))
+* All notes menu item, select new note/notebook on creation ([b699628](https://github.com/danobot/notorious/commit/b699628a8a83ac4637594e89084cade619a56302)), closes [#45](https://github.com/danobot/notorious/issues/45) [#51](https://github.com/danobot/notorious/issues/51) [#32](https://github.com/danobot/notorious/issues/32)
+
+### [0.1.1-alpha.40](https://github.com/danobot/notorious/compare/v0.1.1-alpha.37...v0.1.1-alpha.40) (2020-03-24)
+
+
+### Features
+
+* tagging ([e3bca4d](https://github.com/danobot/notorious/commit/e3bca4d598d65bfac3d2f88f54b65d7bc4b8e0c9))
+* tagging ([8cd2af9](https://github.com/danobot/notorious/commit/8cd2af90b3cb8792ec160ec264f01a5e39521c90))
+
+
+### Bug Fixes
+
+* tags ([a7b3d1b](https://github.com/danobot/notorious/commit/a7b3d1b4cc7bb76c34212f5d9f2ae579ec03b5eb))
+
+### [0.1.1-alpha.39](https://github.com/danobot/notorious/compare/v0.1.1-alpha.37...v0.1.1-alpha.39) (2020-03-24)
+
+
+### Features
+
+* tagging ([e3bca4d](https://github.com/danobot/notorious/commit/e3bca4d598d65bfac3d2f88f54b65d7bc4b8e0c9))
+* tagging ([8cd2af9](https://github.com/danobot/notorious/commit/8cd2af90b3cb8792ec160ec264f01a5e39521c90))
+
+### [0.1.1-alpha.38](https://github.com/danobot/notorious/compare/v0.1.1-alpha.35...v0.1.1-alpha.38) (2020-03-23)
+
+
+### Features
+
+* web docker env ([c46fc4e](https://github.com/danobot/notorious/commit/c46fc4e31b8804a2c4dde244166323a35368dc85))
+
+
+### Bug Fixes
+
+* configs reducer ([2d61611](https://github.com/danobot/notorious/commit/2d6161100137c97a2b0f640ef7cb01cf75190621))
+* dockerfile ([3dcfafe](https://github.com/danobot/notorious/commit/3dcfafe7a716e59a959dad3eca942d907e4597b0))
+* multiple ([281d8dc](https://github.com/danobot/notorious/commit/281d8dc37b9cb6b18c675a72d0930b432dbe45ed))
+
+### [0.1.1-alpha.37](https://github.com/danobot/notorious/compare/v0.1.1-alpha.35...v0.1.1-alpha.37) (2020-03-23)
+
+
+### Features
+
+* web docker env ([c46fc4e](https://github.com/danobot/notorious/commit/c46fc4e31b8804a2c4dde244166323a35368dc85))
+
+
+### Bug Fixes
+
+* configs reducer ([2d61611](https://github.com/danobot/notorious/commit/2d6161100137c97a2b0f640ef7cb01cf75190621))
+* dockerfile ([3dcfafe](https://github.com/danobot/notorious/commit/3dcfafe7a716e59a959dad3eca942d907e4597b0))
+* multiple ([281d8dc](https://github.com/danobot/notorious/commit/281d8dc37b9cb6b18c675a72d0930b432dbe45ed))
+
 ### [0.1.1-alpha.36](https://github.com/danobot/notorious/compare/v0.1.1-alpha.34...v0.1.1-alpha.36) (2020-03-22)
 
 
