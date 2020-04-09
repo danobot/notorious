@@ -43,6 +43,8 @@ function mapStateToProps(state: MainMenuStateType) {
     // notes: state.notes,
     tags: findExistingTags(state).sort(alphaSorter),
     notesSync: state.settings.notesSync,
+    syncType: state.settings.syncType,
+    spinner: state.settings.spinner,
     ...state.mainMenu
 
   };

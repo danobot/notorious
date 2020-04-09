@@ -13,11 +13,12 @@ import {
   MenuItem as ContexMenuItem,
   ContextMenuTrigger
 } from 'react-contextmenu';
-import { MainMenuStyle, MenuHeading, MenuItemRightFloat, MainMenuBottom } from './style';
+import { MainMenuStyle, MenuHeading, MenuItemRightFloat, MainMenuBottom, Spinner, MenuItemRowItem } from './style';
 import MenuItem from './MenuItem';
 
 import ModalForm from '../util/ModalForm';
 import TreeMenuCont from '../../containers/TreeMenuCont/TreeMenuCont';
+import { Spin } from 'antd';
 
 export default function MainMenu({
   notebooks,
@@ -32,7 +33,8 @@ export default function MainMenu({
   modalData,
   selectNoteAction,
   tags,
-  notesSync
+  notesSync,
+  spinner
 }) {
   const mainMenuContextHandlers = {
     cmCreateNotebookInside: (e, {note}) => createNotebook(note._id),
@@ -123,12 +125,19 @@ export default function MainMenu({
         key={`tag-menu-item-${n}`}
       />
       ))}
-{/* <MainMenuBottom>
-  {notesSync === "success" && "Sync Completed"}
-  {notesSync === "pending" && "Synchronising..."}
-  {notesSync === "error" && "Sync error"}
+<MainMenuBottom>
+  <MenuItemRowItem style={{padding: '0px 6px 0px 0px '}}>
 
-</MainMenuBottom> */}
+        {spinner && <Spin size="small" ></Spin>}
+  </MenuItemRowItem>
+  <MenuItemRowItem>
+         {notesSync}
+  </MenuItemRowItem>
+  {/* {notesSync === "success" && "Sync Completed"}
+  {notesSync === "pending" && "Synchronising..."}
+  {notesSync === "error" && "Sync error"} */}
+
+</MainMenuBottom>
       {/* <FlatMenu
         items={notebooks}
         selectNotebook={selectNotebook}

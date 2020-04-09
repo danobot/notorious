@@ -1,7 +1,15 @@
 import PouchDB from 'pouchdb';
 import config from './utils/config';
-import { store } from '.';
-
+import{
+  SYNC_ON_CHANGE,
+  SYNC_ON_PAUSED,
+  SYNC_ON_ACTIVE,
+  SYNC_ON_DENIED,
+  SYNC_ON_COMPLETE,
+  SYNC_ON_ERROR,
+  SYNC_FIRST_TIME_SYNC_ERROR,
+  SYNC_FIRST_TIME_SYNC_SUCCESS
+} from './containers/HomePage/actions'
 // const log = require('electron-log');
 
 const syncOpts = { live: true, retry: true };
@@ -17,7 +25,8 @@ export default class PouchInit {
   sync;
   remoteNotesDb;
   notesDB;
-  constructor() {
+  constructor(store) {
+    self.store = store
     // log.transports.file.level = 'debug';
     // PouchDB.logger = log;
     notesDB.info().then(function(info) {
@@ -140,39 +149,47 @@ const replicateSync = (a, b) => {
   .from(b) // one-time replicateion on start up
   .on('complete', function(info) {
     console.log('First-time sync completed: ', info);
-
+    self.store.dispatch({type: SYNC_FIRST_TIME_SYNC_SUCCESS})
     // then two-way, continuous, retriable sync
     a
-      .sync(b, syncOpts)
-      .on('change', function(info) {
+    .sync(b, syncOpts)
+    .on('change', function(info) {
+        self.store.dispatch({type: SYNC_ON_CHANGE, ...info})
         // store.dispatch({type: "SYNC_CHANGE", info})
         console.log('remoteNotesDb sync:     handle change', info);
       })
       .on('paused', function(err) {
+        self.store.dispatch({type: SYNC_ON_PAUSED, ...err})
         console.log(
           'remoteNotesDb sync:     replication paused (e.g. replication up to date, user went offline)',
           err
-        );
-      })
-      .on('active', function() {
-        console.log(
-          'notesDB replicate sync:     resumed (e.g. new changes replicating, user went back online)'
-        );
+          );
+        })
+        .on('active', function() {
+          self.store.dispatch({type: SYNC_ON_ACTIVE})
+          console.log(
+            'notesDB replicate sync:     resumed (e.g. new changes replicating, user went back online)'
+            );
       })
       .on('denied', function(err) {
+        self.store.dispatch({type: SYNC_ON_DENIED, ...err})
         console.log(
           ' notesDB sync:     a document failed to replicate (e.g. due to permissions)',
           err
-        );
-      })
-      .on('complete', function(info) {
-        console.log('notesDB sync:     handle complete', info);
-      })
-      .on('error', function(err) {
+          );
+        })
+        .on('complete', function(info) {
+          self.store.dispatch({type: SYNC_ON_COMPLETE, ...info})
+          console.log('notesDB sync:     handle complete', info);
+        })
+        .on('error', function(err) {
+          self.store.dispatch({type: SYNC_ON_ERROR, error: err})
         console.log('notesDB sync:     handle error', err);
       });
   })
   .on('error', e => {
+    self.self.store.dispatch({type: SYNC_FIRST_TIME_SYNC_ERROR, error:  e})
+
     console.log('First-time sync failed: ', e);
   });
 }

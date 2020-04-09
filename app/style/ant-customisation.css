@@ -32,3 +32,12 @@ html {
   /* bottom: 0; */
   height: 88vh; /* this number is magic, don't touch it */
 }
+
+.ant-spin-dot {
+  width: 10px;
+  height: 10px;
+}
+.ant-spin-dot-item {
+  width: 4px;
+  height: 4px;
+}
