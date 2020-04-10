@@ -53,7 +53,7 @@ function mapStateToProps(state) {
       }
   }
   const noteSetSelector = (filter, allNotes, notes) => {
-    console.log("noteSetSelector", filter)
+    // console.log("noteSetSelector", filter)
     if (typeof filter === "object") {
       return allNotes.filter(n => filter.indexOf(n._id) > -1)
     }

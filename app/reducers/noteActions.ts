@@ -73,7 +73,7 @@ export function addAttachment(note: string, noteRev: string, attachmentId: strin
   return (dispatch: Dispatch) => {
     // var attachment = new Buffer(['Is there life on Mars?'], {type: 'text/plain'});
     notesDB.putAttachment(note, attachmentId, noteRev, buffer, 'text/plain').then(result => {
-      console.log(result)
+      console.log("addAttachment", result)
       dispatch({
         type: SAVE_ATTACHMENT_SUCCESS,
         ...result
@@ -99,7 +99,7 @@ export function removeAttachment(note: string, noteRev: string, attachmentId: st
 
 
     notesDB.removeAttachment(note, attachmentId, noteRev).then(result => {
-      console.log(result)
+      console.log("removeAttachment", result)
       dispatch({
         type: DELETE_ATTACHMENT_SUCCESS,
         ...result

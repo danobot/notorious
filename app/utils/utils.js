@@ -1,3 +1,5 @@
+
+import config from './config';
 export function createReducer(initialState, handlers) {
   return function reducer(state = initialState, action) {
     if (handlers.hasOwnProperty(action.type)) {
@@ -99,4 +101,8 @@ export const customNoteSorter = ( a, b ) => {
     return -1;
   }
   return 0;
+}
+export const imageURL = ( note, attachment ) => {
+
+  return `${config.db}/notes/${note._id}/${attachment}`;
 }

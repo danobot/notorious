@@ -45,9 +45,6 @@ export default function MainMenu({
   const contextCreateNewNotebook = (e, data) => {
     showNotebookModal(data);
   };
-  const contextAction = (e, data) => {
-    console.log(data.foo);
-  };
   const newNotebookSubmitAction = (data, additional) => {
     hideNotebookModal();
     console.log('newNotebookSubmitAction', data);

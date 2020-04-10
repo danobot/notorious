@@ -10,10 +10,12 @@
  */
 import path from 'path';
 import { app, BrowserWindow } from 'electron';
-import log from 'electron-log';
+// import log from 'electron-log';
 import MenuBuilder from './menu';
 
 import AppUpdater from "./AppUpdater";
+import { store } from '.';
+import { SHUT_DOWN_APP } from './containers/HomePage/actions';
 // import { pouchInit } from '.';
 
 
@@ -93,16 +95,19 @@ const createWindow = async () => {
 /**
  * Add event listeners...
  */
+// function closed() {
+//   store.dispatch({type: SHUT_DOWN_APP})
 
+// }
 app.on('window-all-closed', () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
   if (process.platform !== 'darwin') {
     app.quit();
   }
-
+  // closed()
   console.log("Cancelling sync")
-  // pouchInit.sync.cancel()
+  // pouchInit.cancel()
 });
 
 app.on('ready', createWindow);
