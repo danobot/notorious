@@ -34,7 +34,7 @@ class TreeMenuCont extends React.Component {
       cmOpenInEditor
     } = handlers;
     const {_id, title} = note
-    console.log(selectedNotebook)
+    // console.log(selectedNotebook)
     const icon = this.state.open ? <FontAwesomeIcon onClick={e=> this.setState({open: false})} icon={faChevronDown} /> : <FontAwesomeIcon onClick={e=> this.setState({open: true})} icon={faChevronRight} />
 
     // we dont want to close a notebook menu when it is first selected. We want to close it on click (given its already selected) and open it given its closed.

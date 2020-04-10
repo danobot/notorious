@@ -292,6 +292,7 @@
     "codemirror": "^5.52.2",
     "connected-react-router": "^6.6.1",
     "core-js": "^3.6.4",
+    "debug": "^4.1.1",
     "devtron": "^1.4.0",
     "electron-debug": "^3.0.1",
     "electron-log": "^4.0.6",
@@ -304,6 +305,8 @@
     "hypermd": "^0.3.11",
     "is-electron": "^2.2.0",
     "jodit-react": "^1.0.42",
+    "pouchdb-adapter-memory": "^7.2.1",
+    "pouchdb-debug": "^7.2.1",
     "re-resizable": "^6.3.2",
     "react": "^16.12.0",
     "react-codemirror": "^1.0.0",
@@ -330,7 +333,8 @@
     "source-map-support": "^0.5.16",
     "standard-version": "^7.1.0",
     "styled-components": "^5.0.1",
-    "uuid": "^7.0.2"
+    "uuid": "^7.0.2",
+    "winston": "^3.2.1"
   },
   "devEngines": {
     "node": ">=7.x",

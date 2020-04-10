@@ -10,6 +10,7 @@ export const SYNC_ON_COMPLETE = "ON_COMPLETE";
 export const SYNC_ON_ERROR = "ON_ERROR";
 export const SYNC_FIRST_TIME_SYNC_SUCCESS = "SYNC_FIRST_TIME_SYNC_SUCCESS";
 export const SYNC_FIRST_TIME_SYNC_ERROR = "FIRST_TIME_SYNC_ERROR";
+export const SHUT_DOWN_APP = "SHUT_DOWN_APP";
 
 
 // export const RESIZE_SIDEBAR = 'RESIZE_SIDEBAR';
@@ -24,6 +25,15 @@ export function syncNotesSuccess() {
       dispatch(
         {
           type: SYNC_NOTES_SUCCESS
+        }
+      );
+  }
+}
+export function shutdown() {
+  return (dispatch: Dispatch, getState: GetState) => {
+      dispatch(
+        {
+          type: SHUT_DOWN_APP
         }
       );
   }

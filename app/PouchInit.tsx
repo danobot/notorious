@@ -1,5 +1,6 @@
 import PouchDB from 'pouchdb';
 import config from './utils/config';
+import pouchdbDebug from 'pouchdb-debug'
 import{
   SYNC_ON_CHANGE,
   SYNC_ON_PAUSED,
@@ -10,45 +11,62 @@ import{
   SYNC_FIRST_TIME_SYNC_ERROR,
   SYNC_FIRST_TIME_SYNC_SUCCESS
 } from './containers/HomePage/actions'
-// const log = require('electron-log');
 
 const syncOpts = { live: true, retry: true };
-// PouchDB.debug.enable('*');
+
+PouchDB.plugin(pouchdbDebug)
+
+PouchDB.debug.enable('*');
+
+
 export const notesDB = new PouchDB('data/notes');
 //  const configDB = new PouchDB('data/config');
 
 
 
 
+function select(state) {
+  return state.settings.close
+}
+
+
 
 export default class PouchInit {
-  sync;
-  remoteNotesDb;
-  notesDB;
+  replication : any;
+  sync : any;
+  remoteNotesDb: any;
+  notesDb: any;
+  store: any;
+  currentValue : string;
+  remotePeek: any;
   constructor(store) {
-    self.store = store
+    this.store = store
+    console.log(store)
+    this.currentValue=false;
+    this.notesDb = notesDB;
+
+    store.subscribe(()=>this.handleChange())
     // log.transports.file.level = 'debug';
     // PouchDB.logger = log;
-    notesDB.info().then(function(info) {
+    this.notesDb.info().then((info) => {
       console.log('notesDB', info);
     });
 
-    const remotePeek = new PouchDB(`${config.db}/notes`, { skip_setup: true });
+    this.remoteNotesDb = new PouchDB(`${config.db}/notes`, { skip_setup: true });
 
 
 
-    remotePeek.info()
-  .then((i) => {
+    this.remoteNotesDb.info().then((i) => {
       // The database exists.
       // replciate to local and begin sync
     if (i.error === "not_found") {
       console.log("Remote database does not exist an will be created")
 
       // create and replicate LOCAL -> REMOTE and begin sync
-      const remoteNotesDb = new PouchDB(`${config.db}/notes`);
-      remoteNotesDb.info().then(function(info) {
+      this.remoteNotesDb = new PouchDB(`${config.db}/notes`);
+      this.remoteNotesDb.info().then((info) => {
         console.log('created remoteNotesDb', info);
-        replicateSync(remoteNotesDb, notesDB )
+        this.replicateSync(this.remoteNotesDb, this.notesDb )
       }).catch(e => {
         console.log("Database could not be created", e);
 
@@ -56,140 +74,111 @@ export default class PouchInit {
     } else {
       console.log("Remote database exists", i)
 
-      replicateSync(notesDB, remotePeek)
+      this.replicateSync(this.notesDb, this.remoteNotesDb)
 
     }
 
     })
     .catch(e => {
       // No database found and it was not created.
-
+      console.log(e)
+      alert("No database found and it was not created. Report console output.")
+      this.close()
     });
 
 
 
-    // remoteNotesDb
-    //   .changes()
-    //   .on('change', function(info) {
-    //     console.log('remoteNotesDb handle change', info);
-    //   })
-    //   .on('paused', function(err) {
-    //     console.log(
-    //       'remoteDB replication paused (e.g. replication up to date, user went offline)',
-    //       err
-    //     );
-    //   })
-    //   .on('active', function() {
-    //     console.log(
-    //       'remoteDB replicate resumed (e.g. new changes replicating, user went back online)'
-    //     );
-    //   })
-    //   .on('denied', function(err) {
-    //     console.log(
-    //       'remoteDB a document failed to replicate (e.g. due to permissions)',
-    //       err
-    //     );
-    //   })
-    //   .on('complete', function(info) {
-    //     console.log('remoteDB handle complete', info);
-    //   })
-    //   .on('error', function(err) {
-    //     console.log('remoteDB handle error', err);
-    //   });
+  }
 
-    // notesDB
-    //   .changes()
-    //   .on('change', function(info) {
-    //     console.log('notesDB handle change', info);
-    //   })
-    //   .on('paused', function(err) {
-    //     console.log(
-    //       'notesDB replication paused (e.g. replication up to date, user went offline)',
-    //       err
-    //     );
-    //   })
-    //   .on('active', function() {
-    //     console.log(
-    //       'notesDB replicate resumed (e.g. new changes replicating, user went back online)'
-    //     );
-    //   })
-    //   .on('denied', function(err) {
-    //     console.log(
-    //       'notesDB a document failed to replicate (e.g. due to permissions)',
-    //       err
-    //     );
-    //   })
-    //   .on('complete', function(info) {
-    //     console.log('notesDB handle complete', info);
-    //   })
-    //   .on('error', function(err) {
-    //     console.log('notesDB handle error', err);
-    //   });
+handleChange() {
+  let previousValue = this.currentValue;
+  this.currentValue = select(this.store.getState())
+
+  if (previousValue !== this.currentValue) {
+    console.log(
+      'Some deep nested property changed from',
+      previousValue,
+      'to',
+      this.currentValue
+    )
+    this.cancel()
+  }
+}
+cancel() {
+  console.log("closing replication", this.replication)
+  if (this.replication && !this.replication.cancelled ) {
+    console.log("Cancelling replication")
+    this.replication.cancel()
+  }
+  console.log("closing sync", this.sync)
+  if (this.sync && !this.sync.cancelled ) {
+    console.log("Cancelling sync")
+    this.sync.cancel()
+  }
+  // console.log("closing remotePeek database", this.remotePeek)
+  // if (this.remotePeek && !this.remotePeek._closed) {
+  //   console.log("Closing remotePeek")
+  //   this.remotePeek.close()
+  // }
+  console.log("closing remoteNotesDb", this.remoteNotesDb)
+  if (this.remoteNotesDb && !this.remoteNotesDb._closed) {
+    console.log("Closing remoteNotesDb databse")
+    this.remoteNotesDb.close()
+  }
+  console.log("closing notesDb", this.notesDb)
+  if (!this.notesDb._closed) {
+    console.log("Closing notesDb databse")
+    this.notesDb.close()
   }
 }
 
-// close = () => {
-//   console.log("closing")
-//   if (this.remotePeek) {
-//     console.log("closing")
-//     this.remotePeek.close()
-//   }
-//   if (this.remoteNotesDb) {
-//     console.log("closing")
-//     this.remoteNotesDb.close()
-//   }
-//   if (notesDB) {
-//     console.log("closing")
-//   notesDB.close()
-//   }
-
-// };
-const replicateSync = (a, b) => {
-  a.replicate
-  .from(b) // one-time replicateion on start up
-  .on('complete', function(info) {
-    console.log('First-time sync completed: ', info);
-    self.store.dispatch({type: SYNC_FIRST_TIME_SYNC_SUCCESS})
-    // then two-way, continuous, retriable sync
-    a
-    .sync(b, syncOpts)
-    .on('change', function(info) {
-        self.store.dispatch({type: SYNC_ON_CHANGE, ...info})
-        // store.dispatch({type: "SYNC_CHANGE", info})
-        console.log('remoteNotesDb sync:     handle change', info);
-      })
-      .on('paused', function(err) {
-        self.store.dispatch({type: SYNC_ON_PAUSED, ...err})
-        console.log(
-          'remoteNotesDb sync:     replication paused (e.g. replication up to date, user went offline)',
-          err
-          );
+  replicateSync(a, b)  {
+    this.replication = a.replicate
+    .from(b) // one-time replicateion on start up
+    .on('complete', (info) => {
+      console.log('First-time sync completed: ', info);
+      this.store.dispatch({type: SYNC_FIRST_TIME_SYNC_SUCCESS})
+      // then two-way, continuous, retriable sync
+     this.sync = a
+      .sync(b, syncOpts)
+      .on('change', (info) => {
+          this.store.dispatch({type: SYNC_ON_CHANGE, ...info})
+          // store.dispatch({type: "SYNC_CHANGE", info})
+          console.log('remoteNotesDb sync:     handle change', info);
         })
-        .on('active', function() {
-          self.store.dispatch({type: SYNC_ON_ACTIVE})
+        .on('paused', (err) => {
+          this.store.dispatch({type: SYNC_ON_PAUSED, ...err})
           console.log(
-            'notesDB replicate sync:     resumed (e.g. new changes replicating, user went back online)'
+            'remoteNotesDb sync:     replication paused (e.g. replication up to date, user went offline)',
+            err
             );
-      })
-      .on('denied', function(err) {
-        self.store.dispatch({type: SYNC_ON_DENIED, ...err})
-        console.log(
-          ' notesDB sync:     a document failed to replicate (e.g. due to permissions)',
-          err
-          );
+          })
+          .on('active', () => {
+            this.store.dispatch({type: SYNC_ON_ACTIVE})
+            console.log(
+              'notesDB replicate sync:     resumed (e.g. new changes replicating, user went back online)'
+              );
         })
-        .on('complete', function(info) {
-          self.store.dispatch({type: SYNC_ON_COMPLETE, ...info})
-          console.log('notesDB sync:     handle complete', info);
-        })
-        .on('error', function(err) {
-          self.store.dispatch({type: SYNC_ON_ERROR, error: err})
-        console.log('notesDB sync:     handle error', err);
-      });
-  })
-  .on('error', e => {
-    self.self.store.dispatch({type: SYNC_FIRST_TIME_SYNC_ERROR, error:  e})
+        .on('denied', (err) => {
+          this.store.dispatch({type: SYNC_ON_DENIED, ...err})
+          console.log(
+            ' notesDB sync:     a document failed to replicate (e.g. due to permissions)',
+            err
+            );
+          })
+          .on('complete', (info) => {
+            this.store.dispatch({type: SYNC_ON_COMPLETE, ...info})
+            console.log('notesDB sync:     handle complete', info);
+          })
+          .on('error', (err) => {
+            this.store.dispatch({type: SYNC_ON_ERROR, error: err})
+          console.log('notesDB sync:     handle error', err);
+        });
+    })
+    .on('error', e => {
+      this.store.dispatch({type: SYNC_FIRST_TIME_SYNC_ERROR, error:  e})
 
-    console.log('First-time sync failed: ', e);
-  });
+      console.log('First-time sync failed: ', e);
+    });
+  }
 }

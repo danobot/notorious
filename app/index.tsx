@@ -21,12 +21,32 @@ document.addEventListener('DOMContentLoaded', () =>
       <Root store={store} history={history} />
     </AppContainer>,
     document.getElementById('root')
-  )
+    )
 );
-// window.addEventListener("beforeunload", (ev) =>
-// {
-//   ev.preventDefault();
-//     pouchInit.close()
+
+function close() {
+  pouchInit.cancel();
+}
+
+document.addEventListener("online", (ev) =>{
+    console.log("oneline")
+});
+
+document.addEventListener("offline", (ev) =>{
+    console.log("offline")
+});
+
+
+// this causes mulitple windows to open
+document.addEventListener("unload", (ev) =>
+{
+  console.log("Before closing")
+  close()
+//   // store.dispatch({type: SHUT_DOWN_APP})
+
+//  // ev.preventDefault();
+//   //alert("Before closing")
+//   alert("after closing")
 //     return true
 //     // return ev.returnValue = 'Are you sure you want to close?';
-// });
+});

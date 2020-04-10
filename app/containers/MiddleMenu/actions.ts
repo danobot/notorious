@@ -31,7 +31,7 @@ export function searchNotes(search: String) {
     })
     console.log("index", index)
     const results = index.search(search)
-    console.log(results)
+    console.log("Search results", results)
     dispatch({
       type: SEARCH_NOTES_RESULTS,
       search,

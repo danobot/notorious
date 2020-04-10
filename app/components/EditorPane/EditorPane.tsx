@@ -2,7 +2,7 @@ import React, {useState, useRef} from 'react';
 import styled from 'styled-components';
 
 import { MyInput } from './style';
-
+import sampleImage from '../../assets/sample.png'
 import SimpleMDE from "react-simplemde-editor";
 import FieldForm from './FieldForm/FieldForm';
 import MultiSelect from './FieldForm/MultiSelect';
@@ -41,6 +41,7 @@ import { InlineItem, RightFloaty } from '../../style/utils.style';
 import { NotoriousButtonStyle, TopBar } from '../MiddleMenu/MiddleMenu.style';
 import RichEditor from './RichEditor/RichEditor';
 import MarkdownEditor from './MarkdownEditor/MarkdownEditor';
+import GroupEditor from './GroupEditor/GroupEditor';
 
 const NoteTitleInput = styled(FieldForm)`
   font-size: 18pt;
@@ -68,14 +69,15 @@ export default function EditorPane({contentArea, note,
   const [count, setCount] = React.useState('100px')
   const valueGetter = useRef();
 
-  const handleBlur = value => {
-    console.log(value.getValue())
-    setState({ content: value.getValue() });
-    if ( note.content !== value.getValue() ) {
-      noteActions.updateNote(note._id, { content: value.getValue() })
-    }
-  };
+  // const handleBlur = value => {
+  //   console.log(value.getValue())
+  //   setState({ content: value.getValue() });
+  //   if ( note.content !== value.getValue() ) {
+  //     noteActions.updateNote(note._id, { content: value.getValue() })
+  //   }
+  // };
   const noteref = note && note._id + note._rev
+  //http://tower:5985/notes/2e886b17-b57b-4314-a886-880ba4255308/title.txt
   return (
     <>
       { note ? <EditorPaneStyle>
@@ -85,11 +87,11 @@ export default function EditorPane({contentArea, note,
 
             {parent && <InlineItem><FontAwesomeIcon title="Notebook" icon={faBook} /><span style={{textDecoration: 'underline'}} onClick={e=> selectNoteAction(parent._id)}>{parent.title}</span></InlineItem>}
             {note.children && note.children.length > 0 && <InlineItem title="Number of Subnotes"><FontAwesomeIcon icon={faFolderOpen} />{note.children.length}</InlineItem>}
-            {/* <InlineItem><FontAwesomeIcon title="Identifier" icon={faFingerprint} /><span title={note._id}>{note._id.split("-")[0]}</span></InlineItem> */}
-            {/* <InlineItem><FontAwesomeIcon title="Notebook" icon={faBook} /><span onClick={e=> addAttachment(note._id, note._rev, "title.txt", "Fd", 'text/plain')}>Attachment</span></InlineItem> */}
             {note.showInMenu && <InlineItem><FontAwesomeIcon title="Menu item" icon={faCaretSquareRight} /><span>Menu Item</span></InlineItem>}
             <InlineItem><FontAwesomeIcon title="Created at" icon={faClock} /><Moment title={new Date(note.createdAt)} format="MMM D, YYYY">{note.createAt}</Moment></InlineItem>
             <InlineItem><FontAwesomeIcon title="Updated at" icon={faHistory} /><Moment title={new Date(note.updatedAt)} format="MMM D, YYYY">{note.updatedAt}</Moment></InlineItem>
+            {/* <InlineItem><FontAwesomeIcon title="Notebook" icon={faBook} /><span onClick={e=> addAttachment(note._id, note._rev, "title.txt", "Fd",  new Buffer.from(open(sampleImage)))}>Attachment</span></InlineItem>
+            <InlineItem><FontAwesomeIcon title="Identifier" icon={faFingerprint} /><span title={note._id}>{note._id}</span></InlineItem> */}
             <RightFloaty>
               <InlineItem><NotoriousButtonStyle title="Favourite Note" size="small" onClick={e => noteActions.updateNote(note._id, {starred: !note.starred})}><FontAwesomeIcon icon={note.starred ? faStarSolid : faStarOutline} /></NotoriousButtonStyle></InlineItem>
               <InlineItem><NotoriousButtonStyle title="Pin note to top" size="small" onClick={e => noteActions.updateNote(note._id, {pinned: !note.pinned})}><FontAwesomeIcon icon={faThumbtack} /></NotoriousButtonStyle></InlineItem>
@@ -125,6 +127,10 @@ export default function EditorPane({contentArea, note,
         </EditorStyle>}
         {note.kind && note.kind === "index" && <EditorStyle>
           <IndexEditor note={note} subNotes={subNotes} noteActions={noteActions} />
+
+        </EditorStyle>}
+        {note.kind && note.kind === "group" && <EditorStyle>
+          <GroupEditor note={note} subNotes={subNotes} noteActions={noteActions} />
 
         </EditorStyle>}
 
