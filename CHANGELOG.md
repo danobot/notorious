@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-alpha.7](https://github.com/danobot/notorious/compare/v0.2.1-alpha.5...v0.2.1-alpha.7) (2020-04-10)
+
+
+### Features
+
+* close DB connection (wip) ([841b624](https://github.com/danobot/notorious/commit/841b6244209b66a3b2102fdd320997154c42bdd9))
+
 ### [0.2.1-alpha.6](https://github.com/danobot/notorious/compare/v0.2.1-alpha.4...v0.2.1-alpha.6) (2020-04-09)
 
 
