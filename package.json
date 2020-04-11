@@ -298,7 +298,9 @@
     "electron-log": "^4.0.6",
     "electron-store": "^5.1.1",
     "electron-updater": "^4.2.5",
+    "emojione": "^4.5.0",
     "flexsearch": "^0.6.32",
+    "flowchart.js": "^1.13.0",
     "formik": "^2.1.4",
     "history": "^4.10.1",
     "html-webpack-plugin": "^3.2.0",
@@ -307,9 +309,11 @@
     "jodit-react": "^1.0.42",
     "pouchdb-adapter-memory": "^7.2.1",
     "pouchdb-debug": "^7.2.1",
+    "katex": "^0.11.1",
+    "marked": "^0.8.2",
+    "mathjax": "^3.0.5",
     "re-resizable": "^6.3.2",
     "react": "^16.12.0",
-    "react-codemirror": "^1.0.0",
     "react-codemirror2": "^7.1.0",
     "react-contextmenu": "^2.13.0",
     "react-custom-scrollbars": "^4.2.1",
@@ -334,7 +338,8 @@
     "standard-version": "^7.1.0",
     "styled-components": "^5.0.1",
     "uuid": "^7.0.2",
-    "winston": "^3.2.1"
+    "turndown": "^6.0.0",
+    "turndown-plugin-gfm": "^1.0.2"
   },
   "devEngines": {
     "node": ">=7.x",

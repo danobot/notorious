@@ -29,10 +29,10 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           pushd ./app
-            npx standard-version -a --no-verify --prerelease alpha --skip.changelog --skip.tag
+            npx standard-version -a --no-verify --prerelease beta --skip.changelog --skip.tag
             echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
           popd
-          npx standard-version -a --no-verify --prerelease alpha --skip.tag
+          npx standard-version -a --no-verify --prerelease beta --skip.tag
         env:
           CI: true
       - name: Push to master
@@ -121,16 +121,17 @@ jobs:
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
       - name: "[Docker Build] Build the tagged Docker image"
         if: matrix.os == 'ubuntu-18.04' && github.ref == 'refs/heads/master'
-        run: docker build . --file Dockerfile.prod --tag danobot/notorious:${{ steps.pkg.outputs.version }}
+        run: docker build . --file Dockerfile.prod --tag danobot/notorious:${{ steps.pkg.outputs.version }} && docker tag danobot/notorious:${{ steps.pkg.outputs.version }} danobot/notorious:latest
       - name: "[Docker Build] Push the tagged Docker image"
         if: matrix.os == 'ubuntu-18.04' && github.ref == 'refs/heads/master'
         run: docker push danobot/notorious:${{ steps.pkg.outputs.version }}
-      - name: "[Docker Build] Build the latest Docker image"
-        if: matrix.os == 'ubuntu-18.04' && github.ref != 'refs/heads/master'
-        run: docker build . --file Dockerfile.prod --tag danobot/notorious:latest
-      - name: "[Docker Build] Push the latest Docker image"
+
+      - name: "[Docker Build Develop] Build the latest Docker image"
         if: matrix.os == 'ubuntu-18.04' && github.ref == 'refs/heads/develop'
-        run: docker push danobot/notorious:latest
+        run: docker build . --file Dockerfile.prod --tag danobot/notorious:next
+      - name: "[Docker Build Develop] Push the latest Docker image"
+        if: matrix.os == 'ubuntu-18.04' && github.ref == 'refs/heads/develop'
+        run: docker push danobot/notorious:next
   # As soon as the build matrix has completed correctly, this job will
   # commence, creating a new draft release, downloading all assets from
   # the previous job, verifying the checksum integrity, and uploading that

@@ -1,0 +1,38 @@
+.CodeMirror {
+  height: auto;
+}
+.CodeMirror-scroll {
+  overflow-y: hidden;
+  overflow-x: auto;
+}
+
+.cm-s-hypermd-light {
+  font-size: 10pt !important;
+}
+
+.HyperMD-header {
+  padding-top: 10px !important;
+}
+.HyperMD-header-1 {
+  font-size: 16pt !important;
+}
+
+.HyperMD-header-2 {
+  font-size: 14pt !important;
+}
+.HyperMD-header-3 {
+  font-size: 12pt !important;
+}
+.HyperMD-header-4 {
+  font-size: 12pt;
+  text-decoration: underline;
+}
+.HyperMD-header-5 {
+  font-size: 12pt;
+  text-decoration: underline;
+}
+
+span.hmd-fold-math {
+  text-align: center;
+  padding: 10px 0 10px 0;
+}

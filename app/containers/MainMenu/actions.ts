@@ -9,7 +9,6 @@ export const SELECT_NOTES_FILTER = 'SELECT_NOTES_FILTER';
 export function selectNotebook(nb: String) {
   return (dispatch: Dispatch, getState) => {
     const state = getState()
-    console.log("selectNotebook", allNotes)
     dispatch(setConfig("selectedNotebook", nb))
     const notes = allNotes(state);
     const notebook = notes && notes.filter(n => n._id === nb)[0]

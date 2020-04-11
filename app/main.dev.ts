@@ -10,12 +10,11 @@
  */
 import path from 'path';
 import { app, BrowserWindow } from 'electron';
-// import log from 'electron-log';
 import MenuBuilder from './menu';
 
 import AppUpdater from "./AppUpdater";
-import { store } from '.';
-import { SHUT_DOWN_APP } from './containers/HomePage/actions';
+// import { store } from '.';
+// import { SHUT_DOWN_APP } from './containers/HomePage/actions';
 // import { pouchInit } from '.';
 
 
