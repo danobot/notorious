@@ -134,7 +134,7 @@ export const EditorRowMain = styled.div`
   /* background: brown; */
   grid-row-start: 4;
   grid-row-end: 4;
-  overflow: hidden;
+  overflow: overlay;
 
 `
 

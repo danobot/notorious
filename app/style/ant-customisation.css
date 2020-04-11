@@ -21,16 +21,17 @@ html {
   /* overflow-y: hidden; */
 }
 .CodeMirror-scroll {
-  width: 100%;
+  /* width: 100%; */
 }
 
 .react-codemirror2  {
-  /* position: fixed; */
+  padding: 0 2px 0 10px;
+/* position: fixed; */
   /* top: 120px; */
-  width: 100%;
+  /* width: 100%; */
   /* right: 0; */
   /* bottom: 0; */
-  height: 88vh; /* this number is magic, don't touch it */
+  /* height: 88vh;  */
 }
 
 .ant-spin-dot {
