@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-beta.0](https://github.com/danobot/notorious/compare/v0.2.1-alpha.6...v0.2.1-beta.0) (2020-04-11)
+
+
+### Features
+
+* markdown editor powerpacks including Flowcharts, maths, typography, footnotes on hover, link styling ([c70d326](https://github.com/danobot/notorious/commit/c70d3263e21b49944526852046c0374ff1893eb8))
+
+
+### Bug Fixes
+
+* build error ([5013746](https://github.com/danobot/notorious/commit/5013746460b2596d7c38366ddec5e6a693cfe453))
+
 ### [0.2.1-alpha.7](https://github.com/danobot/notorious/compare/v0.2.1-alpha.5...v0.2.1-alpha.7) (2020-04-10)
 
 
