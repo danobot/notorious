@@ -1,16 +1,7 @@
 import React, { Component, useCallback  } from 'react';
-import {Controlled as ReactCodeMirror} from 'react-codemirror2';
+import { Controlled as ReactCodeMirror } from 'react-codemirror2';
 import { debounce } from "lodash";
 import { Scrollbars } from 'react-custom-scrollbars';
-
-// import { Resizable} from 're-resizable';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {  } from "@fortawesome/free-regular-svg-icons";
-import {  } from "@fortawesome/free-solid-svg-icons";
-import '../../../style/code-mirror-markdown.css'
-var TurndownService = require('turndown')
-var turndownPluginGfm = require('turndown-plugin-gfm')
-import flowchart from 'flowchart'
 import 'codemirror/lib/codemirror';
 
 import 'codemirror/mode/javascript/javascript';
@@ -25,6 +16,8 @@ import 'hypermd/keymap/hypermd';
 import 'hypermd/addon/hide-token';
 import 'hypermd/addon/cursor-debounce';
 import 'hypermd/addon/fold';
+import 'hypermd/addon/fold-emoji';
+import 'hypermd/addon/fold-math';
 // import 'hypermd/addon/fold-gutter';
 // import 'hypermd/addon/markdown-fold';
 // import 'hypermd/addon/overlay';
@@ -35,7 +28,6 @@ import 'hypermd/addon/paste';
 import 'hypermd/addon/insert-file';
 import 'hypermd/addon/mode-loader';
 import 'hypermd/addon/table-align';
-
 // Folding
 import 'hypermd/addon/fold-image';
 import 'hypermd/addon/fold-emoji';
@@ -47,9 +39,10 @@ import 'hypermd/addon/fold-math';
 import 'hypermd/powerpack/hover-with-marked';
 import 'hypermd/powerpack/paste-with-turndown';
 import 'hypermd/powerpack/fold-code-with-flowchart';
-import { autoUpdater } from 'electron-updater';
+import 'hypermd/powerpack/insert-file-with-smms';
+import 'hypermd/powerpack/fold-emoji-with-emojione';
 
-const handler = f => useCallback(debounce(f, 2000), []);
+
 
 class MarkdownEditor extends Component {
   constructor(props) {
@@ -62,7 +55,6 @@ class MarkdownEditor extends Component {
 
   }
 
-  updateContent
 
   render() {
     const updateContent=(editor, data, value)=> {

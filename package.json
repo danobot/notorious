@@ -314,7 +314,6 @@
     "mathjax": "^3.0.5",
     "re-resizable": "^6.3.2",
     "react": "^16.12.0",
-    "react-codemirror": "^1.0.0",
     "react-codemirror2": "^7.1.0",
     "react-contextmenu": "^2.13.0",
     "react-custom-scrollbars": "^4.2.1",
@@ -339,7 +338,6 @@
     "standard-version": "^7.1.0",
     "styled-components": "^5.0.1",
     "uuid": "^7.0.2",
-    "winston": "^3.2.1",
     "turndown": "^6.0.0",
     "turndown-plugin-gfm": "^1.0.2"
   },
