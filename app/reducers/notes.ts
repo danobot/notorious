@@ -6,7 +6,7 @@ import {createReducer} from '../utils/utils'
 import { UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE, REMOVE_EDITOR, ADD_EDITOR, TOGGLE_MENU_SHOW_NOTE, TOGGLE_PIN_NOTE, ADD_ATTACHMENT} from './noteActions';
 import { notesDB } from '../PouchInit';
 import { SELECT_NOTE } from '../containers/ContentAreaCont/actions';
-
+import { findChildrenOfNoteInclDeleted } from '../containers/MainMenu/selectors'
 
 const initialState = []
 const notesReducer = createReducer(initialState, {
@@ -37,9 +37,20 @@ const notesReducer = createReducer(initialState, {
       console.log("noteToBeNuked: ",noteToBeNuked)
       if (noteToBeNuked.children && noteToBeNuked.children.length > 0) {
         return state // we cannot delete a note with children... what would we do with the children? THINK OF THE CHILDREN!!! D:
+
+        // unless all of the children are also marked as deleted
+        // const children = state.filter(n => n.parent === noteToBeNuked._id)
+        // console.log("Children note objects", children)
+
+        // const allChildrenAreDeleted = children.filter(c => c.deleted).length === children.length
+        // if (allChildrenAreDeleted) {
+        //   console.log("Children have been deleted", children)
+        // } else {
+        //   return state
+        // }
       }
       const parent = noteToBeNuked.parent
-      if (parent !== undefined && parent !== "root") {
+      if ( parent !== undefined && parent !== "root") {
         console.log("parent: ",parent)
         console.log("parent.children: ",parent.children)
         newState = newState.map((note, id) => {
@@ -87,6 +98,7 @@ const notesReducer = createReducer(initialState, {
         return newState
       })
     }
+
 
   }
 );

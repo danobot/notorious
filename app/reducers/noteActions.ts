@@ -12,6 +12,7 @@ export const DELETE_ATTACHMENT= 'DELETE_ATTACHMENT';
 export const DELETE_ATTACHMENT_SUCCESS = 'DELETE_ATTACHMENT_SUCCESS';
 export const DELETE_ATTACHMENT_ERROR = 'DELETE_ATTACHMENT_ERROR';
 export const SOFT_DELETE_NOTE = 'SOFT_DELETE_NOTE';
+export const EMPTY_TRASH = 'EMPTY_TRASH';
 
 export function updateNote(id: string, attributes: string) {
   return dispatch => {
@@ -19,6 +20,17 @@ export function updateNote(id: string, attributes: string) {
       type: UPDATE_NOTE,
       id,
       attributes
+    });
+  };
+}
+export function emptyTrash() {
+  return (dispatch: Dispatch, getState) => {
+    const state = getState()
+    state.notes.filter(n => n.deleted).map(n=> {
+      dispatch(deleteNote(n._id))
+    })
+    dispatch({
+      type: EMPTY_TRASH
     });
   };
 }

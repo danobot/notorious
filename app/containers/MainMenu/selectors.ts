@@ -2,8 +2,8 @@ import { createSelector } from 'reselect'
 import { uniq } from '../../utils/utils'
 
 const allNotesInternal = state => {return (state && state.notes )? state.notes.filter(n=>n.schema === "note" && !n.deleted) : [] }
+const notes = state => {return (state && state.notes ) ? state.notes : [] }
 export const configs = state => state && state.configs
-export const state = state => state
 
 export const notebookSelector = createSelector(
   allNotesInternal,
@@ -18,6 +18,10 @@ export const findSelectedNote = createSelector(
 )
 export const allNotes = createSelector(
   allNotesInternal,
+  (all) => all
+)
+export const allNotesEverything = createSelector(
+  notes,
   (all) => all
 )
 
@@ -38,6 +42,15 @@ export const findChildrenOfNote = (note) => {
     allNotesInternal,
     (all) => {
     return all.filter(n => n.parent === note._id)
+
+  }
+    )
+}
+export const findChildrenOfNoteInclDeleted = (note) => {
+  return createSelector(
+    allNotesEverything,
+    (notes) => {
+    return notes.filter(n => n.parent === note._id)
 
   }
     )

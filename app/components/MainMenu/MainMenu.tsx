@@ -32,6 +32,7 @@ export default function MainMenu({
   updateNote,
   modalData,
   selectNoteAction,
+  emptyTrash,
   tags,
   notesSync,
   spinner
@@ -40,7 +41,10 @@ export default function MainMenu({
     cmCreateNotebookInside: (e, {note}) => createNotebook(note._id),
     cmShowInMenuHandler: (e, {note}) => updateNote(note._id, {showInMenu: !note.showInMenu, kind: "collection" }),
     cmDeleteNoteHandler: (e, {note}) => softDeleteNote(note._id),
-    cmOpenInEditor: (e, {note}) => selectNoteAction(note._id),
+    cmOpenInEditor: (e, {note}) => selectNoteAction(note._id)
+  };
+  const contextEmptyTrash = (e, data) => {
+    emptyTrash()
   };
   const contextCreateNewNotebook = (e, data) => {
     showNotebookModal(data);
@@ -63,13 +67,16 @@ export default function MainMenu({
 
       />
 
-      <MenuItem
-        label="Trash"
-        icon={<FontAwesomeIcon icon={faTrash} />}
-        compKey="trashMenuItem"
-        onClickHandler={e=> selectNotebook("TRASH")}
-        selected={selectedNotebook === "TRASH"}
-      />
+
+      <ContextMenuTrigger id="trash_trigger">
+        <MenuItem
+          label="Trash"
+          icon={<FontAwesomeIcon icon={faTrash} />}
+          compKey="trashMenuItem"
+          onClickHandler={e=> selectNotebook("TRASH")}
+          selected={selectedNotebook === "TRASH"}
+        />
+      </ContextMenuTrigger>
       <MenuItem
         label="Favourites"
         icon={<FontAwesomeIcon icon={faStar} />}
@@ -146,6 +153,15 @@ export default function MainMenu({
           onClick={contextCreateNewNotebook}
         >
           New Notebook
+        </ContexMenuItem>
+      </ContextMenu>
+      <ContextMenu id="trash_trigger">
+        <ContexMenuItem
+          data={{ foo: 'bar' }}
+          onClick={contextEmptyTrash}
+          style={{backgroundColor: 'red', color: 'white'}}
+        >
+          Empty Trash
         </ContexMenuItem>
       </ContextMenu>
 

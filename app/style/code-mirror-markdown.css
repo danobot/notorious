@@ -1,6 +1,9 @@
 .CodeMirror {
   height: auto;
 }
+.cm-formatting-lis {
+  font-family: unset;
+}
 .CodeMirror-scroll {
   overflow-y: hidden;
   overflow-x: auto;

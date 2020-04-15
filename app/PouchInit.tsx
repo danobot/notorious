@@ -18,7 +18,6 @@ PouchDB.plugin(pouchdbDebug)
 
 PouchDB.debug.enable('*');
 
-
 export const notesDB = new PouchDB('data/notes');
 //  const configDB = new PouchDB('data/config');
 

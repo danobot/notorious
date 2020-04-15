@@ -137,8 +137,9 @@ export default function EditorPane({contentArea, note,
 
         {(!note.kind || note.kind === 'normal') && <>
           {!note.editor || note.editor === 'markdown' ? <MarkdownEditor
-            id={noteref }
-            key={noteref}
+            id={note._id}
+            key={note._id}
+            // key={noteref}  // reopens #61 and closes #122
             note={note}
             noteActions={noteActions}
            />

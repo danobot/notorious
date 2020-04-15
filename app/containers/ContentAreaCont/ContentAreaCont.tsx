@@ -12,7 +12,7 @@ import { findChildren, findSelectedNote, findExistingTags, findNote } from '../M
 import NotesWrapper from '../util/NotesWrapper';
 
 class ContentAreaCont extends PureComponent {
-  componentWillMount = () => {
+  componentDidMount = () => {
     console.log('ContentAreaCont will mount');
 
   }
