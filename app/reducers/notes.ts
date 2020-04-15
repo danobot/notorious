@@ -69,14 +69,22 @@ const notesReducer = createReducer(initialState, {
       return newState // and add new note to array
     },
     [UPDATE_NOTE]: (state, action) => {
+      console.log(action)
       return  state.map((item, id) => {
         if (item._id !== action.id) { return item }
         let extra = {}
         let c = action.attributes
-        if (action.attributes.skipUpdatedAt || false) {
-        } else {
+        console.log(action)
+        // if (action.attributes.skipUpdatedAt || false) {
+          // } else {
+            //   c.updatedAt = Date.now()
+            // }
+        if (c.hasOwnProperty("title") || c.hasOwnProperty("content")) {
+          console.log("Title or content updated")
           c.updatedAt = Date.now()
+          console.log(c)
         }
+
         delete c.skipUpdatedAt
         return {
           ...item,

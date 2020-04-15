@@ -20,17 +20,24 @@ export function searchNotes(search: String) {
     const state = getState()
 
     // const results = state.notes ? state.notes
-    const index = new FlexSearch();
+    const titleIndex = new FlexSearch();
+    const contentIndex = new FlexSearch();
+    const tagsIndex = new FlexSearch();
     state.notes.map(n=> {
-      index.add(n._id, n._id)
-      index.add(n._id, n.title)
-      index.add(n._id, n.content)
-      if (n.tags && n.tags.length> 0) {
-        n.tags.map(t=> index.add(n._id, t))
+      if (n.title && n.title.length > 0) {
+        titleIndex.add(n._id, n.title)
+      }
+      if (n.content && n.content.length > 0) {
+        contentIndex.add(n._id, n.content)
+      }
+      if (n.tags && n.tags.length > 0) {
+        n.tags.map(t=> tagsIndex.add(n._id, t))
       }
     })
-    console.log("index", index)
-    const results = index.search(search)
+
+    const results = [...titleIndex.search(search),
+      ...contentIndex.search(search),
+      ...tagsIndex.search(search)]
     console.log("Search results", results)
     dispatch({
       type: SEARCH_NOTES_RESULTS,
