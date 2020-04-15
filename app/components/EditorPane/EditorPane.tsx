@@ -88,7 +88,7 @@ export default function EditorPane({contentArea, note,
             {parent && <InlineItem><FontAwesomeIcon title="Notebook" icon={faBook} /><span style={{textDecoration: 'underline'}} onClick={e=> selectNoteAction(parent._id)}>{parent.title}</span></InlineItem>}
             {note.children && note.children.length > 0 && <InlineItem title="Number of Subnotes"><FontAwesomeIcon icon={faFolderOpen} />{note.children.length}</InlineItem>}
             {note.showInMenu && <InlineItem><FontAwesomeIcon title="Menu item" icon={faCaretSquareRight} /><span>Menu Item</span></InlineItem>}
-            <InlineItem><FontAwesomeIcon title="Created at" icon={faClock} /><Moment title={new Date(note.createdAt)} format="MMM D, YYYY">{note.createAt}</Moment></InlineItem>
+            <InlineItem><FontAwesomeIcon title="Created at" icon={faClock} /><Moment title={new Date(note.createdAt)} format="MMM D, YYYY">{note.createdAt}</Moment></InlineItem>
             <InlineItem><FontAwesomeIcon title="Updated at" icon={faHistory} /><Moment title={new Date(note.updatedAt)} format="MMM D, YYYY">{note.updatedAt}</Moment></InlineItem>
             {/* <InlineItem><FontAwesomeIcon title="Notebook" icon={faBook} /><span onClick={e=> addAttachment(note._id, note._rev, "title.txt", "Fd",  new Buffer.from(open(sampleImage)))}>Attachment</span></InlineItem>
             <InlineItem><FontAwesomeIcon title="Identifier" icon={faFingerprint} /><span title={note._id}>{note._id}</span></InlineItem> */}
@@ -137,8 +137,9 @@ export default function EditorPane({contentArea, note,
 
         {(!note.kind || note.kind === 'normal') && <>
           {!note.editor || note.editor === 'markdown' ? <MarkdownEditor
-            id={noteref }
-            key={noteref}
+            id={note._id}
+            key={note._id}
+            // key={noteref}  // reopens #61 and closes #122
             note={note}
             noteActions={noteActions}
            />

@@ -1,6 +1,7 @@
 import { createReducer } from '../../utils/utils'
 import { SEARCH_NOTES, SEARCH_NOTES_RESULTS, SORT_NOTES, SORT_ALPHA } from './actions';
 
+import { SELECT_NOTEBOOK } from '../MainMenu/actions';
 
 const initialState = {
   visibleNotes: [],
@@ -16,7 +17,9 @@ const middleMenuReducer = createReducer(initialState, {
   },
   [SORT_NOTES]: (state, action) => {
     return {...state, sorter: action.sorter}
-  }
-
+  },
+  [SELECT_NOTEBOOK]: (state, action) => {
+    return {...state, search: null}
+  },
 });
 export default middleMenuReducer;

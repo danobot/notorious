@@ -1,6 +1,5 @@
 import React, { Component, useCallback  } from 'react';
 import { Controlled as ReactCodeMirror } from 'react-codemirror2';
-import { debounce } from "lodash";
 import { Scrollbars } from 'react-custom-scrollbars';
 import 'codemirror/lib/codemirror';
 
@@ -16,35 +15,36 @@ import 'hypermd/keymap/hypermd';
 import 'hypermd/addon/hide-token';
 import 'hypermd/addon/cursor-debounce';
 import 'hypermd/addon/fold';
-import 'hypermd/addon/fold-emoji';
-import 'hypermd/addon/fold-math';
+
 // import 'hypermd/addon/fold-gutter';
 // import 'hypermd/addon/markdown-fold';
-// import 'hypermd/addon/overlay';
 import 'hypermd/addon/read-link';
 import 'hypermd/addon/click';
 import 'hypermd/addon/hover';
-import 'hypermd/addon/paste';
 import 'hypermd/addon/insert-file';
 import 'hypermd/addon/mode-loader';
 import 'hypermd/addon/table-align';
 // Folding
 import 'hypermd/addon/fold-image';
-import 'hypermd/addon/fold-emoji';
 import 'hypermd/addon/fold-html';
 import 'hypermd/addon/fold-code';
 import 'hypermd/addon/fold-link';
+import 'hypermd/addon/fold-emoji';
 import 'hypermd/addon/fold-math';
 
 import 'hypermd/powerpack/hover-with-marked';
 import 'hypermd/powerpack/paste-with-turndown';
 import 'hypermd/powerpack/fold-code-with-flowchart';
+import 'hypermd/addon/paste';
+
 import 'hypermd/powerpack/insert-file-with-smms';
 import 'hypermd/powerpack/fold-emoji-with-emojione';
+// import 'hypermd/powerpack/fold-emoji-with-twemoji';
 
 
 
 class MarkdownEditor extends Component {
+  state = { content: "", pendingUpdate: false}
   constructor(props) {
       super(props);
       this.state = {
@@ -54,20 +54,26 @@ class MarkdownEditor extends Component {
 
 
   }
-
+componentDidUpdate(prevProps) { // componentDidUpdate is significant because this.props already contains the new props
+  if (prevProps.note._rev !== this.props.note._rev){
+    console.log("componentDidUpdate prevProps", prevProps)
+    console.log("componentDidUpdate prevProps rev", prevProps.note._rev)
+    console.log("componentDidUpdate props rev", this.props.note._rev)
+    this.setState({content: this.props.note.content}) // closes #61
+  }
+}
 
   render() {
     const updateContent=(editor, data, value)=> {
-    // console.log("updateContent editor",editor)
-    // console.log("updateContent data",data)
+    console.log("updateContent editor",editor)
+    console.log("updateContent data",data)
     // console.log("updateContent value",value)
-    // handler(()=>this.props.noteActions.updateNote(this.props.note._id, {content: value}))
-// console.log(value)
-// this.props.noteActions.updateNote(this.props.note._id, {content: value})
-      // this.setState({content:value})
-      this.setState({content:value}) ;
       clearTimeout(this.timeout)
-      this.timeout = setTimeout(()=> {this.props.noteActions.updateNote(this.props.note._id, {content: value})}, 5000)
+      const saveContents = ()=> {
+        this.props.noteActions.updateNote(this.props.note._id, {content: value})
+        editor.markClean()
+      }
+      this.timeout = setTimeout(saveContents, 5000)
   }
     const options = {
       mode: 'hypermd',
@@ -109,12 +115,31 @@ class MarkdownEditor extends Component {
     };
       return  <Scrollbars autoHide id="editor-scrollbar">
         <ReactCodeMirror value={this.state.content} ref={this.codeMirrorRef}
+        autoCursor={true}
+        autoScroll={true}
           className="code-mirror_editor"
           options={options}
+          editorDidMount={(editor)=> {
+            this.editor = editor
+          }}
           onBeforeChange={(editor, data, value) => {
             this.setState({content: value});
           }}
-          onChange={updateContent} />
+          onChange={updateContent}
+          onBlur={(editor, event) => {
+            // console.log("onlur editor", editor)
+            // console.log("onlur getValue", editor.getValue())
+            // console.log("onlur event", event)
+            // console.log("onlur timeout", this.timeout)
+            console.log("onlur editor.isClean()", editor.isClean())
+            if (!editor.isClean()) {
+              clearTimeout(this.timeout)
+              console.log("Editor is dirty, updating note in database")
+              this.props.noteActions.updateNote(this.props.note._id, {content: editor.getValue()})
+              editor.markClean()
+            }
+          }}
+          />
       </Scrollbars>;
   }
 }

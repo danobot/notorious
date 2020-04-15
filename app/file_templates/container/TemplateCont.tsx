@@ -5,7 +5,7 @@ import * as actions from './actions';
 
 import { TemplateStateType } from '../../reducers/types';
 class TemplateCont extends PureComponent {
-  componentWillMount = () => {
+  componentDidMount = () => {
     console.log('TemplateCont will mount');
     dispatchAction.Read({
       targetKey: URL,
