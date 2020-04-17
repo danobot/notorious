@@ -1,6 +1,8 @@
 import PouchDB from 'pouchdb';
 import config from './utils/config';
 import pouchdbDebug from 'pouchdb-debug'
+import pouchdbQuickSearch from 'pouchdb-quick-search'
+
 import{
   SYNC_ON_CHANGE,
   SYNC_ON_PAUSED,
@@ -14,13 +16,13 @@ import{
 
 const syncOpts = { live: true, retry: true };
 
-PouchDB.plugin(pouchdbDebug)
+// PouchDB.plugin(pouchdbDebug)
+PouchDB.plugin(pouchdbQuickSearch);
 
-PouchDB.debug.enable('*');
+// PouchDB.debug.enable('*');
 
 export const notesDB = new PouchDB('data/notes');
 //  const configDB = new PouchDB('data/config');
-
 
 
 
