@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-beta.2](https://github.com/danobot/notorious/compare/v0.2.1-beta.0...v0.2.1-beta.2) (2020-04-17)
+
+
+### Features
+
+* find anything global search with Ctrl + G ([9efd083](https://github.com/danobot/notorious/commit/9efd0830b91b00f6f120e6c30b1897f23fd44fa4))
+
+
+### Bug Fixes
+
+* **cosmetic:** tag cursor ([fda9965](https://github.com/danobot/notorious/commit/fda9965e0df82ae98b0fd75e51ba38e7a2c7d13d))
+* **search:** create separate indexes for title, content and tags ([fa83e59](https://github.com/danobot/notorious/commit/fa83e59f8810e0c86d34c4a0b12057b102ab19b4))
+
 ### [0.2.1-beta.1](https://github.com/danobot/notorious/compare/v0.2.1-alpha.7...v0.2.1-beta.1) (2020-04-15)
 
 
