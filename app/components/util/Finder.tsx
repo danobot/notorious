@@ -1,11 +1,10 @@
 import React from 'react';
 import { Formik, Form } from 'formik';
 import { Modal, Input, List } from 'antd';
-import FieldForm from '../EditorPane/FieldForm/FieldForm';
 import { MyInput } from '../EditorPane/style';
 import { NotoModal } from './utils.style';
-import NotesWrapper from '../../containers/util/NotesWrapper';
 import FinderResultList from './FinderResultList';
+import {DelayInput} from 'react-delay-input';
 
 export default function Finder({
   onSearchResultSelect,
@@ -34,23 +33,26 @@ export default function Finder({
       {({ values, handleChange, handleSubmit }) => (
         <NotoModal>
           <Modal
-            title={title}
-            visible={visible}
-            onOk={handleSubmit}
+            title={null}
+            closable={false}
             onCancel={handleCancel}
-            width="80%"
+            visible={visible}
+            width="50%"
+            footer={null}
             headerStyle={{ padding: '0' }}
             bodyStyle={{
               padding: '5px'
             }}
           >
             <Form>
-              <MyInput>
-                <Input
+              <MyInput >
+                <DelayInput className={`ant-input`}
+                  style={{fontSize: 'larger', margin: '10px 0 10px 0'}}
                   autoFocus
                   name="value"
+
                   value={values.value}
-                  onChange={handleChange}
+                  onChange={e => {handleChange(e); search(e.target.value)}}
                   placeholder={placeholder}
                 />
               </MyInput>

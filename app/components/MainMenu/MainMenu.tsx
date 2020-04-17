@@ -45,14 +45,17 @@ export default function MainMenu({
   const keyMap = {
     FIND_ANYTHING: 'ctrl+g'
   };
-  const handlers = {
-    FIND_ANYTHING: event => {
-      console.log("modals.finderModalToggle ", modals.finderModalToggle)
+  const toggle = e=>{
+    console.log("modals.finderModalToggle ", modals.finderModalToggle)
       if (modals.finderModalToggle) {
         hideFinderModal()
       } else {
         showFinderModal()
       }
+  }
+  const handlers = {
+    FIND_ANYTHING: event => {
+      toggle()
     }
   };
 
@@ -77,7 +80,7 @@ export default function MainMenu({
   };
 
   const finderSearchResultSelect = (noteId) => {
-    hideNotebookModal();
+    hideFinderModal();
     selectNoteAction(noteId)
     console.log('finderSearchResultSelect', noteId);
   };
@@ -213,7 +216,7 @@ export default function MainMenu({
       />
 
 
-    <GlobalHotKeys handlers={handlers} keyMap={keyMap} />
+    <GlobalHotKeys key={modals.finderModalToggle} handlers={handlers} keyMap={keyMap} />
     </MainMenuStyle>
   );
 }

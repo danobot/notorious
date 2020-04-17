@@ -14,10 +14,12 @@ const mainMenuReducer = createReducer(initialState, {
     return {...state, filter: action.filter}
   },
   [SEARCH_NOTES_RESULTS]: (state, action) => {
-    console.log("mainMenuReducer state", state)
-    console.log("mainMenuReducer action", action)
-    return {...state, filter: action.results}
+    if (action.target === "MIDDLE_MENU_SEARCH") {
+      console.log("mainMenuReducer state", state)
+      console.log("mainMenuReducer action", action)
+      return {...state, filter: action.results}
+    }
+    return state
   }
-
 });
 export default mainMenuReducer;
