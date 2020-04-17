@@ -1,7 +1,11 @@
 import { createReducer } from '../../utils/utils'
-import { SEARCH_NOTES, SEARCH_NOTES_RESULTS, SORT_NOTES, SORT_ALPHA } from './actions';
+import { SORT_ALPHA, SORT_NOTES } from './actions';
 
 import { SELECT_NOTEBOOK } from '../MainMenu/actions';
+import {
+  GLOBAL_SEARCH,
+  SEARCH_NOTES_RESULTS
+} from '../../reducers/noteActions';
 
 const initialState = {
   visibleNotes: [],
@@ -9,11 +13,11 @@ const initialState = {
 }
 
 const middleMenuReducer = createReducer(initialState, {
-  [SEARCH_NOTES]: (state, action) => {
-    return {...state, search: action.search}
-  },
   [SEARCH_NOTES_RESULTS]: (state, action) => {
-    return {...state, visibleNotes: action.results}
+    if (action.target === "MIDDLE_MENU_SEARCH") {
+      return {...state, visibleNotes: action.results,  search: action.search}
+    }
+    return state
   },
   [SORT_NOTES]: (state, action) => {
     return {...state, sorter: action.sorter}

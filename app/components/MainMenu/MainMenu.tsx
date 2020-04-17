@@ -17,26 +17,45 @@ import { MainMenuStyle, MenuHeading, MenuItemRightFloat, MainMenuBottom, Spinner
 import MenuItem from './MenuItem';
 
 import ModalForm from '../util/ModalForm';
+import Finder from '../util/Finder';
 import TreeMenuCont from '../../containers/TreeMenuCont/TreeMenuCont';
 import { Spin } from 'antd';
+import { GlobalHotKeys } from 'react-hotkeys';
 
 export default function MainMenu({
   notebooks,
   selectNotebook,
   selectedNotebook,
-  showNotebookModalToggle,
-  hideNotebookModal,
-  showNotebookModal,
+  modals,
   createNotebook,
   softDeleteNote,
   updateNote,
-  modalData,
   selectNoteAction,
   emptyTrash,
   tags,
   notesSync,
-  spinner
+  spinner,
+  showFinderModal,
+  hideFinderModal,
+  showNotebookModal,
+  hideNotebookModal,
+  searchNotesGlobal
 }) {
+
+  const keyMap = {
+    FIND_ANYTHING: 'ctrl+g'
+  };
+  const handlers = {
+    FIND_ANYTHING: event => {
+      console.log("modals.finderModalToggle ", modals.finderModalToggle)
+      if (modals.finderModalToggle) {
+        hideFinderModal()
+      } else {
+        showFinderModal()
+      }
+    }
+  };
+
   const mainMenuContextHandlers = {
     cmCreateNotebookInside: (e, {note}) => createNotebook(note._id),
     cmShowInMenuHandler: (e, {note}) => updateNote(note._id, {showInMenu: !note.showInMenu, kind: "collection" }),
@@ -46,13 +65,21 @@ export default function MainMenu({
   const contextEmptyTrash = (e, data) => {
     emptyTrash()
   };
+
   const contextCreateNewNotebook = (e, data) => {
     showNotebookModal(data);
   };
+
   const newNotebookSubmitAction = (data, additional) => {
     hideNotebookModal();
     console.log('newNotebookSubmitAction', data);
     createNotebook("root", { title: data.value, ...additional });
+  };
+
+  const finderSearchResultSelect = (noteId) => {
+    hideNotebookModal();
+    selectNoteAction(noteId)
+    console.log('finderSearchResultSelect', noteId);
   };
   return (
     <MainMenuStyle className="noselect">
@@ -166,14 +193,27 @@ export default function MainMenu({
       </ContextMenu>
 
       <ModalForm
-        visible={showNotebookModalToggle}
+        visible={modals.showNotebookModalToggle}
         title="Create Notebook"
-        data={modalData}
+        data={modals.showNotebookData}
         placeholder="Notebook title"
         formSubmitHandler={newNotebookSubmitAction}
         initialValue=""
         handleCancel={e => hideNotebookModal()}
       />
+      <Finder
+        visible={modals.finderModalToggle}
+        title="Find anything"
+        data={modals.finderModalData}
+        search={searchNotesGlobal}
+        placeholder="Search note titles, contents and tags"
+        onSearchResultSelect={finderSearchResultSelect}
+        initialValue=""
+        handleCancel={e => hideFinderModal()}
+      />
+
+
+    <GlobalHotKeys handlers={handlers} keyMap={keyMap} />
     </MainMenuStyle>
   );
 }

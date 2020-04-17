@@ -29,7 +29,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           pushd ./app
-            npx standard-version -a --no-verify --prerelease beta --skip.changelog --skip.tag
+            npx standard-version -a --no-verify --prerelease beta --skip.changelog --skip.tag --skip.commit
             echo ::set-env name=PACKAGE_VERSION::$(node -p -e "require('./package.json').version")
           popd
           npx standard-version -a --no-verify --prerelease beta --skip.tag
