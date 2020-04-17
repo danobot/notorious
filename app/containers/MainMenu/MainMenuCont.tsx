@@ -38,9 +38,7 @@ function mapStateToProps(state: MainMenuStateType) {
   return {
     notebooks: notebookSelector(state).filter( n => n.parent === "root").sort(menuItemSorter),
     selectedNotebook: state.configs ? state.configs.selectedNotebook : null,
-    showNotebookModalToggle: state.modals.showNotebookModalToggle,
-    modalData: state.modals.showNotebookData,
-    // notes: state.notes,
+    modals: state.modals,
     tags: findExistingTags(state).sort(alphaSorter),
     notesSync: state.settings.notesSync,
     syncType: state.settings.syncType,

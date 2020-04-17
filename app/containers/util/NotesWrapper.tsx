@@ -18,7 +18,7 @@ class MainMenuCont extends React.Component {
 function mapStateToProps(state, {noteId, childIds}) {
   return {
     subnotes: childIds ? allNotes(state).filter( n => childIds.indexOf(n._id) > -1 )  : [],
-    note: noteId ? allNotes(state).filter( n => n._id == noteId ) : null,
+    note: noteId ? allNotes(state).filter( n => n._id == noteId )[0] : null,
   };
 }
 

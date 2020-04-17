@@ -20,7 +20,9 @@ const MultiSelect = (props) => {
     valueContainer: (provided, state) =>({
       ...provided,
       padding: 0,
-      border:  'none'
+      border:  'none',
+      cursor: 'text',
+
     }),
     container: (provided, state) =>({
       ...provided,
@@ -33,7 +35,9 @@ const MultiSelect = (props) => {
       // padding: 0,
       // border:  'none',
       //  zIndex: 10000,
-       transform: 'translateZ(1000)'
+       transform: 'translateZ(1000)',
+      // width: '100px'
+
     }),
     multiValueLabel: (provided, state) =>({
       ...provided,

@@ -1,8 +1,7 @@
 import { createReducer } from '../../utils/utils'
-import { SELECT_NOTEBOOK, SELECT_NOTES_FILTER, HIDE_NOTEBOOK_MODAL } from './actions';
 import { configStorage } from '../../utils/localStorage';
-import { CREATE_NOTEBOOK } from '../../reducers/notebookActions';
-import { SEARCH_NOTES_RESULTS } from '../MiddleMenu/actions';
+import { SEARCH_NOTES_RESULTS } from '../../reducers/noteActions';
+import { SELECT_NOTEBOOK } from './actions';
 
 
 const initialState = {

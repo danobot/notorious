@@ -65,19 +65,8 @@ export default function EditorPane({contentArea, note,
   addAttachment,
   parent
 }) {
-  const [state, setState] = useState({});
-  const [count, setCount] = React.useState('100px')
-  const valueGetter = useRef();
 
-  // const handleBlur = value => {
-  //   console.log(value.getValue())
-  //   setState({ content: value.getValue() });
-  //   if ( note.content !== value.getValue() ) {
-  //     noteActions.updateNote(note._id, { content: value.getValue() })
-  //   }
-  // };
   const noteref = note && note._id + note._rev
-  //http://tower:5985/notes/2e886b17-b57b-4314-a886-880ba4255308/title.txt
   return (
     <>
       { note ? <EditorPaneStyle>
