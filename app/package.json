@@ -1,7 +1,7 @@
 {
   "name": "notorious",
   "productName": "Notorious",
-  "version": "0.2.1-beta.5",
+  "version": "0.2.1-beta.6",
   "description": "Note taking application with cross-device synchronisation and offline support in mind.",
   "main": "./main.prod.js",
   "author": {
