@@ -24,7 +24,10 @@ PouchDB.plugin(pouchdbQuickSearch);
 export const notesDB = new PouchDB('data/notes');
 //  const configDB = new PouchDB('data/config');
 
-
+export const uploadImageAttachment = (note, fileName, type, file) => {
+  // TODO will the local noresDB Replciate binary attachemnts to the server?
+  return notesDB.putAttachment(note._id, fileName, note._rev, file, type)
+}
 
 function select(state) {
   return state.settings.close

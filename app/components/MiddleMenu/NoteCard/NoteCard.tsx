@@ -1,5 +1,6 @@
 import React from 'react';
-import EllipsisText from 'react-ellipsis-text';
+// import EllipsisText from 'react-ellipsis-text';
+import Truncate from 'react-truncate'
 import { Tag } from 'antd';
 import Moment from 'react-moment';
 import styled from 'styled-components';
@@ -72,8 +73,9 @@ export default function NoteCard(props) {
               tags.length > 0 &&<InlineItem >{ tags.map(t => <span key={`tag-${_id}-${t}`} style={{marginLeft: '3px', fontStyle: 'italic'}}>{t}</span>) }</InlineItem>}
           </div>
             <div className="notePreview">
-            <EllipsisText text={removeMd(content)} length={60} />
-
+              <Truncate lines={2} ellipsis={<span>...</span>}>
+                  {removeMd(content)}
+              </Truncate>
             </div>
         </NoteCardStyle>
       </ContextMenuTrigger>
