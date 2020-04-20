@@ -25,8 +25,9 @@ import 'hypermd/addon/insert-file';
 import 'hypermd/addon/mode-loader';
 import 'hypermd/addon/table-align';
 // Folding
-import 'hypermd/addon/fold-image';
+// import './codemirror/addon/fold-image';
 import 'hypermd/addon/fold-html';
+import 'hypermd/addon/fold-image';
 import 'hypermd/addon/fold-code';
 import 'hypermd/addon/fold-link';
 import 'hypermd/addon/fold-emoji';
@@ -39,6 +40,7 @@ import 'hypermd/addon/paste';
 
 import 'hypermd/powerpack/insert-file-with-smms';
 import 'hypermd/powerpack/fold-emoji-with-emojione';
+import { uploadImageAttachment } from '../../../PouchInit';
 // import 'hypermd/powerpack/fold-emoji-with-twemoji';
 
 
@@ -100,11 +102,41 @@ componentDidUpdate(prevProps) { // componentDidUpdate is significant because thi
       },
       hmdClick: {
         enabled: true,
-        handler: c => console.log("on hmd click", c),
+          handler: c => console.log("on hmd click", c),
       },
       hmdInsertFile: {
         byPaste: true,
-        byDrop: true
+        byDrop: true,
+        fileHandler: (file: File, callback: (url?: string) => void) => {
+          console.group("fileHandler")
+          console.log("FileHandler file: ", file)
+          const fileBuffer = Buffer.from(file)
+
+          // TODO call upoadIMageAttachemnets here
+          uploadImageAttachment(this.props.note, file.name, file.type, fileBuffer).then(result => {
+            console.log("uploadImageAttachment result: ", result)
+            // TODO construct image url
+             // TODO call the callback with Url
+            callback("./todo.png")
+
+            console.groupEnd()
+          }).catch(function (err) {
+            console.log("uploadImageAttachment err: ", err)
+            console.groupEnd()
+          });
+
+          // ajaxUpload(
+          //   'https://sm.ms/api/upload',
+          //   {
+          //     smfile: file,
+          //     format: 'json'
+          //   },
+          //   function (o, e) {
+          //     const imgURL = (o && o.code == 'success') ? o.data.url : null
+          //     callback(imgURL)
+          //   }
+          // )
+        }
       },
       hmdHideToken: true,
       hmdCursorDebounce: true,

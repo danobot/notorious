@@ -332,6 +332,7 @@
     "react-simplemde-editor": "^4.1.0",
     "react-sortable-hoc": "^1.11.0",
     "react-split-pane": "^2.0.3",
+    "react-truncate": "^2.4.0",
     "redux": "^4.0.5",
     "redux-search": "^2.5.0",
     "redux-thunk": "^2.3.0",

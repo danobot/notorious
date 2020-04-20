@@ -5,7 +5,7 @@
 [![donate gofundme](https://img.shields.io/badge/donate-GoFundMe-orange?style=flat-square)](https://gf.me/u/w62k93)
 # Introduction
 
-This project is in early development.
+This project is in beta development phase.
 
 |Stream|Status|
 |---|---|
