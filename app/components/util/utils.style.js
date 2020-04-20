@@ -22,3 +22,9 @@ export const NotoModal = styled.div`
   }
 
 `
+export const FinderListItemStyle = styled.div`
+  :hover, :focus {
+    background-color: ${props => props.theme.colors.background.lift};
+  }
+
+`
