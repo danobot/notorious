@@ -15,6 +15,7 @@ import{
 } from './containers/HomePage/actions'
 
 const syncOpts = { live: true, retry: true };
+import { v4 as uuid } from 'uuid';
 
 // PouchDB.plugin(pouchdbDebug)
 PouchDB.plugin(pouchdbQuickSearch);
@@ -24,9 +25,12 @@ PouchDB.plugin(pouchdbQuickSearch);
 export const notesDB = new PouchDB('data/notes');
 //  const configDB = new PouchDB('data/config');
 
+// notesDB.destroy().then((info) => {console.log(info);}).catch(((err) => {console.log(err);}))
 export const uploadImageAttachment = (note, fileName, type, file) => {
   // TODO will the local noresDB Replciate binary attachemnts to the server?
-  return notesDB.putAttachment(note._id, fileName, note._rev, file, type)
+
+  console.log("uploadImageAttachment file",file)
+  return notesDB.putAttachment(note._id, fileName,note._rev, new Blob(['I am plain text!'], {type: "text/plain "}), type)
 }
 
 function select(state) {

@@ -90,16 +90,17 @@ export function restoreNote(noteId: string) {
 export function addAttachment(note: string, noteRev: string, attachmentId: string, content_type: string, buffer: Buffer) {
   return (dispatch: Dispatch) => {
     // var attachment = new Buffer(['Is there life on Mars?'], {type: 'text/plain'});
-    notesDB.putAttachment(note, attachmentId, noteRev, buffer, 'text/plain').then(result => {
+    notesDB.putAttachment(note, attachmentId, noteRev, buffer, content_type).then(result => {
       console.log("addAttachment", result)
       dispatch({
         type: SAVE_ATTACHMENT_SUCCESS,
         ...result
       });
     }).catch(e=>{
+      console.log("SAVE_ATTACHMENT_ERROR", e)
       dispatch({
         type: SAVE_ATTACHMENT_ERROR,
-        ...result
+        ...e
       });
     })
 
