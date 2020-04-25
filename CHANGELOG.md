@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-beta.8](https://github.com/danobot/notorious/compare/v0.2.1-beta.6...v0.2.1-beta.8) (2020-04-25)
+
+
+### Bug Fixes
+
+* image fold ([95d5bea](https://github.com/danobot/notorious/commit/95d5bea639f6a46a62240fbb51c17f3ec617c72d))
+
 ### [0.2.1-beta.7](https://github.com/danobot/notorious/compare/v0.2.1-beta.5...v0.2.1-beta.7) (2020-04-25)
 
 
