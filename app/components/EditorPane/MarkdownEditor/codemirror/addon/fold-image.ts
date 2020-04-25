@@ -7,6 +7,7 @@
 import { FolderFunc, registerFolder, RequestRangeResult, breakMark } from "hypermd/addon/fold";
 import { Position } from "codemirror";
 import { splitLink } from "hypermd/addon/read-link";
+import config from '../../../../../utils/config';
 
 const DEBUG = false
 
@@ -51,7 +52,7 @@ export const ImageFolder: FolderFunc = function (stream, token) {
           console.log("note", note)
           const attachment = t.split(':')[1]
           console.log("attachment", attachment)
-          url = "http://tower:5985" + "/notes/" + note + "/" + attachment
+          url = `${config.scheme}://${config.url}/notes/${note}/${attachment}`
           console.log("url", url)
         } else {
           url = cm.hmdResolveURL(url)
