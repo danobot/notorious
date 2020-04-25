@@ -8,9 +8,12 @@ const config = {}
 
   console.log("Web deployment. .env file config: ", window._env_)
 
-  if (window._env_.DB_CONNECTION) {
-    config.db = window._env_.DB_CONNECTION
+  if (window._env_.DB_URL) {
+    config.url = window._env_.DB_URL
+    config.username = window._env_.COUCHDB_USER
+    config.password = window._env_.COUCHDB_PASSWORD
+    config.scheme = window._env_.COUCHDB_SCHEME
   } else {
-    console.error("App is not running in electron. DB_CONNECTION environment variable containing the full database connection string must be defined on docker container")
+    console.error("App is not running in electron. DB_URL environment variable containing the full database connection string must be defined on docker container")
   }
 export default config

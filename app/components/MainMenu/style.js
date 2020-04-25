@@ -16,6 +16,7 @@ export const MenuHeading = styled.div`
   font-size: 110%;
   font-weight: bold;
   margin: 10px 0 0 0;
+  font-size: 12pt;
   font-variant-caps: all-small-caps;
 `
 export const TreeHeading = styled.div`

@@ -131,6 +131,7 @@ export default function EditorPane({contentArea, note,
             // key={noteref}  // reopens #61 and closes #122
             note={note}
             noteActions={noteActions}
+            addAttachment={addAttachment}
            />
 
               : <RichEditor

@@ -4,14 +4,16 @@
 // DESCRIPTION: Fold Image Markers `![](xxx)`
 //
 
-import { FolderFunc, registerFolder, RequestRangeResult, breakMark } from "./fold";
+import { FolderFunc, registerFolder, RequestRangeResult, breakMark } from "hypermd/addon/fold";
 import { Position } from "codemirror";
-import { splitLink } from "./read-link";
+import { splitLink } from "hypermd/addon/read-link";
 
 const DEBUG = false
 
 export const ImageFolder: FolderFunc = function (stream, token) {
   const cm = stream.cm
+  console.log("ImageFolder token", token)
+  const customRE = /\@.*/
   const imgRE = /\bimage-marker\b/
   const urlRE = /\bformatting-link-string\b/   // matches the parentheses
   if (imgRE.test(token.type) && token.string === "!") {
@@ -40,10 +42,20 @@ export const ImageFolder: FolderFunc = function (stream, token) {
           rawurl = tmp.content
         }
         url = splitLink(rawurl).url
-        console.log("Insdie fold-image rawUrl", rawUrl)
         console.log("Insdie fold-image url", url)
-        
-        url = cm.hmdResolveURL(url)
+        if (customRE.test(url)) {
+          console.log("url", url)
+          const t = url.split("@")[1]
+          console.log("tt", t)
+          const note = t.split(':')[0]
+          console.log("note", note)
+          const attachment = t.split(':')[1]
+          console.log("attachment", attachment)
+          url = "http://tower:5985" + "/notes/" + note + "/" + attachment
+          console.log("url", url)
+        } else {
+          url = cm.hmdResolveURL(url)
+        }
       }
 
       { // extract the title

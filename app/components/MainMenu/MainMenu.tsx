@@ -114,11 +114,11 @@ export default function MainMenu({
         onClickHandler={e=> selectNotebook("FAV")}
         selected={selectedNotebook === "FAV"}
       />
-      {/* <TreeMenu items={data && data.results}/> */}
       <ContextMenuTrigger id="mainmenu_notebooks">
         <MenuItem
           label={<MenuHeading>Notebooks</MenuHeading>}
-          skipIcon={true}
+          collapsible
+          visible
           right={
             <MenuItemRightFloat>
               <FontAwesomeIcon
@@ -128,11 +128,11 @@ export default function MainMenu({
             </MenuItemRightFloat>
           }
           compKey="Notebooks"
-        />
-      </ContextMenuTrigger>
+        >
 
       {notebooks.map(n => (
         <TreeMenuCont
+          level={1}
           note={n}
           key={`treemenu${n._id}`}
           selectNotebook={selectNotebook}
@@ -140,25 +140,30 @@ export default function MainMenu({
         />
       ))}
 
+          </MenuItem>
+      </ContextMenuTrigger>
+
       <MenuItem
+          collapsible
           label={<MenuHeading>Tags</MenuHeading>}
           icon={ <FontAwesomeIcon
             icon={faTag}
           />}
           compKey="tagsHeading"
-        />
-      {tags.map(n => (
-        <MenuItem
-        label={n}
-        // icon={ <FontAwesomeIcon
-        //   icon={faTag}
-        // />}
-        onClickHandler={e=> selectNotebook("tag::" +  n)}
-        selected={selectedNotebook === "tag::" +  n}
-        compKey={`tag-menu-item-${n}`}
-        key={`tag-menu-item-${n}`}
-      />
-      ))}
+        >
+          {tags.map(n => (
+            <MenuItem
+            label={n}
+            // icon={ <FontAwesomeIcon
+            //   icon={faTag}
+            // />}
+            onClickHandler={e=> selectNotebook("tag::" +  n)}
+            selected={selectedNotebook === "tag::" +  n}
+            compKey={`tag-menu-item-${n}`}
+            key={`tag-menu-item-${n}`}
+          />
+          ))}
+      </MenuItem>
 <MainMenuBottom>
   <MenuItemRowItem style={{padding: '0px 6px 0px 0px '}}>
 

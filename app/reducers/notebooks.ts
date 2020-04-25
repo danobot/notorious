@@ -12,6 +12,6 @@
 
 // )
 // export default persistentCollectionReducer(
-//   new PouchDB(`${config.db}notebooks`),
+//   new PouchDB(`${config.url}notebooks`),
 //   'notebooks'
 // )(notebooksReducer);

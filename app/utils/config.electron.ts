@@ -10,14 +10,17 @@ const Store = require('electron-store');
 
 const store = new Store('config');
 
-const c = store.get('db')
+const c = store.get('url')
 // const configDB = new PouchDB('data/config');
 // const con = configDB.get("_local/config")
 console.log("Using backend: ", c)
 if (c) {
-  config.db = c
+  config.url = c
+  config.username = store.get('username')
+  config.password = store.get('password')
+  config.scheme = store.get('scheme')
 
 } else {
-  config.db = null
+  config.url = null
 }
 export default config

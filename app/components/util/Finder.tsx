@@ -30,7 +30,7 @@ export default function Finder({
         setSubmitting(false);
       }}
     >
-      {({ values, handleChange, handleSubmit }) => (
+      {({ values, handleChange, handleSubmit, setValues }) => (
         <NotoModal>
           <Modal
             title={null}
@@ -62,17 +62,17 @@ export default function Finder({
                 <FinderResultList
                   header="Title Matches"
                   data={data.results.titleResults}
-                  onResultClick={onSearchResultSelect}
+                  onResultClick={id => {onSearchResultSelect(id);setValues({value: ""})}}
                 />
                 <FinderResultList
                   header="Content Matches"
                   data={data.results.contentResults}
-                  onResultClick={onSearchResultSelect}
+                  onResultClick={id => {onSearchResultSelect(id); setValues({value: ""})}}
                 />
                 <FinderResultList
                   header="Tag Matches"
                   data={data.results.tagResults}
-                  onResultClick={onSearchResultSelect}
+                  onResultClick={id => {onSearchResultSelect(id); setValues({value: ""})}}
                 />
               </>
             )}

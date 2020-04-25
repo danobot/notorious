@@ -26,33 +26,28 @@ const mapStateToProps = (state) => {
 }
 export default function Home(props) {
   const {resizeSidebarAction, resizeMainMenuAction, resizeMiddleMenuAction, settings, saveStoreConfig, sizeMain, sizeSidebar, sizeMiddle, config, setConfig, syncNotesSuccess, syncNotesError} = props
-// console.log("Home", props )
-const [state, setstate] = useState({sizeMain: 0, sizeMiddle: 0})
-const handleSizeChange = size => {
-  setstate({sizeMain: size})
-}
-
-  // waitSync("notes").then(d => {
-  //   syncNotesSuccess()
-  // }).catch(e=> {
-  //   console.log("error sync: ", e)
-  //   syncNotesError()
-  // })
 
   return (<>
-  { isElectron() && config && config.db === null ? <Formik
+
+    <SplitPane split="vertical" style={{height: "100%"}}>
+      <Pane initialSize="15%" maxWidth="25%" ><MainMenuCont /></Pane>
+      <Pane initialSize="20%" maxWidth="25%"><MiddleMenuCont /></Pane>
+      <Pane initialSize="65%"><ContentAreaCont /></Pane>
+    </SplitPane>
+  { isElectron() && config && config.url === null ? <Formik
       enableReinitialize={true}
-      initialValues={{connectionString: ""}}
+      initialValues={{url: ""}}
       validate={values => {
           const errors = {};
-          // if (!values.scheme || !values.endpointUrl || !values.username || !values.password) {
-          //   errors["all"] = "All fields are mandatory"
-          // }
-          // console.log(errors)
           return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
-        setConfig('db', values.connectionString)
+        console.log("values", values)
+        const s = values.url.split('://')
+        setConfig('scheme', s[0])
+        setConfig('url', s[1])
+        setConfig('username', values.username)
+        setConfig('password', values.password)
         // saveStoreConfig('db', values.connectionString)
         location.reload()
       }}
@@ -68,69 +63,39 @@ const handleSizeChange = size => {
     }) => (
       <Modal
         title="Connect to a server"
-        visible={config.db === null}
+        visible={config.url === null}
         onOk={handleSubmit}
       >
-        <p>Let's get you started with Notorious! Enter the full connection string to your CouchDB backend. Examples are shown below:</p>
-        <p>https://username:password@couchdb.example.com (no trailing slash)</p>
+        <p>Let's get you started with Notorious! Enter the URL to your CouchDB backend. Examples are shown below:</p>
+        <p>https://couchdb.example.com (no trailing slash)</p>
         <p>local_data/</p>
           {errors && <p>{errors["all"]}</p> }
             <Form>
               <Input className="ant-input"
-                name="connectionString"
-                placeholder="https://username:password@notorious.example.com"
-                value={values.connectionString}
+                name="url"
+                placeholder="https://notorious.example.com"
+                value={values.url}
                 onChange={handleChange}
               />
 
+             <Input className="ant-input"
+                name="username"
+                placeholder="username"
+                value={values.username}
+                onChange={handleChange}
+              />
+              <Input className="ant-input"
+                name="password"
+                placeholder="password"
+                value={values.password}
+                onChange={handleChange}
+              />
             </Form>
       </Modal>
     )}
     </Formik> :<></>
   }
-    {/* <SplitterLayout id={sizeMain}
-      percentage={true}
-      secondaryInitialSize={sizeMain}
-      onSecondaryPaneSizeChange={size => {
-        setstate({...state, sizeMain: size})
-      }}
-      onDragEnd={e=>resizeMainMenuAction(sizeMain, state.sizeMain)}
-      > */}
-      <SplitPane split="vertical" style={{height: "100%"}}>
-        <Pane initialSize="15%" maxWidth="25%" ><MainMenuCont /></Pane>
-        <Pane initialSize="20%" maxWidth="25%"><MiddleMenuCont /></Pane>
-        <Pane initialSize="65%"><ContentAreaCont /></Pane>
 
-    {/* <SplitterLayout
-      percentage={true}
-
-      id={sizeMiddle}
-      secondaryInitialSize={sizeMiddle}
-      onSecondaryPaneSizeChange={size => {
-        setstate({...state, sizeMiddle: size})
-      }}
-      onDragEnd={e=>resizeMiddleMenuAction(sizeMiddle, state.sizeMiddle)}
-      > */}
-
-
-      {/* </SplitterLayout>
-    </SplitterLayout> */}
-
-    {/* <SplitPane  split="vertical" >
-      <Pane   >
-        <MainMenuCont />
-      </Pane>
-      <Pane  >
-      <SplitPane  split="vertical" >
-        <Pane  >
-          <MiddleMenuCont />
-        </Pane>
-        <Pane  >
-            <p>Main</p>
-        </Pane        </SplitPane>
-      </Pane>
-    </SplitPane>*/}
-    </SplitPane>
 </>
   );
 }
