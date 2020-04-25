@@ -13,7 +13,7 @@ const DEBUG = false
 
 export const ImageFolder: FolderFunc = function (stream, token) {
   const cm = stream.cm
-  console.log("ImageFolder token", token)
+  // console.log("ImageFolder token", token)
   const customRE = /\@.*/
   const imgRE = /\bimage-marker\b/
   const urlRE = /\bformatting-link-string\b/   // matches the parentheses

@@ -141,14 +141,15 @@ componentDidUpdate(prevProps) { // componentDidUpdate is significant because thi
           var placeholderForAll = document.createElement("span")
           placeholderForAll.className = "hmd-image-loading"
           action.setPlaceholder(placeholderForAll)
+          const file = files[0] // can only drop one file
+          const url = config.scheme +"://" +config.url + "/notes/" + this.props.note._id + "/" + file.name
+          action.finish("![](@"+this.props.note._id + ":" + encodeURIComponent(file.name)+")", placeholderForAll)
+          ajaxUpload(url, this.props.note._rev,  file,(o, e)=> {
+            console.log(o)
+          })
+          console.groupEnd()
 
 
-            const file = files[0] // can only drop one file
-            const url = config.scheme +"://" +config.url + "/notes/" + this.props.note._id + "/" + file.name
-            action.finish("![](@"+this.props.note._id + ":" + encodeURIComponent(file.name)+")", placeholderForAll)
-            ajaxUpload(url, this.props.note._rev,  file,(o, e)=> {
-              console.log(o)
-            })
             // if (!/image\//.test(file.type)) continue
             // const fileBuffer = new Response(file).arrayBuffer().then(r=> {
 
@@ -174,7 +175,7 @@ componentDidUpdate(prevProps) { // componentDidUpdate is significant because thi
             //   // this.props.addAttachment(this.props.note._id, this.props.note._rev,file.name, file.type, dataView )
 
             // })
-          // }
+            // }
             // const fileBuffer = new Blob([file], {type: file.type, endings: "transparent"})
             //new Buffer.from(open(fileBuffer))
 

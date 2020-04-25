@@ -67,10 +67,7 @@ export default class PouchInit {
       db = `${config.scheme}://${config.username}:${config.password}@${config.url}/notes`
       this.remoteNotesDb = new PouchDB(db, { skip_setup: true });
 
-      this.remoteNotesDb.login(config.username, config.password).then(function (batman) {
-        console.log("logged in");
-        // return db.logout();
-      });
+
 
 
       this.remoteNotesDb.info().then((i) => {
@@ -85,13 +82,18 @@ export default class PouchInit {
         this.remoteNotesDb.info().then((info) => {
           console.log('created remoteNotesDb', info);
           this.replicateSync(this.remoteNotesDb, this.notesDb )
+          this.remoteNotesDb.login(config.username, config.password).then(function (data) {
+            console.log("logged in", data);
+          });
         }).catch(e => {
           console.log("Database could not be created", e);
 
         })
       } else {
         console.log("Remote database exists", i)
-
+        this.remoteNotesDb.login(config.username, config.password).then(function (data) {
+          console.log("logged in", data);
+        });
         this.replicateSync(this.notesDb, this.remoteNotesDb)
 
       }
