@@ -234,7 +234,7 @@ const productionConfig = merge.smart(baseConfig, {
       NODE_ENV: 'production'
     }),
     // new webpack.DefinePlugin({
-    //   'process.env.DB_CONNECTION': JSON.stringify(process.env.DB_CONNECTION)
+    //   'process.env.DB_URL': JSON.stringify(process.env.DB_URL)
     // }),
     new MiniCssExtractPlugin({
       filename: 'style.css'

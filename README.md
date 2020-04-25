@@ -42,7 +42,8 @@ Edit the contents of `.env`, providing long and secure passwords and changing th
 |---|---|
 |`COUCHDB_USER`|Used by CouchDB server during setup.|
 |`COUCHDB_PASSWORD`| Used by CouchDB server during setup.|
-|`DB_CONNECTION`| Used by the web deployment (to access Notorious via a browser).|
+|`DB_URL`| Used by the web deployment (to access Notorious via a browser).|
+|`DB_SCHEME`| Used by the web deployment (to access Notorious via a browser).|
 
 ## Step 4: Start the docker compose stack
  You can start the stack using `docker-compose up -d`. There are 3 containers:
@@ -70,7 +71,7 @@ Please consider supporting development (See [Contributions](#contributions)).
 [Support my projects via PayPal](https://paypal.me/danielb160)
 
 ## Web deployment
-The `notorious_web` container spins up a web server you can use to access your notes through a web browser on the go. Take special note of the `volumes` section, which passes in the `.env` file to the container because the `DB_CONNECTION` string is required in order to connect back to your server.
+The `notorious_web` container spins up a web server you can use to access your notes through a web browser on the go. Take special note of the `volumes` section, which passes in the `.env` file to the container because the `DB_URL` string is required in order to connect back to your server.
 
 I recommend you put this behind some kind of basic authentication such as Traefik's `basic auth` middleware.
 

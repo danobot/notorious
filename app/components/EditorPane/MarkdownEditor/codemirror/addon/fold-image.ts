@@ -44,10 +44,15 @@ export const ImageFolder: FolderFunc = function (stream, token) {
         url = splitLink(rawurl).url
         console.log("Insdie fold-image url", url)
         if (customRE.test(url)) {
+          console.log("url", url)
           const t = url.split("@")[1]
+          console.log("tt", t)
           const note = t.split(':')[0]
+          console.log("note", note)
           const attachment = t.split(':')[1]
-          url = "http://admin:admin@tower:5985" + "/notes/" + note + "/" + attachment // problem: how to access note object from here.
+          console.log("attachment", attachment)
+          url = "http://tower:5985" + "/notes/" + note + "/" + attachment
+          console.log("url", url)
         } else {
           url = cm.hmdResolveURL(url)
         }

@@ -104,5 +104,5 @@ export const customNoteSorter = ( a, b ) => {
 }
 export const imageURL = ( note, attachment ) => {
 
-  return `${config.db}/notes/${note._id}/${attachment}`;
+  return `${config.url}/notes/${note._id}/${attachment}`;
 }

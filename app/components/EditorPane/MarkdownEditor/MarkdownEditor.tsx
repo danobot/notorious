@@ -90,7 +90,7 @@ componentDidUpdate(prevProps) { // componentDidUpdate is significant because thi
       }
       xhr.open( 'PUT', url, true)
       xhr.setRequestHeader("If-Match", rev);
-      xhr.setRequestHeader("Authorization", "Basic " + btoa("admin:admin"));
+      xhr.setRequestHeader("Authorization", "Basic " + btoa(config.username + ":" + config.password));
       xhr.setRequestHeader("Content-Type", form.type);
       xhr.send(form)
     }
@@ -144,8 +144,8 @@ componentDidUpdate(prevProps) { // componentDidUpdate is significant because thi
 
 
             const file = files[0] // can only drop one file
-            const url = config.db + "/notes/" + this.props.note._id + "/" + file.name
-            action.finish("![](@"+this.props.note._id + ":" + file.name+")", placeholderForAll)
+            const url = config.scheme +"://" +config.url + "/notes/" + this.props.note._id + "/" + file.name
+            action.finish("![](@"+this.props.note._id + ":" + encodeURIComponent(file.name)+")", placeholderForAll)
             ajaxUpload(url, this.props.note._rev,  file,(o, e)=> {
               console.log(o)
             })

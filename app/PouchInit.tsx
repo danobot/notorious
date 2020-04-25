@@ -2,6 +2,7 @@ import PouchDB from 'pouchdb';
 import config from './utils/config';
 import pouchdbDebug from 'pouchdb-debug'
 import pouchdbQuickSearch from 'pouchdb-quick-search'
+import pouchdbAuthentication from 'pouchdb-authentication'
 
 import{
   SYNC_ON_CHANGE,
@@ -19,10 +20,12 @@ import { v4 as uuid } from 'uuid';
 
 // PouchDB.plugin(pouchdbDebug)
 PouchDB.plugin(pouchdbQuickSearch);
+PouchDB.plugin(pouchdbAuthentication);
 
 // PouchDB.debug.enable('*');
 
 export const notesDB = new PouchDB('data/notes');
+
 //  const configDB = new PouchDB('data/config');
 
 // notesDB.destroy().then((info) => {console.log(info);}).catch(((err) => {console.log(err);}))
@@ -59,32 +62,39 @@ export default class PouchInit {
     this.notesDb.info().then((info) => {
       console.log('notesDB', info);
     });
+    let db = ""
+    if (config.url) {
+      db = `${config.scheme}://${config.username}:${config.password}@${config.url}/notes`
+      this.remoteNotesDb = new PouchDB(db, { skip_setup: true });
 
-    this.remoteNotesDb = new PouchDB(`${config.db}/notes`, { skip_setup: true });
+      this.remoteNotesDb.login(config.username, config.password).then(function (batman) {
+        console.log("logged in");
+        // return db.logout();
+      });
 
 
+      this.remoteNotesDb.info().then((i) => {
+        // The database exists.
+        // replciate to local and begin sync
+      if (i.error === "not_found") {
+        console.log("Remote database does not exist an will be created")
 
-    this.remoteNotesDb.info().then((i) => {
-      // The database exists.
-      // replciate to local and begin sync
-    if (i.error === "not_found") {
-      console.log("Remote database does not exist an will be created")
+        // create and replicate LOCAL -> REMOTE and begin sync
+        const db = `${config.scheme}://${config.username}:${config.password}@${config.url}/notes`
+        this.remoteNotesDb = new PouchDB(db);
+        this.remoteNotesDb.info().then((info) => {
+          console.log('created remoteNotesDb', info);
+          this.replicateSync(this.remoteNotesDb, this.notesDb )
+        }).catch(e => {
+          console.log("Database could not be created", e);
 
-      // create and replicate LOCAL -> REMOTE and begin sync
-      this.remoteNotesDb = new PouchDB(`${config.db}/notes`);
-      this.remoteNotesDb.info().then((info) => {
-        console.log('created remoteNotesDb', info);
-        this.replicateSync(this.remoteNotesDb, this.notesDb )
-      }).catch(e => {
-        console.log("Database could not be created", e);
+        })
+      } else {
+        console.log("Remote database exists", i)
 
-      })
-    } else {
-      console.log("Remote database exists", i)
+        this.replicateSync(this.notesDb, this.remoteNotesDb)
 
-      this.replicateSync(this.notesDb, this.remoteNotesDb)
-
-    }
+      }
 
     })
     .catch(e => {
@@ -93,6 +103,9 @@ export default class PouchInit {
       alert("No database found and it was not created. Report console output.")
       this.close()
     });
+  } else {
+    console.log("FIrst time set up")
+  }
 
 
 
