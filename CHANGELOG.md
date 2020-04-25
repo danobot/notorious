@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-beta.7](https://github.com/danobot/notorious/compare/v0.2.1-beta.5...v0.2.1-beta.7) (2020-04-25)
+
+
+### Features
+
+* image upload and viewing works ([81842a7](https://github.com/danobot/notorious/commit/81842a76ed229f8ada19753debeab6ad733ea3ef))
+* image upload works (but not viewing) ([84a3f37](https://github.com/danobot/notorious/commit/84a3f37d94b9391a3dd3f2ad414429783b135ffb))
+
+
+### Bug Fixes
+
+* package ([1ce19f8](https://github.com/danobot/notorious/commit/1ce19f86e794af0a69a888c8a9289dc2f0e5815e))
+
 ### [0.2.1-beta.6](https://github.com/danobot/notorious/compare/v0.2.1-beta.4...v0.2.1-beta.6) (2020-04-20)
 
 
