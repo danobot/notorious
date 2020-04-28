@@ -1,7 +1,7 @@
 {
   "name": "notorious",
   "productName": "Notorious",
-  "version": "0.2.1-beta.9",
+  "version": "0.2.1-beta.10",
   "description": "Note taking application with cross-device synchronisation and offline support in mind.",
   "author": {
     "name": "Daniel Mason",

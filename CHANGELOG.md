@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-beta.10](https://github.com/danobot/notorious/compare/v0.2.1-beta.8...v0.2.1-beta.10) (2020-04-28)
+
+
+### Bug Fixes
+
+* local DB lost whenremote is unavail on startup ([c8bca7d](https://github.com/danobot/notorious/commit/c8bca7d453c5d646b97958b8e354d9693114f71d))
+
 ### [0.2.1-beta.9](https://github.com/danobot/notorious/compare/v0.2.1-beta.7...v0.2.1-beta.9) (2020-04-25)
 
 ### [0.2.1-beta.8](https://github.com/danobot/notorious/compare/v0.2.1-beta.6...v0.2.1-beta.8) (2020-04-25)
