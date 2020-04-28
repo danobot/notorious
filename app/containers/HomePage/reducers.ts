@@ -8,7 +8,9 @@ import { SYNC_NOTES_ERROR, SYNC_NOTES_SUCCESS,
   SYNC_ON_ERROR,
   SYNC_FIRST_TIME_SYNC_ERROR,
   SYNC_FIRST_TIME_SYNC_SUCCESS,
-  SHUT_DOWN_APP
+  SHUT_DOWN_APP,
+  SYNC_REMOTE_TEMPORARILY_UNAVAILABLE,
+  SYNC_START
 } from './actions';
 import { UPDATE_NOTE } from '../../reducers/noteActions';
 
@@ -21,6 +23,9 @@ const initialState = {
 }
 
 const homePageReducer = createReducer(initialState, {
+  [SYNC_START]: (state, action) => {
+    return {...state, syncType: action.type, notesSync: "Getting ready...", spinner: true}
+  },
   [SYNC_NOTES_ERROR]: (state, action) => {
     return {...state, syncType: action.type, notesSync: "error"}
   },
@@ -57,6 +62,10 @@ const homePageReducer = createReducer(initialState, {
   [SYNC_FIRST_TIME_SYNC_SUCCESS]: (state, action) => {
     // alert(JSON.stringify(action))
     return {...state, syncType: action.type, notesSync: "Initial sync complete"}
+  },
+  [SYNC_REMOTE_TEMPORARILY_UNAVAILABLE]: (state, action) => {
+    // alert(JSON.stringify(action))
+    return {...state, syncType: action.type, notesSync: "Remote unavailable. Retrying soon.", spinner: false}
   },
   [SHUT_DOWN_APP]: (state, action) => {
     // alert(JSON.stringify(action))
