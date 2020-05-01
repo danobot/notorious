@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-beta.11](https://github.com/danobot/notorious/compare/v0.2.1-beta.9...v0.2.1-beta.11) (2020-05-01)
+
+
+### Bug Fixes
+
+* handle invalid-json error correctly when rmeote is unavialable on startup ([fccc962](https://github.com/danobot/notorious/commit/fccc962005f1e95515284b46faae90f89958b493))
+
 ### [0.2.1-beta.10](https://github.com/danobot/notorious/compare/v0.2.1-beta.8...v0.2.1-beta.10) (2020-04-28)
 
 
