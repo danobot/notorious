@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-beta.12](https://github.com/danobot/notorious/compare/v0.2.1-beta.10...v0.2.1-beta.12) (2020-05-05)
+
+
+### Features
+
+* pin notes to top of list when custom sort is selected ([3cb87dc](https://github.com/danobot/notorious/commit/3cb87dce25170714e588457a2b2df556b7980b8f)), closes [#35](https://github.com/danobot/notorious/issues/35)
+
+
+### Bug Fixes
+
+* [#141](https://github.com/danobot/notorious/issues/141) ([4d00261](https://github.com/danobot/notorious/commit/4d002618240e01959d1608aab17b95f8cd0dc757))
+
 ### [0.2.1-beta.11](https://github.com/danobot/notorious/compare/v0.2.1-beta.9...v0.2.1-beta.11) (2020-05-01)
 
 
