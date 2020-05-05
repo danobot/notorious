@@ -59,6 +59,7 @@ export const alphaSorterReverse = ( a, b ) => {
   return 0;
 }
 export const alphaTitleSorter = ( a, b ) => {
+
   const aTitle = a.title || "Untitled Note"
   const bTitle = b.title || "Untitled Note"
   if ( aTitle < bTitle ){
@@ -92,6 +93,16 @@ export const updatedAtSorter = ( a, b ) => {
   return 0;
 }
 export const customNoteSorter = ( a, b ) => {
+console.log(a)
+  const aPin = a.pinned
+  const bPin = b.pinned
+  if (aPin && !bPin) {
+    return -1
+  }
+  if (bPin && !aPin) {
+    return 1
+  }
+
   const aTitle = a.order || ""
   const bTitle = b.order || ""
   if ( aTitle < bTitle ){
