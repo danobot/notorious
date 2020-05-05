@@ -69,12 +69,12 @@ export default function Finder({
                   data={data.results.contentResults}
                   onResultClick={id => {onSearchResultSelect(id); setValues({value: ""})}}
                 />
-                <FinderResultList
+                {/* <FinderResultList
                   header="Tag Matches"
                   type="tag"
                   data={data.results.tagResults}
                   onResultClick={id => {onSearchResultSelect(id); setValues({value: ""})}}
-                />
+                /> */}
               </>
             )}
           </Modal>
