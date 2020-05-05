@@ -71,6 +71,7 @@ export default function Finder({
                 />
                 <FinderResultList
                   header="Tag Matches"
+                  type="tag"
                   data={data.results.tagResults}
                   onResultClick={id => {onSearchResultSelect(id); setValues({value: ""})}}
                 />
