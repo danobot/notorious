@@ -75,6 +75,9 @@ The `notorious_web` container spins up a web server you can use to access your n
 
 I recommend you put this behind some kind of basic authentication such as Traefik's `basic auth` middleware.
 
+### Deploying static assets
+YOu can generate static assets for web deployment using the `yarn build-web` command. The compiled files are available in the `web/dist` directory.
+
 # Backing Up Data Directory 
 This is applicable only if you don't have a backend server. Backing up or restoring the data directory when data is being synced to a remote server is untested and may have nasty consequences.
 
