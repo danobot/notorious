@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-beta.13](https://github.com/danobot/notorious/compare/v0.2.1-beta.11...v0.2.1-beta.13) (2020-05-09)
+
+
+### Bug Fixes
+
+* autofocus ([4fc4e7f](https://github.com/danobot/notorious/commit/4fc4e7f9bbd258f5403ff2684653e23743c6d98a))
+
 ### [0.2.1-beta.12](https://github.com/danobot/notorious/compare/v0.2.1-beta.10...v0.2.1-beta.12) (2020-05-05)
 
 
