@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faPlusCircle,
@@ -41,6 +41,8 @@ export default function MainMenu({
   hideNotebookModal,
   searchNotesGlobal
 }) {
+  const finderRef = useRef(null);
+  const createNotebookModalRef = useRef(2);
 
   const keyMap = {
     FIND_ANYTHING: 'ctrl+g'
@@ -51,6 +53,7 @@ export default function MainMenu({
         hideFinderModal()
       } else {
         showFinderModal()
+        finderRef.current.focus()
       }
   }
   const handlers = {
@@ -71,6 +74,8 @@ export default function MainMenu({
 
   const contextCreateNewNotebook = (e, data) => {
     showNotebookModal(data);
+    // console.log(createNotebookModal)
+    createNotebookModalRef.current.focus()
   };
 
   const newNotebookSubmitAction = (data, additional) => {
@@ -208,6 +213,7 @@ export default function MainMenu({
         formSubmitHandler={newNotebookSubmitAction}
         initialValue=""
         handleCancel={e => hideNotebookModal()}
+        reference={createNotebookModalRef}
       />
       <Finder
         visible={modals.finderModalToggle}
@@ -218,6 +224,7 @@ export default function MainMenu({
         onSearchResultSelect={finderSearchResultSelect}
         initialValue=""
         handleCancel={e => hideFinderModal()}
+        reference={finderRef}
       />
 
 

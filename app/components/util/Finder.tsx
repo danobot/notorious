@@ -14,8 +14,12 @@ export default function Finder({
   initialValue,
   handleCancel,
   data,
-  search
+  search,
+  reference
 }) {
+
+
+
   return (
     <Formik
       enableReinitialize
@@ -25,7 +29,6 @@ export default function Finder({
         return errors;
       }}
       onSubmit={(values, { setSubmitting }) => {
-        console.log('onSubmit:: ', values);
         search(values.value);
         setSubmitting(false);
       }}
@@ -50,10 +53,12 @@ export default function Finder({
                   style={{fontSize: 'larger', margin: '10px 0 10px 0'}}
                   autoFocus
                   name="value"
-
+                  onFocus={e => e.currentTarget.select()}
                   value={values.value}
                   onChange={e => {handleChange(e); search(e.target.value)}}
                   placeholder={placeholder}
+
+                  inputRef={reference}
                 />
               </MyInput>
             </Form>

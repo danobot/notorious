@@ -91,7 +91,7 @@ export function addAttachment(note: string, noteRev: string, attachmentId: strin
   return (dispatch: Dispatch) => {
     // var attachment = new Buffer(['Is there life on Mars?'], {type: 'text/plain'});
     notesDB.putAttachment(note, attachmentId, noteRev, buffer, content_type).then(result => {
-      console.log("addAttachment", result)
+      // console.log("addAttachment", result)
       dispatch({
         type: SAVE_ATTACHMENT_SUCCESS,
         ...result
@@ -187,7 +187,7 @@ export function searchNotesFrom(search: String, target: string) {
       tagResults: tagsIndex.search(search)
     }
 
-    console.log("Search results", results)
+    // console.log("Search results", results)
     dispatch({
       type: SEARCH_NOTES_RESULTS,
       search,
