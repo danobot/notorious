@@ -11,7 +11,6 @@ export default function FinderResultList({ data, header, onResultClick }) {
       renderItem={nId => (
         <NotesWrapper key={nId} noteId={nId}>
           {({ note }) => {
-            console.log(nId)
             return note ? <FinderListItemStyle><List.Item onClick={e => onResultClick(nId)} style={{padding: '0 0 0 10px', cursor: "pointer"}}>
               {note.title}
             </List.Item> </FinderListItemStyle>: <></>

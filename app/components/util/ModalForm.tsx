@@ -5,7 +5,7 @@ import { Modal, Input } from 'antd';
 import { MyInput } from '../EditorPane/style';
 import { NotoModal } from './utils.style';
 
-export default function ModalForm({formSubmitHandler, placeholder,visible, title, initialValue, handleCancel, data}) {
+export default function ModalForm({formSubmitHandler, placeholder,visible, title, initialValue, handleCancel, data, reference}) {
 
   return (
     <Formik
@@ -49,11 +49,12 @@ export default function ModalForm({formSubmitHandler, placeholder,visible, title
                   <Form>
                   <MyInput>
                     <Input
-                      autoFocus={true}
+                      autoFocus
                       name="value"
                       value={values.value}
                       onChange={handleChange}
                       placeholder={placeholder}
+                      ref={reference}
                       />
                     </MyInput>
                   </Form>
