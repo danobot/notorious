@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-beta.14](https://github.com/danobot/notorious/compare/v0.2.1-beta.12...v0.2.1-beta.14) (2020-05-23)
+
 ### [0.2.1-beta.13](https://github.com/danobot/notorious/compare/v0.2.1-beta.11...v0.2.1-beta.13) (2020-05-09)
 
 
