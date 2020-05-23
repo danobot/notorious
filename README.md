@@ -12,6 +12,21 @@ This project is in beta development phase.
 |Latest|![latest](https://github.com/danobot/notorious/workflows/Build/badge.svg?style=flat-square&branch=develop)|
 |Master|![master](https://github.com/danobot/notorious/workflows/Build/badge.svg?style=flat-square&branch=master)|
 
+**Markdown boilerplate note showing MD features**
+![Markdown Boilerplate](images/md_boilerplate.png)
+
+**Note Context Menu**
+![Note Context Menu](images/context_menu.png)
+
+**Global Search is mapped to Ctrl + G and allows search by title and note content**
+![Global Search](images/global_search.png)
+
+**Notebook context menu options**
+![Notebook Context Menu](images/notebook_context_menu.png)
+
+**Tag selection for notes**
+![Tag Editor](images/tag_editor.png)
+
 # Install
 
 ### Step 1: Download the Desktop App
