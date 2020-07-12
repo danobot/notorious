@@ -117,3 +117,13 @@ export const imageURL = ( note, attachment ) => {
 
   return `${config.url}/notes/${note._id}/${attachment}`;
 }
+export const hasChildren = ( children ) => {
+
+  if (children != null) {
+    return children.length > 0;
+  } else {
+    return false;
+  }
+}
+
+

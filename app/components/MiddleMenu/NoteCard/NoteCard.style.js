@@ -1,9 +1,10 @@
 import styled from 'styled-components';
+import { hasChildren } from '../../../utils/utils';
 
 export const NoteCardStyle = styled.div`
   // background-color: green;
   background-color: ${props => props.selected ? props.theme.colors.background.selected : 'inherit'};
-  height: 100px;
+  height: ${props => hasChildren(props.note.children) ? '31px': '100px'};
   padding: 5px;
   overflow: hidden;
   border-bottom: 1px solid ${props => props.theme.colors.background.lift};
