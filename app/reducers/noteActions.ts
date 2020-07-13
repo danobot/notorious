@@ -5,8 +5,10 @@ import {notesDB} from '../PouchInit'
 import FlexSearch from 'flexsearch';
 import MiddleMenu from '../components/MiddleMenu/MiddleMenu';
 export const UPDATE_NOTE = 'UPDATE_NOTE';
+export const MOVE_NOTE = 'MOVE_NOTE';
 export const CREATE_NOTE = 'CREATE_NOTE';
 export const DELETE_NOTE = 'DELETE_NOTE';
+export const CACHE_NOTE_PARENT_ID = 'CACHE_NOTE_PARENT_ID'; // required beacuse react-dnd always receives undefined from Drop Target
 export const SAVE_ATTACHMENT = 'ADD_ATTACHMENT';
 export const SAVE_ATTACHMENT_SUCCESS = 'SAVE_ATTACHMENT_SUCCESS';
 export const SAVE_ATTACHMENT_ERROR = 'SAVE_ATTACHMENT_ERROR';
@@ -37,6 +39,25 @@ export function emptyTrash() {
     })
     dispatch({
       type: EMPTY_TRASH
+    });
+  };
+}
+
+export function moveNote(id: string, parent: string) {
+  return dispatch => {
+    dispatch({
+      type: MOVE_NOTE,
+      id,
+      parent
+    });
+  };
+}
+
+export function cacheParentId(id: string) {
+  return dispatch => {
+    dispatch({
+      type: CACHE_NOTE_PARENT_ID,
+      id
     });
   };
 }

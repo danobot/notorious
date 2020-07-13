@@ -7,7 +7,8 @@ import { ThemeProvider } from 'styled-components';
 import { Store } from '../reducers/types';
 import Routes from '../Routes';
 import darkTheme from '../utils/dark_theme.json';
-
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
 type Props = {
   store: Store;
   history: History;
@@ -17,7 +18,9 @@ const Root = ({ store, history }: Props) => (
   <Provider store={store}>
     <ThemeProvider theme={darkTheme}>
       <ConnectedRouter history={history}>
-        <Routes />
+        <DndProvider backend={HTML5Backend}>
+          <Routes />
+        </DndProvider>
       </ConnectedRouter>
     </ThemeProvider>
   </Provider>

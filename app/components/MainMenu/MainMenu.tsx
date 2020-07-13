@@ -1,5 +1,6 @@
 import React, {useRef} from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDrop } from 'react-dnd'
 import {
   faPlusCircle,
   faFile,
@@ -21,6 +22,7 @@ import Finder from '../util/Finder';
 import TreeMenuCont from '../../containers/TreeMenuCont/TreeMenuCont';
 import { Spin } from 'antd';
 import { GlobalHotKeys } from 'react-hotkeys';
+import { DragItemTypes } from '../../utils/dragItemTypes';
 
 export default function MainMenu({
   notebooks,

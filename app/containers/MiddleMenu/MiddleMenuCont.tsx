@@ -97,6 +97,7 @@ function mapStateToProps(state) {
     addButtonDisabled: state.mainMenu.filter === "TRASH",
     selectedNote: state.contentArea.selectedNote,
     headerLabel: notebookLabelMaker(state.mainMenu.filter, state.notes, state.middleMenu),
+    dropNoteCache: state.mainMenu.moveNoteDropTargetId,
     sorter: state.middleMenu.sorter
   };
 }

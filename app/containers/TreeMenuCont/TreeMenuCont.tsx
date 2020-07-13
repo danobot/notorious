@@ -26,7 +26,7 @@ class TreeMenuCont extends React.Component {
 
 
   render() {
-    const {selectedNotebook, selectNotebook, note, subNotes, handlers, children} = this.props
+    const {selectedNotebook, selectNotebook, note, subNotes, handlers, children, cacheParentId} = this.props
     const {
       cmCreateNotebookInside,
       cmShowInMenuHandler,
@@ -36,7 +36,7 @@ class TreeMenuCont extends React.Component {
     const {_id, title} = note
     // console.log(selectedNotebook)
     const icon = this.state.open ? <FontAwesomeIcon onClick={e=> this.setState({open: false})} icon={faChevronDown} /> : <FontAwesomeIcon onClick={e=> this.setState({open: true})} icon={faChevronRight} />
-
+    // console.log("TreeMenuCont Note id " + _id)
     // we dont want to close a notebook menu when it is first selected. We want to close it on click (given its already selected) and open it given its closed.
     // const singleClickHandler = (selectedNotebook !== _id) ? () => {selectNotebook(note._id);  this.setState({open: true})} : () => {selectNotebook(note._id); this.setState({open: !this.state.open})}
     const singleClickHandler = () => {selectNotebook(note._id); this.setState({open: !this.state.open})}
@@ -45,20 +45,27 @@ class TreeMenuCont extends React.Component {
         {subNotes && subNotes.length ===0 && <ContextMenuTrigger id={`main-menu-context-${_id}`} key={`main-menu-context-trigger-a-${_id}`}>
 
             <MenuItem
+            key={`menu-item-${_id}`}
+            droppable
+            noteId={this.props.note._id}
             indent={this.props.level*16}
             label={<DotLine>{note.title}</DotLine>}
             icon={<FontAwesomeIcon icon={faFolder} />}
-            key={note._id} right={<MenuItemRightFloat>{children.length}</MenuItemRightFloat>}
+            right={<MenuItemRightFloat>{children.length}</MenuItemRightFloat>}
             selected={selectedNotebook === _id}
-            onClickHandler={e=>selectNotebook(note._id)} key={"menucokponent"+_id}
+            onClickHandler={e=>selectNotebook(note._id)}
+            cacheParentId={e=>cacheParentId(_id)}
             />
           </ContextMenuTrigger>
           }
         {subNotes && subNotes.length > 0 && <>   <ContextMenuTrigger id={`main-menu-context-${_id}`} key={`main-menu-context-trigger-b-${_id}`}>
         <MenuItem
-          key={"menucokponent"+_id} onClickHandler={e=> {singleClickHandler() }}
+        key={`menu-item-${_id}`}
+                    droppable
+                    noteId={this.props.note._id}
+          onClickHandler={e=> {singleClickHandler() }}
+          cacheParentId={e=>cacheParentId(_id)}
           indent={this.props.level*16}
-          key={"MenuItem"+_id}
           label={
             <TreeHeading>
               <DotLine>{note.title }</DotLine>

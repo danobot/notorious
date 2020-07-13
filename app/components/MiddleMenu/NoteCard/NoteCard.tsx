@@ -4,7 +4,7 @@ import Truncate from 'react-truncate'
 import { Tag } from 'antd';
 import Moment from 'react-moment';
 import styled from 'styled-components';
-
+import { useDrag } from 'react-dnd'
 import {
   ContextMenu,
   ContextMenuTrigger,
@@ -20,6 +20,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faListAlt  } from "@fortawesome/free-regular-svg-icons";
 import {  faFolderOpen, faInbox, faColumns, faTasks, faFile, faThumbtack, faTh, faStream, faTimesCircle, faExclamationTriangle , faStar} from "@fortawesome/free-solid-svg-icons";
 import { hasChildren } from '../../../utils/utils';
+import { DragItemTypes } from '../../../utils/dragItemTypes';
 
 const removeMd = require('remove-markdown');
 export const InlineItem = styled.div`
@@ -42,6 +43,18 @@ export default function NoteCard(props) {
     cmSwitchEditorHandler
   } = props.handlers;
   const { title, content, tags, _id, createdAt, updatedAt,children, kind, pinned, showInMenu,starred, deleted} = props.note;
+  const [{ isDragging }, drag] = useDrag({
+    item: { name: _id, type: DragItemTypes.NOTE },
+    end: (item, monitor) => {
+      const dropResult = monitor.getDropResult()
+      if (item) {
+        props.handleDrag(item.name)
+      }
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  })
   // console.log(children)
   return (
     <>
@@ -51,6 +64,7 @@ export default function NoteCard(props) {
           key={`${_id}style`}
           onClick={e => props.handleClick(props.note._id)}
           {...props}
+          ref={drag}
         >
           <div className="noteListTitle">{title || 'Untitled Note'}</div>
           <div className="noteCardMeta">
