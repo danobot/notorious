@@ -3,7 +3,7 @@ import { MenuItemStyle, MenuItemIcon, MenuItemLabel, MenuItemNormal, MenuItemSel
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDrop } from 'react-dnd'
 import { faCaretSquareRight, faCaretSquareDown } from '@fortawesome/free-solid-svg-icons';
-import { DragItemTypes } from '../../utils/dragItemTypes';
+import { DragItemTypes } from '../../utils/DragItemTypes';
 
 export default function MenuItem({
   noteId,

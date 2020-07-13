@@ -22,7 +22,7 @@ import Finder from '../util/Finder';
 import TreeMenuCont from '../../containers/TreeMenuCont/TreeMenuCont';
 import { Spin } from 'antd';
 import { GlobalHotKeys } from 'react-hotkeys';
-import { DragItemTypes } from '../../utils/dragItemTypes';
+import { DragItemTypes } from '../../utils/DragItemTypes';
 
 export default function MainMenu({
   notebooks,

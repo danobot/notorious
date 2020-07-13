@@ -20,7 +20,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faClock, faListAlt  } from "@fortawesome/free-regular-svg-icons";
 import {  faFolderOpen, faInbox, faColumns, faTasks, faFile, faThumbtack, faTh, faStream, faTimesCircle, faExclamationTriangle , faStar} from "@fortawesome/free-solid-svg-icons";
 import { hasChildren } from '../../../utils/utils';
-import { DragItemTypes } from '../../../utils/dragItemTypes';
+import { DragItemTypes } from '../../../utils/DragItemTypes';
 
 const removeMd = require('remove-markdown');
 export const InlineItem = styled.div`
