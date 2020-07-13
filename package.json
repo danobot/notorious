@@ -341,7 +341,7 @@
     "reselect": "^4.0.0",
     "serve-static": "^1.14.1",
     "source-map-support": "^0.5.16",
-    "standard-version": "^7.1.0",
+    "standard-version": "^8.0.1",
     "styled-components": "^5.0.1",
     "turndown": "^6.0.0",
     "turndown-plugin-gfm": "^1.0.2",
