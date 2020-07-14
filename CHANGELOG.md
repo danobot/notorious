@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-beta.15](https://github.com/danobot/notorious/compare/v0.2.1-beta.12...v0.2.1-beta.15) (2020-07-14)
+
+
+### Features
+
+* moving notes to other notebooks via drag and drop ([#52](https://github.com/danobot/notorious/issues/52)) ([f4183bc](https://github.com/danobot/notorious/commit/f4183bcef40b7c8d69aec227ee6653f17bde9e3f))
+
 ### [0.2.1-beta.14](https://github.com/danobot/notorious/compare/v0.2.1-beta.12...v0.2.1-beta.14) (2020-05-23)
 
 ### [0.2.1-beta.13](https://github.com/danobot/notorious/compare/v0.2.1-beta.11...v0.2.1-beta.13) (2020-05-09)
