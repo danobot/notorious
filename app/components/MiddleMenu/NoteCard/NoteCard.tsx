@@ -4,7 +4,7 @@ import Truncate from 'react-truncate'
 import { Tag } from 'antd';
 import Moment from 'react-moment';
 import styled from 'styled-components';
-
+import { useDrag } from 'react-dnd'
 import {
   ContextMenu,
   ContextMenuTrigger,
@@ -19,6 +19,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { faClock, faListAlt  } from "@fortawesome/free-regular-svg-icons";
 import {  faFolderOpen, faInbox, faColumns, faTasks, faFile, faThumbtack, faTh, faStream, faTimesCircle, faExclamationTriangle , faStar} from "@fortawesome/free-solid-svg-icons";
+import { hasChildren } from '../../../utils/utils';
+import { DragItemTypes } from '../../../utils/DragItemTypes';
 
 const removeMd = require('remove-markdown');
 export const InlineItem = styled.div`
@@ -41,6 +43,19 @@ export default function NoteCard(props) {
     cmSwitchEditorHandler
   } = props.handlers;
   const { title, content, tags, _id, createdAt, updatedAt,children, kind, pinned, showInMenu,starred, deleted} = props.note;
+  const [{ isDragging }, drag] = useDrag({
+    item: { name: _id, type: DragItemTypes.NOTE },
+    end: (item, monitor) => {
+      const dropResult = monitor.getDropResult()
+      if (item) {
+        props.handleDrag(item.name)
+      }
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  })
+  // console.log(children)
   return (
     <>
       <ContextMenuTrigger id={`${_id}cm`}>
@@ -49,10 +64,11 @@ export default function NoteCard(props) {
           key={`${_id}style`}
           onClick={e => props.handleClick(props.note._id)}
           {...props}
+          ref={drag}
         >
           <div className="noteListTitle">{title || 'Untitled Note'}</div>
           <div className="noteCardMeta">
-            {children && children.length > 0 && <InlineItem><FontAwesomeIcon icon={faFolderOpen} title={`Contains ${children.length} subnotes`} />{children.length}</InlineItem>}
+            {hasChildren(children) && <InlineItem><FontAwesomeIcon icon={faFolderOpen} title={`Contains ${children.length} subnotes`} />{children.length}</InlineItem>}
             <InlineItem title={new Date(createdAt)}><Moment fromNow>{createdAt}</Moment></InlineItem>
 
             <RightFloaty>
@@ -63,7 +79,7 @@ export default function NoteCard(props) {
               {kind === 'index' && <InlineItem><FontAwesomeIcon title="Note Type: index" icon={faListAlt} /></InlineItem>}
               {kind === 'columns' && <InlineItem><FontAwesomeIcon title="Note Type: columns" icon={faColumns} /></InlineItem>}
               {starred && <InlineItem><FontAwesomeIcon title="Favourited" icon={faStar} /></InlineItem>}
-              {deleted && children.length > 0 && <InlineItem><FontAwesomeIcon title="This note cannot be deleted until all its subnotes have been removed." icon={faExclamationTriangle} /></InlineItem>}
+              {deleted && hasChildren(children) && <InlineItem><FontAwesomeIcon title="This note cannot be deleted until all its subnotes have been removed." icon={faExclamationTriangle} /></InlineItem>}
 
             </RightFloaty>
           </div>
@@ -72,11 +88,11 @@ export default function NoteCard(props) {
           {tags &&
               tags.length > 0 &&<InlineItem >{ tags.map(t => <span key={`tag-${_id}-${t}`} style={{marginLeft: '3px', fontStyle: 'italic'}}>{t}</span>) }</InlineItem>}
           </div>
-            <div className="notePreview">
+          {false &&       <div className="notePreview">
               <Truncate lines={2} ellipsis={<span>...</span>}>
                   {removeMd(content)}
               </Truncate>
-            </div>
+            </div>}
         </NoteCardStyle>
       </ContextMenuTrigger>
 

@@ -122,6 +122,9 @@ jobs:
       - name: "[Docker Build] Build the tagged Docker image"
         if: matrix.os == 'ubuntu-18.04' && github.ref == 'refs/heads/master'
         run: docker build . --file Dockerfile.prod --tag danobot/notorious:${{ steps.pkg.outputs.version }} && docker tag danobot/notorious:${{ steps.pkg.outputs.version }} danobot/notorious:latest
+      - name: "[Docker Build] Build the tagged Docker image"
+        if: matrix.os == 'ubuntu-18.04' && github.ref != 'refs/heads/master' && github.ref != 'refs/heads/develop'
+        run: docker build . --file Dockerfile.prod --tag danobot/notorious:${{ steps.pkg.outputs.version }} && docker tag danobot/notorious:${{ steps.pkg.outputs.version }} danobot/notorious:latest
       - name: "[Docker Build] Push the tagged Docker image"
         if: matrix.os == 'ubuntu-18.04' && github.ref == 'refs/heads/master'
         run: docker push danobot/notorious:${{ steps.pkg.outputs.version }}

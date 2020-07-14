@@ -39,6 +39,8 @@ export default function MiddleMenu({
   selectedNote,
   softDeleteNote,
  updateNote,
+ moveNote,
+ dropNoteCache,
  savingNew,
  searchNotes,
  addButtonDisabled,
@@ -108,6 +110,7 @@ export default function MiddleMenu({
                 note={i}
                 selected={i._id === selectedNote}
                 handleClick={selectNoteAction}
+                handleDrag={(id) => moveNote(id, dropNoteCache)}
                 handlers={notecardContextHandlers}
               />
             ))

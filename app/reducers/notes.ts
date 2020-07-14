@@ -1,22 +1,20 @@
 import { persistentCollectionReducer } from 'redux-pouchdb';
 import PouchDB from 'pouchdb'
 import config from '../utils/config';
-import {createReducer} from '../utils/utils'
+import {createReducer, removeNoteFromParentsChildArray, updateNoteAttributesInArray, addChildToParent} from '../utils/utils'
 // import { createReducer } from '@reduxjs/toolkit'
-import { UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE, REMOVE_EDITOR, ADD_EDITOR, TOGGLE_MENU_SHOW_NOTE, TOGGLE_PIN_NOTE, ADD_ATTACHMENT} from './noteActions';
+import { UPDATE_NOTE, CREATE_NOTE, DELETE_NOTE, REMOVE_EDITOR, ADD_EDITOR, TOGGLE_MENU_SHOW_NOTE, TOGGLE_PIN_NOTE, ADD_ATTACHMENT, MOVE_NOTE} from './noteActions';
 import { notesDB } from '../PouchInit';
 import { SELECT_NOTE } from '../containers/ContentAreaCont/actions';
 import { findChildrenOfNoteInclDeleted } from '../containers/MainMenu/selectors'
 
 const initialState = []
 const notesReducer = createReducer(initialState, {
+
     [CREATE_NOTE]: (state, action) => {
       const noteId = action.id
 
-      const newState = state.map((note, id) => {
-        if (note._id !== action.parent) { return note }
-        return {...note, children: [...note.children, noteId]} // add new child to parents `children` array (for easy read operation)
-      })
+      const newState = addChildToParent(newState, action.id, action.parent)
       const newNote = {_id: noteId,
         title: "",
         createdAt: Date.now(),
@@ -49,48 +47,24 @@ const notesReducer = createReducer(initialState, {
         //   return state
         // }
       }
-      const parent = noteToBeNuked.parent
-      if ( parent !== undefined && parent !== "root") {
-        console.log("parent: ",parent)
-        console.log("parent.children: ",parent.children)
-        newState = newState.map((note, id) => {
-          if (note._id !== parent) { return note }
-          // we found the parent note:
-          let splicedChildren = note.children
-          const index = splicedChildren.indexOf(noteToBeNuked._id)
-          if (index > -1) {
-            splicedChildren.splice(index, 1)
-          }
-          console.log("parent: ",parent)
-          return {...note, children: splicedChildren} // remove child entry
-        })
-      }
+      newState = removeNoteFromParentsChildArray(newState, noteToBeNuked)
 
       return newState // and add new note to array
     },
     [UPDATE_NOTE]: (state, action) => {
       console.log(action)
-      return  state.map((item, id) => {
-        if (item._id !== action.id) { return item }
-        let extra = {}
-        let c = action.attributes
-        console.log(action)
-        // if (action.attributes.skipUpdatedAt || false) {
-          // } else {
-            //   c.updatedAt = Date.now()
-            // }
-        if (c.hasOwnProperty("title") || c.hasOwnProperty("content")) {
-          console.log("Title or content updated")
-          c.updatedAt = Date.now()
-          console.log(c)
-        }
 
-        delete c.skipUpdatedAt
-        return {
-          ...item,
-          ...c
-        }
-      })
+      return updateNoteAttributesInArray(newState, action.id, action.attributes)
+
+    },
+    [MOVE_NOTE]: (state, action) => {
+      const noteToBeMoved = state.filter(n => n._id === action.id)[0]
+      let newState = removeNoteFromParentsChildArray(state, noteToBeMoved )
+      newState = addChildToParent(newState, action.id, action.parent)
+      newState = updateNoteAttributesInArray(newState, action.id, {parent: action.parent})
+      return newState
+
+
     },
     [SELECT_NOTE]: (state, action) => { // when we select the note, save its id in the parents lastSelectedChild field
       console.group("SELECT_NOTE in notes reducer")
