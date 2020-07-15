@@ -2,6 +2,137 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-beta.15](https://github.com/danobot/notorious/compare/v0.2.1-beta.12...v0.2.1-beta.15) (2020-07-14)
+
+
+### Features
+
+* moving notes to other notebooks via drag and drop ([#52](https://github.com/danobot/notorious/issues/52)) ([f4183bc](https://github.com/danobot/notorious/commit/f4183bcef40b7c8d69aec227ee6653f17bde9e3f))
+
+### [0.2.1-beta.14](https://github.com/danobot/notorious/compare/v0.2.1-beta.12...v0.2.1-beta.14) (2020-05-23)
+
+### [0.2.1-beta.13](https://github.com/danobot/notorious/compare/v0.2.1-beta.11...v0.2.1-beta.13) (2020-05-09)
+
+
+### Bug Fixes
+
+* autofocus ([4fc4e7f](https://github.com/danobot/notorious/commit/4fc4e7f9bbd258f5403ff2684653e23743c6d98a))
+
+### [0.2.1-beta.12](https://github.com/danobot/notorious/compare/v0.2.1-beta.10...v0.2.1-beta.12) (2020-05-05)
+
+
+### Features
+
+* pin notes to top of list when custom sort is selected ([3cb87dc](https://github.com/danobot/notorious/commit/3cb87dce25170714e588457a2b2df556b7980b8f)), closes [#35](https://github.com/danobot/notorious/issues/35)
+
+
+### Bug Fixes
+
+* [#141](https://github.com/danobot/notorious/issues/141) ([4d00261](https://github.com/danobot/notorious/commit/4d002618240e01959d1608aab17b95f8cd0dc757))
+
+### [0.2.1-beta.11](https://github.com/danobot/notorious/compare/v0.2.1-beta.9...v0.2.1-beta.11) (2020-05-01)
+
+
+### Bug Fixes
+
+* handle invalid-json error correctly when rmeote is unavialable on startup ([fccc962](https://github.com/danobot/notorious/commit/fccc962005f1e95515284b46faae90f89958b493))
+
+### [0.2.1-beta.10](https://github.com/danobot/notorious/compare/v0.2.1-beta.8...v0.2.1-beta.10) (2020-04-28)
+
+
+### Bug Fixes
+
+* local DB lost whenremote is unavail on startup ([c8bca7d](https://github.com/danobot/notorious/commit/c8bca7d453c5d646b97958b8e354d9693114f71d))
+
+### [0.2.1-beta.9](https://github.com/danobot/notorious/compare/v0.2.1-beta.7...v0.2.1-beta.9) (2020-04-25)
+
+### [0.2.1-beta.8](https://github.com/danobot/notorious/compare/v0.2.1-beta.6...v0.2.1-beta.8) (2020-04-25)
+
+
+### Bug Fixes
+
+* image fold ([95d5bea](https://github.com/danobot/notorious/commit/95d5bea639f6a46a62240fbb51c17f3ec617c72d))
+
+### [0.2.1-beta.7](https://github.com/danobot/notorious/compare/v0.2.1-beta.5...v0.2.1-beta.7) (2020-04-25)
+
+
+### Features
+
+* image upload and viewing works ([81842a7](https://github.com/danobot/notorious/commit/81842a76ed229f8ada19753debeab6ad733ea3ef))
+* image upload works (but not viewing) ([84a3f37](https://github.com/danobot/notorious/commit/84a3f37d94b9391a3dd3f2ad414429783b135ffb))
+
+
+### Bug Fixes
+
+* package ([1ce19f8](https://github.com/danobot/notorious/commit/1ce19f86e794af0a69a888c8a9289dc2f0e5815e))
+
+### [0.2.1-beta.6](https://github.com/danobot/notorious/compare/v0.2.1-beta.4...v0.2.1-beta.6) (2020-04-20)
+
+
+### Bug Fixes
+
+* undefined error, improve styling ([d13ab6d](https://github.com/danobot/notorious/commit/d13ab6d6eb42f8a931aaac40660e4c4f16f99cf9))
+
+### [0.2.1-beta.5](https://github.com/danobot/notorious/compare/v0.2.1-beta.1...v0.2.1-beta.5) (2020-04-20)
+
+
+### Bug Fixes
+
+* small defects and improvements ([f065050](https://github.com/danobot/notorious/commit/f0650508f946f0e7f345c6e630720a8969c72ccd))
+* truncate ([a1a8e89](https://github.com/danobot/notorious/commit/a1a8e89b40a7ec1fe5bb815eceba3a6f710e70c4))
+
+### [0.2.1-beta.4](https://github.com/danobot/notorious/compare/v0.2.1-beta.1...v0.2.1-beta.4) (2020-04-20)
+
+
+### Bug Fixes
+
+* small defects and improvements ([f065050](https://github.com/danobot/notorious/commit/f0650508f946f0e7f345c6e630720a8969c72ccd))
+* truncate ([a1a8e89](https://github.com/danobot/notorious/commit/a1a8e89b40a7ec1fe5bb815eceba3a6f710e70c4))
+
+### [0.2.1-beta.3](https://github.com/danobot/notorious/compare/v0.2.1-beta.1...v0.2.1-beta.3) (2020-04-17)
+
+
+### Bug Fixes
+
+* small defects and improvements ([f065050](https://github.com/danobot/notorious/commit/f0650508f946f0e7f345c6e630720a8969c72ccd))
+
+### [0.2.1-beta.2](https://github.com/danobot/notorious/compare/v0.2.1-beta.0...v0.2.1-beta.2) (2020-04-17)
+
+
+### Features
+
+* find anything global search with Ctrl + G ([9efd083](https://github.com/danobot/notorious/commit/9efd0830b91b00f6f120e6c30b1897f23fd44fa4))
+
+
+### Bug Fixes
+
+* **cosmetic:** tag cursor ([fda9965](https://github.com/danobot/notorious/commit/fda9965e0df82ae98b0fd75e51ba38e7a2c7d13d))
+* **search:** create separate indexes for title, content and tags ([fa83e59](https://github.com/danobot/notorious/commit/fa83e59f8810e0c86d34c4a0b12057b102ab19b4))
+
+### [0.2.1-beta.1](https://github.com/danobot/notorious/compare/v0.2.1-alpha.7...v0.2.1-beta.1) (2020-04-15)
+
+
+### Features
+
+* improved search ([c32e4f6](https://github.com/danobot/notorious/commit/c32e4f6856b5092b6c0d14847339e281ae34edea))
+
+
+### Bug Fixes
+
+* date error ([ee160e9](https://github.com/danobot/notorious/commit/ee160e97cdb5e1faca58fc8c1642092a24e889e9))
+
+### [0.2.1-beta.0](https://github.com/danobot/notorious/compare/v0.2.1-alpha.6...v0.2.1-beta.0) (2020-04-11)
+
+
+### Features
+
+* markdown editor powerpacks including Flowcharts, maths, typography, footnotes on hover, link styling ([c70d326](https://github.com/danobot/notorious/commit/c70d3263e21b49944526852046c0374ff1893eb8))
+
+
+### Bug Fixes
+
+* build error ([5013746](https://github.com/danobot/notorious/commit/5013746460b2596d7c38366ddec5e6a693cfe453))
+
 ### [0.2.1-alpha.7](https://github.com/danobot/notorious/compare/v0.2.1-alpha.5...v0.2.1-alpha.7) (2020-04-10)
 
 
