@@ -125,6 +125,8 @@ export const hasChildren = ( children ) => {
     return false;
   }
 }
+
+// Immutable state updaters for Notes
 export const updateNoteAttributesInArray = (state, noteId, attributes) => {
   return state.map((item, id) => {
     if (item._id !== noteId) { return item }

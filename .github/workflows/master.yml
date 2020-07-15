@@ -80,8 +80,8 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: New-Item -Path "./source/common/assets" -Name "handlebars" -ItemType "directory" # Hello, PowerShell ._.
 
-      - name: Set up build environment and compile the assets
-        if: matrix.os != 'ubuntu-18.04'
+      - name: "[All except docker] Set up build environment and compile the assets"
+        if: matrix.os != 'ubuntu-18.04' # all except the docker build
         run: |
           yarn
       # WINDOWS ==============================================================
