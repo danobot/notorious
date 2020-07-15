@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-beta.16](https://github.com/danobot/notorious/compare/v0.2.1-beta.14...v0.2.1-beta.16) (2020-07-15)
+
+
+### Bug Fixes
+
+* move note caused problem with creating and updating notes, plus cosmetic improvements ([#54](https://github.com/danobot/notorious/issues/54)) ([a81c998](https://github.com/danobot/notorious/commit/a81c99870ab33f24adbd5a67670a86212e71a0cd))
+
 ### [0.2.1-beta.15](https://github.com/danobot/notorious/compare/v0.2.1-beta.12...v0.2.1-beta.15) (2020-07-14)
 
 
