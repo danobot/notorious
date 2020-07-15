@@ -41,7 +41,8 @@ export default function MainMenu({
   hideFinderModal,
   showNotebookModal,
   hideNotebookModal,
-  searchNotesGlobal
+  searchNotesGlobal,
+  cacheParentId
 }) {
   const finderRef = useRef(null);
   const createNotebookModalRef = useRef(2);
@@ -97,29 +98,34 @@ export default function MainMenu({
 
       <MenuItem
         label="All notes"
+        droppable
         icon={<FontAwesomeIcon icon={faBook} />}
         compKey="MenuItem"
         onClickHandler={e=> selectNotebook("ALL")}
         selected={selectedNotebook === "ALL"}
-
+        cacheParentId={e=>cacheParentId("ALL")}
       />
 
 
       <ContextMenuTrigger id="trash_trigger">
         <MenuItem
           label="Trash"
+          droppable
           icon={<FontAwesomeIcon icon={faTrash} />}
           compKey="trashMenuItem"
           onClickHandler={e=> selectNotebook("TRASH")}
           selected={selectedNotebook === "TRASH"}
+          cacheParentId={e=>cacheParentId("TRASH")}
         />
       </ContextMenuTrigger>
       <MenuItem
         label="Favourites"
+        droppable
         icon={<FontAwesomeIcon icon={faStar} />}
         compKey="favMenuItem"
         onClickHandler={e=> selectNotebook("FAV")}
         selected={selectedNotebook === "FAV"}
+        cacheParentId={e=>cacheParentId("FAV")}
       />
       <ContextMenuTrigger id="mainmenu_notebooks">
         <MenuItem
@@ -168,6 +174,7 @@ export default function MainMenu({
             selected={selectedNotebook === "tag::" +  n}
             compKey={`tag-menu-item-${n}`}
             key={`tag-menu-item-${n}`}
+            //cacheParentId={e=>cacheParentId(("tag::" +  n)}
           />
           ))}
       </MenuItem>

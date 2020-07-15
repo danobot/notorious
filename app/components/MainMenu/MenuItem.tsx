@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import { MenuItemStyle, MenuItemIcon, MenuItemLabel, MenuItemNormal, MenuItemSelected } from './style';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useDrop } from 'react-dnd'
-import { faCaretSquareRight, faCaretSquareDown } from '@fortawesome/free-solid-svg-icons';
+import { useDrop } from 'react-dnd';
+import { faCaretSquareRight, faCaretSquareDown, faCaretSquareLeft } from '@fortawesome/free-solid-svg-icons';
 import { DragItemTypes } from '../../utils/DragItemTypes';
 
 export default function MenuItem({
@@ -23,7 +23,6 @@ export default function MenuItem({
 }) {
   const MenuItemComponent = (selected) ? MenuItemSelected : MenuItemNormal;
   const [v, setVis] = useState(visible )
-  const [id, setId] = useState( )
   const handleClick = () => {
     setVis(!v)
   }
@@ -32,7 +31,7 @@ export default function MenuItem({
     accept: DragItemTypes.NOTE,
     drop: (data) => {
       cacheParentId()
-      return { name: id}
+      return { name: noteId}
     },
     collect: (monitor) => {
       return {
@@ -41,15 +40,17 @@ export default function MenuItem({
       }
     },
   })
-  // const isActive = canDrop && isOver
-  // let style = {}
-  // if (isActive) {
-  //   style.backgroundColor = 'darkgreen'
-  // } else if (canDrop && droppable) {
-  //   style.backgroundColor = 'darkkhaki'
-  // }
+  const isActive = canDrop && isOver && droppable
+  let style = {};
+  if (isActive) {
+    style.backgroundColor = '#292d4e';
+    // style.border= '1px solid white';
+  } else if (canDrop && droppable) {
+    // style.backgroundColor = 'blue'
+  }
   return (
     <MenuItemComponent
+    style={style}
     ref={drop}
     >
       <MenuItemStyle
@@ -63,7 +64,7 @@ export default function MenuItem({
             icon={v ? faCaretSquareDown : faCaretSquareRight}
           />}</MenuItemIcon>}
         <MenuItemLabel>{label}</MenuItemLabel>
-        {right}
+        { right }
       </MenuItemStyle>
       {v ? children : <></>}
     </MenuItemComponent>

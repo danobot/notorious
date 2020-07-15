@@ -4,7 +4,7 @@ import Truncate from 'react-truncate'
 import { Tag } from 'antd';
 import Moment from 'react-moment';
 import styled from 'styled-components';
-import { useDrag } from 'react-dnd'
+import { useDrag } from 'react-dnd';
 import {
   ContextMenu,
   ContextMenuTrigger,

@@ -14,7 +14,7 @@ const notesReducer = createReducer(initialState, {
     [CREATE_NOTE]: (state, action) => {
       const noteId = action.id
 
-      const newState = addChildToParent(newState, action.id, action.parent)
+      const newState = addChildToParent(state, action.id, action.parent)
       const newNote = {_id: noteId,
         title: "",
         createdAt: Date.now(),
@@ -54,7 +54,7 @@ const notesReducer = createReducer(initialState, {
     [UPDATE_NOTE]: (state, action) => {
       console.log(action)
 
-      return updateNoteAttributesInArray(newState, action.id, action.attributes)
+      return updateNoteAttributesInArray(state, action.id, action.attributes)
 
     },
     [MOVE_NOTE]: (state, action) => {
