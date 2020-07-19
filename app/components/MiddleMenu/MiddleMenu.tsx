@@ -111,9 +111,7 @@ export default function MiddleMenu({
                 selected={i._id === selectedNote}
                 handleClick={selectNoteAction}
                 handleDrag={(id) => {
-                  if (dropNoteCache != "ALL" && dropNoteCache != "TRASH" && dropNoteCache != "FAV") {
                     moveNote(id, dropNoteCache)
-                  }
                   }
                 }
                 handlers={notecardContextHandlers}

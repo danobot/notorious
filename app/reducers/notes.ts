@@ -58,11 +58,13 @@ const notesReducer = createReducer(initialState, {
 
     },
     [MOVE_NOTE]: (state, action) => {
+
       const noteToBeMoved = state.filter(n => n._id === action.id)[0]
       let newState = removeNoteFromParentsChildArray(state, noteToBeMoved )
       newState = addChildToParent(newState, action.id, action.parent)
       newState = updateNoteAttributesInArray(newState, action.id, {parent: action.parent})
       return newState
+     
 
 
     },

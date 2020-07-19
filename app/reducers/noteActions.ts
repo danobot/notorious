@@ -45,11 +45,27 @@ export function emptyTrash() {
 
 export function moveNote(id: string, parent: string) {
   return dispatch => {
-    dispatch({
-      type: MOVE_NOTE,
-      id,
-      parent
-    });
+    console.log(parent)
+    if (parent === undefined) {
+      // do nothing
+    } else if (parent === "ALL") {
+      // console.log("dragged to ALL")
+      
+    } else if (parent === "TRASH") {
+      // console.log("dragged to TRASH")
+      dispatch(softDeleteNote(id))
+    } else if (parent === "FAV") {
+      // console.log("dragged to FAV")
+      dispatch(updateNote(id, {starred: true}))
+    } else {
+      // console.log("dragged to else")
+      dispatch({
+        type: MOVE_NOTE,
+        id,
+        parent
+      });
+    }
+
   };
 }
 
@@ -202,7 +218,7 @@ export function searchNotesFrom(search: String, target: string) {
     const results = [...titleIndex.search(search),
       ...contentIndex.search(search),
       ...tagsIndex.search(search)]
-    const orderedResults = {
+      const orderedResults = {
       titleResults: titleIndex.search(search),
       contentResults: contentIndex.search(search),
       tagResults: tagsIndex.search(search)
@@ -218,3 +234,4 @@ export function searchNotesFrom(search: String, target: string) {
     });
   };
 }
+
