@@ -13,6 +13,9 @@ const mainMenuReducer = createReducer(initialState, {
   [CACHE_NOTE_PARENT_ID]: (state, action) => {
     return {...state, moveNoteDropTargetId: action.id}
   },
+  [MOVE_NOTE]: (state, action) => {
+    return {...state, moveNoteDropTargetId: undefined}
+  },
 
   [SELECT_NOTEBOOK]: (state, action) => {
     return {...state, filter: action.filter}
