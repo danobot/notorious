@@ -39,7 +39,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "docs: update developer documentation"
-          files: docs/
+          files: docs/*
           force-add: true
   release_management:
     needs: [prepare_docs]
