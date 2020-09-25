@@ -1,19 +1,47 @@
-![GitHub package.json version](https://img.shields.io/github/package-json/v/danobot/notorious?style=flat-square)
-[![GitHub download](https://img.shields.io/github/downloads/danobot/notorious/total.svg?style=flat-square&color=green)](https://github.com/danobot/notorious/releases/latest)
-[![License](https://img.shields.io/github/license/danobot/notorious.svg?style=flat-square)](https://github.com/danobot/notorious/blob/develop/COPYING)
-[![donate paypal](https://img.shields.io/badge/donate-PayPal-blue.svg?style=flat-square)](https://paypal.me/danielb160)
-[![donate gofundme](https://img.shields.io/badge/donate-GoFundMe-orange?style=flat-square)](https://gf.me/u/w62k93)
+<h1 align="center">
+  <br>
+  <a href="https://danobot.github.io/notorious-landing"><img src="https://github.com/danobot/notorious/raw/master/resources/icons/256x256.png" alt="Notorious" width="200"></a>
+  <br>
+  Notorious
+  <br>
+</h1>
+
+<h4 align="center">A beautiful notebook for everyone.</h4>
+
+<p align="center">
+  <a href="#">
+    <img src="https://img.shields.io/github/package-json/v/danobot/notorious?style=flat-square">
+  </a>
+  <a href="https://github.com/danobot/notorious/releases/latest">
+    <img src="https://img.shields.io/github/downloads/danobot/notorious/total.svg?style=flat-square&color=green"></a>
+  <a href="https://github.com/danobot/notorious/blob/develop/COPYING">
+      <img src="https://img.shields.io/github/license/danobot/notorious.svg?style=flat-square">
+  </a>
+  <a href="https://paypal.me/danielb160">
+    <img src="https://img.shields.io/badge/donate-PayPal-blue.svg?style=flat-square">
+  </a>
+  <a href="https://gf.me/u/w62k93">
+    <img src="https://img.shields.io/badge/donate-GoFundMe-orange?style=flat-square">
+  </a>
+</p>
+
+<p align="center">
+  <a href="#getting-started">Getting Started</a> •
+  <a href="#development-setup">Development Setup</a> •
+  <a href="https://danobot.github.io/notorious">React API Docs</a> •
+  <a href="https://danobot.github.io/notorious-landing">Landing Page</a> •
+  <a href="https://github.com/danobot/notorious/releases/latest">Download</a>
+</p>
+
+![Markdown Boilerplate](images/md_boilerplate.png)
+
 # Introduction
 
-This project is in beta development phase.
 
 |Stream|Status|
 |---|---|
 |Latest|![latest](https://github.com/danobot/notorious/workflows/Build/badge.svg?style=flat-square&branch=develop)|
 |Master|![master](https://github.com/danobot/notorious/workflows/Build/badge.svg?style=flat-square&branch=master)|
-
-**Markdown boilerplate note showing MD features**
-![Markdown Boilerplate](images/md_boilerplate.png)
 
 **Note Context Menu**
 ![Note Context Menu](images/context_menu.png)
@@ -27,7 +55,7 @@ This project is in beta development phase.
 **Tag selection for notes**
 ![Tag Editor](images/tag_editor.png)
 
-# Install
+# Getting Started
 
 ### Step 1: Download the Desktop App
 
@@ -98,7 +126,7 @@ This is applicable only if you don't have a backend server. Backing up or restor
 
 Data is stored in `C:\Users\<username>\AppData\Roaming\Notorious\data`, backing up this directory will help avoid data loss. Make sure to close Notorious before any backup and restore operation to avoid data corruption.
 
-# Getting started with Development
+# Development Setup
 After cloning the repository and running `yarn` to fetch dependencies, you can start the app for development using `yarn dev`. This starts the renderer process in [**hot-module-replacement**](https://webpack.js.org/guides/hmr-react/) mode and starts a webpack dev server that sends hot updates to the renderer process:
 
 ```bash
