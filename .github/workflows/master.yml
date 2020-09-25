@@ -46,7 +46,8 @@ jobs:
           # Force add files, useful for adding ignored files.
           force-add: # optional, default is false
           files: docs/*
-          
+          name: GitHub Actions
+          email: action@github.com 
   release_management:
     needs: [prepare_docs]
     runs-on: ubuntu-latest
