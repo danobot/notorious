@@ -25,9 +25,9 @@ jobs:
         uses: andstor/jsdoc-action@v1.2.0
         with:
           # Source directory to build documentation from
-          source_dir: ${{ github.workspace }}
+          source_dir: app
           # Output folder for the generated documentation
-          output_dir: ${{ github.workspace }}/docs
+          output_dir: docs
           # Recurse into subdirectories when scanning for source files
           recurse: true
           # The path to a JSDoc configuration file
