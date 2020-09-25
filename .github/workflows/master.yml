@@ -38,7 +38,7 @@ jobs:
       - name: Git Commit and Push
         uses: github-actions-x/commit@v2.6
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           commit-message: "ci: commit the generated documentation to /docs"
           # Force add files, useful for adding ignored files.
           force-add: # optional, default is false
