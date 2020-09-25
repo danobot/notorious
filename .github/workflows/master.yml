@@ -119,9 +119,6 @@ jobs:
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
         run: |
-          ls -l ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          ls -l ${{ github.workspace }}/npm_modules
-          ls -l ${{ github.workspace }}/app/npm_modules
           echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache Yarn
         id: cache-yarn
@@ -139,10 +136,17 @@ jobs:
 #         with:
 #           path: ${{env.GITHUB_WORKSPACE}}/app/node_modules
 #           key: ${{ runner.os }}-${{ hashFiles('**/app/package.json') }}
+      - name: "[All except docker] Print Cahce dirs"
+        if: steps.cache-yarn.outputs.cache-hit != 'true' && matrix.os != 'ubuntu-18.04' # all except the docker build
+        run: |
+          ls -l ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          ls -l ${{ github.workspace }}/npm_modules
+          ls -l ${{ github.workspace }}/app/npm_modules
       - name: "[All except docker] Set up build environment and compile the assets"
         if: steps.cache-yarn.outputs.cache-hit != 'true' && matrix.os != 'ubuntu-18.04' # all except the docker build
         run: |
           yarn
+
       # WINDOWS ==============================================================
       - name: "[Windows Build] Build & Publish Windows Installer"
         if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master'
