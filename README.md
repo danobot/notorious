@@ -6,7 +6,7 @@
   <br>
 </h1>
 
-<h4 align="center">A beautiful notebook for everyone.</h4>
+<h4 align="center">Offline-first note taking application for desktop and the web. Private, fast, notorious 😈</h4>
 
 <p align="center">
   <a href="#">
