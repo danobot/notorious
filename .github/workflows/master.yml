@@ -168,7 +168,9 @@ jobs:
         run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} yarn package-linux
       - name: "[Linux Build] Build Linux installers"
         if: matrix.os == 'ubuntu-latest' && github.ref != 'refs/heads/master'
-        run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} yarn package-linux-build
+        run: |
+          ls node_modules
+          GH_TOKEN=${{ secrets.GITHUB_TOKEN }} yarn package-linux-build
 
 
       # LINUX DOCKER ================================================================
