@@ -137,7 +137,6 @@ jobs:
 #           path: ${{env.GITHUB_WORKSPACE}}/app/node_modules
 #           key: ${{ runner.os }}-${{ hashFiles('**/app/package.json') }}
       - name: "[All except docker] Print Cahce dirs"
-        if: steps.cache-yarn.outputs.cache-hit != 'true' && matrix.os != 'ubuntu-18.04' # all except the docker build
         run: |
           ls -l ${{ steps.yarn-cache-dir-path.outputs.dir }}
           ls -l ${{ github.workspace }}/npm_modules
