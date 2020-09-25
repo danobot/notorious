@@ -118,7 +118,11 @@ jobs:
         run: New-Item -Path "./source/common/assets" -Name "handlebars" -ItemType "directory" # Hello, PowerShell ._.
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
+        run: |
+          ls -l ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          ls -l ${{ github.workspace }}/npm_modules
+          ls -l ${{ github.workspace }}/app/npm_modules
+          echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache Yarn
         id: cache-yarn
         uses: actions/cache@v2.1.1
@@ -128,8 +132,7 @@ jobs:
             ${{ github.workspace }}/npm_modules
             ${{ github.workspace }}/app/npm_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: ${{ runner.os }}-yarn-
 #       - name: Cache App NPM
 #         id: cache-app-npm
 #         uses: actions/cache@v2.1.1
