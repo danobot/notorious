@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Home</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Home</h1>
+
+    
+
+
+
+    
+
+
+    <h3> </h3>
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+    <section>
+        <article><p><img src="https://img.shields.io/github/package-json/v/danobot/notorious?style=flat-square" alt="GitHub package.json version">
+<a href="https://github.com/danobot/notorious/releases/latest"><img src="https://img.shields.io/github/downloads/danobot/notorious/total.svg?style=flat-square&amp;color=green" alt="GitHub download"></a>
+<a href="https://github.com/danobot/notorious/blob/develop/COPYING"><img src="https://img.shields.io/github/license/danobot/notorious.svg?style=flat-square" alt="License"></a>
+<a href="https://paypal.me/danielb160"><img src="https://img.shields.io/badge/donate-PayPal-blue.svg?style=flat-square" alt="donate paypal"></a>
+<a href="https://gf.me/u/w62k93"><img src="https://img.shields.io/badge/donate-GoFundMe-orange?style=flat-square" alt="donate gofundme"></a></p>
+<h1>Introduction</h1>
+<p>This project is in beta development phase.</p>
+<table>
+<thead>
+<tr>
+<th>Stream</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Latest</td>
+<td><img src="https://github.com/danobot/notorious/workflows/Build/badge.svg?style=flat-square&amp;branch=develop" alt="latest"></td>
+</tr>
+<tr>
+<td>Master</td>
+<td><img src="https://github.com/danobot/notorious/workflows/Build/badge.svg?style=flat-square&amp;branch=master" alt="master"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Markdown boilerplate note showing MD features</strong>
+<img src="images/md_boilerplate.png" alt="Markdown Boilerplate"></p>
+<p><strong>Note Context Menu</strong>
+<img src="images/context_menu.png" alt="Note Context Menu"></p>
+<p><strong>Global Search is mapped to Ctrl + G and allows search by title and note content</strong>
+<img src="images/global_search.png" alt="Global Search"></p>
+<p><strong>Notebook context menu options</strong>
+<img src="images/notebook_context_menu.png" alt="Notebook Context Menu"></p>
+<p><strong>Tag selection for notes</strong>
+<img src="images/tag_editor.png" alt="Tag Editor"></p>
+<h1>Install</h1>
+<h3>Step 1: Download the Desktop App</h3>
+<p>Go to the Github releases section and download the installer for your platform. For a web based alternative, use the <code>notorious_web</code> docker deployment (read on for more on that).</p>
+<h3>Initial Setup</h3>
+<p>You have two options:</p>
+<ul>
+<li><strong>Set up your own backend</strong> for usage across multiple devices, including synchronisation and replication (for backups).</li>
+<li><strong>Local data directory only</strong>: Use Notorious without a backend and store all data locally (not recommended, see <a href="#backing-Up-Data-Directory">Backing Up Data Directory</a>).</li>
+</ul>
+<h2>Step 2: Get the Docker Compose Files</h2>
+<p>Notorious backend is a CouchDB database. I have included <code>docker-compose.sample.yaml</code> and <code>.env.sample</code> file to get you started quickly. Download and rename these files into a local folder. (You can clone this repository and run the commands below).</p>
+<pre class="prettyprint source"><code>mv .env.sample .env
+mv docker-compose.sample.yaml docker-compose.yaml
+</code></pre>
+<h2>Step 3: Edit the defaults</h2>
+<p>Edit the contents of <code>.env</code>, providing long and secure passwords and changing the domain names and customise the docker labels to suit your Traefik setup. The backend server needs to be externally accessible (if you want to access Notorious from outside your home network.)</p>
+<table>
+<thead>
+<tr>
+<th>Envrionment Variable</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>COUCHDB_USER</code></td>
+<td>Used by CouchDB server during setup.</td>
+</tr>
+<tr>
+<td><code>COUCHDB_PASSWORD</code></td>
+<td>Used by CouchDB server during setup.</td>
+</tr>
+<tr>
+<td><code>DB_URL</code></td>
+<td>Used by the web deployment (to access Notorious via a browser).</td>
+</tr>
+<tr>
+<td><code>DB_SCHEME</code></td>
+<td>Used by the web deployment (to access Notorious via a browser).</td>
+</tr>
+</tbody>
+</table>
+<h2>Step 4: Start the docker compose stack</h2>
+<p>You can start the stack using <code>docker-compose up -d</code>. There are 3 containers:</p>
+<table>
+<thead>
+<tr>
+<th>Container</th>
+<th>Description</th>
+<th>Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>couchdb</code></td>
+<td>CouchDB server</td>
+<td>Required</td>
+</tr>
+<tr>
+<td><code>fauxton</code></td>
+<td>A CouchDB admin interface</td>
+<td>Required for Database initialisation (see below)</td>
+</tr>
+<tr>
+<td><code>notorious_web</code></td>
+<td>Optional web server for accessing Notorious via a web browser. You can comment out this section to disable it.</td>
+<td>Optional, but kinda cool</td>
+</tr>
+</tbody>
+</table>
+<h2>Step 5: Initialise the database</h2>
+<p><strong>Before you can start using Notorious you must initialise the CouchDB server by opening this link in your browser:</strong></p>
+<pre class="prettyprint source"><code>http://admin:admin@hostname:5984/_utils#setup
+</code></pre>
+<p>You are now ready to start using Notorious.</p>
+<p>Please consider supporting development (See <a href="#contributions">Contributions</a>).</p>
+<p><a href="https://gf.me/u/w62k93">Support my projects on GoFundMe</a></p>
+<p><a href="https://paypal.me/danielb160">Support my projects via PayPal</a></p>
+<h2>Web deployment</h2>
+<p>The <code>notorious_web</code> container spins up a web server you can use to access your notes through a web browser on the go. Take special note of the <code>volumes</code> section, which passes in the <code>.env</code> file to the container because the <code>DB_URL</code> string is required in order to connect back to your server.</p>
+<p>I recommend you put this behind some kind of basic authentication such as Traefik's <code>basic auth</code> middleware.</p>
+<h3>Deploying static assets</h3>
+<p>YOu can generate static assets for web deployment using the <code>yarn build-web</code> command. The compiled files are available in the <code>web/dist</code> directory.</p>
+<h1>Backing Up Data Directory</h1>
+<p>This is applicable only if you don't have a backend server. Backing up or restoring the data directory when data is being synced to a remote server is untested and may have nasty consequences.</p>
+<p>Data is stored in <code>C:\Users\&lt;username&gt;\AppData\Roaming\Notorious\data</code>, backing up this directory will help avoid data loss. Make sure to close Notorious before any backup and restore operation to avoid data corruption.</p>
+<h1>Getting started with Development</h1>
+<p>After cloning the repository and running <code>yarn</code> to fetch dependencies, you can start the app for development using <code>yarn dev</code>. This starts the renderer process in <a href="https://webpack.js.org/guides/hmr-react/"><strong>hot-module-replacement</strong></a> mode and starts a webpack dev server that sends hot updates to the renderer process:</p>
+<pre class="prettyprint source lang-bash"><code>yarn dev
+</code></pre>
+<p>Running production version for debugging:</p>
+<pre class="prettyprint source"><code>yarn start
+</code></pre>
+<h1>Packaging for Production</h1>
+<p>To package apps for the local platform:</p>
+<pre class="prettyprint source lang-bash"><code>$ yarn package-win
+</code></pre>
+<h1>Contributions</h1>
+<p>Contributions in any form are encouraged and happily merged back into the codebase. You can contribute by:</p>
+<ul>
+<li>raising issues,</li>
+<li>working on issues,</li>
+<li>improving documentation</li>
+<li>Submitting pull requests</li>
+<li>recommending the software to others (Spreading the word)</li>
+<li>donating spare change</li>
+<li>or just being a happy user (we love you)</li>
+</ul>
+<h2>Donations</h2>
+<p><strong>Donations will ensure the following:</strong></p>
+<ul>
+<li>🔨 Long term maintenance of the project</li>
+<li>🛣 Progress on feature requests</li>
+<li>🐛 Quick responses to bug reports and help requests</li>
+</ul>
+<h1>License GNU GPLv3</h1>
+<p>This license was chosen to ensure this project stays open source and contributor enhancements are made available to the public.</p>
+<p><strong>GNU GPLv3</strong>
+Permissions of this strong copyleft license are conditioned on making available complete source code of licensed works and modifications, which include larger works using a licensed work, under the same license. Copyright and license notices must be preserved. Contributors provide an express grant of patent rights.</p>
+<p>See <code>COPYING</code> for complete license text.</p></article>
+    </section>
+
+
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.4</a> on Fri Sep 25 2020 11:45:27 GMT+0000 (Coordinated Universal Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
