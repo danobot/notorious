@@ -84,6 +84,19 @@ jobs:
         if: matrix.os != 'ubuntu-18.04' # all except the docker build
         run: |
           yarn
+      - name: Cache
+        uses: actions/cache@v2.1.1
+        with:
+          path: ${{env.GITHUB_WORKSPACE}}/node_modules
+          # An explicit key for restoring and saving the cache
+          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
+          
+      - name: Cache
+        uses: actions/cache@v2.1.1
+        with:
+          path: ${{env.GITHUB_WORKSPACE}}/app/node_modules
+          # An explicit key for restoring and saving the cache
+          key: ${{ runner.os }}-${{ hashFiles('**/app/package-lock.json') }}
       # WINDOWS ==============================================================
       - name: "[Windows Build] Build & Publish Windows Installer"
         if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master'
