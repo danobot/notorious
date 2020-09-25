@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/develop'
     steps:
+      - uses: actions/checkout@v1
+        if: github.ref == 'refs/heads/master'
       - name: JSDoc Action
         # You may pin to the exact commit or the version.
         # uses: andstor/jsdoc-action@2fb2b536605bdebace2b92abb0601155d5ddc688
