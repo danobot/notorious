@@ -24,6 +24,10 @@ const mapStateToProps = (state) => {
     settings: state.settings
   };
 }
+/**
+ * Top most Component containing the general layout of the page with 3 panels
+ * @param props resizeSidebarAction, resizeMainMenuAction, resizeMiddleMenuAction, settings, saveStoreConfig, sizeMain, sizeSidebar, sizeMiddle, config, setConfig, syncNotesSuccess, syncNotesError
+ */
 export default function Home(props) {
   const {resizeSidebarAction, resizeMainMenuAction, resizeMiddleMenuAction, settings, saveStoreConfig, sizeMain, sizeSidebar, sizeMiddle, config, setConfig, syncNotesSuccess, syncNotesError} = props
 
