@@ -86,7 +86,10 @@ jobs:
         id: cache-yarn
         uses: actions/cache@v2.1.1
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          path: |
+            ${{ steps.yarn-cache-dir-path.outputs.dir }}
+            npm_modules
+            app/npm_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
