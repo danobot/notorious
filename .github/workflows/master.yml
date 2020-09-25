@@ -17,22 +17,37 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/develop'
     steps:
+      - uses: actions/checkout@v2
+      - run: |
+          ls app
+          rm -rf docs
+          mkdir docs
       - name: JSDoc Action
         # You may pin to the exact commit or the version.
         # uses: andstor/jsdoc-action@2fb2b536605bdebace2b92abb0601155d5ddc688
         uses: andstor/jsdoc-action@v1.2.0
         with:
           # Source directory to build documentation from
-          source_dir: ${{env.GITHUB_WORKSPACE}}/app
+          source_dir: app
           # Output folder for the generated documentation
-          output_dir: ${{env.GITHUB_WORKSPACE}}/docs
+          output_dir: docs
           # Recurse into subdirectories when scanning for source files
           recurse: true
           # The path to a JSDoc configuration file
           # config_file: # optional
           # The path to a Markdown file to be used as a the front page
           front_page: README.md
-     
+      - run: ls docs
+      - name: Git Commit and Push
+        uses: github-actions-x/commit@v2.6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "ci: commit the generated documentation to /docs"
+          # Force add files, useful for adding ignored files.
+          force-add: # optional, default is false
+          files: docs/*
+          name: GitHub Actions
+          email: action@github.com 
   release_management:
     needs: [prepare_docs]
     runs-on: ubuntu-latest
@@ -110,21 +125,17 @@ jobs:
         with:
           path: |
             ${{ steps.yarn-cache-dir-path.outputs.dir }}
-            npm_modules
-            app/npm_modules
+            ${{ github.workspace }}/npm_modules
+            ${{ github.workspace }}/app/npm_modules
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
 #       - name: Cache App NPM
 #         id: cache-app-npm
 #         uses: actions/cache@v2.1.1
 #         with:
 #           path: ${{env.GITHUB_WORKSPACE}}/app/node_modules
 #           key: ${{ runner.os }}-${{ hashFiles('**/app/package.json') }}
-      - name: "[All except docker] Set up build environment and compile the assets"
-        if: steps.cache-yarn.outputs.cache-hit != 'true' && matrix.os != 'ubuntu-18.04' # all except the docker build
-        run: |
-          yarn
       - name: "[All except docker] Set up build environment and compile the assets"
         if: steps.cache-yarn.outputs.cache-hit != 'true' && matrix.os != 'ubuntu-18.04' # all except the docker build
         run: |
