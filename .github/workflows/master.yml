@@ -34,7 +34,12 @@ jobs:
           # config_file: # optional
           # The path to a Markdown file to be used as a the front page
           front_page: README.md
-     
+      - name: Git Commit and Push
+        uses: github-actions-x/commit@v2.6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "docs: update developer documentation"
+          files: docs/
   release_management:
     needs: [prepare_docs]
     runs-on: ubuntu-latest
