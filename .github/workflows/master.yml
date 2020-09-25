@@ -79,22 +79,28 @@ jobs:
       - name: Manually create the handlebars-directory (Windows only)
         if: matrix.os == 'windows-latest'
         run: New-Item -Path "./source/common/assets" -Name "handlebars" -ItemType "directory" # Hello, PowerShell ._.
-
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache Yarn
+        id: cache-yarn
+        uses: actions/cache@v2.1.1
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+#       - name: Cache App NPM
+#         id: cache-app-npm
+#         uses: actions/cache@v2.1.1
+#         with:
+#           path: ${{env.GITHUB_WORKSPACE}}/app/node_modules
+#           key: ${{ runner.os }}-${{ hashFiles('**/app/package.json') }}
       - name: "[All except docker] Set up build environment and compile the assets"
-        if: matrix.os != 'ubuntu-18.04' # all except the docker build
+        if: steps.cache-yarn.outputs.cache-hit != 'true' && matrix.os != 'ubuntu-18.04' # all except the docker build
         run: |
           yarn
-      - name: Cache
-        uses: actions/cache@v2.1.1
-        with:
-          path: ${{env.GITHUB_WORKSPACE}}/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/package-lock.json') }}
-          
-      - name: Cache
-        uses: actions/cache@v2.1.1
-        with:
-          path: ${{env.GITHUB_WORKSPACE}}/app/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/app/package.json') }}
+      
       # WINDOWS ==============================================================
       - name: "[Windows Build] Build & Publish Windows Installer"
         if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master'
