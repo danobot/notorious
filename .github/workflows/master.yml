@@ -120,32 +120,21 @@ jobs:
         id: yarn-cache-dir-path
         run: |
           echo "::set-output name=dir::$(yarn cache dir)"
-      - name: Cache Yarn
+      - name: Cache
         id: cache-yarn
         uses: actions/cache@v2.1.1
         with:
-          path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-            ${{ github.workspace }}/npm_modules
-            ${{ github.workspace }}/app/npm_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
-#       - name: Cache App NPM
-#         id: cache-app-npm
-#         uses: actions/cache@v2.1.1
-#         with:
-#           path: ${{env.GITHUB_WORKSPACE}}/app/node_modules
-#           key: ${{ runner.os }}-${{ hashFiles('**/app/package.json') }}
-      - name: "[All except docker] Print Cahce dirs"
-        run: |
-          ls -l ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          ls -l ${{ github.workspace }}/npm_modules
-          ls -l ${{ github.workspace }}/app/npm_modules
+          path: '**/node_modules'
+          key: ${{ runner.os }}-cache-${{ hashFiles('**/yarn.lock') }}
       - name: "[All except docker] Set up build environment and compile the assets"
         if: steps.cache-yarn.outputs.cache-hit != 'true' && matrix.os != 'ubuntu-18.04' # all except the docker build
         run: |
           yarn
-
+      - name: "Print Cache dirs"
+        run: |
+          ls -l ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          ls -l ${{ github.workspace }}/npm_modules
+          ls -l ${{ github.workspace }}/app/npm_modules
       # WINDOWS ==============================================================
       - name: "[Windows Build] Build & Publish Windows Installer"
         if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master'
