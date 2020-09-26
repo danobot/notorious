@@ -117,6 +117,7 @@ jobs:
         run: New-Item -Path "./source/common/assets" -Name "handlebars" -ItemType "directory" # Hello, PowerShell ._.
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
+        if: matrix.os != 'ubuntu-18.04'
         run: |
           echo "::set-output name=dir::$(yarn cache dir)"
       - name: Cache
