@@ -135,8 +135,10 @@ jobs:
       - name: "[All except docker] Print Cache dirs"
         if: matrix.os != 'ubuntu-18.04'
         run: |
-          ls -l npm_modules
-          ls -l app/npm_modules
+          pwd
+          ls -f .
+          ls -l ~/work/notorious/notorious/npm_modules
+          ls -l  ~/work/notorious/notorious/app/npm_modules
       # WINDOWS ==============================================================
       - name: "[Windows Build] Build & Publish Windows Installer"
         if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master'
