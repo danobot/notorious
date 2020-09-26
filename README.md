@@ -146,16 +146,18 @@ To package apps for the local platform:
 $ yarn package-win
 ```
 
-# Contributions
-Contributions in any form are encouraged and happily merged back into the codebase. You can contribute by:
+# Contributing
+Contributions in any form are encouraged and happily merged back into the codebase. You can help by:
 
+* star this repository,
 * raising issues, 
-* working on issues,
-* improving documentation
-* Submitting pull requests
-* recommending the software to others (Spreading the word)
+* helping new users with issues they may encounter,
+* improving documentation,
+* submitting pull request with your kickass new features and bug fixes (raise a discussion issue first),
+* recommending the software to others (Spreading the word),
 * donating spare change
-* or just being a happy user (we love you)
+
+There is an immense backlog of work to be done on this and I will not be able to do it by myself. If you are into React dev and would like to help me on this project please get in touch.
 
 ## Donations
 
