@@ -57,29 +57,35 @@
 
 # Getting Started
 
-### Step 1: Download the Desktop App
+## Step 1: Download the Desktop App
 
-Go to the Github releases section and download the installer for your platform. For a web based alternative, use the `notorious_web` docker deployment (read on for more on that).
+Go to the [Github releases page](https://github.com/danobot/notorious/releases/latest) and download the installer for your platform. For a web based alternative, use the `notorious_web` docker deployment (read on for more on that).
 
-### Initial Setup
+From here you have two options:
 
-You have two options:
-
-* **Set up your own backend** for usage across multiple devices, including synchronisation and replication (for backups).
+* **Set up your own backend** for usage across multiple devices, including synchronisation and replication.
 * **Local data directory only**: Use Notorious without a backend and store all data locally (not recommended, see [Backing Up Data Directory](#backing-Up-Data-Directory)).
 
+## Step 2: Docker Compose Setup
 
-## Step 2: Get the Docker Compose Files
+### Step 2.1: Get the Docker Compose Files
 
+Notorious backend is a CouchDB database and an optional web interface for accessing Notorious through a web browser. There are 3 containers:
+ 
+|Container|Description|Required|
+|---|---|---|
+|`couchdb`|CouchDB server|Required|
+|`notorious_web`|Optional web server for accessing Notorious via a web browser. You can comment out this section to disable it.|Optional, but kinda cool|
 
-Notorious backend is a CouchDB database. I have included `docker-compose.sample.yaml` and `.env.sample` file to get you started quickly. Download and rename these files into a local folder. (You can clone this repository and run the commands below).
+I have included `docker-compose.sample.yaml` and `.env.sample` file to get you started quickly. Download and rename these files into a local folder. (You can clone this repository and run the commands below).
 
 ```
 mv .env.sample .env
 mv docker-compose.sample.yaml docker-compose.yaml
 ```
-## Step 3: Edit the defaults
-Edit the contents of `.env`, providing long and secure passwords and changing the domain names and customise the docker labels to suit your Traefik setup. The backend server needs to be externally accessible (if you want to access Notorious from outside your home network.)
+### Step 2.2: Edit the defaults
+
+Edit the contents of `.env`, providing long and secure passwords and changing the domain names and customise the docker labels to suit your Traefik setup. If you want to access Notorious from outside your home network the backend server needs to be externally accessible.
 
 |Envrionment Variable|Description|
 |---|---|
@@ -88,24 +94,19 @@ Edit the contents of `.env`, providing long and secure passwords and changing th
 |`DB_URL`| Used by the web deployment (to access Notorious via a browser).|
 |`DB_SCHEME`| Used by the web deployment (to access Notorious via a browser).|
 
-## Step 4: Start the docker compose stack
- You can start the stack using `docker-compose up -d`. There are 3 containers:
- 
-|Container|Description|Required|
-|---|---|---|
-|`couchdb`|CouchDB server|Required|
-|`fauxton`|A CouchDB admin interface|Required for Database initialisation (see below)|
-|`notorious_web`|Optional web server for accessing Notorious via a web browser. You can comment out this section to disable it.|Optional, but kinda cool|
+### Step 2.3: Start the docker compose stack
+ You can start the stack using `docker-compose up -d`. 
 
-## Step 5: Initialise the database
+### Step 2.4: Initialise the database
 
-**Before you can start using Notorious you must initialise the CouchDB server by opening this link in your browser:**
+Before you can start using Notorious you must initialise the CouchDB server by opening this link in your browser. Change the `admin:admin` part to match `COUCHDB_USER:COUCHDB_PASSWORD` according to the environment variables defined in step 2.
 
 ```
 http://admin:admin@hostname:5984/_utils#setup
 ```
 
-You are now ready to start using Notorious.
+## Step 3: Link Notorious on your Desktop to the backend
+
 
 Please consider supporting development (See [Contributions](#contributions)).
 
@@ -127,7 +128,12 @@ This is applicable only if you don't have a backend server. Backing up or restor
 Data is stored in `C:\Users\<username>\AppData\Roaming\Notorious\data`, backing up this directory will help avoid data loss. Make sure to close Notorious before any backup and restore operation to avoid data corruption.
 
 # Development Setup
-After cloning the repository and running `yarn` to fetch dependencies, you can start the app for development using `yarn dev`. This starts the renderer process in [**hot-module-replacement**](https://webpack.js.org/guides/hmr-react/) mode and starts a webpack dev server that sends hot updates to the renderer process:
+Ensure your NodeJS installation includes all build tools installed by the installer (python;visualstudio2017-workload-vctools). If not, it's easiest to uninstall and install the latest version of node. This is because the template on which this repository is based depends on `node-gyp` which requires Visual studio build tools installed.|
+
+If you are having problems please check:
+https://github.com/electron-react-boilerplate/electron-react-boilerplate/issues/400
+
+Once that is out of the way and the `yarn` command completes successfully, you can start the app for development using `yarn dev`. This starts the renderer process in [**hot-module-replacement**](https://webpack.js.org/guides/hmr-react/) mode and starts a webpack dev server that sends hot updates to the renderer process.
 
 ```bash
 yarn dev
@@ -136,8 +142,10 @@ yarn dev
 Running production version for debugging:
 
 ```
-yarn start
+DEBUG_PROD=true yarn build && DEBUG_PROD=true yarn start
+
 ```
+
 # Packaging for Production
 
 To package apps for the local platform:
