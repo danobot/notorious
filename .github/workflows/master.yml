@@ -49,7 +49,7 @@ jobs:
           name: GitHub Actions
           email: action@github.com 
   release_management:
-    needs: [prepare_docs]
+    # needs: [prepare_docs]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
