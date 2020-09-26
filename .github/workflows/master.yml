@@ -2,10 +2,8 @@ name: Build
 
 on:
   push:
-#     branches:
-#       - master
-#       - develop
-
+#   pull_request:
+    
 # We need two jobs: First a build-job, running on a matrix
 # to build all necessary releases, which also uploads all
 # resulting assets to the workflow. And then, we download
@@ -15,7 +13,7 @@ jobs:
   prepare_docs:
     # needs: [build] # Make sure (and wait until) the build has succeeded
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/develop' && false
     steps:
       - uses: actions/checkout@v2
       - run: |
@@ -49,7 +47,7 @@ jobs:
           name: GitHub Actions
           email: action@github.com 
   release_management:
-    needs: [prepare_docs]
+    # needs: [prepare_docs]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -98,7 +96,6 @@ jobs:
       - name: Setup NodeJS 12.x
         uses: actions/setup-node@v1
         if: matrix.os != 'ubuntu-18.04'
-
         with:
           node-version: '10.15.0'
 
@@ -118,34 +115,29 @@ jobs:
         run: New-Item -Path "./source/common/assets" -Name "handlebars" -ItemType "directory" # Hello, PowerShell ._.
       - name: Get yarn cache directory path
         id: yarn-cache-dir-path
+        if: matrix.os != 'ubuntu-18.04'
         run: |
           echo "::set-output name=dir::$(yarn cache dir)"
-      - name: Cache Yarn
+      - name: Cache
         id: cache-yarn
         uses: actions/cache@v2.1.1
         with:
-          path: |
-            ${{ steps.yarn-cache-dir-path.outputs.dir }}
-            ${{ github.workspace }}/npm_modules
-            ${{ github.workspace }}/app/npm_modules
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: ${{ runner.os }}-yarn-
-#       - name: Cache App NPM
-#         id: cache-app-npm
-#         uses: actions/cache@v2.1.1
-#         with:
-#           path: ${{env.GITHUB_WORKSPACE}}/app/node_modules
-#           key: ${{ runner.os }}-${{ hashFiles('**/app/package.json') }}
-      - name: "[All except docker] Print Cahce dirs"
-        run: |
-          ls -l ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          ls -l ${{ github.workspace }}/npm_modules
-          ls -l ${{ github.workspace }}/app/npm_modules
+          path: '**/node_modules'
+          key: ${{ runner.os }}-cache-${{ matrix.os }}-${{ hashFiles('**/yarn.lock') }}
       - name: "[All except docker] Set up build environment and compile the assets"
         if: steps.cache-yarn.outputs.cache-hit != 'true' && matrix.os != 'ubuntu-18.04' # all except the docker build
         run: |
           yarn
-
+          pushd app
+            yarn
+          popd
+      - name: "[All except docker] Print Cache dirs"
+        if: matrix.os != 'ubuntu-18.04'
+        run: |
+          pwd
+          # ls -f .
+          # ls -l ~/work/notorious/notorious/npm_modules
+          # ls -l  ~/work/notorious/notorious/app/npm_modules
       # WINDOWS ==============================================================
       - name: "[Windows Build] Build & Publish Windows Installer"
         if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master'
