@@ -125,7 +125,7 @@ jobs:
         uses: actions/cache@v2.1.1
         with:
           path: '**/node_modules'
-          key: ${{ runner.os }}-cache-${{ hashFiles('**/yarn.lock') }}
+          key: ${{ runner.os }}-cache-${{ matrix.os }}-${{ hashFiles('**/yarn.lock') }}
       - name: "[All except docker] Set up build environment and compile the assets"
         if: steps.cache-yarn.outputs.cache-hit != 'true' && matrix.os != 'ubuntu-18.04' # all except the docker build
         run: |
