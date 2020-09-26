@@ -15,7 +15,7 @@ jobs:
   prepare_docs:
     # needs: [build] # Make sure (and wait until) the build has succeeded
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop'
+    if: github.ref == 'refs/heads/develop' && false
     steps:
       - uses: actions/checkout@v2
       - run: |
@@ -98,7 +98,6 @@ jobs:
       - name: Setup NodeJS 12.x
         uses: actions/setup-node@v1
         if: matrix.os != 'ubuntu-18.04'
-
         with:
           node-version: '10.15.0'
 
@@ -130,12 +129,14 @@ jobs:
         if: steps.cache-yarn.outputs.cache-hit != 'true' && matrix.os != 'ubuntu-18.04' # all except the docker build
         run: |
           yarn
+          pushd app
+            yarn
+          popd
       - name: "[All except docker] Print Cache dirs"
         if: matrix.os != 'ubuntu-18.04'
         run: |
-          ls -l ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          ls -l ${{ github.workspace }}/npm_modules
-          ls -l ${{ github.workspace }}/app/npm_modules
+          ls -l npm_modules
+          ls -l app/npm_modules
       # WINDOWS ==============================================================
       - name: "[Windows Build] Build & Publish Windows Installer"
         if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master'
