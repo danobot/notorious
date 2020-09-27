@@ -66,6 +66,13 @@ From here you have two options:
 * **Set up your own backend** for usage across multiple devices, including synchronisation and replication.
 * **Local data directory only**: Use Notorious without a backend and store all data locally (not recommended, see [Backing Up Data Directory](#backing-Up-Data-Directory)).
 
+You may use the dev environment backend to try Notorious before you set up your own backend. Do not store personal information on this instance because it does not persist data.
+```
+host: https://notorious-dev.danielbkr.net
+user: admin
+password: admin
+```
+
 ## Step 2: Docker Compose Setup
 
 ### Step 2.1: Get the Docker Compose Files
