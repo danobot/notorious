@@ -125,7 +125,8 @@ connectToRemote() {
 
     } else {
 
-      alert("No database found and it was not created. Report console output.")
+      alert(e.code + "\nView full error in developer console. Report on Github please.\n\n" + e)
+      console.error(e)
     }
     // this.close()
   });

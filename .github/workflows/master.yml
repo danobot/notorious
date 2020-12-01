@@ -2,17 +2,52 @@ name: Build
 
 on:
   push:
-#     branches:
-#       - master
-#       - develop
-
+#   pull_request:
+    
 # We need two jobs: First a build-job, running on a matrix
 # to build all necessary releases, which also uploads all
 # resulting assets to the workflow. And then, we download
 # them onto a separate VM running the release-job to verify
 # the checksums and create a draft release.
 jobs:
+  prepare_docs:
+    # needs: [build] # Make sure (and wait until) the build has succeeded
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/develop' && false
+    steps:
+      - uses: actions/checkout@v2
+      - run: |
+          ls app
+          rm -rf docs
+          mkdir docs
+      - name: JSDoc Action
+        # You may pin to the exact commit or the version.
+        # uses: andstor/jsdoc-action@2fb2b536605bdebace2b92abb0601155d5ddc688
+        uses: andstor/jsdoc-action@v1.2.0
+        with:
+          # Source directory to build documentation from
+          source_dir: app
+          # Output folder for the generated documentation
+          output_dir: docs
+          # Recurse into subdirectories when scanning for source files
+          recurse: true
+          # The path to a JSDoc configuration file
+          # config_file: # optional
+          # The path to a Markdown file to be used as a the front page
+          front_page: README.md
+      - run: ls docs
+      - name: Git Commit and Push
+        uses: github-actions-x/commit@v2.6
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          commit-message: "ci: commit the generated documentation to /docs"
+          # Force add files, useful for adding ignored files.
+          force-add: # optional, default is false
+          files: docs/*
+          name: GitHub Actions
+          email: action@github.com 
   release_management:
+    # needs: [prepare_docs]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
@@ -61,7 +96,6 @@ jobs:
       - name: Setup NodeJS 12.x
         uses: actions/setup-node@v1
         if: matrix.os != 'ubuntu-18.04'
-
         with:
           node-version: '10.15.0'
 
@@ -76,14 +110,34 @@ jobs:
       # On Windows server, we have to create the handlebars-directory
       # manually, because the node-process always crashes when it
       # attempts literally the same thing.
-      - name: Manually create the handlebars-directory (Windows only)
+      - name: "[Windows] Manually create the handlebars-directory"
         if: matrix.os == 'windows-latest'
         run: New-Item -Path "./source/common/assets" -Name "handlebars" -ItemType "directory" # Hello, PowerShell ._.
-
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        if: matrix.os != 'ubuntu-18.04'
+        run: |
+          echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Cache
+        id: cache-yarn
+        uses: actions/cache@v2.1.1
+        with:
+          path: '**/node_modules'
+          key: ${{ runner.os }}-cache-${{ matrix.os }}-${{ hashFiles('**/yarn.lock') }}
       - name: "[All except docker] Set up build environment and compile the assets"
-        if: matrix.os != 'ubuntu-18.04' # all except the docker build
+        if: steps.cache-yarn.outputs.cache-hit != 'true' && matrix.os != 'ubuntu-18.04' # all except the docker build
         run: |
           yarn
+          pushd app
+            yarn
+          popd
+      - name: "[All except docker] Print Cache dirs"
+        if: matrix.os != 'ubuntu-18.04'
+        run: |
+          pwd
+          # ls -f .
+          # ls -l ~/work/notorious/notorious/npm_modules
+          # ls -l  ~/work/notorious/notorious/app/npm_modules
       # WINDOWS ==============================================================
       - name: "[Windows Build] Build & Publish Windows Installer"
         if: matrix.os == 'windows-latest' && github.ref == 'refs/heads/master'
@@ -112,7 +166,9 @@ jobs:
         run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} yarn package-linux
       - name: "[Linux Build] Build Linux installers"
         if: matrix.os == 'ubuntu-latest' && github.ref != 'refs/heads/master'
-        run: GH_TOKEN=${{ secrets.GITHUB_TOKEN }} yarn package-linux-build
+        run: |
+          ls node_modules
+          GH_TOKEN=${{ secrets.GITHUB_TOKEN }} yarn package-linux-build
 
 
       # LINUX DOCKER ================================================================
@@ -139,10 +195,10 @@ jobs:
   # commence, creating a new draft release, downloading all assets from
   # the previous job, verifying the checksum integrity, and uploading that
   # whole mess to the draft release.
-  # prepare_release:
-  #   needs: [build] # Make sure (and wait until) the build has succeeded
-  #   runs-on: ubuntu-latest
-  #   if: github.ref == 'refs/heads/master'
+#   prepare_docs:
+#     needs: [build] # Make sure (and wait until) the build has succeeded
+#     runs-on: ubuntu-latest
+#     if: github.ref == 'refs/heads/develop'
   #   steps:
   #     # Clone the repository to get the ./scripts/get-pkg-version.js and the ./package.json
   #     - uses: actions/checkout@v2
