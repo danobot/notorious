@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1-beta.18](https://github.com/danobot/notorious/compare/v0.2.1-beta.16...v0.2.1-beta.18) (2020-12-01)
+
+
+### Features
+
+* allow dragging to favourites and trash, fix issue with cancelling drag ([897cbe6](https://github.com/danobot/notorious/commit/897cbe69025947a3027a130f43d31371a16a3222))
+* moving notes by dragging them to a different notebook ([9742693](https://github.com/danobot/notorious/commit/9742693b3b96e217ad9c6fa2530bb3653d1d9c32))
+
+
+### Bug Fixes
+
+* case ([b693a70](https://github.com/danobot/notorious/commit/b693a701bb793f088546d1c7f7b048bdd73e7751))
+* ignore trash, fav for now ([70f8949](https://github.com/danobot/notorious/commit/70f8949fb668b8bd5961f702c054ddf9e6cea107))
+* ignore trash, fav for now ([3fe4570](https://github.com/danobot/notorious/commit/3fe45707b0faa33eb5ce13c9ad2e5342a9920f8f))
+
 ### [0.2.1-beta.17](https://github.com/danobot/notorious/compare/v0.2.1-beta.15...v0.2.1-beta.17) (2020-07-19)
 
 
