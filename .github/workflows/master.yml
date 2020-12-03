@@ -70,6 +70,8 @@ jobs:
           npx standard-version -a --no-verify --prerelease beta --skip.tag
         env:
           CI: true
+          ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
       - name: Push to master
         if: github.ref == 'refs/heads/master'
 
