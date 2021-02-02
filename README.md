@@ -54,6 +54,20 @@
 
 **Tag selection for notes**
 ![Tag Editor](images/tag_editor.png)
+# Donations
+
+**Donations ensure the following:**
+
+- 🔨 Long term maintenance of the project
+- 🛣 Progress on feature requests
+- 🐛 Quick responses to bug reports and help requests
+
+
+[Support my projects on GoFundMe](https://gf.me/u/w62k93)
+
+[Support my projects via PayPal](https://paypal.me/danielb160)
+
+Please consider supporting development (See [Contributions](#contributions)). We are actively looking for contributors.
 
 # Getting Started
 
@@ -115,11 +129,7 @@ http://admin:admin@hostname:5984/_utils#setup
 ## Step 3: Link Notorious on your Desktop to the backend
 
 
-Please consider supporting development (See [Contributions](#contributions)).
 
-[Support my projects on GoFundMe](https://gf.me/u/w62k93)
-
-[Support my projects via PayPal](https://paypal.me/danielb160)
 
 ## Web deployment
 The `notorious_web` container spins up a web server you can use to access your notes through a web browser on the go. Take special note of the `volumes` section, which passes in the `.env` file to the container because the `DB_URL` string is required in order to connect back to your server.
@@ -173,14 +183,6 @@ Contributions in any form are encouraged and happily merged back into the codeba
 * donating spare change
 
 There is an immense backlog of work to be done on this and I will not be able to do it by myself. If you are into React dev and would like to help me on this project please get in touch.
-
-## Donations
-
-**Donations will ensure the following:**
-
-- 🔨 Long term maintenance of the project
-- 🛣 Progress on feature requests
-- 🐛 Quick responses to bug reports and help requests
 
 
 # License GNU GPLv3
