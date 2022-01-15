@@ -308,7 +308,7 @@
     "is-electron": "^2.2.0",
     "jodit-react": "^1.0.42",
     "katex": "^0.11.1",
-    "marked": "^0.8.2",
+    "marked": "^4.0.10",
     "mathjax": "^3.0.5",
     "pouchdb-adapter-memory": "^7.2.1",
     "pouchdb-authentication": "^1.1.3",
