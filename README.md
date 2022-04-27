@@ -20,7 +20,7 @@
   <a href="https://paypal.me/danielb160">
     <img src="https://img.shields.io/badge/donate-PayPal-blue.svg?style=flat-square">
   </a>
-  <a href="https://gf.me/u/w62k93">
+  <a href="https://gofund.me/7a2487d5">
     <img src="https://img.shields.io/badge/donate-GoFundMe-orange?style=flat-square">
   </a>
 </p>
