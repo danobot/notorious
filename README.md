@@ -63,7 +63,7 @@
 - 🐛 Quick responses to bug reports and help requests
 
 
-[Support my projects on GoFundMe](https://gf.me/u/w62k93)
+[Support my projects on GoFundMe](https://gofund.me/7a2487d5)
 
 [Support my projects via PayPal](https://paypal.me/danielb160)
 
